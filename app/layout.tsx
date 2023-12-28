@@ -37,10 +37,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>
-          <Layout
-            className={styles.test}
-            style={{ height: "100vh", background: "red" }}
-          >
+          <Layout className={styles.layout}>
             <Sidebar />
             <Layout>
               <Header style={{ padding: 0, background: colorBgContainer }}>

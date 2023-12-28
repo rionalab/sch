@@ -43,7 +43,7 @@ function Sidebar() {
           {
             key: "3",
             icon: <UploadOutlined />,
-            label: "nav 3",
+            label: <Link href="/posts">Posts</Link>,
           },
         ]}
       />
