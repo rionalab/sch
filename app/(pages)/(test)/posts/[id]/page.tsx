@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useParams } from "next/navigation";
+import { notFound, useParams } from "next/navigation";
 
 function Post() {
   const { id } = useParams();
@@ -21,7 +21,11 @@ function Post() {
   console.log(post);
 
   if (!post) {
-    return "";
+    return null;
+  }
+
+  if (post && !post.title) {
+    return notFound();
   }
 
   return (

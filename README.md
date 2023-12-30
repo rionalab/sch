@@ -59,3 +59,14 @@ export default function add() {
    return ()
 }
 ```
+
+```javascript
+"use client"
+
+import { useFormStatus } from "react-dom"
+...
+const { pending } = useFormStatus();
+
+```
+
+https://www.youtube.com/watch?v=vwSlYG7hFk0&ab_channel=ByteGrad
