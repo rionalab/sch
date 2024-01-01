@@ -15,4 +15,10 @@ a {
   text-decoration: none;
 }
 
+.textCapitalize {
+  text-transform: capitalize;
+}
 
+.textBold500 {
+  font-weight: 500;
+}

@@ -1,3 +1,4 @@
+/*eslint no-unused-vars: "error"*/
 "use client";
 
 import { createTodo } from "@/actions/todo";
@@ -5,12 +6,11 @@ import { validateCreate } from "@/validations/todo";
 import { useFormStatus } from "react-dom";
 import ButtonSubmit from "./ButtonSubmit";
 import { useStore } from "@/libs/zustand";
-import { zodErrorMessage } from "@/libs/helpers/notif";
+import { notifErrorMessage } from "@/libs/helpers/notif";
+import { ZodIssue } from "zod";
 
 function Form() {
   const notif = useStore((store) => store.notif)!;
-
-  console.log(notif);
 
   async function handleSubmit(formData: FormData) {
     const newTodo = {
@@ -20,18 +20,21 @@ function Form() {
       userId: 0,
     };
 
-    const validation = validateCreate(newTodo);
+    // const validation = validateCreate(newTodo);
 
-    console.log(validation);
+    // if (!validation.success) {
+    //   notif?.error(zodErrorMessage(validation.error.issues));
+    //   return;
+    // }
 
-    if (validation.success) {
-      console.log(111111111);
-    } else {
-      notif?.error(zodErrorMessage(validation.error.issues));
+    const response = await createTodo(newTodo);
+
+    console.log(response);
+
+    if (!response?.success) {
+      notif?.error(notifErrorMessage(response.data));
+      return;
     }
-
-    // return new Promise((resolve) => setTimeout(() => resolve, 2000));
-    // await createTodo(formData);
   }
 
   return (

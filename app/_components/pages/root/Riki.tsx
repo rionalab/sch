@@ -18,7 +18,6 @@ function Riki() {
   return (
     <div>
       <h1>Riki {age}</h1>
-
       <br />
       <button onClick={shownotif}>show notif</button>
       <br />

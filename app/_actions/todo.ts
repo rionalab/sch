@@ -1,15 +1,37 @@
+"use server";
+
+import { sendResponse } from "@/libs/helpers/request";
 import prisma from "@/libs/prisma";
+import { RequestResponse } from "@/types/request";
+import { CreateTodo } from "@/types/todo";
+import { validateCreate } from "@/validations/todo";
 import { revalidatePath } from "next/cache";
 
-export const createTodo = async (formData: FormData) => {
-  await prisma.todo.create({
-    data: {
-      task: formData.get("task") as string,
-      isFinished: false,
-      user: undefined,
-      userId: 0,
-    },
-  });
+export const createTodo = async (
+  data: CreateTodo
+): Promise<RequestResponse> => {
+  try {
+    const validation = validateCreate(data);
 
-  revalidatePath("/todos");
+    if (!validation.success) {
+      return sendResponse({
+        success: false,
+        data: validation.error.issues,
+      });
+    }
+    throw new Error("harus error bang");
+    return sendResponse({ success: true, data: 123 });
+  } catch (e: any) {
+    return sendResponse({
+      success: false,
+      // data: e.message,
+      data: { message: e.message },
+    });
+  }
+
+  // await prisma.todo.create({
+  //   data,
+  // });
+
+  // revalidatePath("/todos");
 };

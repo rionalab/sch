@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { CreateTodo } from "@/types/todo";
+import { label } from "@/consts/label";
 
 export const validateCreate = (data: CreateTodo) => {
   return createSchema.safeParse(data);
@@ -7,13 +8,18 @@ export const validateCreate = (data: CreateTodo) => {
 
 const createSchema = z.object({
   id: z.number().optional(),
+  isFinished: z.boolean(),
+  user: z.number().optional(),
+  userId: z.number(),
   task: z
     .string()
     .trim()
     .min(1, {
-      message: "please input value",
+      message: label.fieldIsRequired,
     })
     .max(10, {
-      message: "max 10 chars",
+      message: label.maxNCharacters(10),
     }),
 });
+
+export type CreateTodoSchema = z.infer<typeof createSchema>;
