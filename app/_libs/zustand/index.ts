@@ -16,7 +16,7 @@ export const useBoundStore = create<CombinedSlicesType>()((...a) => ({
 interface StoreInterface {
   notif?: NotificationInstance;
   setNotif: (api: NotificationInstance) => void;
-
+  age: number;
   reset: () => void;
 }
 
@@ -48,6 +48,8 @@ export const initializeStore = (
           return {
             ...getDefaultInitialState(),
             ...preloadedState,
+
+            age: 12,
 
             setNotif: (api: NotificationInstance) => {
               set({

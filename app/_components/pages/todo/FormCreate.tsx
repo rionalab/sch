@@ -3,9 +3,14 @@
 import { createTodo } from "@/actions/todo";
 import { validateCreate } from "@/validations/todo";
 import { useFormStatus } from "react-dom";
+import ButtonSubmit from "./ButtonSubmit";
+import { useStore } from "@/libs/zustand";
+import { zodErrorMessage } from "@/libs/helpers/notif";
 
 function Form() {
-  const { pending } = useFormStatus();
+  const notif = useStore((store) => store.notif)!;
+
+  console.log(notif);
 
   async function handleSubmit(formData: FormData) {
     const newTodo = {
@@ -22,21 +27,17 @@ function Form() {
     if (validation.success) {
       console.log(111111111);
     } else {
-      console.log(222222222222);
+      notif?.error(zodErrorMessage(validation.error.issues));
     }
 
     // return new Promise((resolve) => setTimeout(() => resolve, 2000));
     // await createTodo(formData);
   }
 
-  console.log(111, pending);
-
   return (
     <form action={handleSubmit}>
       <input type="text" name="task" />
-      <button aria-disabled={pending} type="submit">
-        {pending ? "Loading form" : "Add"}
-      </button>
+      <ButtonSubmit />
     </form>
   );
 }

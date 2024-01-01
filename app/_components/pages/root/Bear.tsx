@@ -7,14 +7,6 @@ import { Layout, Menu, Button, theme, notification } from "antd";
 
 function Bear() {
   const store = useStore(useBoundStore, (state) => state);
-  const [api, contextHolder] = notification.useNotification();
-  const shownotif = () => {
-    console.log(123);
-    api.info({
-      message: `Notification `,
-      description: "asd adsd  asasdsadasdasdasd",
-    });
-  };
 
   return (
     <div>

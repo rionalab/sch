@@ -1,6 +1,6 @@
 import React from "react";
 import prisma from "@/libs/prisma";
-import Form from "@/components/pages/todo/Form";
+import FormCreate from "@/components/pages/todo/FormCreate";
 
 async function page() {
   const todos = await prisma.todo.findMany();
@@ -9,7 +9,7 @@ async function page() {
     <div>
       <h1>Todos</h1>
 
-      <Form />
+      <FormCreate />
 
       <ol>
         {todos.map((todo, i) => (

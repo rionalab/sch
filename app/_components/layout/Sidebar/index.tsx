@@ -35,21 +35,17 @@ function Sidebar() {
             icon: <UserOutlined />,
             label: <Link href="/reports">Reports</Link>,
           },
-          {
-            key: "2",
-            icon: <VideoCameraOutlined />,
-            label: <Link href="/settings">Settings</Link>,
-          },
-          {
-            key: "3",
-            icon: <UploadOutlined />,
-            label: <Link href="/posts">Posts</Link>,
-          },
           // {
-          //   key: "4",
-          //   icon: <UploadOutlined />,
-          //   label: <Link href="/todos">Todos</Link>,
+          //   key: "2",
+          //   icon: <VideoCameraOutlined />,
+          //   label: <Link href="/settings">Settings</Link>,
           // },
+
+          {
+            key: "4",
+            icon: <UploadOutlined />,
+            label: <Link href="/todos">Todos</Link>,
+          },
         ]}
       />
     </Sider>

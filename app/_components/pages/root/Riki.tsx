@@ -5,6 +5,7 @@ import React, { useState } from "react";
 
 function Riki() {
   const notif = useStore((store) => store.notif)!;
+  const age = useStore((store) => store.age);
 
   const shownotif = () => {
     notif.info({
@@ -16,7 +17,7 @@ function Riki() {
 
   return (
     <div>
-      <h1>{"rick"}</h1>
+      <h1>Riki {age}</h1>
 
       <br />
       <button onClick={shownotif}>show notif</button>
