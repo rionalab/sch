@@ -19,6 +19,12 @@
       }
     ],
     "paths": {
+      "@/libs/*": ["./app/_libs/*"],
+      "@/components/*": ["./app/_components/*"],
+      "@/actions/*": ["./app/_actions/*"],
+      "@/types/*": ["./app/_types/*"],
+      "@/validations/*": ["./app/_validations/*"],
+      "@/hooks/*": ["./app/_hooks/*"],
       "@/*": ["./*"]
     }
   },

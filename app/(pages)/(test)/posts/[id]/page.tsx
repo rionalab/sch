@@ -1,10 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { notFound, useParams } from "next/navigation";
+import { notFound } from "next/navigation";
 
-function Post() {
-  const { id } = useParams();
+function Post({ params }: Props) {
+  const { id } = params;
   const [post, setPost] = useState<Post | null>(null);
 
   const fetchPost = async () => {
@@ -16,7 +16,7 @@ function Post() {
 
   useEffect(() => {
     fetchPost();
-  }, []);
+  }, [fetchPost]);
 
   console.log(post);
 
@@ -34,6 +34,12 @@ function Post() {
       <p>{post.body}</p>
     </div>
   );
+}
+
+interface Props {
+  params: {
+    id: string;
+  };
 }
 
 interface Post {

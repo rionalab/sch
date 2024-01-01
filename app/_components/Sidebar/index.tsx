@@ -23,7 +23,7 @@ function Sidebar() {
       <Menu
         theme="dark"
         mode="inline"
-        defaultSelectedKeys={["1"]}
+        defaultSelectedKeys={["0"]}
         items={[
           {
             key: "0",
@@ -45,6 +45,11 @@ function Sidebar() {
             icon: <UploadOutlined />,
             label: <Link href="/posts">Posts</Link>,
           },
+          // {
+          //   key: "4",
+          //   icon: <UploadOutlined />,
+          //   label: <Link href="/todos">Todos</Link>,
+          // },
         ]}
       />
     </Sider>

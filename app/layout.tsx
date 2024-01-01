@@ -2,18 +2,13 @@
 
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Button, theme } from "antd";
 import styles from "./page.module.css";
 import React, { useState } from "react";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import "./globals.css";
 import { Sidebar } from "./_components";
+import StoreProvider from "@/libs/zustand/StoreProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 const { Header, Sider, Content } = Layout;
@@ -37,36 +32,38 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <main>
-          <Layout className={styles.layout}>
-            <Sidebar />
-            <Layout>
-              <Header style={{ padding: 0, background: colorBgContainer }}>
-                <Button
-                  type="text"
-                  icon={
-                    collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
-                  }
-                  onClick={() => setCollapsed(!collapsed)}
+          <StoreProvider>
+            <Layout className={styles.layout}>
+              <Sidebar />
+              <Layout>
+                <Header style={{ padding: 0, background: colorBgContainer }}>
+                  <Button
+                    type="text"
+                    icon={
+                      collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />
+                    }
+                    onClick={() => setCollapsed(!collapsed)}
+                    style={{
+                      fontSize: "16px",
+                      width: 64,
+                      height: 64,
+                    }}
+                  />
+                </Header>
+                <Content
                   style={{
-                    fontSize: "16px",
-                    width: 64,
-                    height: 64,
+                    margin: "24px 16px",
+                    padding: 24,
+                    minHeight: 280,
+                    background: colorBgContainer,
+                    borderRadius: borderRadiusLG,
                   }}
-                />
-              </Header>
-              <Content
-                style={{
-                  margin: "24px 16px",
-                  padding: 24,
-                  minHeight: 280,
-                  background: colorBgContainer,
-                  borderRadius: borderRadiusLG,
-                }}
-              >
-                {children}
-              </Content>
+                >
+                  {children}
+                </Content>
+              </Layout>
             </Layout>
-          </Layout>
+          </StoreProvider>
         </main>
       </body>
     </html>
