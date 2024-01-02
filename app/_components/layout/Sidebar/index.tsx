@@ -46,6 +46,11 @@ function Sidebar() {
             icon: <UploadOutlined />,
             label: <Link href="/todos">Todos</Link>,
           },
+          {
+            key: "5",
+            icon: <UploadOutlined />,
+            label: <Link href="/fruits">Fruits</Link>,
+          },
         ]}
       />
     </Sider>

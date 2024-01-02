@@ -44,6 +44,8 @@ const userData: Prisma.UserCreateInput[] = [
   },
 ];
 
+const fruitData = ["apple", "mango", "lemon"];
+
 async function main() {
   console.log(`Start seeding ...`);
   for (const u of userData) {
@@ -52,6 +54,12 @@ async function main() {
     });
     console.log(`Created user with id: ${user.id}`);
   }
+
+  // seeding fruit
+  // await prisma.fruit.createMany({
+  //   data: [{ name: "mango" }, { name: "orange" }, { name: "apple" }],
+  // });
+
   console.log(`Seeding finished.`);
 }
 

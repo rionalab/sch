@@ -19,7 +19,13 @@ export const createTodo = async (
         data: validation.error.issues,
       });
     }
-    throw new Error("harus error bang");
+
+    await prisma.todo.create({
+      data,
+    });
+
+    revalidatePath("/todos");
+
     return sendResponse({ success: true, data: 123 });
   } catch (e: any) {
     return sendResponse({
@@ -28,10 +34,4 @@ export const createTodo = async (
       data: { message: e.message },
     });
   }
-
-  // await prisma.todo.create({
-  //   data,
-  // });
-
-  // revalidatePath("/todos");
 };

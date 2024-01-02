@@ -10,4 +10,6 @@ npx prisma studio
 npx prisma db push
 
 prisma generate
+
+nox prisma migrate reset
 ```

@@ -1,4 +1,3 @@
-/*eslint no-unused-vars: "error"*/
 "use client";
 
 import { createTodo } from "@/actions/todo";

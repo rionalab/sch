@@ -65,6 +65,26 @@ model Category {
   posts Post[]
 }
 
+model Fruit {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Family {
+  id        Int      @id @unique @default(autoincrement())
+  name      String
+  sex       Gender
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
 enum Role {
   USER
   ADMIN
