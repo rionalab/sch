@@ -21,11 +21,12 @@
     "paths": {
       "@/libs/*": ["./app/_libs/*"],
       "@/consts/*": ["./app/_consts/*"],
-      "@/components/*": ["./app/_components/*"],
+      "@/c": ["./app/_components/index.tsx"],
       "@/actions/*": ["./app/_actions/*"],
       "@/types/*": ["./app/_types/*"],
       "@/validations/*": ["./app/_validations/*"],
       "@/hooks/*": ["./app/_hooks/*"],
+      "@/styles/*": ["./app/_styles/*"],
       "@/*": ["./*"]
     }
   },

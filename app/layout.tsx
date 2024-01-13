@@ -5,10 +5,11 @@ import { Layout, Button, theme } from "antd";
 import styles from "./page.module.scss";
 import React, { useState } from "react";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import "./globals.css";
-import { Sidebar } from "./_components";
+import { Sidebar } from "@/c";
 import StoreProvider from "@/libs/zustand/StoreProvider";
 import GlobalProvider from "./_components/layout/GlobalProvider";
+import "@/styles/global.scss";
+import "@/styles/customAntd.scss";
 
 const inter = Inter({ subsets: ["latin"] });
 const { Header, Sider, Content } = Layout;
