@@ -10,16 +10,13 @@ export interface Employee {
   phone2: string;
   familyPhone: string;
   address: string;
-  cityId: number;
-  provinceId: number;
-  zipCode: number;
+  zipCode: string;
   tribe: string;
   remarks: string;
   gender: string;
   hireDate: Date;
   dob: Date;
   placeOfBirth: string;
-  roleId: number;
   createdAt: Date;
   updatedAt: Date;
 }

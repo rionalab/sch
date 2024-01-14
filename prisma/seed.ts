@@ -1,72 +1,98 @@
-import { PrismaClient, Prisma } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+import { faker } from "@faker-js/faker";
 
 const prisma = new PrismaClient();
+const today = new Date().toISOString();
 
 async function main() {
   console.log(`Start seeding ...`);
 
-  const province = await prisma.province.create({
+  // cleaning
+  await prisma.employee.deleteMany();
+
+  // * User
+  // *************************************
+  await prisma.user.createMany({
     data: [
       {
-        name: "Sumatera Utara",
+        email: "user1@mail.com",
       },
       {
-        name: "Sumatera Barat",
+        email: "user2@mail.com",
+      },
+      {
+        email: "user3@mail.com",
+      },
+      {
+        email: "user4@mail.com",
+      },
+      {
+        email: "user5@mail.com",
       },
     ],
+    skipDuplicates: true,
   });
+  const users = (await prisma.user.findMany()).map((item) => item.id);
 
-  console.log(province);
+  // * Position
+  // *************************************
+  await prisma.position.createMany({
+    data: [
+      {
+        roleName: "principal",
+        category: "Edu",
+      },
+      {
+        roleName: "teacher",
+        category: "Edu",
+      },
+      {
+        roleName: "security",
+        category: "NonEdu",
+      },
+      {
+        roleName: "cleaning",
+        category: "NonEdu",
+      },
+    ],
+    skipDuplicates: true,
+  });
+  const positions = (await prisma.position.findMany()).map((item) => item.id);
 
-  // const city = await prisma.city.create({
-  //   data: {
-  //     name: "Medan",
-  //     state: {
-  //       connect: { id: province.id },
-  //     },
-  //   },
-  // });
-
-  // const position = await prisma.position.create({
-  //   data: {
-  //     roleName: "Teacher",
-  //     category: "Edu",
-  //   },
-  // });
-
-  // await prisma.employee.create({
-  //   data: {
-  //     firstName: "John",
-  //     lastName: "Doe",
-  //     religion: "Kristen",
-  //     photo: "",
-  //     userId: 0,
-  //     bloodType: "O",
-  //     email: "orlando@mail.com",
-  //     phone1: "0821299888",
-  //     phone2: "0821299889",
-  //     familyPhone: "0821291889",
-  //     address: "Jl Merdeka No 99 Medan Marelan",
-  //     city: {
-  //       connect: { id: city.id },
-  //     },
-  //     province: {
-  //       connect: { id: province.id },
-  //     },
-  //     position: {
-  //       connect: { id: position.id },
-  //     },
-  //     zipCode: 445202,
-  //     tribe: "Batak",
-  //     remarks: "Somethign over the rainbow",
-  //     gender: "Male",
-  //     hireDate: "2022-01-13T14:30:00.000Z",
-  //     dob: "2022-01-13T14:30:00.000Z",
-  //     placeOfBirth: "Medan",
-  //   },
-  // });
-
-  console.log(`Seeding finished.`);
+  // * Employee
+  // *************************************
+  await prisma.employee.createMany({
+    data: Array.from({ length: 5 }).map(() => ({
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+      religion: faker.helpers.arrayElement([
+        "Islam",
+        "Budha",
+        "Hindu",
+        "Kristen",
+        "Katolik",
+        "Khonghucu",
+        "Tradisional",
+      ]),
+      photo: faker.image.avatar(),
+      bloodType: "O",
+      email: faker.internet.email(),
+      phone1: faker.phone.number(),
+      phone2: faker.phone.number(),
+      familyPhone: faker.phone.number(),
+      address: faker.location.streetAddress(),
+      zipCode: faker.location.zipCode(),
+      tribe: "Batak",
+      remarks: faker.lorem.sentence(7),
+      gender: faker.helpers.arrayElement(["Female", "Male"]),
+      hireDate: today,
+      dob: today,
+      placeOfBirth: faker.location.city(),
+      positionId: faker.helpers.arrayElement(positions),
+      userId: faker.helpers.arrayElement(users),
+    })),
+    skipDuplicates: true,
+  });
 }
 
 main()

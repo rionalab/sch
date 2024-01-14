@@ -1,13 +1,26 @@
 "use client";
 
 import React from "react";
-import { Table as TableAntd, Popover, Button, Dropdown } from "antd";
+import {
+  Table as TableAntd,
+  Popover,
+  Button,
+  Input,
+  Tooltip,
+  Dropdown,
+  Flex,
+  Space,
+} from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { Employee } from "../type";
 import {
   PhoneOutlined,
   MailOutlined,
+  DownloadOutlined,
+  FilterOutlined,
+  SearchOutlined,
   EllipsisOutlined,
+  PlusOutlined,
 } from "@ant-design/icons";
 import { Avatar } from "@/c";
 import { cell } from "@/libs/helpers/table";
@@ -87,6 +100,7 @@ function Table({ data }: Props) {
     },
     {
       title: "Birth",
+      width: 200,
       dataIndex: "dob",
       render: (v, row) => `${row.placeOfBirth}, ${dMY(v)}`,
     },
@@ -97,6 +111,7 @@ function Table({ data }: Props) {
     },
     {
       title: "Email",
+      width: 270,
       dataIndex: "email",
       render: (val) => {
         return (
@@ -154,8 +169,25 @@ function Table({ data }: Props) {
 
   return (
     <>
-    <Flex
-      <Button>+ Create New</Button>
+      <Flex justify="space-between" align="center" style={{ marginBottom: 8 }}>
+        <div>
+          <Input
+            placeholder="Search"
+            suffix={<SearchOutlined style={{ color: "rgba(0,0,0,.45)" }} />}
+          />
+        </div>
+
+        <Space>
+          <Button icon={<PlusOutlined />}> Create</Button>
+          <Tooltip title="Download">
+            <Button icon={<DownloadOutlined />} />
+          </Tooltip>
+
+          <Tooltip title="Filter">
+            <Button icon={<FilterOutlined />} />
+          </Tooltip>
+        </Space>
+      </Flex>
       <TableAntd
         dataSource={data}
         size="small"

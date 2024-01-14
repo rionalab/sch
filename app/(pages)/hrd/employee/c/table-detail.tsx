@@ -44,7 +44,12 @@ function TableDetail({ data }: Props) {
 
   return (
     <div style={{ width: 500 }}>
-      <Descriptions column={2} title="Employee Info" items={items} />
+      <Descriptions
+        style={{ paddingTop: 8 }}
+        column={2}
+        title="Employee Info"
+        items={items}
+      />
     </div>
   );
 }

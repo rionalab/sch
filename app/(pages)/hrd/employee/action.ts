@@ -30,5 +30,10 @@ export async function initData() {
 }
 
 export async function index() {
-  return await prisma.employee.findMany();
+  return await prisma.employee.findMany({
+    include: {
+      user: true,
+      position: true,
+    },
+  });
 }

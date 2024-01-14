@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import { Layout, Menu, Button, theme } from "antd";
 import {
@@ -34,17 +32,27 @@ import {
   BankOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
+import Image from "next/image";
+import styles from "./styles.module.scss";
 
-const { Header, Sider, Content } = Layout;
+const { Sider } = Layout;
 
 function Sidebar() {
-  const [collapsed, setCollapsed] = useState(false);
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
-    <Sider trigger={null} collapsible collapsed={collapsed}>
-      <div className="demo-logo-vertical" />
+    <Sider className={styles.sidebar}>
+      <Image
+        className={styles.logo}
+        width={100}
+        height={100}
+        alt="logo"
+        src={"/images/logo.jpg"}
+      />
+
       <Menu
-        theme="dark"
         mode="inline"
         defaultSelectedKeys={["0"]}
         items={[

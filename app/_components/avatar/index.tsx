@@ -11,7 +11,18 @@ function Avatar(props: Props) {
   const { hover = false, image, title = "" } = props;
 
   if (image) {
-    return <AvatarAntd src={<img src={image} alt="avatar" />} />;
+    return (
+      <>
+        <AvatarAntd
+          size={"small"}
+          style={{ marginRight: 8 }}
+          src={<img src={image} alt="avatar" />}
+        />
+        <span className={`textCapitalize ${hover ? "textLink" : ""}`}>
+          {title}
+        </span>
+      </>
+    );
   }
 
   return (
