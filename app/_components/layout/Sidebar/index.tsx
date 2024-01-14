@@ -34,6 +34,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./styles.module.scss";
+import { urls } from "@/consts/urls";
 
 const { Sider } = Layout;
 
@@ -46,8 +47,8 @@ function Sidebar() {
     <Sider className={styles.sidebar}>
       <Image
         className={styles.logo}
-        width={100}
-        height={100}
+        width={55}
+        height={55}
         alt="logo"
         src={"/images/logo.jpg"}
       />
@@ -74,7 +75,7 @@ function Sidebar() {
               {
                 key: "1.1",
                 icon: <UserOutlined />,
-                label: <Link href="/hrd/employee">Employee</Link>,
+                label: <Link href={urls.hrd.employee.index}>Employee</Link>,
               },
               {
                 key: "1.2",

@@ -23,6 +23,7 @@
       "@/consts/*": ["./app/_consts/*"],
       "@/c": ["./app/_components/index.tsx"],
       "@/actions/*": ["./app/_actions/*"],
+      "@/helpers": ["./app/_libs/helpers/index.ts"],
       "@/types/*": ["./app/_types/*"],
       "@/validations/*": ["./app/_validations/*"],
       "@/hooks/*": ["./app/_hooks/*"],

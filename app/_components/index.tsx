@@ -11,7 +11,7 @@ import TableToolbar from "./datatable/table-toolbar";
 import Avatar from "./avatar";
 import GlobalProvider from "./layout/GlobalProvider";
 import Header from "./layout/Header";
-import { Layout, Button, theme } from "antd";
+import { Layout, Button, ConfigProvider, theme } from "antd";
 
 const { Content } = Layout;
 
@@ -20,6 +20,7 @@ export {
   Avatar,
   Bear,
   Content,
+  ConfigProvider,
   DataTable,
   Fish,
   GlobalProvider,

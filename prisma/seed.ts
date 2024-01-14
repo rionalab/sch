@@ -85,7 +85,7 @@ async function main() {
       tribe: "Batak",
       remarks: faker.lorem.sentence(7),
       gender: faker.helpers.arrayElement(["Female", "Male"]),
-      hireDate: today,
+      hireDate: faker.date.anytime(),
       dob: today,
       placeOfBirth: faker.location.city(),
       positionId: faker.helpers.arrayElement(positions),

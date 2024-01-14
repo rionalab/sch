@@ -1,6 +1,11 @@
+const employee = "/hrd/employee";
+
 export const urls = {
   root: "/",
   hrd: {
-    employee: "/hrd/employee",
+    employee: {
+      index: employee,
+      create: employee + "/create",
+    },
   },
 };

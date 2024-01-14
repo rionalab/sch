@@ -1,16 +1,48 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
+import { Table } from "antd";
+import type { ColumnsType } from "antd/es/table";
+import { TableToolbar } from "@/c";
 
 interface Props<T> {
-  rows: T[];
+  rows: Record<string, any>[];
+  search?: boolean;
+  download?: boolean;
+  filter?: boolean;
+  create?: boolean;
+  columns: ColumnsType<Record<string, any>>;
+  handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function DataTable<T>(props: Props<T>) {
-  const { rows } = props;
+  const {
+    rows = [],
+    search = true,
+    filter = false,
+    create = true,
+    columns,
+    handleSearch,
+    download = false,
+  } = props;
+
   return (
-    <div>
-      <h1>table</h1>
-      {JSON.stringify(rows, null, 2)}
-    </div>
+    <>
+      <TableToolbar
+        download={download}
+        search={search}
+        handleSearch={handleSearch}
+        create={create}
+        filter={filter}
+      />
+
+      <Table
+        dataSource={rows}
+        size="small"
+        columns={columns}
+        scroll={{ x: 1600, y: 555 }}
+      />
+    </>
   );
 }
 

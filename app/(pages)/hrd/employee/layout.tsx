@@ -13,7 +13,7 @@ const page = {
     {
       title: "Employee",
       icon: <UserOutlined />,
-      url: urls.hrd.employee,
+      url: urls.hrd.employee.index,
     },
   ],
 };
@@ -22,6 +22,9 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <PageHeader {...page} />
+      <hr style={{ border: 0, borderTop: "1px solid #eee" }} />
+      <br />
+      <br />
       {children}
     </>
   );

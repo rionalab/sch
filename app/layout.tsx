@@ -1,14 +1,18 @@
 import React from "react";
-import { Inter } from "next/font/google";
 import { Layout, Flex } from "antd";
 import styles from "./page.module.scss";
-import { Sidebar, Header, Content } from "@/c";
+import { Sidebar, Header, Content, ConfigProvider } from "@/c";
 import StoreProvider from "@/libs/zustand/StoreProvider";
 import { GlobalProvider } from "@/c";
+import { Inter } from "next/font/google";
+import { theme } from "@/styles/antdThemeProvider";
 import "@/styles/global.scss";
 import "@/styles/customAntd.scss";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 export default function RootLayout({
   children,
@@ -24,15 +28,17 @@ export default function RootLayout({
       >
         <main>
           <StoreProvider>
-            <GlobalProvider>
-              <Layout>
-                <Sidebar />
+            <ConfigProvider theme={theme}>
+              <GlobalProvider>
                 <Layout>
-                  <Header />
-                  <Content className={styles.content}>{children}</Content>
+                  <Sidebar />
+                  <Layout>
+                    <Header />
+                    <Content className={styles.content}>{children}</Content>
+                  </Layout>
                 </Layout>
-              </Layout>
-            </GlobalProvider>
+              </GlobalProvider>
+            </ConfigProvider>
           </StoreProvider>
         </main>
       </body>
