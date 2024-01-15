@@ -1,4 +1,5 @@
 const employee = "/hrd/employee";
+const department = "/master/department";
 
 export const urls = {
   root: "/",
@@ -6,6 +7,12 @@ export const urls = {
     employee: {
       index: employee,
       create: employee + "/create",
+    },
+  },
+  master: {
+    department: {
+      index: department,
+      create: department + "/create",
     },
   },
 };

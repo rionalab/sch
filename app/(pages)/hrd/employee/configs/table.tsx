@@ -8,44 +8,37 @@ import Link from "next/link";
 import {
   PhoneOutlined,
   MailOutlined,
+  EditOutlined,
   EllipsisOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import { ColumnsType } from "antd/es/table";
 
 const tableActions: MenuProps["items"] = [
   {
     key: "1",
+    icon: <EditOutlined />,
     label: (
       <a
         target="_blank"
         rel="noopener noreferrer"
         href="https://www.antgroup.com"
       >
-        1st menu item
+        Edit
       </a>
     ),
   },
   {
     key: "2",
+    danger: true,
+    icon: <DeleteOutlined />,
     label: (
       <a
         target="_blank"
         rel="noopener noreferrer"
         href="https://www.aliyun.com"
       >
-        2nd menu item
-      </a>
-    ),
-  },
-  {
-    key: "3",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.luohanacademy.com"
-      >
-        3rd menu item
+        Delete
       </a>
     ),
   },

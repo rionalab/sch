@@ -18,7 +18,12 @@ function Table({ rows }: Props) {
 
   return (
     <>
-      <DataTable columns={columns as DtColumns} {...tableProps} />
+      <DataTable
+        filter={true}
+        download={true}
+        columns={columns as DtColumns}
+        {...tableProps}
+      />
     </>
   );
 }

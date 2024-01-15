@@ -1,20 +1,19 @@
 "use client";
 
 import React from "react";
-import { Breadcrumb as BreadcrumbType } from "@/types/component";
 import { Flex, Typography, Breadcrumb } from "antd";
-import { HomeOutlined, UserOutlined } from "@ant-design/icons";
+import { HomeOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ModuleName, Route } from "@/types";
+import { routes } from "@/configs";
 
 interface Props {
-  title?: string;
-  icon?: React.ReactNode;
-  breadcrumb?: BreadcrumbType[];
+  id: ModuleName;
 }
 
-function PageHeader(props: Props) {
-  const { icon, title, breadcrumb = [] } = props;
+function PageHeader({ id }: Props) {
+  const { icon, title, breadcrumb = [] } = routes[id];
   const pathname = usePathname();
 
   let action = "";
@@ -39,33 +38,38 @@ function PageHeader(props: Props) {
   });
 
   return (
-    <Flex style={{ marginBottom: 16 }} align="end" justify="space-between">
-      <div>
-        <Typography.Title level={2} style={{ margin: 0 }}>
-          {icon && <>{icon} &nbsp;</>}
-          {title}
-          <span style={{ fontWeight: 500, opacity: 0.5, fontSize: 11 }}>
-            {action}
-          </span>
-        </Typography.Title>
-      </div>
-      <Breadcrumb
-        items={[
-          {
-            title: (
-              <>
-                <Link href="/">
-                  <HomeOutlined />
-                  &nbsp;
-                  <span>Dashboard</span>
-                </Link>
-              </>
-            ),
-          },
-          ...breadcrumbProps,
-        ]}
-      />
-    </Flex>
+    <>
+      <Flex style={{ marginBottom: 16 }} align="end" justify="space-between">
+        <div>
+          <Typography.Title level={2} style={{ margin: 0 }}>
+            {icon && <>{icon} &nbsp;</>}
+            {title}
+            <span style={{ fontWeight: 500, opacity: 0.5, fontSize: 11 }}>
+              {action}
+            </span>
+          </Typography.Title>
+        </div>
+        <Breadcrumb
+          items={[
+            {
+              title: (
+                <>
+                  <Link href="/">
+                    <HomeOutlined />
+                    &nbsp;
+                    <span>Dashboard</span>
+                  </Link>
+                </>
+              ),
+            },
+            ...breadcrumbProps,
+          ]}
+        />
+      </Flex>
+      <hr style={{ border: 0, borderTop: "1px solid #eee" }} />
+      <br />
+      <br />
+    </>
   );
 }
 

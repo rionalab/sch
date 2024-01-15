@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Layout, Menu, Button, theme } from "antd";
+import { Layout, Menu, Button, theme, Typography } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -8,6 +8,7 @@ import {
   BulbOutlined,
   FileSearchOutlined,
   SolutionOutlined,
+  DeploymentUnitOutlined,
   AuditOutlined,
   BookOutlined,
   DollarOutlined,
@@ -15,6 +16,7 @@ import {
   FileAddOutlined,
   HomeOutlined,
   EditOutlined,
+  AppstoreAddOutlined,
   FileTextOutlined,
   WalletOutlined,
   ClockCircleOutlined,
@@ -35,37 +37,50 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { urls } from "@/consts/urls";
+import { redirect, useRouter } from "next/navigation";
+import { localStore } from "@/libs/helpers";
+import { routes } from "@/configs";
 
 const { Sider } = Layout;
 
 function Sidebar() {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-
   return (
     <Sider className={styles.sidebar}>
       <Image
         className={styles.logo}
-        width={55}
+        width={145}
         height={55}
         alt="logo"
-        src={"/images/logo.jpg"}
+        src={"/images/logo.png"}
       />
 
       <Menu
         mode="inline"
         defaultSelectedKeys={["0"]}
         items={[
-          {
-            key: "00",
-            icon: <HomeOutlined />,
-            label: <Link href="/fruits">Fruits</Link>,
-          },
+          // {
+          //   key: "00",
+          //   icon: <HomeOutlined />,
+          //   label: <Link href="/fruits">Fruits</Link>,
+          // },
           {
             key: "0",
             icon: <HomeOutlined />,
             label: <Link href="/">Home</Link>,
+          },
+          {
+            key: "master",
+            icon: <AppstoreAddOutlined />,
+            label: "Master Data",
+            children: [
+              {
+                key: "masterDepartment",
+                icon: <DeploymentUnitOutlined />,
+                label: (
+                  <Link href={urls.master.department.index}>Department</Link>
+                ),
+              },
+            ],
           },
           {
             key: "1",
