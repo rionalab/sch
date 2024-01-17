@@ -25,7 +25,6 @@ function FormEmployee() {
 
   const onFinish = async (values: any) => {
     console.log("Success:", values);
-    await formAction();
   };
 
   const onFinishFailed = (errorInfo: any) => {
