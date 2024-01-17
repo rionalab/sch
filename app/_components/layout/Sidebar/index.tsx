@@ -80,6 +80,11 @@ function Sidebar() {
                   <Link href={urls.master.department.index}>Department</Link>
                 ),
               },
+              {
+                key: "masterPosition",
+                icon: <DeploymentUnitOutlined />,
+                label: <Link href={urls.master.position.index}>Position</Link>,
+              },
             ],
           },
           {

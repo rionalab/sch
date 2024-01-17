@@ -2,13 +2,16 @@
 
 import React, { useState } from "react";
 import { Table } from "antd";
-import type { ColumnsType } from "antd/es/table";
+import type { ColumnsType, TableProps } from "antd/es/table";
 import { TableToolbar } from "@/c";
+
+interface AntdProps<T> extends TableProps<T> {}
 
 interface Props<T> {
   rows: Record<string, any>[];
   search?: boolean;
   download?: boolean;
+  antdProps?: AntdProps<T>;
   filter?: boolean;
   create?: boolean;
   columns: ColumnsType<Record<string, any>>;
@@ -22,6 +25,7 @@ function DataTable<T>(props: Props<T>) {
     filter = false,
     create = true,
     columns,
+    antdProps = {},
     handleSearch,
     download = false,
   } = props;
@@ -37,10 +41,10 @@ function DataTable<T>(props: Props<T>) {
       />
 
       <Table
+        {...(antdProps as TableProps<Record<string, any>>)}
         dataSource={rows}
         size="small"
         columns={columns}
-        scroll={{ x: 1600, y: 555 }}
       />
     </>
   );

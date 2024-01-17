@@ -48,7 +48,7 @@ model Category {
 
 model Position {
   id        Int              @id @default(autoincrement())
-  roleName  String           @unique
+  name      String           @unique
   category  PositionCategory @default(Edu)
   employees Employee[]
 }

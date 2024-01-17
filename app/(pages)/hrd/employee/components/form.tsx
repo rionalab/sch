@@ -19,6 +19,7 @@ import {
   MailOutlined,
   PhoneOutlined,
 } from "@ant-design/icons";
+import { ButtonBack } from "@/c";
 
 function FormEmployee() {
   const onFinish = (values: any) => {
@@ -31,6 +32,7 @@ function FormEmployee() {
 
   return (
     <div>
+      <ButtonBack />
       <Form
         name="basic"
         labelCol={{ span: 8 }}

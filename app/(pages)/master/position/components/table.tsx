@@ -6,22 +6,20 @@ import { Employee } from "../type";
 import { DataTable } from "@/c";
 import { columns } from "../configs/table";
 import useTable from "@/hooks/useTable";
+import { Prisma } from "@prisma/client";
 
 interface Props {
-  rows: Employee[];
+  rows: Prisma.PositionCreateInput[];
 }
 
 type DtColumns = ColumnsType<Record<string, any>>;
 
 function Table({ rows }: Props) {
-  const tableProps = useTable<Employee>({ rows });
+  const tableProps = useTable<Prisma.PositionCreateInput>({ rows });
 
   return (
     <>
       <DataTable
-        antdProps={{
-          scroll: { x: 1600, y: 555 },
-        }}
         filter={true}
         download={true}
         columns={columns as DtColumns}

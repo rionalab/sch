@@ -1,5 +1,6 @@
 "use server";
 
+import { wait } from "@/libs/helpers";
 import prisma from "@/libs/prisma";
 
 export async function initData() {
@@ -30,6 +31,7 @@ export async function initData() {
 }
 
 export async function index() {
+  await wait(5000);
   return await prisma.employee.findMany({
     include: {
       user: true,

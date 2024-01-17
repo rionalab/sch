@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Button, Input, Tooltip, Flex, Space } from "antd";
 import {
@@ -9,6 +11,7 @@ import {
 import { useRouter } from "next/navigation";
 import { redirect } from "next/navigation";
 import { urls } from "@/consts/urls";
+import { usePathname } from "next/navigation";
 
 interface Props {
   create: boolean;
@@ -21,13 +24,10 @@ interface Props {
 function TableToolbar(props: Props) {
   const { create, handleSearch, download, search, filter } = props;
   const router = useRouter();
+  const pathname = usePathname();
 
   const handleCreate = () => {
-    console.log(111);
-    // redirect(urls.hrd.employee.create);
-    router.push(urls.hrd.employee.create);
-    // redirect("/");
-    // router.push("create");
+    router.push(pathname + "/create");
   };
 
   return (

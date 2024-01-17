@@ -18,10 +18,20 @@ export const routes: Routes = {
       },
     ],
   },
-  department: {
-    url: urls.master.department.index,
-    title: "Department",
+  position: {
+    url: urls.master.position.index,
+    title: "Position",
     icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "Position",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.position.index,
+      },
+    ],
   },
 };
 

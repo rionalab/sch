@@ -39,19 +39,19 @@ async function main() {
   await prisma.position.createMany({
     data: [
       {
-        roleName: "principal",
+        name: "principal",
         category: "Edu",
       },
       {
-        roleName: "teacher",
+        name: "teacher",
         category: "Edu",
       },
       {
-        roleName: "security",
+        name: "security",
         category: "NonEdu",
       },
       {
-        roleName: "cleaning",
+        name: "cleaning",
         category: "NonEdu",
       },
     ],

@@ -9,3 +9,7 @@ export function tableData<T>(data: T[]): T[] {
 export function cell(text: string, replacer: string = "-") {
   return text || replacer;
 }
+
+export function cellPositionCategory(v: "Edu" | "NonEdu") {
+  return v === "Edu" ? "Education" : "Non Education";
+}
