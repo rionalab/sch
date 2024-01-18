@@ -1,30 +1,43 @@
+/* eslint-disable  */
+
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Form, Input, Row, Select } from "antd";
 import { FieldType } from "../type";
 import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import { positionCategoryOptions } from "@/consts/form";
 import { ButtonBack, ButtonForm } from "@/c";
 import { store } from "../action";
-import { useFormState, useFormStatus } from "react-dom";
-
-const initialState = {
-  message: "",
-  id: 0,
-  name: "",
-  category: "Edu" as const,
-};
+import { usePathname, redirect, useRouter } from "next/navigation";
+import { urls } from "@/consts/urls";
 
 function FormEmployee() {
-  const { pending } = useFormStatus();
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
   const initialValues = {
     category: "Edu",
   };
 
   const onFinish = async (values: any) => {
-    console.log("Success:", values);
+    try {
+      setLoading(true);
+      const redirectUrl = urls.master.position.index;
+      const data = {
+        ...values,
+        redirectUrl,
+      };
+      const result = await store(data);
+
+      router.back();
+    } catch (e: any) {
+      // console.log(e, e.message);
+
+      alert(e.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -33,7 +46,6 @@ function FormEmployee() {
 
   return (
     <div>
-      {pending && <p>1111111111111111111111111111</p>}
       <ButtonBack />
       <Form
         name="basic"
@@ -62,7 +74,7 @@ function FormEmployee() {
           <Col span={10}></Col>
         </Row>
 
-        <ButtonForm />
+        <ButtonForm loading={loading} />
       </Form>
     </div>
   );
