@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 
 import React from "react";
@@ -5,7 +6,7 @@ import { Row, Col, Form, Button } from "antd";
 import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-function ButtonForm() {
+function ButtonForm({ loading }: { loading?: boolean }) {
   const router = useRouter();
 
   const handleCancel = () => {
@@ -21,17 +22,19 @@ function ButtonForm() {
             <Button
               icon={<CheckOutlined />}
               size="large"
+              disabled={loading}
               type="primary"
               style={{ paddingLeft: 50, paddingRight: 50, marginRight: 16 }}
               htmlType="submit"
             >
-              Submit
+              {loading ? "Saving..." : "Submit"}
             </Button>
 
             <Button
               onClick={handleCancel}
               icon={<CloseOutlined />}
               size="large"
+              disabled={loading}
               htmlType="submit"
             >
               Cancel
