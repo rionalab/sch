@@ -8,8 +8,6 @@ import { Prisma } from "@prisma/client";
 async function Page() {
   const data = await index();
 
-  console.log(data);
-
   return <Table rows={tableData<Prisma.PositionCreateInput>(data)} />;
 }
 
