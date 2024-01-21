@@ -22,7 +22,7 @@ function ButtonForm({ loading }: { loading?: boolean }) {
               onClick={handleCancel}
               style={{ marginRight: 8 }}
               disabled={loading}
-              htmlType="submit"
+              htmlType="button"
             >
               Cancel
             </Button>

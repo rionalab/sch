@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
 import { FieldType } from "../type";
 import { ButtonForm } from "@/c";
@@ -13,14 +13,16 @@ import {
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
 
+const initialValues = {
+  category: "Edu",
+};
+
+const onFinish = () => {};
+
 function FormEmployee() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
-
-  const initialValues = {
-    category: "Edu",
-  };
 
   const onFinish = async (values: any) => {
     try {
@@ -41,6 +43,8 @@ function FormEmployee() {
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
+
+  console.log(111123);
 
   return (
     <div>
@@ -71,10 +75,10 @@ function FormEmployee() {
           <Col span={10}></Col>
         </Row>
 
-        <ButtonForm api={api} loading={loading} />
+        <ButtonForm loading={loading} />
       </Form>
     </div>
   );
 }
 
-export default FormEmployee;
+export default memo(FormEmployee);
