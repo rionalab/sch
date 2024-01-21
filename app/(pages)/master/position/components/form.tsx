@@ -1,20 +1,22 @@
-/* eslint-disable  */
-
 "use client";
 
 import React, { useState } from "react";
-import { Button, Col, Form, Input, Row, Select } from "antd";
+import { Col, Form, Input, Row, Select } from "antd";
 import { FieldType } from "../type";
-import { CheckOutlined, ArrowLeftOutlined } from "@ant-design/icons";
-import { positionCategoryOptions } from "@/consts/form";
-import { ButtonBack, ButtonForm } from "@/c";
+import { ButtonForm } from "@/c";
 import { store } from "../action";
-import { usePathname, redirect, useRouter } from "next/navigation";
-import { urls } from "@/consts/urls";
+import { useRouter } from "next/navigation";
+import {
+  positionCategoryOptions,
+  notifStoreSuccess,
+  notifStoreError,
+} from "@/consts";
+import { useAntdContext } from "@/contexts";
 
 function FormEmployee() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { api } = useAntdContext();
 
   const initialValues = {
     category: "Edu",
@@ -23,18 +25,14 @@ function FormEmployee() {
   const onFinish = async (values: any) => {
     try {
       setLoading(true);
-      const redirectUrl = urls.master.position.index;
       const data = {
         ...values,
-        redirectUrl,
       };
-      const result = await store(data);
-
+      await store(data);
+      api?.success(notifStoreSuccess());
       router.back();
     } catch (e: any) {
-      // console.log(e, e.message);
-
-      alert(e.message);
+      api?.error(notifStoreError(e.message));
     } finally {
       setLoading(false);
     }
@@ -46,7 +44,6 @@ function FormEmployee() {
 
   return (
     <div>
-      <ButtonBack />
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -58,7 +55,7 @@ function FormEmployee() {
       >
         <br />
         <Row gutter={24}>
-          <Col offset={1} span={10}>
+          <Col span={13}>
             <Form.Item<FieldType>
               label="Position Name"
               name="name"
@@ -74,7 +71,7 @@ function FormEmployee() {
           <Col span={10}></Col>
         </Row>
 
-        <ButtonForm loading={loading} />
+        <ButtonForm api={api} loading={loading} />
       </Form>
     </div>
   );

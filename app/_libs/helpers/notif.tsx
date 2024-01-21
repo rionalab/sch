@@ -1,4 +1,4 @@
-import { label } from "@/consts/label";
+import { label } from "@/consts/messages";
 import { GeneralError } from "@/types/request";
 import { ZodIssue } from "zod";
 import { isArrayOfZodIssue, isGeneralError } from "./validation";

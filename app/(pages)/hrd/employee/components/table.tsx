@@ -5,7 +5,7 @@ import type { ColumnsType } from "antd/es/table";
 import { Employee } from "../type";
 import { DataTable } from "@/c";
 import { columns } from "../configs/table";
-import useTable from "@/hooks/useTable";
+import { useTable } from "@/hooks";
 
 interface Props {
   rows: Employee[];

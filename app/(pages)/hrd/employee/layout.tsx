@@ -1,7 +1,5 @@
-import { PageHeader } from "@/c";
 import React from "react";
-
-export const revalidate = 0;
+import { PageHeader } from "@/c";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (

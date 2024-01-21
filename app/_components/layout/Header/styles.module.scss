@@ -1,8 +1,10 @@
+@import "../../../_styles/zIndex.module.scss";
+
 .header {
   position: sticky;
   top: 0;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  z-index: 1000;
+  z-index: $zIndexTopbar;
   padding: 0;
   padding-left: 220px;
   width: 100%;

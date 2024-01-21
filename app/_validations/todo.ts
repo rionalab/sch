@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { CreateTodo } from "@/types/todo";
-import { label } from "@/consts/label";
+import { label } from "@/consts/messages";
 
 export const validateCreate = (data: CreateTodo) => {
   return createSchema.safeParse(data);

@@ -5,7 +5,7 @@ interface Props {
   rows: any[];
 }
 
-function useTable<T>(props: Props) {
+export function useTable<T>(props: Props) {
   const { rows } = props;
 
   const [defaultRows, setDefaultRows] = useState<T[]>([]);
@@ -57,5 +57,3 @@ function useTable<T>(props: Props) {
 
   return { handleSearch, rows: filteredRows || defaultRows || [] };
 }
-
-export default useTable;

@@ -1,4 +1,3 @@
-/* eslint-disable */
 "use client";
 
 import React from "react";
@@ -20,24 +19,22 @@ function ButtonForm({ loading }: { loading?: boolean }) {
         <Col span={21}>
           <Form.Item wrapperCol={{ offset: 5 }}>
             <Button
+              onClick={handleCancel}
+              style={{ marginRight: 8 }}
+              disabled={loading}
+              htmlType="submit"
+            >
+              Cancel
+            </Button>
+
+            <Button
               icon={<CheckOutlined />}
-              size="large"
               disabled={loading}
               type="primary"
               style={{ paddingLeft: 50, paddingRight: 50, marginRight: 16 }}
               htmlType="submit"
             >
               {loading ? "Saving..." : "Submit"}
-            </Button>
-
-            <Button
-              onClick={handleCancel}
-              icon={<CloseOutlined />}
-              size="large"
-              disabled={loading}
-              htmlType="submit"
-            >
-              Cancel
             </Button>
           </Form.Item>
         </Col>

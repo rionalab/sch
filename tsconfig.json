@@ -20,14 +20,15 @@
     ],
     "paths": {
       "@/libs/*": ["./app/_libs/*"],
-      "@/consts/*": ["./app/_consts/*"],
+      "@/consts": ["./app/_consts/index.ts"],
       "@/c": ["./app/_components/index.tsx"],
       "@/actions/*": ["./app/_actions/*"],
       "@/helpers": ["./app/_libs/helpers/index.ts"],
       "@/configs": ["./app/_configs/index.ts"],
       "@/types": ["./app/_types/index.ts"],
       "@/validations/*": ["./app/_validations/*"],
-      "@/hooks/*": ["./app/_hooks/*"],
+      "@/hooks": ["./app/_hooks/index.ts"],
+      "@/contexts": ["./app/_contexts/index.ts"],
       "@/styles/*": ["./app/_styles/*"],
       "@/*": ["./*"]
     }

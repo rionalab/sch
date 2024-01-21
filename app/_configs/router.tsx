@@ -1,4 +1,4 @@
-import { urls } from "@/consts/urls";
+import { urls } from "@/consts";
 import { UserOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
 import { ModuleName, Route } from "@/types";
 

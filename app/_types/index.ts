@@ -1,4 +1,4 @@
 import { Route, ActivePage, ModuleName } from "./app";
 import { Breadcrumb } from "./component";
-
-export type { Route, Breadcrumb, ActivePage, ModuleName };
+import { TableActions } from "./table";
+export type { Route, TableActions, Breadcrumb, ActivePage, ModuleName };

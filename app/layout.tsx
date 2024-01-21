@@ -1,13 +1,13 @@
 import React from "react";
-import { Layout, Flex } from "antd";
+import { Layout } from "antd";
 import styles from "./page.module.scss";
 import { Sidebar, Header, Content, ConfigProvider } from "@/c";
 import StoreProvider from "@/libs/zustand/StoreProvider";
-import { GlobalProvider } from "@/c";
 import { Inter } from "next/font/google";
 import { theme } from "@/styles/antdThemeProvider";
 import "@/styles/global.scss";
 import "@/styles/customAntd.scss";
+import { AntdProvider } from "./_contexts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -28,8 +28,8 @@ export default function RootLayout({
       >
         <main>
           <StoreProvider>
-            <ConfigProvider theme={theme}>
-              <GlobalProvider>
+            <ConfigProvider theme={{ ...theme, cssVar: true }}>
+              <AntdProvider>
                 <Layout>
                   <Sidebar />
                   <Layout>
@@ -37,7 +37,7 @@ export default function RootLayout({
                     <Content className={styles.content}>{children}</Content>
                   </Layout>
                 </Layout>
-              </GlobalProvider>
+              </AntdProvider>
             </ConfigProvider>
           </StoreProvider>
         </main>

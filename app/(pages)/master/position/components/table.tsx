@@ -2,28 +2,44 @@
 
 import React from "react";
 import type { ColumnsType } from "antd/es/table";
-import { Employee } from "../type";
 import { DataTable } from "@/c";
 import { columns } from "../configs/table";
-import useTable from "@/hooks/useTable";
-import { Prisma } from "@prisma/client";
+import { useTable } from "@/hooks";
+import { destroy } from "../action";
+import { wait } from "@/libs/helpers";
+// import { useAntdContext } from "@/contexts";
 
 interface Props {
-  rows: Prisma.PositionCreateInput[];
+  rows: prisma.PositionCreateInput[];
 }
 
 type DtColumns = ColumnsType<Record<string, any>>;
 
 function Table({ rows }: Props) {
-  const tableProps = useTable<Prisma.PositionCreateInput>({ rows });
+  const tableProps = useTable<prisma.PositionCreateInput>({ rows });
+
+  // const something = useAntdContext();
+  // console.log({ something });
+
+  const handleEdit = () => {
+    alert("edit");
+  };
+
+  const testDelete = async () => {
+    await wait();
+  };
 
   return (
     <>
       <DataTable
         filter={true}
         download={true}
-        columns={columns as DtColumns}
+        columns={columns() as DtColumns}
         {...tableProps}
+        actions={{
+          destroy: (id: number) => destroy(id),
+          edit: handleEdit,
+        }}
       />
     </>
   );
