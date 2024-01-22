@@ -2,7 +2,6 @@
 
 import { urls, messages } from "@/consts";
 import prisma from "@/libs/prisma";
-import { prismaIsExist } from "@/libs/prisma/prismaClient";
 import { revalidatePath } from "next/cache";
 
 const urlToRevalidate = urls.master.position.index;
@@ -11,15 +10,15 @@ export async function index() {
   return await prisma.position.findMany();
 }
 
-type TStore = {
+interface TStore {
   name: string;
-  category: prisma.PositionCategory;
-};
+  category: "Edu" | "NonEdu";
+}
 
 export async function store(data: TStore) {
   try {
-    const isExist = await prismaIsExist("position", {
-      name: data.name,
+    const isExist = await prisma.position.findFirst({
+      where: { name: data.name },
     });
 
     if (isExist) {
@@ -37,7 +36,7 @@ export async function store(data: TStore) {
 
     return { message: "success added", ...result };
   } catch (e: any) {
-    throw new Error(e.message);
+    throw new Error(e?.message ?? "");
   }
 }
 
@@ -48,6 +47,6 @@ export async function destroy(id: number) {
     });
     revalidatePath(urlToRevalidate);
   } catch (e: any) {
-    throw new Error(e.message);
+    throw new Error(e?.message ?? "");
   }
 }

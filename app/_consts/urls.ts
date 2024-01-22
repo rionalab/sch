@@ -18,6 +18,7 @@ export const urls = {
     position: {
       index: position,
       create: position + "/create",
+      edit: (id: string | number) => position + "/edit/" + id,
     },
   },
 };

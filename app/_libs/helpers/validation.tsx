@@ -1,4 +1,4 @@
-import { GeneralError } from "@/types/request";
+import { GeneralError } from "@/types";
 import { ZodIssue } from "zod";
 
 export function isArrayOfZodIssue(arr: any[]): arr is ZodIssue[] {

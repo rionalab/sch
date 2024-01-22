@@ -6,9 +6,9 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import { TableActions } from "@/types";
 import styles from "./style.module.scss";
-import { notifDestroyError, notifDestroySuccess } from "@/consts";
-import { unstable_noStore as noStore } from "next/cache";
+import { notifDestroyError, notifDestroySuccess, urls } from "@/consts";
 import { useAntdContext } from "@/contexts";
+import { useRouter } from "next/navigation";
 
 interface Props extends TableActions {
   id: number;
@@ -16,6 +16,7 @@ interface Props extends TableActions {
 
 function TableAction(props: Props) {
   const { edit, destroy, id } = props;
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const { api } = useAntdContext();
@@ -24,7 +25,6 @@ function TableAction(props: Props) {
   };
 
   const handleDestroy = async () => {
-    noStore();
     try {
       setLoading(true);
       await destroy?.(id);
@@ -38,6 +38,10 @@ function TableAction(props: Props) {
   const confirmDestroy = () => {
     setOpen(true);
     setLoading(false);
+  };
+
+  const handleEdit = () => {
+    router.push(urls.master.position.edit(id));
   };
 
   return (
@@ -76,7 +80,7 @@ function TableAction(props: Props) {
       <Space size={2}>
         {props.edit && (
           <Button
-            // onClick={showConfirm}
+            onClick={handleEdit}
             size="small"
             type="text"
             icon={<EditOutlined style={{ fontSize: 14 }} />}

@@ -1,4 +1,4 @@
-import { CombinedSlicesType, BearSlice } from "@/types/zustand";
+import { CombinedSlicesType, BearSlice } from "@/types";
 import { StateCreator } from "zustand";
 
 export const createBearSlice: StateCreator<

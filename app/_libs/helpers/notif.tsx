@@ -1,5 +1,5 @@
-import { label } from "@/consts/messages";
-import { GeneralError } from "@/types/request";
+import { messages } from "@/consts";
+import { GeneralError } from "@/types";
 import { ZodIssue } from "zod";
 import { isArrayOfZodIssue, isGeneralError } from "./validation";
 
@@ -33,21 +33,21 @@ export const notifErrorMessage = (
     }
 
     return {
-      message: label.dataIsInvalid,
+      message: messages.dataIsInvalid,
       description,
       placement: "bottomLeft",
     } as const;
   } else if (typeof data === "object" && isGeneralError(data)) {
     return {
-      message: data.title ?? label.somethingWentWrong,
+      message: data.title ?? messages.somethingWentWrong,
       description: data.message,
       placement: "bottomLeft",
     } as const;
   }
 
   return {
-    message: label.somethingWentWrong,
-    description: label.retryLater,
+    message: messages.somethingWentWrong,
+    description: messages.retryLater,
     placement: "bottomLeft",
   } as const;
 };

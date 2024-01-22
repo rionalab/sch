@@ -1,5 +1,6 @@
 import { fnDate } from "@/libs/helpers";
-import React, { useEffect, useState } from "react";
+import type React from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   rows: any[];
@@ -24,7 +25,7 @@ export function useTable<T>(props: Props) {
   useEffect(() => {
     setDefaultRows(rows);
 
-    if (search) {
+    if (search !== "") {
       const result = defaultRows
         .map((row: T) => {
           // only search on the objValue NOT the objKey
@@ -46,6 +47,8 @@ export function useTable<T>(props: Props) {
           if (isMatch) {
             return row;
           }
+
+          return null;
         })
         .filter(Boolean);
 
@@ -55,5 +58,6 @@ export function useTable<T>(props: Props) {
     }
   }, [search]);
 
-  return { handleSearch, rows: filteredRows || defaultRows || [] };
+  // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
+  return { handleSearch, rows: (filteredRows ?? defaultRows) || [] };
 }

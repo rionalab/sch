@@ -8,10 +8,7 @@ import {
   SearchOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
-import { redirect } from "next/navigation";
-import { urls } from "@/consts/urls";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   create: boolean;
@@ -44,8 +41,7 @@ function TableToolbar(props: Props) {
 
       <Space>
         {create && (
-          <Button onClick={handleCreate} icon={<PlusOutlined />}>
-            {" "}
+          <Button type="primary" onClick={handleCreate} icon={<PlusOutlined />}>
             Create
           </Button>
         )}
