@@ -7,6 +7,8 @@ export const theme: ThemeConfig = {
     colorText: "#333",
   },
   components: {
-    Modal: {},
+    Descriptions: {
+      itemPaddingBottom: 0,
+    },
   },
 };

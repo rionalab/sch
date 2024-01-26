@@ -1,6 +1,10 @@
 import dayjs from "dayjs";
 
 export function dMY(v: any) {
+  if (!dayjs(v).isValid()) {
+    return "";
+  }
+
   return dayjs(v).format("DD MMM YYYY");
 }
 

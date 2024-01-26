@@ -2,8 +2,9 @@ import React from "react";
 import { Employee } from "../type";
 import type { DescriptionsProps } from "antd";
 import { Descriptions } from "antd";
-import { dMY } from "@/libs/helpers/date";
-
+import { dMY } from "@/libs/helpers";
+import { cell } from "@/libs/helpers/table";
+import { UserOutlined } from "@ant-design/icons";
 interface Props {
   data: Employee;
 }
@@ -21,14 +22,75 @@ function TableDetail({ data }: Props) {
       children: data.familyPhone,
     },
     {
+      key: "maritalStatus",
+      children: data.maritalStatus,
+      label: "Marital Status",
+    },
+    {
+      key: "tribe",
+      label: "Tribe",
+      children: `${data.tribe}`,
+    },
+    {
+      key: "religion",
+      label: "Religion",
+      children: `${data.religion}`,
+    },
+    {
+      key: "bloodType",
+      label: "Blood Type",
+      children: cell(data.bloodType),
+    },
+    {
+      key: "spouseName",
+      children: data.spouseName,
+      label: "Spouse Name",
+    },
+    {
+      key: "fatherName",
+      children: data.fatherName,
+      label: "Father Name",
+    },
+    {
+      key: "motherName",
+      children: data.motherName,
+      label: "Mother Name",
+    },
+    {
+      key: "siblingName",
+      children: data.siblingName,
+      label: "Sibling Name",
+    },
+    {
+      key: "birth",
+      label: "Birth",
+      children: `${data.placeOfBirth}, ${dMY(data.dob)}`,
+    },
+    {
+      key: "gender",
+      label: "Gender",
+      children: data.gender,
+    },
+    {
+      key: "education",
+      label: "Education",
+      children: `${data.degree} ${data.major}, ${data.institution}`,
+    },
+    {
       key: "5",
       label: "Address",
-      children: `${data.address}, ${data.zipCode}`,
+      children: `${data.idAddress}`,
     },
+    {
+      key: "houseAddress",
+      label: "House Address",
+      children: `${data.houseAddress}`,
+    },
+
     {
       key: "6",
       label: "Remark",
-      children: data.remarks,
+      children: cell(data.remarks),
     },
     {
       key: "7",
@@ -36,18 +98,23 @@ function TableDetail({ data }: Props) {
       children: dMY(data.createdAt),
     },
     {
-      key: "8",
+      key: "6",
       label: "Updated at",
       children: dMY(data.updatedAt),
     },
   ];
 
   return (
-    <div style={{ width: 500 }}>
+    <div style={{ width: 700 }}>
       <Descriptions
-        style={{ paddingTop: 8 }}
-        column={2}
-        title="Employee Info"
+        column={3}
+        title={
+          <>
+            <UserOutlined className="mr4" />
+            Employee Info : {data.fullName}
+          </>
+        }
+        layout="vertical"
         items={items}
       />
     </div>

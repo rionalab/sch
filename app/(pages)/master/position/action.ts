@@ -2,6 +2,7 @@
 
 import { urls, messages } from "@/consts";
 import prisma from "@/libs/prisma";
+import { update } from "@/libs/prisma/prismaClient";
 import { revalidatePath } from "next/cache";
 
 const urlToRevalidate = urls.master.position.index;
@@ -12,32 +13,46 @@ export async function index() {
 
 interface TStore {
   name: string;
+  id?: string;
   category: "Edu" | "NonEdu";
 }
 
 export async function store(data: TStore) {
   try {
-    const isExist = await prisma.position.findFirst({
-      where: { name: data.name },
-    });
+    let result;
 
-    if (isExist) {
-      throw new Error(messages.dataAlreadyExist);
+    if (data.id) {
+      result = update({
+        model: "position",
+        data,
+      });
+    } else {
+      const isExist = await prisma.position.findFirst({
+        where: { name: data.name },
+      });
+
+      if (isExist) {
+        throw new Error(messages.dataAlreadyExist);
+      }
+
+      result = await prisma.position.create({
+        data: {
+          name: data.name,
+          category: data.category,
+        },
+      });
     }
-
-    const result = await prisma.position.create({
-      data: {
-        name: data.name,
-        category: data.category,
-      },
-    });
 
     revalidatePath(urlToRevalidate);
 
-    return { message: "success added", ...result };
+    return "{ success: true, ...result }";
   } catch (e: any) {
     throw new Error(e?.message ?? "");
   }
+}
+
+export async function show(id: string) {
+  // position
 }
 
 export async function destroy(id: number) {

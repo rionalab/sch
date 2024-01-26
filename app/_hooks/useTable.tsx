@@ -1,4 +1,4 @@
-import { fnDate } from "@/libs/helpers";
+import { dMY, isDate } from "@/libs/helpers";
 import type React from "react";
 import { useEffect, useState } from "react";
 
@@ -32,8 +32,8 @@ export function useTable<T>(props: Props) {
           // if the val is date then transform as displayed on the table
           const cleanRow = Object.values(row as Record<string, any>).map(
             (v) => {
-              if (fnDate.isDate(v)) {
-                return fnDate.dMY(v);
+              if (isDate(v)) {
+                return dMY(v);
               }
 
               return v;

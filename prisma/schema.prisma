@@ -54,30 +54,48 @@ model Position {
 }
 
 model Employee {
-  id           Int      @id @default(autoincrement())
-  firstName    String
-  lastName     String
-  religion     Religion
-  photo        String
-  bloodType    String
-  email        String   @unique
-  phone1       String
-  phone2       String
-  familyPhone  String
-  address      String
-  zipCode      String
-  tribe        String
-  remarks      String
-  gender       Gender
-  hireDate     DateTime
-  dob          DateTime
-  placeOfBirth String
-  positionId   Int
-  position     Position @relation(fields: [positionId], references: [id])
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  user         User     @relation(fields: [userId], references: [id])
-  userId       Int      @unique
+  id Int @id @default(autoincrement())
+
+  fullName          String
+  photo             String
+  bloodType         String
+  NIP               String         @unique
+  email             String         @unique
+  NIK               String         @unique
+  phone1            String
+  phone2            String?
+  contractStatus    ContractStatus
+  maritalStatus     MaritalStatus
+  familyPhone       String
+  idAddress         String
+  houseAddress      String
+  institution       String
+  major             String
+  degree            String
+  zipCode           String
+  tribe             String?
+  unit              String
+  remarks           String
+  fatherName        String
+  motherName        String
+  spouseName        String?
+  childrenName      String?
+  siblingName       String?
+  religion          Religion
+  gender            Gender
+  hireDate          DateTime
+  PKWTStart         DateTime?
+  TMT               DateTime?
+  PKWTEnd           DateTime?
+  dob               DateTime
+  initialHiringDate DateTime?
+  placeOfBirth      String
+  positionId        Int
+  position          Position       @relation(fields: [positionId], references: [id])
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  user              User?          @relation(fields: [userId], references: [id])
+  userId            Int            @unique
 }
 
 model Teacher {
@@ -140,6 +158,14 @@ enum Religion {
   Others
 }
 
+enum MaritalStatus {
+  Single
+  Married
+  Divorced
+  Widowed
+  Separated
+}
+
 enum Role {
   User
   Teacher
@@ -152,4 +178,11 @@ enum Role {
 enum PositionCategory {
   Edu
   NonEdu
+}
+
+enum ContractStatus {
+  Active
+  Inactive
+  Resign
+  Mutation
 }
