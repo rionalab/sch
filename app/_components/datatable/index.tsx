@@ -57,8 +57,9 @@ export function DataTable<T>(props: Props<T>) {
           keyActions.length
             ? {
                 title: "Action",
-                align: "right",
-                width: 100,
+                align: "center",
+                fixed: "right",
+                width: 130,
                 render: (a, b) => <TableAction id={b.id} {...actions} />,
               }
             : {},

@@ -1,25 +1,24 @@
-import { Prisma } from "@prisma/client";
-import { ContractStatus } from "@prisma/client";
+import { Dayjs } from "dayjs";
 
 export interface Employee {
-  id: number;
+  id?: number;
   NIP: string;
   positionId: number;
-  hireDate: Date;
-  contractStatus: ContractStatus;
-  unit: string;
-  TMT?: Date;
-  PKWTStart?: Date;
-  PKWTEnd?: Date;
-
+  hireDate: Dayjs;
+  contractStatus: string;
+  unit: string | null;
+  TMT: Dayjs;
+  PKWTStart: Dayjs;
+  PKWTEnd?: Dayjs;
+  PKWT?: [Dayjs, Dayjs];
   fullName: string;
   NIK: string;
   placeOfBirth: string;
-  dob: Date;
+  dob: Dayjs;
   gender: string;
-  bloodType?: string;
+  bloodType: string | null;
   religion: string;
-  tribe?: string;
+  tribe: string | null;
   idAddress: string;
   houseAddress: string;
   maritalStatus: string;
@@ -27,7 +26,7 @@ export interface Employee {
 
   email: string;
   phone1: string;
-  phone2?: string;
+  phone2?: string | null;
   familyPhone: string;
 
   degree: string;
@@ -36,17 +35,36 @@ export interface Employee {
 
   fatherName: string;
   motherName: string;
-  siblingName: string; // Name of a sibling
-  spouseName: string; // Name of spouse
-  childrenName: string; // Name of child/children
+  siblingName: string | null;
+  spouseName: string | null;
+  childrenName: string | null;
 
-  remarks?: string;
+  remarks?: string | null;
 
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export type FieldType = Employee;
+export interface FormFields extends Employee {}
+
+export interface StoreEmployee
+  extends Omit<
+    Employee,
+    "hireDate" | "dob" | "TMT" | "PKWT" | "PKWTEnd" | "PKWTStart"
+  > {
+  PKWTStart?: string;
+  PKWTEnd?: string;
+  hireDate: string;
+  TMT: string;
+  dob: string;
+}
+
+export interface StoreEmployeeByCreate
+  extends Omit<StoreEmployee, "id" | "positionId" | "userId"> {
+  id: undefined;
+  positionId: undefined;
+  userId: undefined;
+}
 
 export interface FieldType2 {
   firstName?: string;

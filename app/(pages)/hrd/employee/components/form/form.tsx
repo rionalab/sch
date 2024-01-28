@@ -12,9 +12,9 @@ import {
   Select,
   Upload,
 } from "antd";
-import { FieldType } from "../type";
+import { Employee, FormFields } from "../../type";
 import { ButtonBack, ButtonForm } from "@/c";
-import { fieldRules, selectOptions } from "@/libs/helpers";
+import { fieldRules, selectOptions, today, tomorrow } from "@/libs/helpers";
 import { Position } from "@/pages/master/position/type";
 import {
   bloodTypeOptions,
@@ -23,37 +23,98 @@ import {
   employeeUnitOptions,
   genderOptions,
   maritalStatusOptions,
+  notifStoreError,
+  notifStoreSuccess,
+  notifUpdateError,
+  notifUpdateSuccess,
   religionOptions,
 } from "@/consts";
 import { UploadOutlined } from "@ant-design/icons";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useAntdContext } from "@/contexts";
+import { createEmployee } from "../../action";
+import { faker } from "@faker-js/faker";
+import { modelEmployee } from "./model";
 
+const initialValues: Partial<Employee> = {
+  NIP: "00001",
+  positionId: 2,
+  hireDate: today(),
+  contractStatus: "Active",
+  unit: "Preschool",
+  TMT: today(),
+  PKWT: [today(), tomorrow()],
+
+  fullName: faker.person.fullName(),
+  NIK: "1371121301920002",
+  placeOfBirth: "Medan",
+  dob: today(),
+  gender: "Male",
+  bloodType: "O",
+  religion: "Kristen",
+  tribe: "Batak",
+  idAddress: faker.location.streetAddress(),
+  houseAddress: faker.location.streetAddress(),
+  maritalStatus: "Single",
+  // photo: "",
+
+  email: faker.internet.email(),
+  phone1: "089677356148",
+  phone2: String(faker.phone.number()),
+  familyPhone: String(faker.phone.number()),
+
+  degree: "S1",
+  institution: faker.company.name(),
+  major: "English Literature",
+
+  fatherName: faker.person.fullName(),
+  motherName: faker.person.fullName(),
+  siblingName: faker.person.fullName(),
+  spouseName: faker.person.fullName(),
+  childrenName: "Andi, Budi, Cicil",
+
+  remarks: faker.lorem.words(10),
+};
 interface Props {
   positions: Position[];
 }
 
 function FormEmployee(props: Props) {
   const { positions } = props;
+
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
+  const router = useRouter();
 
-  const onFinish = (values: any) => {
-    console.log("Success:", values);
+  const handleFormChange = (changedValues: any, allValues: any) => {
+    console.log("Changed values:", changedValues);
+    console.log("All values:", allValues);
   };
 
+  const onFinish = async (values: any) => {
+    let isEdit = values.id;
+
+    try {
+      setLoading(true);
+      await createEmployee(modelEmployee(values));
+      api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
+      router.back();
+    } catch (e: any) {
+      api?.error(
+        isEdit ? notifUpdateError(e.message) : notifStoreError(e.message)
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
   const normFile = (e: any) => {
     console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
     return e?.fileList;
-  };
-
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
   };
 
   return (
@@ -63,9 +124,9 @@ function FormEmployee(props: Props) {
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        initialValues={{ remember: true }}
+        initialValues={initialValues}
+        onValuesChange={handleFormChange} // Set the callback function for field changes
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
         <br />
@@ -74,33 +135,33 @@ function FormEmployee(props: Props) {
         <br />
         <Row gutter={24}>
           <Col offset={1} span={10}>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="NIP"
               name="NIP"
               rules={fieldRules(["required"])}
             >
               <Input />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Hire Date"
               name="hireDate"
               rules={fieldRules(["required"])}
             >
               <DatePicker />
             </Form.Item>
-            <Form.Item<FieldType> label="Unit" name="unit">
+            <Form.Item<FormFields> label="Unit" name="unit">
               <Select options={employeeUnitOptions} />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="PKWT"
-              name="PKWTStart"
+              name="PKWT"
               // rules={fieldRules(["required"])}
             >
               <DatePicker.RangePicker />
             </Form.Item>
           </Col>
           <Col span={10}>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Position"
               name="positionId"
               rules={[
@@ -111,18 +172,14 @@ function FormEmployee(props: Props) {
                 options={selectOptions<Position>(positions, "name", "id")}
               />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Status"
               name="contractStatus"
               rules={fieldRules(["required"])}
             >
               <Select options={contractStatusOption} />
             </Form.Item>
-            <Form.Item<FieldType>
-              label="TMT"
-              name="TMT"
-              rules={fieldRules(["required"])}
-            >
+            <Form.Item<FormFields> label="TMT" name="TMT">
               <DatePicker />
             </Form.Item>
           </Col>
@@ -133,7 +190,7 @@ function FormEmployee(props: Props) {
         <br />
         <Row gutter={24}>
           <Col offset={1} span={10}>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Full Name"
               name="fullName"
               rules={fieldRules(["required"])}
@@ -141,38 +198,39 @@ function FormEmployee(props: Props) {
               <Input />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Place of Birth"
               name="placeOfBirth"
               rules={fieldRules(["required"])}
             >
               <Input />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Gender"
               name="gender"
               rules={fieldRules(["required"])}
             >
               <Select options={genderOptions} />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Religion"
               name="religion"
               rules={fieldRules(["required"])}
             >
               <Select options={religionOptions} />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Photo"
               name="photo"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
+              // valuePropName="fileList"
+              // getValueFromEvent={normFile}
             >
-              <Upload name="logo" action="/upload.do" listType="picture">
+              <Input />
+              {/* <Upload name="logo" action="/upload.do" listType="picture">
                 <Button icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload>
+              </Upload> */}
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="ID Address"
               name="idAddress"
               rules={fieldRules(["required"])}
@@ -181,7 +239,7 @@ function FormEmployee(props: Props) {
             </Form.Item>
           </Col>
           <Col span={10}>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="NIK"
               name="NIK"
               rules={fieldRules(["required"])}
@@ -189,31 +247,31 @@ function FormEmployee(props: Props) {
               <Input />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Date of Birth"
               name="dob"
               rules={fieldRules(["required"])}
             >
               <DatePicker />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Blood Type"
               wrapperCol={{ span: 6 }}
               name="bloodType"
             >
               <Select options={bloodTypeOptions} />
             </Form.Item>
-            <Form.Item<FieldType> label="Tribe" name="tribe">
+            <Form.Item<FormFields> label="Tribe" name="tribe">
               <Input />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Marital Status"
               name="maritalStatus"
               rules={fieldRules(["required"])}
             >
               <Select options={maritalStatusOptions} />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="House Address"
               name="houseAddress"
               rules={fieldRules(["required"])}
@@ -228,14 +286,14 @@ function FormEmployee(props: Props) {
         <br />
         <Row gutter={24}>
           <Col offset={1} span={10}>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Institution"
               name="institution"
               rules={fieldRules(["required"])}
             >
               <Input />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Major"
               name="major"
               rules={fieldRules(["required"])}
@@ -244,7 +302,7 @@ function FormEmployee(props: Props) {
             </Form.Item>
           </Col>
           <Col span={10}>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Degree"
               name="degree"
               rules={fieldRules(["required"])}
@@ -259,14 +317,14 @@ function FormEmployee(props: Props) {
         <br />
         <Row gutter={24}>
           <Col offset={1} span={10}>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Phone 1"
               name="phone1"
               rules={fieldRules(["required"])}
             >
               <Input />
             </Form.Item>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Email"
               name="email"
               rules={fieldRules(["required"])}
@@ -275,10 +333,10 @@ function FormEmployee(props: Props) {
             </Form.Item>
           </Col>
           <Col span={10}>
-            <Form.Item<FieldType> label="Phone 2" name="phone2">
+            <Form.Item<FormFields> label="Phone 2" name="phone2">
               <Input />
             </Form.Item>
-            <Form.Item<FieldType> label="Family Contact" name="familyPhone">
+            <Form.Item<FormFields> label="Family Contact" name="familyPhone">
               <Input />
             </Form.Item>
           </Col>
@@ -289,21 +347,21 @@ function FormEmployee(props: Props) {
         <br />
         <Row gutter={24}>
           <Col offset={1} span={10}>
-            <Form.Item<FieldType> label="Father Name" name="fatherName">
+            <Form.Item<FormFields> label="Father Name" name="fatherName">
               <Input />
             </Form.Item>
-            <Form.Item<FieldType> label="Mother Name" name="motherName">
+            <Form.Item<FormFields> label="Mother Name" name="motherName">
               <Input />
             </Form.Item>
-            <Form.Item<FieldType> label="Sibling Name" name="siblingName">
+            <Form.Item<FormFields> label="Sibling Name" name="siblingName">
               <Input placeholder="Separated with comma" />
             </Form.Item>
           </Col>
           <Col span={10}>
-            <Form.Item<FieldType> label="Spouse Name" name="spouseName">
+            <Form.Item<FormFields> label="Spouse Name" name="spouseName">
               <Input />
             </Form.Item>
-            <Form.Item<FieldType> label="Children Name" name="childrenName">
+            <Form.Item<FormFields> label="Children Name" name="childrenName">
               <Input placeholder="Separated with comma" />
             </Form.Item>
           </Col>
@@ -314,7 +372,7 @@ function FormEmployee(props: Props) {
         <br />
         <Row gutter={24}>
           <Col offset={1} span={10}>
-            <Form.Item<FieldType>
+            <Form.Item<FormFields>
               label="Remarks"
               name="remarks"
               rules={[

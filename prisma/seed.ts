@@ -1,13 +1,6 @@
-import {
-  PrismaClient,
-  Religion,
-  Gender,
-  MaritalStatus,
-  ContractStatus,
-} from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import { employeeSeed } from "./employee";
-import { raw } from "@prisma/client/runtime/library";
 
 const prisma = new PrismaClient();
 const today = new Date().toISOString();
@@ -71,19 +64,13 @@ async function main() {
   // *************************************
   await prisma.employee.createMany({
     data: employeeSeed.map((row) => ({
-      PKWTStart: today,
       PKWTEnd: today,
       zipCode: faker.location.zipCode(),
-      tribe: "Batak",
-      remarks: faker.lorem.sentence(7),
-      hireDate: faker.date.anytime(),
-      placeOfBirth: faker.location.city(),
+      // @ts-ignore
       positionId: faker.helpers.arrayElement(positions),
       userId: faker.helpers.arrayElement(users),
       ...row,
-      religion: row.religion as Religion,
-      gender: row.gender as Gender,
-      maritalStatus: row.maritalStatus as MaritalStatus,
+      gender: row.gender,
     })),
 
     skipDuplicates: true,

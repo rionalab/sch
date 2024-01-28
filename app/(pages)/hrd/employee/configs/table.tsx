@@ -1,6 +1,6 @@
 import { Employee } from "../type";
 import { Popover, Button, Dropdown, Tag, MenuProps } from "antd";
-import TableDetail from "../components/table-detail";
+import TableDetail from "../components/table/table-detail";
 import { dMY } from "@/helpers";
 import { cell } from "@/libs/helpers/table";
 import { Avatar } from "@/c";
@@ -141,18 +141,18 @@ export const columns: ColumnsType<Employee> = [
     width: 210,
     dataIndex: "NIK",
   },
-  {
-    title: "Action",
-    key: "operation",
-    fixed: "right",
-    align: "center",
-    width: 100,
-    render: () => (
-      <Dropdown menu={{ items: tableActions }} placement="bottomRight" arrow>
-        <Button size="small">
-          <EllipsisOutlined />
-        </Button>
-      </Dropdown>
-    ),
-  },
+  // {
+  //   title: "Action",
+  //   key: "operation",
+  //   fixed: "right",
+  //   align: "center",
+  //   width: 100,
+  //   render: () => (
+  //     <Dropdown menu={{ items: tableActions }} placement="bottomRight" arrow>
+  //       <Button size="small">
+  //         <EllipsisOutlined />
+  //       </Button>
+  //     </Dropdown>
+  //   ),
+  // },
 ];

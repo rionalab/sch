@@ -1,5 +1,5 @@
 import React from "react";
-import { Employee } from "../type";
+import { Employee } from "../../type";
 import type { DescriptionsProps } from "antd";
 import { Descriptions } from "antd";
 import { dMY } from "@/libs/helpers";
@@ -12,12 +12,12 @@ interface Props {
 function TableDetail({ data }: Props) {
   const items: DescriptionsProps["items"] = [
     {
-      key: "2",
+      key: "Phone2",
       label: "Phone 2",
       children: data.phone2,
     },
     {
-      key: "3",
+      key: "familyPhone",
       label: "Family Phone",
       children: data.familyPhone,
     },
@@ -88,17 +88,17 @@ function TableDetail({ data }: Props) {
     },
 
     {
-      key: "6",
+      key: "remarks",
       label: "Remark",
       children: cell(data.remarks),
     },
     {
-      key: "7",
+      key: "createdAt",
       label: "Created at",
       children: dMY(data.createdAt),
     },
     {
-      key: "6",
+      key: "updatedAt",
       label: "Updated at",
       children: dMY(data.updatedAt),
     },

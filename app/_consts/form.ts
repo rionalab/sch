@@ -5,6 +5,7 @@ export const positionCategoryOptions = [
 
 export const contractStatusOption = [
   { value: "Active", label: "Active" },
+  { value: "Inactive", label: "Inactive" },
   { value: "Resign", label: "Resign" },
   { value: "Mutation", label: "Mutation" },
 ];

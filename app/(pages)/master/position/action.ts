@@ -1,10 +1,11 @@
 "use server";
 
-import { urls, messages } from "@/consts";
+import { urls } from "@/consts";
 import prisma from "@/libs/prisma";
-import { update } from "@/libs/prisma/prismaClient";
 import { revalidatePath } from "next/cache";
-import { Store } from "./type";
+import { type Store } from "./type";
+import { type Prisma } from "@prisma/client";
+import { handlePrismaError } from "@/libs/helpers";
 
 const urlToRevalidate = urls.master.position.index;
 
@@ -16,20 +17,12 @@ export async function createPosition(data: Store) {
   try {
     let result;
 
-    if (data.id) {
-      result = update({
-        model: "position",
-        data,
+    if (data.id != null) {
+      result = await prisma.position.update({
+        where: { id: Number(data.id) },
+        data: data as Prisma.PositionCreateInput,
       });
     } else {
-      const isExist = await prisma.position.findFirst({
-        where: { name: data.name },
-      });
-
-      if (isExist) {
-        throw new Error(messages.dataAlreadyExist);
-      }
-
       result = await prisma.position.create({
         data: {
           name: data.name,
@@ -40,15 +33,13 @@ export async function createPosition(data: Store) {
 
     revalidatePath(urlToRevalidate);
 
-    return "{ success: true, ...result }";
+    return { success: true, ...result };
   } catch (e: any) {
-    throw new Error(e?.message ?? "");
+    handlePrismaError(e);
   }
 }
 
-export async function findPosition(id: string) {
-  // position
-}
+export async function findPosition(id: string) {}
 
 export async function removePosition(id: number) {
   try {
@@ -57,6 +48,6 @@ export async function removePosition(id: number) {
     });
     revalidatePath(urlToRevalidate);
   } catch (e: any) {
-    throw new Error(e?.message ?? "");
+    throw new Error(String(e?.message) ?? "");
   }
 }

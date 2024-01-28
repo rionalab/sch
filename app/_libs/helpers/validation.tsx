@@ -1,3 +1,5 @@
+"use client";
+
 import { messages } from "@/consts";
 import { GeneralError } from "@/types";
 import { ZodIssue } from "zod";
@@ -10,14 +12,17 @@ export function isGeneralError(obj: Record<string, any>): obj is GeneralError {
   return "message" in obj;
 }
 
-type ValidationType = ["required" | "asd"];
+type ValidationType = ["required" | "others"];
 
-export const fieldRules = (validationType: ValidationType, label?: string) => {
+export function fieldRules(validationType: ValidationType, label?: string) {
   const result = [];
 
   if (validationType.includes("required")) {
-    result.push({ required: true, mmessage: messages.fieldIsRequired(label) });
+    result.push({
+      required: true,
+      message: "this is required",
+    });
   }
 
   return result;
-};
+}

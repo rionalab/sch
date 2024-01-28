@@ -1,7 +1,7 @@
 import React from "react";
 import { getEmployee } from "./action";
 import { Employee } from "./type";
-import Table from "./components/table";
+import Table from "./components/table/table";
 import { tableData } from "@/libs/helpers/table";
 
 async function Page() {
