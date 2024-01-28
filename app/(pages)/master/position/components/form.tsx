@@ -2,9 +2,9 @@
 
 import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
-import { FieldType } from "../type";
+import { Position } from "../type";
 import { ButtonForm } from "@/c";
-import { store } from "../action";
+import { createPosition } from "../action";
 import { useParams, useRouter } from "next/navigation";
 import {
   positionCategoryOptions,
@@ -19,8 +19,6 @@ import { findFirst } from "@/libs/prisma/prismaClient";
 const initialValues = {
   category: "Edu",
 };
-
-const onFinish = () => {};
 
 function FormPosition() {
   const router = useRouter();
@@ -38,7 +36,7 @@ function FormPosition() {
         ...values,
       };
 
-      await store(data);
+      await createPosition(data);
 
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
@@ -77,11 +75,11 @@ function FormPosition() {
         <br />
         <Row gutter={24}>
           <Col span={13}>
-            <Form.Item<FieldType> hidden label="Id" name="id">
+            <Form.Item<Position> hidden label="Id" name="id">
               <Input type="hidden" />
             </Form.Item>
 
-            <Form.Item<FieldType>
+            <Form.Item<Position>
               label="Position Name"
               name="name"
               rules={[{ required: true, message: "Field is required" }]}
@@ -89,7 +87,7 @@ function FormPosition() {
               <Input type="" />
             </Form.Item>
 
-            <Form.Item<FieldType> label="Category" name="category">
+            <Form.Item<Position> label="Category" name="category">
               <Select options={positionCategoryOptions} />
             </Form.Item>
           </Col>

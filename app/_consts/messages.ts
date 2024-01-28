@@ -1,5 +1,6 @@
 export const messages = {
-  fieldIsRequired: "Field value is required",
+  fieldIsRequired: (label?: string) =>
+    label ? "Please input your " + label : "Field value is required",
   retryLater: "Please try again later or contact admin",
   dataIsInvalid: "Data is Invalid",
   somethingWentWrong: "Something Went Wrong",

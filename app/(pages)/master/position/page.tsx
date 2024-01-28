@@ -1,11 +1,11 @@
 import React from "react";
-import { index } from "./action";
+import { getPosition } from "./action";
 import Table from "./components/table";
-import { tableData } from "@/libs/helpers/table";
+import { tableData } from "@/helpers";
 import { Prisma } from "@prisma/client";
 
 async function Page() {
-  const data = await index();
+  const data = await getPosition();
 
   return <Table rows={tableData<Prisma.PositionCreateInput>(data)} />;
 }

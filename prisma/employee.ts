@@ -16,6 +16,8 @@ export const employeeSeed: Employee[] = [
     TMT: new Date("10/20/20"),
     remarks: "",
     PKWTEnd: new Date("10/20/2022"),
+    hireDate: new Date("10/20/2022"),
+    positionId: 1,
     gender: "Female",
     religion: "Islam",
     idAddress:
@@ -34,7 +36,6 @@ export const employeeSeed: Employee[] = [
     spouseName: "Budi Hartono",
     contractStatus: ContractStatus.Active,
     childrenName: "Ahmad Agha",
-    initialHiringDate: new Date("1/2/20"),
   },
   {
     placeOfBirth: "",
@@ -58,7 +59,8 @@ export const employeeSeed: Employee[] = [
     degree: "D3/D4",
     institution: "IISIP",
     major: "Komunikasi",
-
+    hireDate: new Date("10/20/2022"),
+    positionId: 1,
     fatherName: "Suhermanto",
     motherName: "Siti Aisyah",
     siblingName: "Muhammad Shiam Prayoga",
@@ -67,7 +69,6 @@ export const employeeSeed: Employee[] = [
     TMT: new Date("10/20/20"),
     PKWTStart: new Date("10/20/2020"),
     PKWTEnd: new Date("10/20/2022"),
-    initialHiringDate: new Date("2/2/2002"),
     remarks: "Tidak Active tgl 28 Feb 2023",
     contractStatus: ContractStatus.Inactive,
   },
@@ -93,7 +94,8 @@ export const employeeSeed: Employee[] = [
     degree: "S1",
     institution: "STIE Swadaya",
     major: "Management",
-
+    hireDate: new Date("10/20/2022"),
+    positionId: 1,
     fatherName: "Alif Hardianto",
     motherName: "Sutarsih",
     siblingName: "Ramzy Nur Fauzan",
@@ -101,7 +103,6 @@ export const employeeSeed: Employee[] = [
     childrenName: "Daniyal Zhafran Radefa",
     PKWTStart: new Date("9/6/2021"),
     PKWTEnd: new Date("9/6/2023"),
-    initialHiringDate: new Date("2/2/2002"),
     contractStatus: ContractStatus.Active,
   },
   {
@@ -117,7 +118,6 @@ export const employeeSeed: Employee[] = [
     dob: new Date("2/5/93"),
     maritalStatus: "Married",
     gender: "Female",
-
     religion: "Islam",
     idAddress:
       "Jl. Raya Ragunan, Gang Mawar, Pasar Minggu, Rt. 012/03, Jakarta Selatan - 12520",
@@ -137,7 +137,8 @@ export const employeeSeed: Employee[] = [
     TMT: new Date("10/1/21"),
     PKWTStart: new Date("10/1/2021"),
     PKWTEnd: new Date("10/1/2023"),
-    initialHiringDate: new Date("2/2/2002"),
+    hireDate: new Date("10/20/2022"),
+    positionId: 1,
     contractStatus: ContractStatus.Active,
   },
   {
@@ -152,7 +153,6 @@ export const employeeSeed: Employee[] = [
     dob: new Date("11/28/86"),
     maritalStatus: "Married",
     gender: "Female",
-
     religion: "Islam",
     idAddress: "Jl. Sambisari A.260, Duta Kranji, Bintara - Bekasi Barat",
     houseAddress: "-",
@@ -168,7 +168,8 @@ export const employeeSeed: Employee[] = [
     siblingName: "Astri Lestari dan M. Wildan Fadhilah",
     spouseName: "Galih Sendika Artistya",
     childrenName: "M. Ammar Artistya",
-    initialHiringDate: new Date("10/23/15"),
+    hireDate: new Date("10/20/2022"),
+    positionId: 1,
     PKWTStart: new Date("10/23/2015"),
     PKWTEnd: new Date("10/23/2017"),
     TMT: new Date("1/8/18"),
@@ -197,7 +198,6 @@ export const employeeSeed: Employee[] = [
     degree: "S1",
     institution: "Universitas Krisnadwipayana",
     major: "Jurusan Administrasi Niaga",
-
     fatherName: "Warkim",
     motherName: "Ningsih",
     siblingName: "Romadona",
@@ -206,7 +206,8 @@ export const employeeSeed: Employee[] = [
     TMT: new Date("7/5/21"),
     PKWTStart: new Date("7/5/2021"),
     PKWTEnd: new Date("7/5/2023"),
-    initialHiringDate: new Date("2/2/2002"),
+    hireDate: new Date("10/20/2022"),
+    positionId: 1,
     contractStatus: ContractStatus.Active,
   },
 ];

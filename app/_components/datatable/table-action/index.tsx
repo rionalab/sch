@@ -14,7 +14,7 @@ interface Props extends TableActions {
   id: number;
 }
 
-function TableAction(props: Props) {
+export function TableAction(props: Props) {
   const { edit, destroy, id } = props;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -98,5 +98,3 @@ function TableAction(props: Props) {
     </>
   );
 }
-
-export default TableAction;

@@ -4,20 +4,15 @@ import { urls, messages } from "@/consts";
 import prisma from "@/libs/prisma";
 import { update } from "@/libs/prisma/prismaClient";
 import { revalidatePath } from "next/cache";
+import { Store } from "./type";
 
 const urlToRevalidate = urls.master.position.index;
 
-export async function index() {
+export async function getPosition() {
   return await prisma.position.findMany();
 }
 
-interface TStore {
-  name: string;
-  id?: string;
-  category: "Edu" | "NonEdu";
-}
-
-export async function store(data: TStore) {
+export async function createPosition(data: Store) {
   try {
     let result;
 
@@ -51,11 +46,11 @@ export async function store(data: TStore) {
   }
 }
 
-export async function show(id: string) {
+export async function findPosition(id: string) {
   // position
 }
 
-export async function destroy(id: number) {
+export async function removePosition(id: number) {
   try {
     await prisma.position.delete({
       where: { id },

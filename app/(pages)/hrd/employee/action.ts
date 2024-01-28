@@ -1,6 +1,5 @@
 "use server";
 
-import { wait } from "@/libs/helpers";
 import prisma from "@/libs/prisma";
 
 export async function initData() {
@@ -14,7 +13,6 @@ export async function initData() {
 
   console.log("Placeholder Teacher created:", teacher);
 
-  // Step 2: Insert Course and associate it with the placeholder Teacher
   const course = await prisma.course.create({
     data: {
       title: "Placeholder Course",
@@ -30,8 +28,7 @@ export async function initData() {
   );
 }
 
-export async function index() {
-  await wait(5000);
+export async function getEmployee() {
   return await prisma.employee.findMany({
     include: {
       user: true,

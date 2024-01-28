@@ -1,9 +1,8 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import {
   Button,
-  Checkbox,
   DatePicker,
   Col,
   Form,
@@ -11,19 +10,46 @@ import {
   Row,
   Typography,
   Select,
+  Upload,
 } from "antd";
 import { FieldType } from "../type";
+import { ButtonBack, ButtonForm } from "@/c";
+import { fieldRules, selectOptions } from "@/libs/helpers";
+import { Position } from "@/pages/master/position/type";
 import {
-  CheckCircleFilled,
-  CheckOutlined,
-  MailOutlined,
-  PhoneOutlined,
-} from "@ant-design/icons";
-import { ButtonBack } from "@/c";
+  bloodTypeOptions,
+  contractStatusOption,
+  degreeOptions,
+  employeeUnitOptions,
+  genderOptions,
+  maritalStatusOptions,
+  religionOptions,
+} from "@/consts";
+import { UploadOutlined } from "@ant-design/icons";
+import { useParams } from "next/navigation";
+import { useAntdContext } from "@/contexts";
 
-function FormEmployee() {
+interface Props {
+  positions: Position[];
+}
+
+function FormEmployee(props: Props) {
+  const { positions } = props;
+  const [loading, setLoading] = useState(false);
+  const { api } = useAntdContext();
+  const { id } = useParams();
+  const [form] = Form.useForm();
+
   const onFinish = (values: any) => {
     console.log("Success:", values);
+  };
+
+  const normFile = (e: any) => {
+    console.log("Upload event:", e);
+    if (Array.isArray(e)) {
+      return e;
+    }
+    return e?.fileList;
   };
 
   const onFinishFailed = (errorInfo: any) => {
@@ -42,90 +68,38 @@ function FormEmployee() {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
       >
-        {/* //* Personal Information */}
-        <Typography.Title level={5}>Personal Information</Typography.Title>
-        {/* <Typography.Title level={5}>Contact Information</Typography.Title> */}
+        <br />
+        {/* //* Employee Information */}
+        <Typography.Title level={5}>Employee Information</Typography.Title>
         <br />
         <Row gutter={24}>
           <Col offset={1} span={10}>
             <Form.Item<FieldType>
-              label="First Name"
-              name="firstName"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
+              label="NIP"
+              name="NIP"
+              rules={fieldRules(["required"])}
             >
               <Input />
             </Form.Item>
             <Form.Item<FieldType>
               label="Hire Date"
               name="hireDate"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
+              rules={fieldRules(["required"])}
             >
               <DatePicker />
             </Form.Item>
-
-            <Form.Item<FieldType>
-              label="Place of Birth"
-              name="placeOfBirth"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Input />
+            <Form.Item<FieldType> label="Unit" name="unit">
+              <Select options={employeeUnitOptions} />
             </Form.Item>
             <Form.Item<FieldType>
-              label="Religion"
-              name="religion"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
+              label="PKWT"
+              name="PKWTStart"
+              // rules={fieldRules(["required"])}
             >
-              <Select />
-            </Form.Item>
-
-            <Form.Item<FieldType>
-              label="Photo"
-              name="photo"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item<FieldType>
-              label="Gender"
-              name="gender"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Select />
-            </Form.Item>
-            <Form.Item<FieldType>
-              label="Blood Type"
-              wrapperCol={{ span: 6 }}
-              name="bloodType"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Select />
+              <DatePicker.RangePicker />
             </Form.Item>
           </Col>
           <Col span={10}>
-            <Form.Item<FieldType>
-              label="Last Name"
-              name="lastName"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
             <Form.Item<FieldType>
               label="Position"
               name="positionId"
@@ -133,26 +107,149 @@ function FormEmployee() {
                 { required: true, message: "Please input your username!" },
               ]}
             >
-              <Select />
+              <Select
+                options={selectOptions<Position>(positions, "name", "id")}
+              />
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="Status"
+              name="contractStatus"
+              rules={fieldRules(["required"])}
+            >
+              <Select options={contractStatusOption} />
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="TMT"
+              name="TMT"
+              rules={fieldRules(["required"])}
+            >
+              <DatePicker />
+            </Form.Item>
+          </Col>
+        </Row>
+        <br />
+        {/* //* Personal Information */}
+        <Typography.Title level={5}>Personal Information</Typography.Title>
+        <br />
+        <Row gutter={24}>
+          <Col offset={1} span={10}>
+            <Form.Item<FieldType>
+              label="Full Name"
+              name="fullName"
+              rules={fieldRules(["required"])}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item<FieldType>
+              label="Place of Birth"
+              name="placeOfBirth"
+              rules={fieldRules(["required"])}
+            >
+              <Input />
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="Gender"
+              name="gender"
+              rules={fieldRules(["required"])}
+            >
+              <Select options={genderOptions} />
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="Religion"
+              name="religion"
+              rules={fieldRules(["required"])}
+            >
+              <Select options={religionOptions} />
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="Photo"
+              name="photo"
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
+            >
+              <Upload name="logo" action="/upload.do" listType="picture">
+                <Button icon={<UploadOutlined />}>Click to upload</Button>
+              </Upload>
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="ID Address"
+              name="idAddress"
+              rules={fieldRules(["required"])}
+            >
+              <Input.TextArea />
+            </Form.Item>
+          </Col>
+          <Col span={10}>
+            <Form.Item<FieldType>
+              label="NIK"
+              name="NIK"
+              rules={fieldRules(["required"])}
+            >
+              <Input />
             </Form.Item>
 
             <Form.Item<FieldType>
               label="Date of Birth"
               name="dob"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
+              rules={fieldRules(["required"])}
             >
               <DatePicker />
             </Form.Item>
             <Form.Item<FieldType>
-              label="Tribe"
-              name="tribe"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
+              label="Blood Type"
+              wrapperCol={{ span: 6 }}
+              name="bloodType"
+            >
+              <Select options={bloodTypeOptions} />
+            </Form.Item>
+            <Form.Item<FieldType> label="Tribe" name="tribe">
+              <Input />
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="Marital Status"
+              name="maritalStatus"
+              rules={fieldRules(["required"])}
+            >
+              <Select options={maritalStatusOptions} />
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="House Address"
+              name="houseAddress"
+              rules={fieldRules(["required"])}
+            >
+              <Input.TextArea />
+            </Form.Item>
+          </Col>
+        </Row>
+        <br />
+        {/* //* Education Information */}
+        <Typography.Title level={5}>Education Information</Typography.Title>
+        <br />
+        <Row gutter={24}>
+          <Col offset={1} span={10}>
+            <Form.Item<FieldType>
+              label="Institution"
+              name="institution"
+              rules={fieldRules(["required"])}
             >
               <Input />
+            </Form.Item>
+            <Form.Item<FieldType>
+              label="Major"
+              name="major"
+              rules={fieldRules(["required"])}
+            >
+              <Input />
+            </Form.Item>
+          </Col>
+          <Col span={10}>
+            <Form.Item<FieldType>
+              label="Degree"
+              name="degree"
+              rules={fieldRules(["required"])}
+            >
+              <Select options={degreeOptions} />
             </Form.Item>
           </Col>
         </Row>
@@ -165,58 +262,49 @@ function FormEmployee() {
             <Form.Item<FieldType>
               label="Phone 1"
               name="phone1"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item<FieldType>
-              label="Phone 2"
-              name="phone2"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Input />
-            </Form.Item>
-            <Form.Item<FieldType>
-              label="Family Contact"
-              name="familyPhone"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
+              rules={fieldRules(["required"])}
             >
               <Input />
             </Form.Item>
             <Form.Item<FieldType>
               label="Email"
               name="email"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
+              rules={fieldRules(["required"])}
             >
               <Input />
             </Form.Item>
           </Col>
           <Col span={10}>
-            <Form.Item<FieldType>
-              label="Address"
-              name="address"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Input.TextArea />
-            </Form.Item>
-            <Form.Item<FieldType>
-              label="Zip Code"
-              name="zipCode"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
+            <Form.Item<FieldType> label="Phone 2" name="phone2">
               <Input />
+            </Form.Item>
+            <Form.Item<FieldType> label="Family Contact" name="familyPhone">
+              <Input />
+            </Form.Item>
+          </Col>
+        </Row>
+        <br />
+        {/* //* Education Information */}
+        <Typography.Title level={5}>Family Information</Typography.Title>
+        <br />
+        <Row gutter={24}>
+          <Col offset={1} span={10}>
+            <Form.Item<FieldType> label="Father Name" name="fatherName">
+              <Input />
+            </Form.Item>
+            <Form.Item<FieldType> label="Mother Name" name="motherName">
+              <Input />
+            </Form.Item>
+            <Form.Item<FieldType> label="Sibling Name" name="siblingName">
+              <Input placeholder="Separated with comma" />
+            </Form.Item>
+          </Col>
+          <Col span={10}>
+            <Form.Item<FieldType> label="Spouse Name" name="spouseName">
+              <Input />
+            </Form.Item>
+            <Form.Item<FieldType> label="Children Name" name="childrenName">
+              <Input placeholder="Separated with comma" />
             </Form.Item>
           </Col>
         </Row>
@@ -239,22 +327,7 @@ function FormEmployee() {
           <Col span={10}></Col>
         </Row>
 
-        <br />
-        <Row gutter={24}>
-          <Col offset={2} span={7}>
-            <Form.Item wrapperCol={{ offset: 8 }}>
-              <Button
-                icon={<CheckOutlined />}
-                size="large"
-                block
-                type="primary"
-                htmlType="submit"
-              >
-                Submit
-              </Button>
-            </Form.Item>
-          </Col>
-        </Row>
+        <ButtonForm loading={loading} />
       </Form>
     </div>
   );

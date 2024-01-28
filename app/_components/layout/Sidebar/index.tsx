@@ -1,8 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Layout, Menu, Button, theme, Typography } from "antd";
 import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
   FileProtectOutlined,
   BarcodeOutlined,
   BulbOutlined,
@@ -21,7 +19,6 @@ import {
   WalletOutlined,
   ClockCircleOutlined,
   NotificationOutlined,
-  UploadOutlined,
   SkinOutlined,
   DownloadOutlined,
   TeamOutlined,
@@ -29,21 +26,16 @@ import {
   UserOutlined,
   GlobalOutlined,
   ContainerOutlined,
-  VideoCameraOutlined,
-  ShoppingCartOutlined,
   BankOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./styles.module.scss";
 import { urls } from "@/consts";
-import { redirect, useRouter } from "next/navigation";
-import { localStore } from "@/libs/helpers";
-import { routes } from "@/configs";
 
 const { Sider } = Layout;
 
-function Sidebar() {
+export function Sidebar() {
   return (
     <Sider className={styles.sidebar}>
       <Image
@@ -58,11 +50,6 @@ function Sidebar() {
         mode="inline"
         defaultSelectedKeys={["0"]}
         items={[
-          // {
-          //   key: "00",
-          //   icon: <HomeOutlined />,
-          //   label: <Link href="/fruits">Fruits</Link>,
-          // },
           {
             key: "0",
             icon: <HomeOutlined />,
@@ -235,5 +222,3 @@ function Sidebar() {
     </Sider>
   );
 }
-
-export default Sidebar;

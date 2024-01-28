@@ -3,41 +3,47 @@ import { ContractStatus } from "@prisma/client";
 
 export interface Employee {
   id: number;
-  fullName: string;
-  photo: string; // Assuming photo will be a URL or a base64 encoded image
-  bloodType: string;
+  NIP: string;
+  positionId: number;
+  hireDate: Date;
+  contractStatus: ContractStatus;
   unit: string;
-  NIP: string; // National Identification Number
-  NIK: string; // National Identity Card Number
-  dob: Date; // Date of Birth
-  maritalStatus: string;
+  TMT?: Date;
+  PKWTStart?: Date;
+  PKWTEnd?: Date;
+
+  fullName: string;
+  NIK: string;
+  placeOfBirth: string;
+  dob: Date;
   gender: string;
+  bloodType?: string;
   religion: string;
-  idAddress: string; // Identity card address
-  houseAddress: string; // Home address
+  tribe?: string;
+  idAddress: string;
+  houseAddress: string;
+  maritalStatus: string;
+  photo: string;
+
   email: string;
   phone1: string;
-  tribe?: string;
   phone2?: string;
   familyPhone: string;
+
   degree: string;
-  institution: string; // Institution where degree was obtained
+  institution: string;
   major: string;
+
   fatherName: string;
-  placeOfBirth: string;
   motherName: string;
   siblingName: string; // Name of a sibling
   spouseName: string; // Name of spouse
   childrenName: string; // Name of child/children
-  initialHiringDate: Date;
-  TMT?: Date;
-  PKWTStart?: Date;
-  PKWTEnd?: Date;
+
+  remarks?: string;
+
   createdAt?: Date;
   updatedAt?: Date;
-  zipCode: string;
-  remarks?: string;
-  contractStatus: ContractStatus;
 }
 
 export type FieldType = Employee;

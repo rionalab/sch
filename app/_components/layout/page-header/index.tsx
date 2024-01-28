@@ -12,7 +12,7 @@ interface Props {
   id: ModuleName;
 }
 
-function PageHeader({ id }: Props) {
+export function PageHeader({ id }: Props) {
   const { icon, title, breadcrumb = [] } = routes[id];
   const pathname = usePathname();
 
@@ -72,5 +72,3 @@ function PageHeader({ id }: Props) {
     </>
   );
 }
-
-export default PageHeader;

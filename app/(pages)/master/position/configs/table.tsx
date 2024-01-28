@@ -11,6 +11,7 @@ export const columns = (): ColumnsType<Prisma.PositionCreateInput> => {
     },
     {
       title: "Position",
+      width: 200,
       dataIndex: "name",
       sorter: (a, b) => (a.name > b.name ? -1 : 1),
     },

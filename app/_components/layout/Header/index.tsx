@@ -1,9 +1,9 @@
 import React from "react";
-import { Layout, Flex, theme, Avatar } from "antd";
+import { Layout, Flex, Avatar } from "antd";
 import styles from "./styles.module.scss";
-import { AntDesignOutlined, UserOutlined } from "@ant-design/icons";
+import { UserOutlined } from "@ant-design/icons";
 
-function Header() {
+export function Header() {
   const { Header: HeaderAntd, Content } = Layout;
 
   return (
@@ -26,5 +26,3 @@ function Header() {
     </HeaderAntd>
   );
 }
-
-export default Header;

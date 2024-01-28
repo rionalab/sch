@@ -55,10 +55,9 @@ model Position {
 
 model Employee {
   id Int @id @default(autoincrement())
-
   fullName          String
   photo             String
-  bloodType         String
+  bloodType         String?
   NIP               String         @unique
   email             String         @unique
   NIK               String         @unique
@@ -72,9 +71,8 @@ model Employee {
   institution       String
   major             String
   degree            String
-  zipCode           String
   tribe             String?
-  unit              String
+  unit              String?
   remarks           String
   fatherName        String
   motherName        String
@@ -88,7 +86,6 @@ model Employee {
   TMT               DateTime?
   PKWTEnd           DateTime?
   dob               DateTime
-  initialHiringDate DateTime?
   placeOfBirth      String
   positionId        Int
   position          Position       @relation(fields: [positionId], references: [id])

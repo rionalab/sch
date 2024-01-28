@@ -17,14 +17,39 @@ export const maritalStatusOptions = [
   { label: "Separated", value: "Separated" },
 ];
 
-export const lastEducationOptions = [
+export const degreeOptions = [
   { label: "S2", value: "S2" },
   { label: "S1", value: "S1" },
   { label: "D3/D4", value: "D3/D4" },
 ];
 
 export const employeeUnitOptions = [
+  { label: "None", value: "" },
   { label: "Preschool", value: "Preschool" },
   { label: "Kindergarten ", value: "Kindergarten " },
   { label: "Preschool & Kindergarten", value: "Preschool & Kindergarten" },
+];
+
+export const genderOptions = [
+  { label: "Male", value: "Male" },
+  { label: "Female", value: "Female" },
+];
+
+export const bloodTypeOptions = [
+  { label: "None", value: "" },
+  { label: "A", value: "A" },
+  { label: "B", value: "B" },
+  { label: "AB", value: "AB" },
+  { label: "O", value: "O" },
+];
+
+export const religionOptions = [
+  { label: "Islam", value: "Islam" },
+  { label: "Budha", value: "Budha" },
+  { label: "Hindu", value: "Hindu" },
+  { label: "Kristen", value: "Kristen" },
+  { label: "Katolik", value: "Katolik" },
+  { label: "Khonghucu", value: "Khonghucu" },
+  { label: "Tradisional", value: "Tradisional" },
+  { label: "Others", value: "Others" },
 ];

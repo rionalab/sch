@@ -18,7 +18,7 @@ interface Props {
   handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function TableToolbar(props: Props) {
+export function TableToolbar(props: Props) {
   const { create, handleSearch, download, search, filter } = props;
   const router = useRouter();
   const pathname = usePathname();
@@ -61,5 +61,3 @@ function TableToolbar(props: Props) {
     </Flex>
   );
 }
-
-export default TableToolbar;
