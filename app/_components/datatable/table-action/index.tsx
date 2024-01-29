@@ -31,10 +31,12 @@ export function TableAction(props: Props) {
     try {
       setLoading(true);
       await destroy?.(id);
-      setOpen(false);
       api?.success(notifDestroySuccess());
     } catch (e: any) {
       api?.error(notifDestroyError(String(e.message)));
+    } finally {
+      setLoading(false);
+      setOpen(false);
     }
   };
 
