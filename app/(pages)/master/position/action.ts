@@ -39,7 +39,13 @@ export async function createPosition(data: Store) {
   }
 }
 
-export async function findPosition(id: string) {}
+export async function findPosition(id: number) {
+  return await prisma.position.findFirst({
+    where: {
+      id,
+    },
+  });
+}
 
 export async function removePosition(id: number) {
   try {

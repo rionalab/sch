@@ -2,11 +2,8 @@
 
 import { Flex } from "antd";
 import { useEffect } from "react";
-import { useStore } from "@/libs/zustand";
 
 export default function Home(props: any) {
-  const setNotif = useStore((store) => store.setNotif);
-
   useEffect(() => {}, []);
 
   return (

@@ -1,5 +1,4 @@
-import { routes } from "@/configs";
-import { Breadcrumb } from ".";
+import { type Breadcrumb } from ".";
 
 export interface ActivePage {
   url: string;

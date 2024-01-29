@@ -2,7 +2,7 @@ import React from "react";
 import { getPosition } from "./action";
 import Table from "./components/table";
 import { tableData } from "@/helpers";
-import { Prisma } from "@prisma/client";
+import { type Prisma } from "@prisma/client";
 
 async function Page() {
   const data = await getPosition();

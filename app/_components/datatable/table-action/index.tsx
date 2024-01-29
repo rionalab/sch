@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 import { Space, Button, Modal, Flex } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { ExclamationCircleFilled } from "@ant-design/icons";
-import { TableActions } from "@/types";
+import {
+  ExclamationCircleFilled,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+import { type TableActions } from "@/types";
 import styles from "./style.module.scss";
 import { notifDestroyError, notifDestroySuccess, urls } from "@/consts";
 import { useAntdContext } from "@/contexts";
@@ -31,7 +34,7 @@ export function TableAction(props: Props) {
       setOpen(false);
       api?.success(notifDestroySuccess());
     } catch (e: any) {
-      api?.error(notifDestroyError(e.message));
+      api?.error(notifDestroyError(String(e.message)));
     }
   };
 

@@ -2,7 +2,7 @@
 
 import React from "react";
 import type { ColumnsType } from "antd/es/table";
-import { Employee } from "../../type";
+import { type Employee } from "../../type";
 import { DataTable } from "@/c";
 import { columns } from "../../configs/table";
 import { useTable } from "@/hooks";

@@ -31,7 +31,7 @@ export function useTable<T>(props: Props) {
           // only search on the objValue NOT the objKey
           // if the val is date then transform as displayed on the table
           const cleanRow = Object.values(row as Record<string, any>).map(
-            (v) => {
+            (v: any) => {
               if (isDate(v)) {
                 return dMY(v);
               }

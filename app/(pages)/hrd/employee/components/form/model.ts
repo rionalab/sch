@@ -1,4 +1,4 @@
-import { FormFields, StoreEmployee, StoreEmployeeByCreate } from "../../type";
+import { type FormFields } from "../../type";
 
 export function modelEmployee(dirtyValue: FormFields) {
   const { PKWT, ...rest } = dirtyValue;

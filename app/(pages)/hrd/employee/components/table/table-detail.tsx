@@ -1,5 +1,5 @@
 import React from "react";
-import { Employee } from "../../type";
+import { type Employee } from "../../type";
 import type { DescriptionsProps } from "antd";
 import { Descriptions } from "antd";
 import { dMY } from "@/libs/helpers";

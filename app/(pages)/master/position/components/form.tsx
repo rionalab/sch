@@ -2,9 +2,9 @@
 
 import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
-import { Position } from "../type";
+import { type Store, type Position } from "../type";
 import { ButtonForm } from "@/c";
-import { createPosition } from "../action";
+import { createPosition, findPosition } from "../action";
 import { useParams, useRouter } from "next/navigation";
 import {
   positionCategoryOptions,
@@ -14,7 +14,6 @@ import {
   notifUpdateError,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
-import { findFirst } from "@/libs/prisma/prismaClient";
 
 const initialValues = {
   category: "Edu",
@@ -27,37 +26,33 @@ function FormPosition() {
   const { id } = useParams();
   const [form] = Form.useForm();
 
-  const onFinish = async (values: any) => {
-    let isEdit = values.id;
+  const onFinish = async (values: any): Promise<void> => {
+    const isEdit = values.id;
 
     try {
       setLoading(true);
-      const data = {
-        ...values,
-      };
 
-      await createPosition(data);
+      await createPosition(values as Store);
 
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
     } catch (e: any) {
-      api?.error(
-        isEdit ? notifUpdateError(e.message) : notifStoreError(e.message)
-      );
+      const msg = String(e.message);
+
+      api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));
     } finally {
       setLoading(false);
     }
   };
 
   const fetchDataEdit = async () => {
-    const dataEdit = await findFirst("position", { id: Number(id) });
-
+    const dataEdit = await findPosition(Number(id));
     form.setFieldsValue(dataEdit);
   };
 
   useEffect(() => {
     if (id) {
-      fetchDataEdit();
+      void fetchDataEdit();
     }
   }, []);
 
@@ -68,6 +63,7 @@ function FormPosition() {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         initialValues={{ ...initialValues, id }}
+        // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onFinish={onFinish}
         form={form}
         autoComplete="off"

@@ -1,5 +1,5 @@
-import { Employee } from "../type";
-import { Popover, Button, Dropdown, Tag, MenuProps } from "antd";
+import { type Employee } from "../type";
+import { Popover, Tag, type MenuProps } from "antd";
 import TableDetail from "../components/table/table-detail";
 import { dMY } from "@/helpers";
 import { cell } from "@/libs/helpers/table";
@@ -12,7 +12,7 @@ import {
   EllipsisOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { ColumnsType } from "antd/es/table";
+import { type ColumnsType } from "antd/es/table";
 import { red, green } from "@ant-design/colors";
 
 const tableActions: MenuProps["items"] = [

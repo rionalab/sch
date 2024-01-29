@@ -1,6 +1,6 @@
 import { urls } from "@/consts";
 import { UserOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
-import { ModuleName, Route } from "@/types";
+import { type ModuleName, type Route } from "@/types";
 
 export const routes: Routes = {
   employee: {

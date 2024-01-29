@@ -12,10 +12,10 @@ import {
   Select,
   Upload,
 } from "antd";
-import { Employee, FormFields } from "../../type";
+import { type Employee, type FormFields } from "../../type";
 import { ButtonBack, ButtonForm } from "@/c";
 import { fieldRules, selectOptions, today, tomorrow } from "@/libs/helpers";
-import { Position } from "@/pages/master/position/type";
+import { type Position } from "@/pages/master/position/type";
 import {
   bloodTypeOptions,
   contractStatusOption,
@@ -93,8 +93,8 @@ function FormEmployee(props: Props) {
     console.log("All values:", allValues);
   };
 
-  const onFinish = async (values: any) => {
-    let isEdit = values.id;
+  const onFinish = async (values: FormFields) => {
+    const isEdit = values.id;
 
     try {
       setLoading(true);
@@ -102,9 +102,8 @@ function FormEmployee(props: Props) {
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
     } catch (e: any) {
-      api?.error(
-        isEdit ? notifUpdateError(e.message) : notifStoreError(e.message)
-      );
+      const msg = String(e.message);
+      api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));
     } finally {
       setLoading(false);
     }
@@ -125,7 +124,7 @@ function FormEmployee(props: Props) {
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         initialValues={initialValues}
-        onValuesChange={handleFormChange} // Set the callback function for field changes
+        onValuesChange={handleFormChange}
         onFinish={onFinish}
         autoComplete="off"
       >
