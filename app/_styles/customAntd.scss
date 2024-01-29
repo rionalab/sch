@@ -6,6 +6,39 @@
   font-weight: 600;
 }
 
+.ant-form-item {
+  margin-bottom: 16px;
+}
+
 .ant-modal-confirm-btns {
   margin-top: 24px !important;
+}
+
+.ant-descriptions-item-label {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  margin-top: 12px !important;
+}
+
+.ant-descriptions-header {
+  margin-bottom: 0 !important;
+  background: #eee !important;
+  padding: 0 8px;
+}
+
+.ant-tag {
+  font-weight: 500;
+  font-size: 11px !important;
+}
+
+.ant-avatar-circle {
+  width: 25px !important;
+  height: 25px !important;
+}
+
+.ant-avatar-string {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  transform: scale(1) translate(-50%, -50%) !important;
+  top: 50% !important;
 }

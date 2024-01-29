@@ -1,13 +1,13 @@
 import React from "react";
-import { Layout } from "antd";
+import { ConfigProvider, Layout } from "antd";
 import styles from "./page.module.scss";
-import { Sidebar, Header, Content, ConfigProvider } from "@/c";
 import StoreProvider from "@/libs/zustand/StoreProvider";
 import { Inter } from "next/font/google";
 import { theme } from "@/styles/antdThemeProvider";
 import "@/styles/global.scss";
 import "@/styles/customAntd.scss";
 import { AntdProvider } from "./_contexts";
+import { Sidebar, Header, Content } from "@/c";
 
 const inter = Inter({
   subsets: ["latin"],

@@ -1,7 +1,5 @@
 import React from "react";
 
-function LoadingModule() {
-  return <div>LoadingModule...</div>;
+export function LoadingModule() {
+  return <div>Please wait...</div>;
 }
-
-export default LoadingModule;

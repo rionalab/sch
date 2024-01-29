@@ -1,50 +1,65 @@
 "use client";
 
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
-import { FieldType } from "../type";
+import { Position } from "../type";
 import { ButtonForm } from "@/c";
-import { store } from "../action";
-import { useRouter } from "next/navigation";
+import { createPosition } from "../action";
+import { useParams, useRouter } from "next/navigation";
 import {
   positionCategoryOptions,
   notifStoreSuccess,
   notifStoreError,
+  notifUpdateSuccess,
+  notifUpdateError,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
+import { findFirst } from "@/libs/prisma/prismaClient";
 
 const initialValues = {
   category: "Edu",
 };
 
-const onFinish = () => {};
-
-function FormEmployee() {
+function FormPosition() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
+  const { id } = useParams();
+  const [form] = Form.useForm();
 
   const onFinish = async (values: any) => {
+    let isEdit = values.id;
+
     try {
       setLoading(true);
       const data = {
         ...values,
       };
-      await store(data);
-      api?.success(notifStoreSuccess());
+
+      await createPosition(data);
+
+      api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
     } catch (e: any) {
-      api?.error(notifStoreError(e.message));
+      api?.error(
+        isEdit ? notifUpdateError(e.message) : notifStoreError(e.message)
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  const onFinishFailed = (errorInfo: any) => {
-    console.log("Failed:", errorInfo);
+  const fetchDataEdit = async () => {
+    const dataEdit = await findFirst("position", { id: Number(id) });
+
+    form.setFieldsValue(dataEdit);
   };
 
-  console.log(111123);
+  useEffect(() => {
+    if (id) {
+      fetchDataEdit();
+    }
+  }, []);
 
   return (
     <div>
@@ -52,23 +67,27 @@ function FormEmployee() {
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        initialValues={initialValues}
+        initialValues={{ ...initialValues, id }}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
+        form={form}
         autoComplete="off"
       >
         <br />
         <Row gutter={24}>
           <Col span={13}>
-            <Form.Item<FieldType>
+            <Form.Item<Position> hidden label="Id" name="id">
+              <Input type="hidden" />
+            </Form.Item>
+
+            <Form.Item<Position>
               label="Position Name"
               name="name"
               rules={[{ required: true, message: "Field is required" }]}
             >
-              <Input />
+              <Input type="" />
             </Form.Item>
 
-            <Form.Item<FieldType> label="Category" name="category">
+            <Form.Item<Position> label="Category" name="category">
               <Select options={positionCategoryOptions} />
             </Form.Item>
           </Col>
@@ -81,4 +100,4 @@ function FormEmployee() {
   );
 }
 
-export default memo(FormEmployee);
+export default memo(FormPosition);

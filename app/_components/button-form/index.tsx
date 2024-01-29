@@ -2,10 +2,10 @@
 
 import React from "react";
 import { Row, Col, Form, Button } from "antd";
-import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
+import { CheckOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-function ButtonForm({ loading }: { loading?: boolean }) {
+export function ButtonForm({ loading }: { loading?: boolean }) {
   const router = useRouter();
 
   const handleCancel = () => {
@@ -43,5 +43,3 @@ function ButtonForm({ loading }: { loading?: boolean }) {
     </>
   );
 }
-
-export default ButtonForm;

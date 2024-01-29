@@ -6,7 +6,7 @@ export function tableData<T>(data: T[]): T[] {
   }));
 }
 
-export function cell(text: string, replacer: string = "-") {
+export function cell(text?: string | null, replacer: string = "-") {
   return text || replacer;
 }
 

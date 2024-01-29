@@ -1,14 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { Table, Modal } from "antd";
+import React from "react";
+import { Table } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import { TableAction, TableToolbar } from "@/c";
 import { TableActions } from "@/types";
 
 interface AntdProps<T> extends TableProps<T> {}
-
-type ActionType = "destroy" | "edit";
 
 type Columns = ColumnsType<Record<string, any>>;
 
@@ -24,7 +22,7 @@ interface Props<T> {
   handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function DataTable<T>(props: Props<T>) {
+export function DataTable<T>(props: Props<T>) {
   const {
     rows = [],
     search = true,
@@ -59,8 +57,9 @@ function DataTable<T>(props: Props<T>) {
           keyActions.length
             ? {
                 title: "Action",
-                align: "right",
-                width: 100,
+                align: "center",
+                fixed: "right",
+                width: 130,
                 render: (a, b) => <TableAction id={b.id} {...actions} />,
               }
             : {},
@@ -69,5 +68,3 @@ function DataTable<T>(props: Props<T>) {
     </>
   );
 }
-
-export default DataTable;

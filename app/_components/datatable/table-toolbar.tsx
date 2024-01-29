@@ -8,10 +8,7 @@ import {
   SearchOutlined,
   PlusOutlined,
 } from "@ant-design/icons";
-import { useRouter } from "next/navigation";
-import { redirect } from "next/navigation";
-import { urls } from "@/consts/urls";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Props {
   create: boolean;
@@ -21,7 +18,7 @@ interface Props {
   handleSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-function TableToolbar(props: Props) {
+export function TableToolbar(props: Props) {
   const { create, handleSearch, download, search, filter } = props;
   const router = useRouter();
   const pathname = usePathname();
@@ -44,8 +41,7 @@ function TableToolbar(props: Props) {
 
       <Space>
         {create && (
-          <Button onClick={handleCreate} icon={<PlusOutlined />}>
-            {" "}
+          <Button type="primary" onClick={handleCreate} icon={<PlusOutlined />}>
             Create
           </Button>
         )}
@@ -65,5 +61,3 @@ function TableToolbar(props: Props) {
     </Flex>
   );
 }
-
-export default TableToolbar;

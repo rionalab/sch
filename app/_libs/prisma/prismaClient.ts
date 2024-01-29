@@ -1,22 +1,31 @@
 "use server";
 
 import prisma from "@/libs/prisma";
+import { wait } from "../helpers";
 
 export async function index() {
   return await prisma.position.findMany();
 }
 
-export async function prismaIsExist(
-  table: prisma.ModelName,
-  where: prisma.whereInput
-) {
-  try {
-    const result = await prisma[table].findFirst({
-      where,
-    });
+export async function findFirst(model: any, where: Record<string, any>) {
+  //@ts-ignore
+  return await prisma[model].findFirst({
+    where,
+  });
+}
 
-    return Boolean(result);
-  } catch (e: any) {
-    throw new Error(e.message);
-  }
+interface Update {
+  model: any;
+  where?: Record<string, any>;
+  data: Record<string, any>;
+}
+
+export async function update({ model, where, data }: Update) {
+  //@ts-ignore
+  const result = await prisma[model].update({
+    where: where || { id: data.id },
+    data,
+  });
+
+  return result;
 }

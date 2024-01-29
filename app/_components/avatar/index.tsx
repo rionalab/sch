@@ -7,7 +7,7 @@ interface Props {
   hover?: boolean;
 }
 
-function Avatar(props: Props) {
+export function Avatar(props: Props) {
   const { hover = false, image, title = "" } = props;
 
   if (image) {
@@ -41,5 +41,3 @@ function Avatar(props: Props) {
     </Flex>
   );
 }
-
-export default Avatar;

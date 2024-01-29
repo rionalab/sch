@@ -1,11 +1,18 @@
 import React from "react";
-import FormEmployee from "../components/form";
+import FormEmployee from "../components/form/form";
+import { getPosition } from "@/pages/master/position/action";
 
-function Page() {
+async function Page() {
+  const positions = await getPosition();
+
+  const props = {
+    positions,
+  };
+
   return (
-    <div>
-      <FormEmployee />
-    </div>
+    <>
+      <FormEmployee {...props} />
+    </>
   );
 }
 

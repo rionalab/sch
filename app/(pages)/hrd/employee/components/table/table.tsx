@@ -2,9 +2,9 @@
 
 import React from "react";
 import type { ColumnsType } from "antd/es/table";
-import { Employee } from "../type";
+import { Employee } from "../../type";
 import { DataTable } from "@/c";
-import { columns } from "../configs/table";
+import { columns } from "../../configs/table";
 import { useTable } from "@/hooks";
 
 interface Props {
@@ -26,6 +26,10 @@ function Table({ rows }: Props) {
         download={true}
         columns={columns as DtColumns}
         {...tableProps}
+        actions={{
+          destroy: async (id: number) => {},
+          edit: () => null,
+        }}
       />
     </>
   );

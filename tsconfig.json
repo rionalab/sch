@@ -27,6 +27,7 @@
       "@/configs": ["./app/_configs/index.ts"],
       "@/types": ["./app/_types/index.ts"],
       "@/validations/*": ["./app/_validations/*"],
+      "@/pages/*": ["./app/(pages)/*"],
       "@/hooks": ["./app/_hooks/index.ts"],
       "@/contexts": ["./app/_contexts/index.ts"],
       "@/styles/*": ["./app/_styles/*"],

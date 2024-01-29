@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { CreateTodo } from "@/types/todo";
-import { label } from "@/consts/messages";
+import { CreateTodo } from "@/types";
+import { messages } from "@/consts";
 
 export const validateCreate = (data: CreateTodo) => {
   return createSchema.safeParse(data);
@@ -15,10 +15,10 @@ const createSchema = z.object({
     .string()
     .trim()
     .min(1, {
-      message: label.fieldIsRequired,
+      message: messages.fieldIsRequired,
     })
     .max(10, {
-      message: label.maxNCharacters(10),
+      message: messages.maxNCharacters(10),
     }),
 });
 

@@ -5,23 +5,23 @@ import { Button } from "antd";
 import { ArrowLeftOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-function ButtonBack() {
+export function ButtonBack() {
   const router = useRouter();
 
   return (
     <>
       <Button
         onClick={() => router.back()}
-        shape="circle"
+        // shape="circle"
+        // size="large"
         icon={<ArrowLeftOutlined />}
-        size="large"
         htmlType="submit"
         style={{ marginTop: -20 }}
-      ></Button>
+      >
+        Back
+      </Button>
       <br />
       <br />
     </>
   );
 }
-
-export default ButtonBack;
