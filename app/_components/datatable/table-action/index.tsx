@@ -11,7 +11,7 @@ import { type TableActions } from "@/types";
 import styles from "./style.module.scss";
 import { notifDestroyError, notifDestroySuccess, urls } from "@/consts";
 import { useAntdContext } from "@/contexts";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 interface Props extends TableActions {
   id: number;
@@ -23,6 +23,8 @@ export function TableAction(props: Props) {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const { api } = useAntdContext();
+  const path = usePathname();
+
   const handleCancel = () => {
     setOpen(false);
   };
@@ -46,7 +48,7 @@ export function TableAction(props: Props) {
   };
 
   const handleEdit = () => {
-    router.push(urls.master.position.edit(id));
+    router.push(`${path}/edit/${id}`);
   };
 
   return (

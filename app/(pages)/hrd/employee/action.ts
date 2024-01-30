@@ -2,37 +2,11 @@
 
 import prisma from "@/libs/prisma";
 import { type StoreEmployee, type StoreEmployeeByCreate } from "./type";
-import { messages, urls } from "@/consts";
+import { urls } from "@/consts";
 import { revalidatePath } from "next/cache";
 import { handlePrismaError } from "@/libs/helpers";
 
 const urlToRevalidate = urls.hrd.employee.index;
-
-export async function initData() {
-  const teacher = await prisma.teacher.create({
-    data: {
-      firstName: "Placeholder",
-      lastName: "Teacher",
-      email: "placeholder2@example.com",
-    },
-  });
-
-  console.log("Placeholder Teacher created:", teacher);
-
-  const course = await prisma.course.create({
-    data: {
-      title: "Placeholder Course",
-      description: "Placeholder Description",
-      teacher: {
-        connect: { id: teacher.id },
-      },
-    },
-  });
-  console.log(
-    "Placeholder Course created and associated with Teacher:",
-    course
-  );
-}
 
 export async function getEmployee() {
   return await prisma.employee.findMany({
@@ -43,7 +17,7 @@ export async function getEmployee() {
   });
 }
 
-export async function createEmployee(
+export async function storeEmployee(
   data: StoreEmployee | StoreEmployeeByCreate
 ) {
   try {
@@ -77,4 +51,23 @@ export async function createEmployee(
   } catch (e: any) {
     handlePrismaError(e);
   }
+}
+
+export async function removeEmployee(id: number) {
+  try {
+    await prisma.employee.delete({
+      where: { id },
+    });
+    revalidatePath(urlToRevalidate);
+  } catch (e: any) {
+    handlePrismaError(e);
+  }
+}
+
+export async function findEmployee(id: number) {
+  return await prisma.employee.findFirst({
+    where: {
+      id,
+    },
+  });
 }

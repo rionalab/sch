@@ -1,14 +1,14 @@
+import { formToPrisma } from "@/libs/helpers";
 import { type FormFields } from "../../type";
 
-export function modelEmployee(dirtyValue: FormFields) {
+export function submitEmployeeData(dirtyValue: FormFields) {
   const { PKWT, ...rest } = dirtyValue;
 
-  return {
+  const transformed = {
     ...rest,
-    PKWTStart: PKWT?.[0].format(),
-    PKWTEnd: PKWT?.[1].format(),
-    hireDate: dirtyValue.hireDate.format(),
-    TMT: dirtyValue.TMT.format(),
-    dob: dirtyValue.dob.format(),
+    PKWTStart: PKWT?.[0],
+    PKWTEnd: PKWT?.[1],
   };
+
+  return formToPrisma(transformed);
 }

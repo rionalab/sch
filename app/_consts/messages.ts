@@ -4,6 +4,7 @@ export const messages = {
   retryLater: "Please try again later or contact admin",
   dataIsInvalid: "Data is Invalid",
   somethingWentWrong: "Something Went Wrong",
+  deleteError: "Fail to delete data",
   dataAlreadyUsed: (label: string) => label + " is already used",
   dataAlreadyExist: "Data is already exist",
   maxNCharacters: (n: number) =>

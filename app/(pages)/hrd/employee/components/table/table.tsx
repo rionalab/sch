@@ -6,6 +6,7 @@ import { type Employee } from "../../type";
 import { DataTable } from "@/c";
 import { columns } from "../../configs/table";
 import { useTable } from "@/hooks";
+import { removeEmployee } from "../../action";
 
 interface Props {
   rows: Employee[];
@@ -27,7 +28,9 @@ function Table({ rows }: Props) {
         columns={columns as DtColumns}
         {...tableProps}
         actions={{
-          destroy: async (id: number) => {},
+          destroy: async (id: number) => {
+            await removeEmployee(id);
+          },
           edit: () => null,
         }}
       />
