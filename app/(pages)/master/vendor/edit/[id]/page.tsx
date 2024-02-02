@@ -1,5 +1,6 @@
 import React, { Suspense } from "react";
-import FormPosition from "@/pages/master/position/components/form";
+import FormVendor from "../../components/form";
+import { LoadingModule } from "@/c";
 
 interface Props {
   params: {
@@ -10,8 +11,8 @@ interface Props {
 function Page({ params }: Props) {
   return (
     <div>
-      <Suspense fallback={"loading form............... "}>
-        <FormPosition />
+      <Suspense fallback={<LoadingModule />}>
+        <FormVendor />
       </Suspense>
     </div>
   );

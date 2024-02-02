@@ -43,7 +43,7 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
     },
     {
       title: "Remarks",
-      dataIndex: "remakrs",
+      dataIndex: "remarks",
       render: (v: string) => cell(v),
     },
   ];

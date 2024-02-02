@@ -9,7 +9,7 @@ import {
 } from "@ant-design/icons";
 import { type TableActions } from "@/types";
 import styles from "./style.module.scss";
-import { notifDestroyError, notifDestroySuccess, urls } from "@/consts";
+import { notifDestroyError, notifDestroySuccess } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -18,7 +18,7 @@ interface Props extends TableActions {
 }
 
 export function TableAction(props: Props) {
-  const { edit, destroy, id } = props;
+  const { destroy, id } = props;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);

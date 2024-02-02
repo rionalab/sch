@@ -16,10 +16,6 @@ type DtColumns = ColumnsType<Record<string, any>>;
 function Table({ rows }: Props) {
   const tableProps = useTable<any[]>({ rows });
 
-  const handleEdit = () => {
-    alert("edit");
-  };
-
   return (
     <>
       <DataTable
@@ -31,7 +27,7 @@ function Table({ rows }: Props) {
           destroy: async (id: number) => {
             await removeVendor(id);
           },
-          edit: handleEdit,
+          edit: () => 1,
         }}
       />
     </>

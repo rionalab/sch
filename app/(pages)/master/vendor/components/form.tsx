@@ -15,9 +15,15 @@ import {
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
+import { faker } from "@faker-js/faker";
 
 const initialValues = {
-  blacklist: false,
+  // blacklist: false,
+  // name: faker.person.fullName(),
+  // accountNo: "00000000000",
+  // address: faker.location.streetAddress(),
+  // phone: faker.phone.number(),
+  // remarks: "something over the rainbow",
 };
 
 function FormVendor() {
@@ -27,13 +33,13 @@ function FormVendor() {
   const { id } = useParams();
   const [form] = Form.useForm();
 
-  const onFinish = async (values: any): Promise<void> => {
+  const onFinish = async (values: VendorFields): Promise<void> => {
     const isEdit = values.id;
 
     try {
       setLoading(true);
 
-      await createVendor(values as Store);
+      await createVendor(values);
 
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
