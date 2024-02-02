@@ -61,11 +61,9 @@ export function Sidebar() {
             label: "Master Data",
             children: [
               {
-                key: "masterDepartment",
+                key: "vendor",
                 icon: <DeploymentUnitOutlined />,
-                label: (
-                  <Link href={urls.master.department.index}>Department</Link>
-                ),
+                label: <Link href={urls.master.vendor.index}>Vendor</Link>,
               },
               {
                 key: "masterPosition",

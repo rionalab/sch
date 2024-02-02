@@ -1,4 +1,4 @@
-export function tableData<T>(data: T[]): T[] {
+export function normalizeTableRow<T>(data: T[]): T[] {
   return data.map((d, i) => ({
     ...d,
     no: i + 1,

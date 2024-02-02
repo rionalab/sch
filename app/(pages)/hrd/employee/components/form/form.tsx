@@ -43,7 +43,7 @@ import { faker } from "@faker-js/faker";
 import { submitEmployeeData } from "./model";
 import { Prisma } from "@prisma/client";
 
-const initialValues2: Partial<Employee> = {
+const initialValues: Partial<Employee> = {
   NIP: "00001",
   positionId: 2,
   hireDate: today(),
@@ -83,7 +83,7 @@ const initialValues2: Partial<Employee> = {
   remarks: faker.lorem.words(10),
 };
 
-const initialValues = {};
+const initialValues2 = {};
 interface Props {
   positions: Position[];
 }

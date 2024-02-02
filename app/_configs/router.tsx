@@ -33,6 +33,21 @@ export const routes: Routes = {
       },
     ],
   },
+  vendor: {
+    url: urls.master.vendor.index,
+    title: "Vendor",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "Vendor",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.vendor.index,
+      },
+    ],
+  },
 };
 
 type Routes = Record<ModuleName, Route>;

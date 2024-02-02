@@ -1,49 +1,13 @@
 import { type Employee } from "../type";
-import { Popover, Tag, type MenuProps } from "antd";
+import { Popover, Tag } from "antd";
 import TableDetail from "../components/table/table-detail";
 import { dMY } from "@/helpers";
 import { cell } from "@/libs/helpers/table";
 import { Avatar } from "@/c";
 import Link from "next/link";
-import {
-  PhoneOutlined,
-  MailOutlined,
-  EditOutlined,
-  EllipsisOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import { type ColumnsType } from "antd/es/table";
 import { red, green } from "@ant-design/colors";
-
-const tableActions: MenuProps["items"] = [
-  {
-    key: "1",
-    icon: <EditOutlined />,
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Edit
-      </a>
-    ),
-  },
-  {
-    key: "2",
-    danger: true,
-    icon: <DeleteOutlined />,
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        Delete
-      </a>
-    ),
-  },
-];
 
 export const columns: ColumnsType<Employee> = [
   {
@@ -141,18 +105,4 @@ export const columns: ColumnsType<Employee> = [
     width: 210,
     dataIndex: "NIK",
   },
-  // {
-  //   title: "Action",
-  //   key: "operation",
-  //   fixed: "right",
-  //   align: "center",
-  //   width: 100,
-  //   render: () => (
-  //     <Dropdown menu={{ items: tableActions }} placement="bottomRight" arrow>
-  //       <Button size="small">
-  //         <EllipsisOutlined />
-  //       </Button>
-  //     </Dropdown>
-  //   ),
-  // },
 ];

@@ -54,3 +54,8 @@ export const religionOptions = [
   { label: "Tradisional", value: "Tradisional" },
   { label: "Others", value: "Others" },
 ];
+
+export const trueFalseOptions = [
+  { label: "Yes", value: true },
+  { label: "No", value: false },
+];

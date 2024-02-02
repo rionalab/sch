@@ -92,7 +92,8 @@ model Employee {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
   user           User?     @relation(fields: [userId], references: [id])
-  userId         Int?       @unique
+  userId         Int?      @unique
+  Class          Class[]
 }
 
 model Teacher {
@@ -101,6 +102,20 @@ model Teacher {
   lastName  String
   email     String   @unique
   Course    Course[]
+}
+
+model Parent {
+  id          Int       @id @default(autoincrement())
+  motherName  String
+  motherPhone String
+  motherEmail String
+  motherPhoto String
+  fatherName  String
+  fatherPhone String
+  fatherEmail String
+  fatherPhoto String
+  address     String
+  children    Student[]
 }
 
 model Course {
@@ -125,18 +140,26 @@ model Student {
   lastName  String
   class     Class    @relation(fields: [classId], references: [id])
   classId   Int
+  Parent    Parent?  @relation(fields: [parentId], references: [id])
+  parentId  Int?
 }
 
 model Class {
-  id        Int       @id @default(autoincrement())
-  className String
-  teacherId Int?
-  students  Student[]
+  id               Int       @id @default(autoincrement())
+  className        String
+  conselourTeacher Employee  @relation(fields: [employeeId], references: [id])
+  students         Student[]
+  employeeId       Int
 }
 
-model Department {
-  id   Int    @id @default(autoincrement())
-  name String
+model Vendor {
+  id        Int     @id @default(autoincrement())
+  name      String
+  accountNo String
+  address   String
+  phone     String
+  blacklist Boolean @default(false)
+  remarks   String?
 }
 
 enum Role {
