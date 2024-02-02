@@ -1,6 +1,6 @@
 import React from "react";
 import { getVendor } from "./action";
-import Table from "./components/table";
+import Table from "./components/table/table";
 import { normalizeTableRow } from "@/helpers";
 
 async function Page() {

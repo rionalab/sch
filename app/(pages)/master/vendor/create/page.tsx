@@ -1,5 +1,5 @@
 import React from "react";
-import FormVendor from "../components/form";
+import FormVendor from "../components/form/form";
 
 function Page() {
   return (

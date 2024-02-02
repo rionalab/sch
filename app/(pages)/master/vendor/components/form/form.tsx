@@ -2,9 +2,9 @@
 
 import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
-import { type Store, type VendorFields } from "../type";
+import { type Store, type VendorFields } from "../../type";
 import { ButtonForm } from "@/c";
-import { createVendor, findVendor } from "../action";
+import { createVendor, findVendor } from "../../action";
 import { useParams, useRouter } from "next/navigation";
 import {
   notifStoreSuccess,

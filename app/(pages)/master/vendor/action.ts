@@ -5,7 +5,7 @@ import prisma from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
 import { type VendorFields } from "./type";
 import { handlePrismaError } from "@/libs/helpers";
-import { modelStoreVendor } from "./configs/model";
+import { modelStoreVendor } from "./components/form/model";
 
 const urlToRevalidate = urls.master.vendor.index;
 
