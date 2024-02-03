@@ -4,8 +4,8 @@ import React from "react";
 import type { ColumnsType } from "antd/es/table";
 import { DataTable } from "@/c";
 import { columns } from "../configs/table";
-import { useTable } from "@/hooks";
 import { removePosition } from "../action";
+import { useTable } from "@/hooks/useTable";
 
 interface Props {
   rows: any[];

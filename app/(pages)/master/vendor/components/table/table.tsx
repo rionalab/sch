@@ -4,8 +4,8 @@ import React from "react";
 import type { ColumnsType } from "antd/es/table";
 import { DataTable } from "@/c";
 import { columns } from "./columns";
-import { useTable } from "@/hooks";
 import { removeVendor } from "../../action";
+import { useTable } from "@/hooks/useTable";
 
 interface Props {
   rows: any[];
@@ -27,7 +27,7 @@ function Table({ rows }: Props) {
           destroy: async (id: number) => {
             await removeVendor(id);
           },
-          edit: () => 1,
+          edit: true,
         }}
       />
     </>
