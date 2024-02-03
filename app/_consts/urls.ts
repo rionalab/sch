@@ -2,6 +2,7 @@ const employee = "/hrd/employee";
 const department = "/master/department";
 const position = "/master/position";
 const vendor = "/master/vendor";
+const inventory = "/master/inventory";
 
 export const urls = {
   root: "/",
@@ -16,6 +17,11 @@ export const urls = {
       index: department,
       create: department + "/create",
       edit: (id: string | number) => department + "/edit/" + id,
+    },
+    inventory: {
+      index: inventory,
+      create: inventory + "/create",
+      edit: (id: string | number) => inventory + "/edit/" + id,
     },
     position: {
       index: position,

@@ -63,13 +63,20 @@ export function Sidebar() {
               {
                 key: "vendor",
                 icon: <DeploymentUnitOutlined />,
-                label: <Link href={urls.master.vendor.index}>Vendor</Link>,
+                label: <Link href={urls.master.vendor.index}>Supplier</Link>,
               },
               {
                 key: "department",
                 icon: <DeploymentUnitOutlined />,
                 label: (
                   <Link href={urls.master.department.index}>Department</Link>
+                ),
+              },
+              {
+                key: "inventory",
+                icon: <DeploymentUnitOutlined />,
+                label: (
+                  <Link href={urls.master.inventory.index}>inventory</Link>
                 ),
               },
               {

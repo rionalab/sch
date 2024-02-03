@@ -35,7 +35,7 @@ export const routes: Routes = {
   },
   vendor: {
     url: urls.master.vendor.index,
-    title: "Vendor",
+    title: "Supplier",
     icon: <DeploymentUnitOutlined />,
     breadcrumb: [
       {
@@ -60,6 +60,21 @@ export const routes: Routes = {
         title: "department",
         icon: <DeploymentUnitOutlined />,
         url: urls.master.department.index,
+      },
+    ],
+  },
+  inventory: {
+    url: urls.master.inventory.index,
+    title: "inventory",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "inventory",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.inventory.index,
       },
     ],
   },
