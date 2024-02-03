@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import * as employee from "@/pages/hrd/employee/action";
 import * as department from "@/pages/master/department/action";
+import * as uom from "@/pages/master/uom/action";
 import { selectOptions } from "@/libs/helpers";
 
 const initialValues = {
   department: [],
   employee: [],
+  uom: [],
 };
 
 type ModuleType = keyof typeof initialValues;
@@ -18,24 +20,19 @@ function useSelect(type: ModuleType | ModuleType[]): FetchResult {
 
   async function fetchData() {
     const arr = Array.isArray(type) ? type : [type];
-    const fetchResult: FetchResult = {
-      department: [],
-      employee: [],
-    };
+    const fetchResult: FetchResult = initialValues;
 
     for (const i of arr) {
       if (i === "department") {
-        fetchResult.department = selectOptions(
-          await department.index(),
-          "name",
-          "id"
-        );
+        fetchResult[i] = selectOptions(await department.index(), "name", "id");
       } else if (i === "employee") {
-        fetchResult.employee = selectOptions(
+        fetchResult[i] = selectOptions(
           await employee.index(),
           "fullName",
           "id"
         );
+      } else if (i === "uom") {
+        fetchResult[i] = selectOptions(await uom.index(), "name", "name");
       }
     }
 
