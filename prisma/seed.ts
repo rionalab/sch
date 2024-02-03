@@ -303,6 +303,39 @@ async function main() {
     ],
     skipDuplicates: true,
   });
+
+  // * Department
+  // *************************************
+  await prisma.department.createMany({
+    data: [
+      {
+        name: "TI",
+      },
+    ],
+    skipDuplicates: true,
+  });
+
+  // * Inventory
+  // *************************************
+  await prisma.inventory.createMany({
+    data: [
+      {
+        name: "Pen",
+        code: "PEN",
+        UOM: "buah",
+        remarks: "remarks pen",
+        departmentId: 1,
+      },
+      {
+        name: "Book",
+        code: "BOOK",
+        UOM: "buah",
+        remarks: "remarks book",
+        departmentId: 1,
+      },
+    ],
+    skipDuplicates: true,
+  });
 }
 
 main()

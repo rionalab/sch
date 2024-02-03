@@ -162,6 +162,22 @@ model Vendor {
   remarks   String?
 }
 
+model Department {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  Inventory Inventory[]
+}
+
+model Inventory {
+  id           Int        @id @default(autoincrement())
+  name         String     @unique
+  code         String     @unique
+  UOM          String
+  owner        Department @relation(fields: [departmentId], references: [id])
+  remarks      String?
+  departmentId Int
+}
+
 enum Role {
   User
   Teacher
