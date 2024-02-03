@@ -73,6 +73,11 @@ export function Sidebar() {
                 ),
               },
               {
+                key: "UoM",
+                icon: <DeploymentUnitOutlined />,
+                label: <Link href={urls.master.uom.index}>UoM</Link>,
+              },
+              {
                 key: "inventory",
                 icon: <DeploymentUnitOutlined />,
                 label: (

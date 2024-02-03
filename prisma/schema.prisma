@@ -178,6 +178,12 @@ model Inventory {
   departmentId Int
 }
 
+model Uom {
+  id   Int    @id @default(autoincrement())
+  code String @unique
+  name String @unique
+}
+
 enum Role {
   User
   Teacher

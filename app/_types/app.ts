@@ -17,5 +17,6 @@ export type ModuleName =
   | "employee"
   | "position"
   | "vendor"
+  | "uom"
   | "department"
   | "inventory";

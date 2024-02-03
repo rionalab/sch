@@ -78,6 +78,21 @@ export const routes: Routes = {
       },
     ],
   },
+  uom: {
+    url: urls.master.uom.index,
+    title: "Unit of Measurement",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "Unit of Measurement",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.uom.index,
+      },
+    ],
+  },
 };
 
 type Routes = Record<ModuleName, Route>;

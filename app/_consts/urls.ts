@@ -3,6 +3,7 @@ const department = "/master/department";
 const position = "/master/position";
 const vendor = "/master/vendor";
 const inventory = "/master/inventory";
+const uom = "/master/uom";
 
 export const urls = {
   root: "/",
@@ -32,6 +33,11 @@ export const urls = {
       index: vendor,
       create: vendor + "/create",
       edit: (id: string | number) => vendor + "/edit/" + id,
+    },
+    uom: {
+      index: uom,
+      create: uom + "/create",
+      edit: (id: string | number) => uom + "/edit/" + id,
     },
   },
 };
