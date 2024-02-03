@@ -93,6 +93,21 @@ export const routes: Routes = {
       },
     ],
   },
+  extracurricular: {
+    url: urls.master.extracurricular.index,
+    title: "extracurricular ",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "extracurricular ",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.extracurricular.index,
+      },
+    ],
+  },
 };
 
 type Routes = Record<ModuleName, Route>;

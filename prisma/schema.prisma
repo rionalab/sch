@@ -127,21 +127,31 @@ model Course {
 }
 
 model Student {
-  id        Int      @id @default(autoincrement())
-  gender    String
-  dob       DateTime
-  remarks   String
-  bloodType String
-  firstName String
-  address   String
-  tribe     String
-  religion  String
-  photo     String
-  lastName  String
-  class     Class    @relation(fields: [classId], references: [id])
-  classId   Int
-  Parent    Parent?  @relation(fields: [parentId], references: [id])
-  parentId  Int?
+  id              Int               @id @default(autoincrement())
+  gender          String
+  dob             DateTime
+  remarks         String
+  bloodType       String
+  firstName       String
+  address         String
+  tribe           String
+  religion        String
+  photo           String
+  lastName        String
+  class           Class             @relation(fields: [classId], references: [id])
+  classId         Int
+  Parent          Parent?           @relation(fields: [parentId], references: [id])
+  parentId        Int?
+  Extracurricular Extracurricular[]
+}
+
+model Extracurricular {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  paid        Boolean
+  price       Int
+  student     Student[]
 }
 
 model Class {

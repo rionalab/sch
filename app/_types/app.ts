@@ -19,4 +19,5 @@ export type ModuleName =
   | "vendor"
   | "uom"
   | "department"
+  | "extracurricular"
   | "inventory";

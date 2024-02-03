@@ -84,10 +84,20 @@ export function Sidebar() {
                   <Link href={urls.master.inventory.index}>inventory</Link>
                 ),
               },
+
               {
                 key: "masterPosition",
                 icon: <DeploymentUnitOutlined />,
                 label: <Link href={urls.master.position.index}>Position</Link>,
+              },
+              {
+                key: "extracurricular",
+                icon: <DeploymentUnitOutlined />,
+                label: (
+                  <Link href={urls.master.extracurricular.index}>
+                    extracurricular
+                  </Link>
+                ),
               },
             ],
           },

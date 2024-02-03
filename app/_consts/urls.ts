@@ -4,6 +4,7 @@ const position = "/master/position";
 const vendor = "/master/vendor";
 const inventory = "/master/inventory";
 const uom = "/master/uom";
+const extracurricular = "/master/extracurricular";
 
 export const urls = {
   root: "/",
@@ -38,6 +39,11 @@ export const urls = {
       index: uom,
       create: uom + "/create",
       edit: (id: string | number) => uom + "/edit/" + id,
+    },
+    extracurricular: {
+      index: extracurricular,
+      create: extracurricular + "/create",
+      edit: (id: string | number) => extracurricular + "/edit/" + id,
     },
   },
 };
