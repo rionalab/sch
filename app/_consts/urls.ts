@@ -15,6 +15,7 @@ export const urls = {
     department: {
       index: department,
       create: department + "/create",
+      edit: (id: string | number) => department + "/edit/" + id,
     },
     position: {
       index: position,

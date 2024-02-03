@@ -48,6 +48,21 @@ export const routes: Routes = {
       },
     ],
   },
+  department: {
+    url: urls.master.department.index,
+    title: "Department",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "department",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.department.index,
+      },
+    ],
+  },
 };
 
 type Routes = Record<ModuleName, Route>;

@@ -1,5 +1,3 @@
-import dayjs from "dayjs";
-
 export function selectOptions<T>(
   arr: any,
   labelKey: keyof T,

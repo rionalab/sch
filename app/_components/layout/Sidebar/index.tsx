@@ -66,6 +66,13 @@ export function Sidebar() {
                 label: <Link href={urls.master.vendor.index}>Vendor</Link>,
               },
               {
+                key: "department",
+                icon: <DeploymentUnitOutlined />,
+                label: (
+                  <Link href={urls.master.department.index}>Department</Link>
+                ),
+              },
+              {
                 key: "masterPosition",
                 icon: <DeploymentUnitOutlined />,
                 label: <Link href={urls.master.position.index}>Position</Link>,

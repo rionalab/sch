@@ -13,4 +13,4 @@ export interface Route {
   breadcrumb?: Breadcrumb[];
 }
 
-export type ModuleName = "employee" | "position" | "vendor";
+export type ModuleName = "employee" | "position" | "vendor" | "department";
