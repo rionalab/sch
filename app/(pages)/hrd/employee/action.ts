@@ -8,7 +8,7 @@ import { handlePrismaError } from "@/libs/helpers";
 
 const urlToRevalidate = urls.hrd.employee.index;
 
-export async function getEmployee() {
+export async function index() {
   return await prisma.employee.findMany({
     include: {
       user: true,
@@ -17,9 +17,7 @@ export async function getEmployee() {
   });
 }
 
-export async function storeEmployee(
-  data: StoreEmployee | StoreEmployeeByCreate
-) {
+export async function store(data: StoreEmployee | StoreEmployeeByCreate) {
   try {
     let result;
 
@@ -53,7 +51,7 @@ export async function storeEmployee(
   }
 }
 
-export async function removeEmployee(id: number) {
+export async function destroy(id: number) {
   try {
     await prisma.employee.delete({
       where: { id },
@@ -64,7 +62,7 @@ export async function removeEmployee(id: number) {
   }
 }
 
-export async function findEmployee(id: number) {
+export async function show(id: number) {
   return await prisma.employee.findFirst({
     where: {
       id,

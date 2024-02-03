@@ -5,7 +5,7 @@ import type { ColumnsType } from "antd/es/table";
 import { type Employee } from "../../type";
 import { DataTable } from "@/c";
 import { columns } from "../../configs/table";
-import { removeEmployee } from "../../action";
+import { destroy } from "../../action";
 import { useTable } from "@/hooks/useTable";
 
 interface Props {
@@ -29,9 +29,9 @@ function Table({ rows }: Props) {
         {...tableProps}
         actions={{
           destroy: async (id: number) => {
-            await removeEmployee(id);
+            await destroy(id);
           },
-          edit: () => null,
+          edit: true,
         }}
       />
     </>
