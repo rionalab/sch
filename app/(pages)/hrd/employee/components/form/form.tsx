@@ -38,10 +38,9 @@ import {
 import { UploadOutlined } from "@ant-design/icons";
 import { useParams, useRouter } from "next/navigation";
 import { useAntdContext } from "@/contexts";
-import { storeEmployee, findEmployee } from "../../action";
+import { store, show } from "../../action";
 import { faker } from "@faker-js/faker";
 import { submitEmployeeData } from "./model";
-import { Prisma } from "@prisma/client";
 
 const initialValues: Partial<Employee> = {
   NIP: "00001",
@@ -107,7 +106,7 @@ function FormEmployee(props: Props) {
     try {
       setLoading(true);
       // @ts-expect-error mgkin harus pake generic
-      await storeEmployee(submitEmployeeData(values));
+      await store(submitEmployeeData(values));
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
     } catch (e: any) {
@@ -127,7 +126,7 @@ function FormEmployee(props: Props) {
   };
 
   const fetchDataEdit = async () => {
-    const dataEdit = await findEmployee(Number(id));
+    const dataEdit = await show(Number(id));
 
     console.log({ dataEdit });
     if (dataEdit) {
