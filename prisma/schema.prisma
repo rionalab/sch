@@ -175,6 +175,7 @@ model Inventory {
   UOM          String
   owner        Department @relation(fields: [departmentId], references: [id])
   remarks      String?
+  qty          Int        @default(0)
   departmentId Int
 }
 
