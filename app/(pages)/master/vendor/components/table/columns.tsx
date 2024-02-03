@@ -28,6 +28,11 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       dataIndex: "phone",
     },
     {
+      title: "Remarks",
+      dataIndex: "remarks",
+      render: (v: string) => cell(v),
+    },
+    {
       title: "Blacklist",
       dataIndex: "blacklist",
       render: (v) => {
@@ -40,11 +45,6 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
 
         return <Tag color={color}>{v ? "Yes" : "No"}</Tag>;
       },
-    },
-    {
-      title: "Remarks",
-      dataIndex: "remarks",
-      render: (v: string) => cell(v),
     },
   ];
 };
