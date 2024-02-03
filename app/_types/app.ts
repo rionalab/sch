@@ -20,4 +20,5 @@ export type ModuleName =
   | "uom"
   | "department"
   | "extracurricular"
+  | "workUnit"
   | "inventory";

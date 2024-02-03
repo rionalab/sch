@@ -108,6 +108,21 @@ export const routes: Routes = {
       },
     ],
   },
+  workUnit: {
+    url: urls.master.workUnit.index,
+    title: "Work Unit",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "Work Unit ",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.workUnit.index,
+      },
+    ],
+  },
 };
 
 type Routes = Record<ModuleName, Route>;

@@ -99,6 +99,11 @@ export function Sidebar() {
                   </Link>
                 ),
               },
+              {
+                key: "workUnit",
+                icon: <DeploymentUnitOutlined />,
+                label: <Link href={urls.master.workUnit.index}>workUnit</Link>,
+              },
             ],
           },
           {

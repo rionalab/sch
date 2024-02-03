@@ -178,6 +178,13 @@ model Department {
   Inventory Inventory[]
 }
 
+model WorkUnit {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String
+  status      Boolean
+}
+
 model Inventory {
   id           Int        @id @default(autoincrement())
   name         String     @unique
