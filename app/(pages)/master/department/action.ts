@@ -9,7 +9,7 @@ import { modelStore } from "./components/form/model";
 
 const urlToRevalidate = urls.master.department.index;
 
-export async function getDepartment() {
+export async function index() {
   return await prisma.department.findMany();
 }
 
@@ -36,7 +36,7 @@ export async function store(data: FormFields) {
   }
 }
 
-export async function get(id: number) {
+export async function show(id: number) {
   return await prisma.department.findFirst({
     where: {
       id,

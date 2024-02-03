@@ -4,7 +4,7 @@ import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row } from "antd";
 import { type FormFields } from "../../type";
 import { ButtonForm } from "@/c";
-import { store, get } from "../../action";
+import { store, show } from "../../action";
 import { useParams, useRouter } from "next/navigation";
 import * as notif from "@/consts";
 import { useAntdContext } from "@/contexts";
@@ -43,7 +43,7 @@ function FormVendor() {
   };
 
   const fetchDataEdit = async () => {
-    const dataEdit = await get(Number(id));
+    const dataEdit = await show(Number(id));
     form.setFieldsValue(dataEdit);
   };
 
