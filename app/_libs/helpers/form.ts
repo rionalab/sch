@@ -1,5 +1,5 @@
 export function selectOptions<T>(
-  arr: any,
+  arr: any = [],
   labelKey: keyof T,
   valueKey: keyof T
 ) {
