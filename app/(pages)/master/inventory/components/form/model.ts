@@ -4,8 +4,8 @@ import { type FormFields } from "../../type";
 export function modelStore(formValue: FormFields): Prisma.InventoryCreateInput {
   return {
     name: formValue.name,
-    code: formValue.name,
-    UOM: formValue.name,
+    code: formValue.code,
+    UOM: formValue.UOM,
     remarks: formValue.remarks,
     owner: {
       connect: {

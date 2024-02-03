@@ -19,9 +19,7 @@ function FormVendor() {
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
-  const { department, employee } = useSelect(["department"]);
-
-  console.log(department, employee);
+  const { department, uom } = useSelect(["department", "uom"]);
 
   const onFinish = async (values: FormFields): Promise<void> => {
     const isEdit = values.id;
@@ -93,7 +91,7 @@ function FormVendor() {
               name="UOM"
               rules={fieldRules(["required"])}
             >
-              <Input />
+              <Select options={uom} />
             </Form.Item>
             <Form.Item<FormFields> label="Department" name="departmentId">
               <Select options={department} />
