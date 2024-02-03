@@ -23,6 +23,10 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       render: (v) => v.name,
     },
     {
+      title: "Qty",
+      dataIndex: "qty",
+    },
+    {
       title: "Unit",
       dataIndex: "UOM",
     },
