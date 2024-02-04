@@ -1,5 +1,4 @@
-import { routes } from "@/configs";
-import { Breadcrumb } from ".";
+import { type Breadcrumb } from ".";
 
 export interface ActivePage {
   url: string;
@@ -14,4 +13,14 @@ export interface Route {
   breadcrumb?: Breadcrumb[];
 }
 
-export type ModuleName = "employee" | "position";
+export type ModuleName =
+  | "employee"
+  | "position"
+  | "vendor"
+  | "uom"
+  | "department"
+  | "extracurricular"
+  | "workUnit"
+  | "inventory"
+  | "leaveRequest"
+  | "leaveType";

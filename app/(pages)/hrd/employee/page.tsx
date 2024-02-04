@@ -1,13 +1,12 @@
 import React from "react";
-import { getEmployee } from "./action";
-import { Employee } from "./type";
+import { index } from "./action";
 import Table from "./components/table/table";
-import { tableData } from "@/libs/helpers/table";
+import { normalizeTableRow } from "@/libs/helpers/table";
 
 async function Page() {
-  const data = await getEmployee();
+  const data = await index();
 
-  return <Table rows={tableData<Employee>(data)} />;
+  return <Table rows={normalizeTableRow<any>(data)} />;
 }
 
 export default Page;

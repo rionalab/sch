@@ -5,7 +5,7 @@ import { Flex, Typography, Breadcrumb } from "antd";
 import { HomeOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ModuleName, Route } from "@/types";
+import { type ModuleName } from "@/types";
 import { routes } from "@/configs";
 
 interface Props {
@@ -41,7 +41,11 @@ export function PageHeader({ id }: Props) {
     <>
       <Flex style={{ marginBottom: 16 }} align="end" justify="space-between">
         <div>
-          <Typography.Title level={2} style={{ margin: 0 }}>
+          <Typography.Title
+            className="textCapitalize"
+            level={2}
+            style={{ margin: 0 }}
+          >
             {icon && <>{icon} &nbsp;</>}
             {title}
             <span style={{ fontWeight: 500, opacity: 0.5, fontSize: 11 }}>

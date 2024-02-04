@@ -28,7 +28,7 @@
       "@/types": ["./app/_types/index.ts"],
       "@/validations/*": ["./app/_validations/*"],
       "@/pages/*": ["./app/(pages)/*"],
-      "@/hooks": ["./app/_hooks/index.ts"],
+      "@/hooks/*": ["./app/_hooks/*"],
       "@/contexts": ["./app/_contexts/index.ts"],
       "@/styles/*": ["./app/_styles/*"],
       "@/*": ["./*"]

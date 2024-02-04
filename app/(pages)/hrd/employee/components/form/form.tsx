@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   DatePicker,
@@ -12,10 +12,16 @@ import {
   Select,
   Upload,
 } from "antd";
-import { Employee, FormFields } from "../../type";
+import { type Employee, type FormFields } from "../../type";
 import { ButtonBack, ButtonForm } from "@/c";
-import { fieldRules, selectOptions, today, tomorrow } from "@/libs/helpers";
-import { Position } from "@/pages/master/position/type";
+import {
+  fieldRules,
+  prismaToForm,
+  selectOptions,
+  today,
+  tomorrow,
+} from "@/libs/helpers";
+import { type Position } from "@/pages/master/position/type";
 import {
   bloodTypeOptions,
   contractStatusOption,
@@ -32,9 +38,9 @@ import {
 import { UploadOutlined } from "@ant-design/icons";
 import { useParams, useRouter } from "next/navigation";
 import { useAntdContext } from "@/contexts";
-import { createEmployee } from "../../action";
+import { store, show } from "../../action";
 import { faker } from "@faker-js/faker";
-import { modelEmployee } from "./model";
+import { submitEmployeeData } from "./model";
 
 const initialValues: Partial<Employee> = {
   NIP: "00001",
@@ -75,17 +81,18 @@ const initialValues: Partial<Employee> = {
 
   remarks: faker.lorem.words(10),
 };
+
+const initialValues2 = {};
 interface Props {
   positions: Position[];
 }
 
 function FormEmployee(props: Props) {
   const { positions } = props;
-
+  const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
-  const [form] = Form.useForm();
   const router = useRouter();
 
   const handleFormChange = (changedValues: any, allValues: any) => {
@@ -93,22 +100,23 @@ function FormEmployee(props: Props) {
     console.log("All values:", allValues);
   };
 
-  const onFinish = async (values: any) => {
-    let isEdit = values.id;
+  const onFinish = async (values: FormFields) => {
+    const isEdit = values.id;
 
     try {
       setLoading(true);
-      await createEmployee(modelEmployee(values));
+      // @ts-expect-error mgkin harus pake generic
+      await store(submitEmployeeData(values));
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
     } catch (e: any) {
-      api?.error(
-        isEdit ? notifUpdateError(e.message) : notifStoreError(e.message)
-      );
+      const msg = String(e.message);
+      api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));
     } finally {
       setLoading(false);
     }
   };
+
   const normFile = (e: any) => {
     console.log("Upload event:", e);
     if (Array.isArray(e)) {
@@ -117,6 +125,22 @@ function FormEmployee(props: Props) {
     return e?.fileList;
   };
 
+  const fetchDataEdit = async () => {
+    const dataEdit = await show(Number(id));
+
+    if (dataEdit) {
+      const { PKWTEnd, dob, hireDate, PKWTStart, ...rest } = dataEdit;
+
+      form.setFieldsValue(prismaToForm(dataEdit));
+    }
+  };
+
+  useEffect(() => {
+    if (id) {
+      void fetchDataEdit();
+    }
+  }, []);
+
   return (
     <div>
       <ButtonBack />
@@ -124,11 +148,16 @@ function FormEmployee(props: Props) {
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        initialValues={initialValues}
-        onValuesChange={handleFormChange} // Set the callback function for field changes
+        initialValues={{ ...initialValues, id }}
+        onValuesChange={handleFormChange}
+        form={form}
         onFinish={onFinish}
         autoComplete="off"
       >
+        <Form.Item<FormFields> hidden label="Id" name="id">
+          <Input type="hidden" />
+        </Form.Item>
+
         <br />
         {/* //* Employee Information */}
         <Typography.Title level={5}>Employee Information</Typography.Title>

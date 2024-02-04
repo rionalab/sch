@@ -1,4 +1,5 @@
 export interface TableActions {
-  edit?: () => void;
+  edit?: boolean;
   destroy?: (id: number) => Promise<void>;
+  others?: React.ReactNode[];
 }

@@ -1,25 +1,31 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Space, Button, Modal, Flex } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
-import { ExclamationCircleFilled } from "@ant-design/icons";
-import { TableActions } from "@/types";
+import {
+  ExclamationCircleFilled,
+  EditOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+import { type TableActions } from "@/types";
 import styles from "./style.module.scss";
-import { notifDestroyError, notifDestroySuccess, urls } from "@/consts";
+import { notifDestroyError, notifDestroySuccess } from "@/consts";
 import { useAntdContext } from "@/contexts";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
-interface Props extends TableActions {
+interface Props<T> extends TableActions {
   id: number;
+  row: T;
 }
 
-export function TableAction(props: Props) {
-  const { edit, destroy, id } = props;
+export function TableAction<T>(props: Props<T>) {
+  const { edit, id, destroy, others = [], row } = props;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const { api } = useAntdContext();
+  const path = usePathname();
+
   const handleCancel = () => {
     setOpen(false);
   };
@@ -28,10 +34,12 @@ export function TableAction(props: Props) {
     try {
       setLoading(true);
       await destroy?.(id);
-      setOpen(false);
       api?.success(notifDestroySuccess());
     } catch (e: any) {
-      api?.error(notifDestroyError(e.message));
+      api?.error(notifDestroyError(String(e.message)));
+    } finally {
+      setLoading(false);
+      setOpen(false);
     }
   };
 
@@ -41,7 +49,7 @@ export function TableAction(props: Props) {
   };
 
   const handleEdit = () => {
-    router.push(urls.master.position.edit(id));
+    router.push(`${path}/edit/${id}`);
   };
 
   return (
@@ -78,7 +86,15 @@ export function TableAction(props: Props) {
       </Modal>
 
       <Space size={2}>
-        {props.edit && (
+        {others.map((c, i) => {
+          if (React.isValidElement(c)) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            return React.cloneElement(c, { key: i, ...row });
+          }
+
+          return null;
+        })}
+        {edit && (
           <Button
             onClick={handleEdit}
             size="small"
@@ -86,7 +102,7 @@ export function TableAction(props: Props) {
             icon={<EditOutlined style={{ fontSize: 14 }} />}
           />
         )}
-        {props.destroy && (
+        {destroy && (
           <Button
             onClick={confirmDestroy}
             size="small"

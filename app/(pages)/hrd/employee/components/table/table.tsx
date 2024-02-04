@@ -2,10 +2,12 @@
 
 import React from "react";
 import type { ColumnsType } from "antd/es/table";
-import { Employee } from "../../type";
+import { type Employee } from "../../type";
 import { DataTable } from "@/c";
-import { columns } from "../../configs/table";
-import { useTable } from "@/hooks";
+import { columns } from "./columns";
+import { destroy } from "../../action";
+import { useTable } from "@/hooks/useTable";
+import LeaveEntitlement from "./leave-entitlement";
 
 interface Props {
   rows: Employee[];
@@ -27,8 +29,11 @@ function Table({ rows }: Props) {
         columns={columns as DtColumns}
         {...tableProps}
         actions={{
-          destroy: async (id: number) => {},
-          edit: () => null,
+          others: [<LeaveEntitlement key={1} />],
+          destroy: async (id: number) => {
+            await destroy(id);
+          },
+          edit: true,
         }}
       />
     </>

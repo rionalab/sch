@@ -4,14 +4,14 @@ import React from "react";
 import { Table } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
 import { TableAction, TableToolbar } from "@/c";
-import { TableActions } from "@/types";
+import { type TableActions } from "@/types";
 
 interface AntdProps<T> extends TableProps<T> {}
 
 type Columns = ColumnsType<Record<string, any>>;
 
 interface Props<T> {
-  rows: Record<string, any>[];
+  rows: Array<Record<string, any>>;
   search?: boolean;
   download?: boolean;
   actions?: TableActions;
@@ -35,7 +35,7 @@ export function DataTable<T>(props: Props<T>) {
     actions = {},
   } = props;
 
-  let finalColumns = columns;
+  const finalColumns = columns;
   const keyActions = Object.keys(actions);
 
   return (
@@ -60,7 +60,9 @@ export function DataTable<T>(props: Props<T>) {
                 align: "center",
                 fixed: "right",
                 width: 130,
-                render: (a, b) => <TableAction id={b.id} {...actions} />,
+                render: (a, b) => (
+                  <TableAction<T> row={b as T} id={b.id} {...actions} />
+                ),
               }
             : {},
         ]}

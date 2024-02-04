@@ -1,6 +1,6 @@
 import { messages } from "@/consts";
-import { GeneralError } from "@/types";
-import { ZodIssue } from "zod";
+import { type GeneralError } from "@/types";
+import { type ZodIssue } from "zod";
 import { isArrayOfZodIssue, isGeneralError } from "./validation";
 
 export const notifErrorMessage = (

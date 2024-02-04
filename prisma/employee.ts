@@ -1,8 +1,15 @@
-import { today, tomorrow } from "@/libs/helpers";
-import { Employee } from "@/pages/hrd/employee/type";
+// import { today, tomorrow } from "@/libs/helpers";
 import { faker } from "@faker-js/faker";
-import { Prisma } from "@prisma/client";
+import { type Prisma } from "@prisma/client";
 import dayjs from "dayjs";
+
+export function today() {
+  return dayjs();
+}
+
+export function tomorrow() {
+  return dayjs().add(1, "day");
+}
 
 const fakerData = {
   tribe: "",

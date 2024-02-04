@@ -11,7 +11,9 @@ export function ButtonBack() {
   return (
     <>
       <Button
-        onClick={() => router.back()}
+        onClick={() => {
+          router.back();
+        }}
         // shape="circle"
         // size="large"
         icon={<ArrowLeftOutlined />}

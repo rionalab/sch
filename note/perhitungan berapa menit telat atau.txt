@@ -1,0 +1,15 @@
+perhitungan berapa menit telat atau early leave akan dilakukan di app, 
+tidak perlu disimpan ke db 
+
+jika HR mendapatkan informasi dari karyawan yg telat
+
+model Attendance {
+  id         Int       @id @default(autoincrement())
+  employee   Employee  @relation(fields: [employeeId], references: [id])
+  employeeId Int
+  checkIn    DateTime
+  checkOut   DateTime?
+  remarks    String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+} 

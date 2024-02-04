@@ -54,45 +54,48 @@ model Position {
 }
 
 model Employee {
-  id             Int       @id @default(autoincrement())
-  fullName       String
-  photo          String?
-  bloodType      String?
-  NIP            String    @unique
-  email          String    @unique
-  NIK            String    @unique
-  phone1         String
-  phone2         String?
-  contractStatus String
-  maritalStatus  String
-  familyPhone    String
-  idAddress      String
-  houseAddress   String
-  institution    String
-  major          String
-  degree         String
-  tribe          String?
-  unit           String?
-  remarks        String?
-  fatherName     String
-  motherName     String
-  spouseName     String?
-  childrenName   String?
-  siblingName    String?
-  religion       String
-  gender         String
-  hireDate       DateTime
-  PKWTStart      DateTime?
-  TMT            DateTime?
-  PKWTEnd        DateTime?
-  dob            DateTime
-  placeOfBirth   String
-  positionId     Int
-  position       Position  @relation(fields: [positionId], references: [id])
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  user           User?     @relation(fields: [userId], references: [id])
-  userId         Int?       @unique
+  id               Int                @id @default(autoincrement())
+  fullName         String
+  photo            String?
+  bloodType        String?
+  NIP              String             @unique
+  email            String             @unique
+  NIK              String             @unique
+  phone1           String
+  phone2           String?
+  contractStatus   String
+  maritalStatus    String
+  familyPhone      String
+  idAddress        String
+  houseAddress     String
+  institution      String
+  major            String
+  degree           String
+  tribe            String?
+  unit             String?
+  remarks          String?
+  fatherName       String
+  motherName       String
+  spouseName       String?
+  childrenName     String?
+  siblingName      String?
+  religion         String
+  gender           String
+  hireDate         DateTime
+  PKWTStart        DateTime?
+  TMT              DateTime?
+  PKWTEnd          DateTime?
+  dob              DateTime
+  placeOfBirth     String
+  positionId       Int
+  position         Position           @relation(fields: [positionId], references: [id])
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  user             User?              @relation(fields: [userId], references: [id])
+  userId           Int?               @unique
+  Class            Class[]
+  LeaveEntitlement LeaveEntitlement[]
+  LeaveRequest     LeaveRequest[]
 }
 
 model Teacher {
@@ -101,6 +104,20 @@ model Teacher {
   lastName  String
   email     String   @unique
   Course    Course[]
+}
+
+model Parent {
+  id          Int       @id @default(autoincrement())
+  motherName  String
+  motherPhone String
+  motherEmail String
+  motherPhoto String
+  fatherName  String
+  fatherPhone String
+  fatherEmail String
+  fatherPhoto String
+  address     String
+  children    Student[]
 }
 
 model Course {
@@ -112,31 +129,111 @@ model Course {
 }
 
 model Student {
-  id        Int      @id @default(autoincrement())
-  gender    String
-  dob       DateTime
-  remarks   String
-  bloodType String
-  firstName String
-  address   String
-  tribe     String
-  religion  String
-  photo     String
-  lastName  String
-  class     Class    @relation(fields: [classId], references: [id])
-  classId   Int
+  id              Int               @id @default(autoincrement())
+  gender          String
+  dob             DateTime
+  remarks         String
+  bloodType       String
+  firstName       String
+  address         String
+  tribe           String
+  religion        String
+  photo           String
+  lastName        String
+  class           Class             @relation(fields: [classId], references: [id])
+  classId         Int
+  Parent          Parent?           @relation(fields: [parentId], references: [id])
+  parentId        Int?
+  Extracurricular Extracurricular[]
+}
+
+model Extracurricular {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String
+  paid        Boolean
+  price       Int
+  student     Student[]
 }
 
 model Class {
-  id        Int       @id @default(autoincrement())
-  className String
-  teacherId Int?
-  students  Student[]
+  id               Int       @id @default(autoincrement())
+  className        String
+  conselourTeacher Employee  @relation(fields: [employeeId], references: [id])
+  students         Student[]
+  employeeId       Int
+}
+
+model Vendor {
+  id        Int     @id @default(autoincrement())
+  name      String
+  accountNo String
+  address   String
+  phone     String
+  blacklist Boolean @default(false)
+  remarks   String?
+}
+
+model WorkUnit {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String
+  status      Boolean
 }
 
 model Department {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  Inventory Inventory[]
+}
+
+model Inventory {
+  id           Int         @id @default(autoincrement())
+  name         String      @unique
+  code         String      @unique
+  UOM          String
+  owner        Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  remarks      String?
+  qty          Int         @default(0)
+  category     String      @default("inventory")
+  departmentId Int?
+}
+
+model LeaveType {
+  id           Int            @id @default(autoincrement())
+  name         String
+  description  String?
+  LeaveRequest LeaveRequest[]
+}
+
+model LeaveEntitlement {
+  id          Int      @id @default(autoincrement())
+  entitlement Float
+  remarks     String
+  year        Int
+  employee    Employee @relation(fields: [employeeId], references: [id])
+  employeeId  Int
+}
+
+model Uom {
   id   Int    @id @default(autoincrement())
-  name String
+  code String @unique
+  name String @unique
+}
+
+model LeaveRequest {
+  id              Int       @id @default(autoincrement())
+  employee        Employee  @relation(fields: [employeeId], references: [id])
+  employeeId      Int
+  leaveType       LeaveType @relation(fields: [leaveTypeId], references: [id])
+  leaveTypeId     Int
+  status          String
+  remarks         String
+  approvalRemarks String?
+  dateFrom        DateTime
+  dateTo          DateTime
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 }
 
 enum Role {
