@@ -123,7 +123,7 @@ export const routes: Routes = {
       },
     ],
   },
-  leave: {
+  leaveType: {
     url: urls.master.leave.index,
     title: "Leave Type",
     icon: <DeploymentUnitOutlined />,
@@ -135,6 +135,21 @@ export const routes: Routes = {
         title: "leave",
         icon: <DeploymentUnitOutlined />,
         url: urls.master.leave.index,
+      },
+    ],
+  },
+  leaveRequest: {
+    url: urls.staff.leaveRequest.index,
+    title: "Leave Type",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "Leave request",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.staff.leaveRequest.index,
       },
     ],
   },
