@@ -10,7 +10,8 @@ import { modelStore } from "./components/form/model";
 const urlToRevalidate = urls.master.leave.index;
 
 export async function index() {
-  return prisma.leaveType.findMany();
+  // eslint-disable-next-line @typescript-eslint/return-await
+  return await prisma.leaveType.findMany();
 }
 
 export async function store(data: FormFields) {
@@ -37,7 +38,8 @@ export async function store(data: FormFields) {
 }
 
 export async function show(id: number) {
-  return prisma.leaveType.findFirst({
+  // eslint-disable-next-line @typescript-eslint/return-await
+  return await prisma.leaveType.findFirst({
     where: {
       id,
     },
