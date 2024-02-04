@@ -10,17 +10,30 @@ import { modelStore } from "./components/form/model";
 const urlToRevalidate = urls.staff.leaveRequest.index;
 
 export async function index() {
-  return prisma.leaveRequest.findMany();
+  return prisma.leaveRequest.findMany({
+    where: {
+      employeeId: Number(process.env.NEXT_PUBLIC_USER_DEMO_ID),
+    },
+    include: {
+      leaveType: true,
+    },
+  });
 }
 
 export async function store(data: FormFields) {
   try {
     let result;
 
-    // eslint-disable-next-line prefer-const
-    result = await prisma.leaveRequest.create({
-      data: modelStore(data),
-    });
+    if (data.id != null) {
+      result = await prisma.leaveRequest.update({
+        where: { id: Number(data.id) },
+        data: modelStore(data),
+      });
+    } else {
+      result = await prisma.leaveRequest.create({
+        data: modelStore(data),
+      });
+    }
 
     revalidatePath(urlToRevalidate);
 
@@ -29,7 +42,6 @@ export async function store(data: FormFields) {
     handlePrismaError(e);
   }
 }
-
 export async function show(id: number) {
   return prisma.leaveRequest.findFirst({
     where: {

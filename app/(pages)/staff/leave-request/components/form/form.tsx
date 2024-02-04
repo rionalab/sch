@@ -1,8 +1,9 @@
 "use client";
 
 import React, { memo, useEffect, useState } from "react";
-import { Col, Form, Input, Row, Select } from "antd";
+import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import { type FormFields } from "../../type";
+import dayjs from "dayjs";
 import { ButtonForm } from "@/c";
 import { store, show } from "../../action";
 import { useParams, useRouter } from "next/navigation";
@@ -11,31 +12,34 @@ import {
   notifStoreError,
   notifUpdateSuccess,
   notifUpdateError,
-  trueFalseOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
+import useSelect from "@/hooks/useSelect";
 
 const initialValues = {
-  status: true,
+  employeeId: process.env.NEXT_PUBLIC_USER_DEMO_ID,
 };
 
 function FormVendor() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [disablePrice, setDisablePrice] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
+  const { leaveType } = useSelect(["leaveType"]);
 
   const onFinish = async (values: FormFields): Promise<void> => {
     const isEdit = values.id;
 
     try {
       setLoading(true);
-
-      await store(values);
-
+      await store({
+        ...values,
+        date: 1,
+        dateTo: values.date[1].format(),
+        dateFrom: values?.date?.[0].format(),
+      });
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
     } catch (e: any) {
@@ -47,19 +51,11 @@ function FormVendor() {
     }
   };
 
-  const onChange = (v: any, w: any) => {
-    console.log(v.paid);
-    if (!w.paid) {
-      form.setFieldsValue({ price: 0 });
-      setDisablePrice(true);
-    } else {
-      setDisablePrice(false);
-    }
-  };
-
   const fetchDataEdit = async () => {
     const dataEdit = await show(Number(id));
-    form.setFieldsValue(dataEdit);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    const date = [dayjs(dataEdit?.dateFrom), dayjs(dataEdit?.dateTo)];
+    form.setFieldsValue({ ...dataEdit, date });
   };
 
   useEffect(() => {
@@ -67,8 +63,6 @@ function FormVendor() {
       void fetchDataEdit();
     }
   }, []);
-
-  console.log(disablePrice);
 
   return (
     <div>
@@ -79,7 +73,6 @@ function FormVendor() {
         initialValues={{ ...initialValues, id }}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onFinish={onFinish}
-        onValuesChange={onChange}
         form={form}
         autoComplete="off"
       >
@@ -90,25 +83,29 @@ function FormVendor() {
               <Input type="hidden" />
             </Form.Item>
 
-            <Form.Item<FormFields>
-              label="Name"
-              name="name"
-              rules={fieldRules(["required"])}
-            >
-              <Input />
+            <Form.Item<FormFields> hidden label="Id" name="employeeId">
+              <Input type="hidden" />
             </Form.Item>
 
             <Form.Item<FormFields>
-              label="Active"
-              name="status"
+              label="Leave Type"
+              name="leaveTypeId"
               rules={fieldRules(["required"])}
             >
-              <Select options={trueFalseOptions} />
+              <Select options={leaveType} />
             </Form.Item>
 
             <Form.Item<FormFields>
-              label="Description"
-              name="description"
+              label="Date"
+              name="date"
+              rules={fieldRules(["required"])}
+            >
+              <DatePicker.RangePicker />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="remarks"
+              name="remarks"
               rules={fieldRules(["required"])}
             >
               <Input.TextArea />

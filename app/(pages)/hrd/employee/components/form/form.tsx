@@ -128,7 +128,6 @@ function FormEmployee(props: Props) {
   const fetchDataEdit = async () => {
     const dataEdit = await show(Number(id));
 
-    console.log({ dataEdit });
     if (dataEdit) {
       const { PKWTEnd, dob, hireDate, PKWTStart, ...rest } = dataEdit;
 

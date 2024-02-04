@@ -4,6 +4,8 @@ import {
   FileProtectOutlined,
   BarcodeOutlined,
   BulbOutlined,
+  FolderOutlined,
+  FileOutlined,
   FileSearchOutlined,
   SolutionOutlined,
   DeploymentUnitOutlined,
@@ -263,12 +265,12 @@ export function Sidebar() {
           },
           {
             key: "staff",
-            icon: <NotificationOutlined />,
-            label: <Link href="/todos">Staff</Link>,
+            icon: <FolderOutlined />,
+            label: <Link href="/staff">Staff</Link>,
             children: [
               {
                 key: "staffLeaveRequest",
-                icon: <FileAddOutlined />,
+                icon: <FileOutlined />,
                 label: (
                   <Link href={urls.staff.leaveRequest.index}>
                     Leave Request

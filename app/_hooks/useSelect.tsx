@@ -2,12 +2,14 @@ import { useEffect, useState } from "react";
 import * as employee from "@/pages/hrd/employee/action";
 import * as department from "@/pages/master/department/action";
 import * as uom from "@/pages/master/uom/action";
+import * as leaveType from "@/pages/master/leave/action";
 import { selectOptions } from "@/libs/helpers";
 
 const initialValues = {
   department: [],
   employee: [],
   uom: [],
+  leaveType: [],
 };
 
 type ModuleType = keyof typeof initialValues;
@@ -32,7 +34,9 @@ function useSelect(type: ModuleType | ModuleType[]): FetchResult {
           "id"
         );
       } else if (i === "uom") {
-        fetchResult[i] = selectOptions(await uom.index(), "name", "name");
+        fetchResult[i] = selectOptions(await uom.index(), "name", "id");
+      } else if (i === "leaveType") {
+        fetchResult[i] = selectOptions(await leaveType.index(), "name", "id");
       }
     }
 

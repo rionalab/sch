@@ -140,7 +140,7 @@ export const routes: Routes = {
   },
   leaveRequest: {
     url: urls.staff.leaveRequest.index,
-    title: "Leave Type",
+    title: "Leave Request",
     icon: <DeploymentUnitOutlined />,
     breadcrumb: [
       {

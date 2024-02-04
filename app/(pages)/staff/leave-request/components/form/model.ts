@@ -7,13 +7,13 @@ export function modelStore(
   return {
     status: "pending",
     remarks: formValue.remarks,
-    dateTo: formValue.dateTo.format(),
-    dateFrom: formValue.dateFrom.format(),
+    dateTo: formValue.dateTo,
+    dateFrom: formValue.dateFrom,
     employee: {
-      connect: { id: formValue.employeeId },
+      connect: { id: Number(formValue.employeeId) },
     },
     leaveType: {
-      connect: { id: formValue.leaveTypeId },
+      connect: { id: Number(formValue.leaveTypeId) },
     },
   };
 }

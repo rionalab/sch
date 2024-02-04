@@ -1,6 +1,6 @@
 import { type ColumnsType } from "antd/es/table";
 import { type Prisma } from "@prisma/client";
-import { c } from "@/libs/helpers";
+import { dMY } from "@/libs/helpers";
 
 export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
   return [
@@ -9,20 +9,29 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       width: 80,
       dataIndex: "no",
     },
-
     {
       title: "Name",
-      dataIndex: "name",
+      dataIndex: "leaveType",
+      render: (v) => v.name,
     },
     {
-      title: "Active",
+      title: "From",
+      dataIndex: "dateFrom",
+      render: (v) => dMY(v),
+    },
+    {
+      title: "To",
+      dataIndex: "dateTo",
+      render: (v) => dMY(v),
+    },
+    {
+      title: "Status",
       dataIndex: "status",
-      render: (v) => (v ? "Yes" : "No"),
     },
 
     {
-      title: "Description",
-      dataIndex: "description",
+      title: "remarks",
+      dataIndex: "remarks",
     },
   ];
 };
