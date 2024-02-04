@@ -88,8 +88,8 @@ export function TableAction<T>(props: Props<T>) {
       <Space size={2}>
         {others.map((c, i) => {
           if (React.isValidElement(c)) {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
-            return React.cloneElement(c, { key: i, ...row });
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/no-unsafe-argument
+            return React.cloneElement(c, { key: i, row } as any);
           }
 
           return null;
