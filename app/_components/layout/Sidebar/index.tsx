@@ -102,7 +102,12 @@ export function Sidebar() {
               {
                 key: "workUnit",
                 icon: <DeploymentUnitOutlined />,
-                label: <Link href={urls.master.workUnit.index}>workUnit</Link>,
+                label: <Link href={urls.master.workUnit.index}>Work Unit</Link>,
+              },
+              {
+                key: "leaveType",
+                icon: <DeploymentUnitOutlined />,
+                label: <Link href={urls.master.leave.index}>Leave Type</Link>,
               },
             ],
           },
@@ -117,30 +122,37 @@ export function Sidebar() {
                 label: <Link href={urls.hrd.employee.index}>Employee</Link>,
               },
               {
-                key: "1.2",
-                icon: <ClockCircleOutlined />,
-                label: <Link href="/hrd/attendance">Attendance</Link>,
+                key: "permissionLeave",
+                icon: <UserOutlined />,
+                label: (
+                  <Link href={urls.hrd.employee.index}>Permission Leave</Link>
+                ),
               },
-              {
-                key: "1.3",
-                icon: <WalletOutlined />,
-                label: <Link href="/hrd/employee">Payroll</Link>,
-              },
-              {
-                key: "1.4",
-                icon: <FileProtectOutlined />,
-                label: <Link href="/hrd/employee">Permission Letter</Link>,
-              },
-              {
-                key: "1.5",
-                icon: <BulbOutlined />,
-                label: <Link href="/hrd/employee">Psychotest</Link>,
-              },
-              {
-                key: "1.6",
-                icon: <GlobalOutlined />,
-                label: <Link href="/hrd/employee">British Council</Link>,
-              },
+              // {
+              //   key: "1.2",
+              //   icon: <ClockCircleOutlined />,
+              //   label: <Link href="/hrd/attendance">Attendance</Link>,
+              // },
+              // {
+              //   key: "1.3",
+              //   icon: <WalletOutlined />,
+              //   label: <Link href="/hrd/employee">Payroll</Link>,
+              // },
+              // {
+              //   key: "1.4",
+              //   icon: <FileProtectOutlined />,
+              //   label: <Link href="/hrd/employee">Permission Letter</Link>,
+              // },
+              // {
+              //   key: "1.5",
+              //   icon: <BulbOutlined />,
+              //   label: <Link href="/hrd/employee">Psychotest</Link>,
+              // },
+              // {
+              //   key: "1.6",
+              //   icon: <GlobalOutlined />,
+              //   label: <Link href="/hrd/employee">British Council</Link>,
+              // },
             ],
           },
           {
@@ -246,6 +258,22 @@ export function Sidebar() {
                 key: "4.2",
                 icon: <EditOutlined />,
                 label: <Link href="/hrd/employee">Ticketing Design</Link>,
+              },
+            ],
+          },
+          {
+            key: "staff",
+            icon: <NotificationOutlined />,
+            label: <Link href="/todos">Staff</Link>,
+            children: [
+              {
+                key: "staffLeaveRequest",
+                icon: <FileAddOutlined />,
+                label: (
+                  <Link href={urls.staff.leaveRequest.index}>
+                    Leave Request
+                  </Link>
+                ),
               },
             ],
           },

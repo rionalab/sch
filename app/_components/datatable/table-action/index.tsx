@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { Space, Button, Modal, Flex } from "antd";
 import {
   ExclamationCircleFilled,
@@ -13,12 +13,13 @@ import { notifDestroyError, notifDestroySuccess } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { useRouter, usePathname } from "next/navigation";
 
-interface Props extends TableActions {
+interface Props<T> extends TableActions {
   id: number;
+  row: T;
 }
 
-export function TableAction(props: Props) {
-  const { destroy, id } = props;
+export function TableAction<T>(props: Props<T>) {
+  const { edit, id, destroy, others = [], row } = props;
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -85,7 +86,15 @@ export function TableAction(props: Props) {
       </Modal>
 
       <Space size={2}>
-        {props.edit && (
+        {others.map((c, i) => {
+          if (React.isValidElement(c)) {
+            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+            return React.cloneElement(c, { key: i, ...row });
+          }
+
+          return null;
+        })}
+        {edit && (
           <Button
             onClick={handleEdit}
             size="small"
@@ -93,7 +102,7 @@ export function TableAction(props: Props) {
             icon={<EditOutlined style={{ fontSize: 14 }} />}
           />
         )}
-        {props.destroy && (
+        {destroy && (
           <Button
             onClick={confirmDestroy}
             size="small"

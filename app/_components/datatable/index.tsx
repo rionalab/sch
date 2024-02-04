@@ -60,7 +60,9 @@ export function DataTable<T>(props: Props<T>) {
                 align: "center",
                 fixed: "right",
                 width: 130,
-                render: (a, b) => <TableAction id={b.id} {...actions} />,
+                render: (a, b) => (
+                  <TableAction<T> row={b as T} id={b.id} {...actions} />
+                ),
               }
             : {},
         ]}

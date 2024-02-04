@@ -16,7 +16,6 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       title: "Name",
       dataIndex: "name",
     },
-
     {
       title: "Department",
       dataIndex: "owner",
@@ -25,6 +24,10 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
     {
       title: "Qty",
       dataIndex: "qty",
+    },
+    {
+      title: "Category",
+      dataIndex: "category",
     },
     {
       title: "Unit",

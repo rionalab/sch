@@ -6,6 +6,9 @@ const inventory = "/master/inventory";
 const uom = "/master/uom";
 const extracurricular = "/master/extracurricular";
 const workUnit = "/master/work-unit";
+const leave = "/master/leave";
+const permissionLeave = "/hrd/permission-leave";
+const staffLeaveRequest = "/staff/leave-request";
 
 export const urls = {
   root: "/",
@@ -13,6 +16,17 @@ export const urls = {
     employee: {
       index: employee,
       create: employee + "/create",
+    },
+    permissionLeave: {
+      index: permissionLeave,
+      create: permissionLeave + "/create",
+    },
+  },
+  staff: {
+    leaveRequest: {
+      index: staffLeaveRequest,
+      create: staffLeaveRequest + "/create",
+      edit: (id: string | number) => staffLeaveRequest + "/edit/" + id,
     },
   },
   master: {
@@ -50,6 +64,11 @@ export const urls = {
       index: workUnit,
       create: workUnit + "/create",
       edit: (id: string | number) => workUnit + "/edit/" + id,
+    },
+    leave: {
+      index: leave,
+      create: leave + "/create",
+      edit: (id: string | number) => leave + "/edit/" + id,
     },
   },
 };

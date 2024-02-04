@@ -1,6 +1,6 @@
-import { type Employee } from "../type";
+import { type Employee } from "../../type";
 import { Popover, Tag } from "antd";
-import TableDetail from "../components/table/table-detail";
+import TableDetail from "./table-detail";
 import { dMY } from "@/helpers";
 import { cell } from "@/libs/helpers/table";
 import { Avatar } from "@/c";

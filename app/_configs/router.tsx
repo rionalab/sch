@@ -123,6 +123,21 @@ export const routes: Routes = {
       },
     ],
   },
+  leave: {
+    url: urls.master.leave.index,
+    title: "Leave Type",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "leave",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.leave.index,
+      },
+    ],
+  },
 };
 
 type Routes = Record<ModuleName, Route>;

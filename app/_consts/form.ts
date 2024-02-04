@@ -59,3 +59,8 @@ export const trueFalseOptions = [
   { label: "Yes", value: true },
   { label: "No", value: false },
 ];
+
+export const inventoryCategoryOptions = [
+  { label: "consumables", value: "consumables" },
+  { label: "non-consumables", value: "non-consumables" },
+];

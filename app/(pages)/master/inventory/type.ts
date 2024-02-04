@@ -5,4 +5,5 @@ export interface FormFields {
   UOM: string;
   departmentId: number;
   remarks: string;
+  category: string;
 }

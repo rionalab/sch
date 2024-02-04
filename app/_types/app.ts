@@ -21,4 +21,6 @@ export type ModuleName =
   | "department"
   | "extracurricular"
   | "workUnit"
-  | "inventory";
+  | "inventory"
+  | "staffLeaveRequest"
+  | "leave";

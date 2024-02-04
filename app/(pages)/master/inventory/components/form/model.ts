@@ -7,6 +7,7 @@ export function modelStore(formValue: FormFields): Prisma.InventoryCreateInput {
     code: formValue.code,
     UOM: formValue.UOM,
     remarks: formValue.remarks,
+    category: formValue.category,
     owner: {
       connect: {
         id: formValue.departmentId,
