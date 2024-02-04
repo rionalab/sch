@@ -123,13 +123,13 @@ export function Sidebar() {
                 icon: <UserOutlined />,
                 label: <Link href={urls.hrd.employee.index}>Employee</Link>,
               },
-              {
-                key: "permissionLeave",
-                icon: <UserOutlined />,
-                label: (
-                  <Link href={urls.hrd.employee.index}>Permission Leave</Link>
-                ),
-              },
+              // {
+              //   key: "permissionLeave",
+              //   icon: <UserOutlined />,
+              //   label: (
+              //     <Link href={urls.hrd.employee.index}>Permission Leave</Link>
+              //   ),
+              // },
               // {
               //   key: "1.2",
               //   icon: <ClockCircleOutlined />,
@@ -157,112 +157,112 @@ export function Sidebar() {
               // },
             ],
           },
-          {
-            key: "2",
-            icon: <FileDoneOutlined />,
-            label: "General Affair ",
-            children: [
-              {
-                key: "2.1",
-                icon: <UserOutlined />,
-                label: <Link href="/general-affair/assets">Assets</Link>,
-              },
-              {
-                key: "2.2",
-                icon: <BarcodeOutlined />,
-                label: (
-                  <Link href="/general-affair/assets-barcode">
-                    Assets Barcode
-                  </Link>
-                ),
-              },
-              {
-                key: "2.3",
-                icon: <AuditOutlined />,
-                label: (
-                  <Link href="/hrd/employee">Ticketing Hardware & Venue</Link>
-                ),
-              },
-              {
-                key: "2.4",
-                icon: <ContainerOutlined />,
-                label: <Link href="/hrd/employee">Purchase Request</Link>,
-              },
-              {
-                key: "2.5",
-                icon: <FileSearchOutlined />,
-                label: <Link href="/hrd/employee">Purchase Order</Link>,
-              },
-              {
-                key: "2.6",
-                icon: <FileProtectOutlined />,
-                label: <Link href="/hrd/employee">Purchase Approve </Link>,
-              },
-            ],
-          },
-          {
-            key: "3",
-            icon: <DollarOutlined />,
-            label: "Finance ",
-            children: [
-              {
-                key: "3.1",
-                icon: <FileTextOutlined />,
-                label: <Link href="/general-affair/assets">Invoice</Link>,
-              },
-              {
-                key: "3.2",
-                icon: <TeamOutlined />,
-                label: (
-                  <Link href="/general-affair/assets-barcode">
-                    Parent Request Form
-                  </Link>
-                ),
-              },
-              {
-                key: "3.3",
-                icon: <ProfileOutlined />,
-                label: <Link href="/hrd/employee">Employee Salary Slip</Link>,
-              },
-              {
-                key: "3.4",
-                icon: <BookOutlined />,
-                label: <Link href="/hrd/employee">Book Fee Payment</Link>,
-              },
-              {
-                key: "3.5",
-                icon: <DownloadOutlined />,
-                label: <Link href="/hrd/employee">Incoming Payment</Link>,
-              },
-              {
-                key: "3.6",
-                icon: <SkinOutlined />,
-                label: <Link href="/hrd/employee">Uniform Payment </Link>,
-              },
-              {
-                key: "3.7",
-                icon: <BankOutlined />,
-                label: <Link href="/hrd/employee">School Fee Payment </Link>,
-              },
-            ],
-          },
-          {
-            key: "4",
-            icon: <NotificationOutlined />,
-            label: <Link href="/todos">Marketing</Link>,
-            children: [
-              {
-                key: "4.1",
-                icon: <FileAddOutlined />,
-                label: <Link href="/hrd/employee">Admission Process</Link>,
-              },
-              {
-                key: "4.2",
-                icon: <EditOutlined />,
-                label: <Link href="/hrd/employee">Ticketing Design</Link>,
-              },
-            ],
-          },
+          // {
+          //   key: "2",
+          //   icon: <FileDoneOutlined />,
+          //   label: "General Affair ",
+          //   children: [
+          //     {
+          //       key: "2.1",
+          //       icon: <UserOutlined />,
+          //       label: <Link href="/general-affair/assets">Assets</Link>,
+          //     },
+          //     {
+          //       key: "2.2",
+          //       icon: <BarcodeOutlined />,
+          //       label: (
+          //         <Link href="/general-affair/assets-barcode">
+          //           Assets Barcode
+          //         </Link>
+          //       ),
+          //     },
+          //     {
+          //       key: "2.3",
+          //       icon: <AuditOutlined />,
+          //       label: (
+          //         <Link href="/hrd/employee">Ticketing Hardware & Venue</Link>
+          //       ),
+          //     },
+          //     {
+          //       key: "2.4",
+          //       icon: <ContainerOutlined />,
+          //       label: <Link href="/hrd/employee">Purchase Request</Link>,
+          //     },
+          //     {
+          //       key: "2.5",
+          //       icon: <FileSearchOutlined />,
+          //       label: <Link href="/hrd/employee">Purchase Order</Link>,
+          //     },
+          //     {
+          //       key: "2.6",
+          //       icon: <FileProtectOutlined />,
+          //       label: <Link href="/hrd/employee">Purchase Approve </Link>,
+          //     },
+          //   ],
+          // },
+          // {
+          //   key: "3",
+          //   icon: <DollarOutlined />,
+          //   label: "Finance ",
+          //   children: [
+          //     {
+          //       key: "3.1",
+          //       icon: <FileTextOutlined />,
+          //       label: <Link href="/general-affair/assets">Invoice</Link>,
+          //     },
+          //     {
+          //       key: "3.2",
+          //       icon: <TeamOutlined />,
+          //       label: (
+          //         <Link href="/general-affair/assets-barcode">
+          //           Parent Request Form
+          //         </Link>
+          //       ),
+          //     },
+          //     {
+          //       key: "3.3",
+          //       icon: <ProfileOutlined />,
+          //       label: <Link href="/hrd/employee">Employee Salary Slip</Link>,
+          //     },
+          //     {
+          //       key: "3.4",
+          //       icon: <BookOutlined />,
+          //       label: <Link href="/hrd/employee">Book Fee Payment</Link>,
+          //     },
+          //     {
+          //       key: "3.5",
+          //       icon: <DownloadOutlined />,
+          //       label: <Link href="/hrd/employee">Incoming Payment</Link>,
+          //     },
+          //     {
+          //       key: "3.6",
+          //       icon: <SkinOutlined />,
+          //       label: <Link href="/hrd/employee">Uniform Payment </Link>,
+          //     },
+          //     {
+          //       key: "3.7",
+          //       icon: <BankOutlined />,
+          //       label: <Link href="/hrd/employee">School Fee Payment </Link>,
+          //     },
+          //   ],
+          // },
+          // {
+          //   key: "4",
+          //   icon: <NotificationOutlined />,
+          //   label: <Link href="/todos">Marketing</Link>,
+          //   children: [
+          //     {
+          //       key: "4.1",
+          //       icon: <FileAddOutlined />,
+          //       label: <Link href="/hrd/employee">Admission Process</Link>,
+          //     },
+          //     {
+          //       key: "4.2",
+          //       icon: <EditOutlined />,
+          //       label: <Link href="/hrd/employee">Ticketing Design</Link>,
+          //     },
+          //   ],
+          // },
           {
             key: "staff",
             icon: <FolderOutlined />,

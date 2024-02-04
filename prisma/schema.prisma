@@ -174,12 +174,6 @@ model Vendor {
   remarks   String?
 }
 
-model Department {
-  id        Int         @id @default(autoincrement())
-  name      String      @unique
-  Inventory Inventory[]
-}
-
 model WorkUnit {
   id          Int     @id @default(autoincrement())
   name        String  @unique
@@ -187,16 +181,22 @@ model WorkUnit {
   status      Boolean
 }
 
+model Department {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  Inventory Inventory[]
+}
+
 model Inventory {
-  id           Int        @id @default(autoincrement())
-  name         String     @unique
-  code         String     @unique
+  id           Int         @id @default(autoincrement())
+  name         String      @unique
+  code         String      @unique
   UOM          String
-  owner        Department @relation(fields: [departmentId], references: [id])
+  owner        Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
   remarks      String?
-  qty          Int        @default(0)
-  category     String     @default("inventory")
-  departmentId Int
+  qty          Int         @default(0)
+  category     String      @default("inventory")
+  departmentId Int?
 }
 
 model LeaveType {

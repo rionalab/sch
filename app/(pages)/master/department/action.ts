@@ -51,6 +51,8 @@ export async function destroy(id: number) {
     });
     revalidatePath(urlToRevalidate);
   } catch (e: any) {
-    throw new Error(String(e?.message) ?? "");
+    handlePrismaError(e);
+
+    // throw new Error(String(e?.message) ?? "");
   }
 }

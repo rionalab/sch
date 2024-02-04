@@ -9,9 +9,13 @@ const d = {
 } as const;
 
 export function handlePrismaError(e: any) {
-  console.log(11111111111111);
-  console.log(e);
+  console.log("#####################");
   console.log(e.code);
+  console.log(e.meta.cause);
+  console.log(e.meta);
+  console.log(e);
+  console.log("#####################");
+
   const isPrismaError = e instanceof Prisma.PrismaClientKnownRequestError;
 
   try {
