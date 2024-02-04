@@ -1,9 +1,10 @@
 import React from "react";
 import { HourglassOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { type Employee } from "../../type";
 
-interface Props extends Employee {}
+interface Props {
+  row?: Record<string, any>;
+}
 
 function LeaveEntitlement(props: Props) {
   const onClick = () => {};

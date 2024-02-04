@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/return-await */
 "use server";
 
 import { urls } from "@/consts";
@@ -10,7 +11,7 @@ import { modelStore } from "./components/form/model";
 const urlToRevalidate = urls.staff.leaveRequest.index;
 
 export async function index() {
-  return prisma.leaveRequest.findMany({
+  return await prisma.leaveRequest.findMany({
     where: {
       employeeId: Number(process.env.NEXT_PUBLIC_USER_DEMO_ID),
     },
@@ -43,7 +44,7 @@ export async function store(data: FormFields) {
   }
 }
 export async function show(id: number) {
-  return prisma.leaveRequest.findFirst({
+  return await prisma.leaveRequest.findFirst({
     where: {
       id,
     },
