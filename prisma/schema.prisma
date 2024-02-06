@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -176,6 +176,7 @@ model Vendor {
 
 model WorkUnit {
   id          Int     @id @default(autoincrement())
+  code        String  @unique
   name        String  @unique
   description String
   status      Boolean
@@ -201,7 +202,9 @@ model Inventory {
 
 model LeaveType {
   id           Int            @id @default(autoincrement())
+  code         String         @unique
   name         String
+  active       Boolean        @default(true)
   description  String?
   LeaveRequest LeaveRequest[]
 }

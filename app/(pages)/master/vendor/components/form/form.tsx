@@ -2,8 +2,8 @@
 
 import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
-import { type Store, type VendorFields } from "../../type";
-import { ButtonForm } from "@/c";
+import { type VendorFields } from "../../type";
+import { ButtonForm, LoadingModule } from "@/c";
 import { createVendor, findVendor } from "../../action";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -29,6 +29,7 @@ const initialValues = {
 function FormVendor() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [loadingEdit, setLoadingEdit] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
@@ -53,8 +54,10 @@ function FormVendor() {
   };
 
   const fetchDataEdit = async () => {
+    setLoadingEdit(true);
     const dataEdit = await findVendor(Number(id));
     form.setFieldsValue(dataEdit);
+    setLoadingEdit(false);
   };
 
   useEffect(() => {
@@ -65,7 +68,9 @@ function FormVendor() {
 
   return (
     <div>
+      {loadingEdit && <LoadingModule />}
       <Form
+        className={loadingEdit ? "dNone" : ""}
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
