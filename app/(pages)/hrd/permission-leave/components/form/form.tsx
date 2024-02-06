@@ -17,7 +17,7 @@ import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
 
 const initialValues = {
-  status: true,
+  active: true,
 };
 
 function FormVendor() {

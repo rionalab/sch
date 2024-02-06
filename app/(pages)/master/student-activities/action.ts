@@ -7,7 +7,7 @@ import { type FormFields } from "./type";
 import { handlePrismaError } from "@/libs/helpers";
 import { modelStore } from "./components/form/model";
 
-const urlToRevalidate = urls.master.extracurricular.index;
+const urlToRevalidate = urls.master.studentActivities.index;
 
 export async function index() {
   return await prisma.extracurricular.findMany();

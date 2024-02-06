@@ -3,7 +3,7 @@
 import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
 import { type FormFields } from "../../type";
-import { ButtonForm } from "@/c";
+import { ButtonForm, LoadingModule } from "@/c";
 import { store, show } from "../../action";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -18,6 +18,7 @@ import { fieldRules } from "@/libs/helpers";
 
 const initialValues = {
   paid: true,
+  active: true,
   price: 0,
 };
 
@@ -28,6 +29,7 @@ function FormVendor() {
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
+  const [loadingEdit, setLoadingEdit] = useState(false);
 
   const onFinish = async (values: FormFields): Promise<void> => {
     const isEdit = values.id;
@@ -59,8 +61,10 @@ function FormVendor() {
   };
 
   const fetchDataEdit = async () => {
+    setLoadingEdit(true);
     const dataEdit = await show(Number(id));
     form.setFieldsValue(dataEdit);
+    setLoadingEdit(false);
   };
 
   useEffect(() => {
@@ -73,8 +77,10 @@ function FormVendor() {
 
   return (
     <div>
+      {loadingEdit && <LoadingModule />}
       <Form
         name="basic"
+        className={loadingEdit ? "dNone" : ""}
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         initialValues={{ ...initialValues, id }}
@@ -89,6 +95,14 @@ function FormVendor() {
           <Col span={13}>
             <Form.Item<FormFields> hidden label="Id" name="id">
               <Input type="hidden" />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Code"
+              name="code"
+              rules={fieldRules(["required"])}
+            >
+              <Input />
             </Form.Item>
 
             <Form.Item<FormFields>
@@ -121,6 +135,14 @@ function FormVendor() {
               rules={fieldRules(["required"])}
             >
               <Input.TextArea />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Active"
+              name="active"
+              rules={fieldRules(["required"])}
+            >
+              <Select options={trueFalseOptions} />
             </Form.Item>
           </Col>
           <Col span={10}></Col>

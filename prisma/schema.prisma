@@ -149,8 +149,10 @@ model Student {
 
 model Extracurricular {
   id          Int       @id @default(autoincrement())
+  code        String    @unique
   name        String
   description String
+  active      Boolean
   paid        Boolean
   price       Int
   student     Student[]

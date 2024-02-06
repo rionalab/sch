@@ -94,17 +94,17 @@ export const routes: Routes = {
     ],
   },
   extracurricular: {
-    url: urls.master.extracurricular.index,
-    title: "extracurricular ",
+    url: urls.master.studentActivities.index,
+    title: "Student Activities ",
     icon: <DeploymentUnitOutlined />,
     breadcrumb: [
       {
         title: "Master Data",
       },
       {
-        title: "extracurricular ",
+        title: "Student Activities ",
         icon: <DeploymentUnitOutlined />,
-        url: urls.master.extracurricular.index,
+        url: urls.master.studentActivities.index,
       },
     ],
   },
