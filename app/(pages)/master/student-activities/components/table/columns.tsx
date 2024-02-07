@@ -31,10 +31,5 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       title: "Description",
       dataIndex: "description",
     },
-    {
-      title: "Status",
-      dataIndex: "active",
-      render: (v) => (v ? "Active" : "Inactive"),
-    },
   ];
 };
