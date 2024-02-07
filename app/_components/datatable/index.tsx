@@ -37,6 +37,11 @@ export function DataTable<T>(props: Props<T>) {
 
   const finalColumns = columns;
   const keyActions = Object.keys(actions);
+  let hasActive = false;
+
+  if (rows[0]) {
+    hasActive = "active" in rows?.[0];
+  }
 
   return (
     <>
@@ -54,6 +59,17 @@ export function DataTable<T>(props: Props<T>) {
         size="small"
         columns={[
           ...finalColumns,
+
+          // * ACTIVE
+          hasActive
+            ? {
+                title: "Active",
+                dataIndex: "active",
+                render: (v) => (v ? "Active" : "Inactive"),
+              }
+            : {},
+
+          // * ACTIONS
           keyActions.length
             ? {
                 title: "Action",

@@ -1,7 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-import { employeeSeed } from "./employee";
-import { vendorSeed } from "./vendor";
 import dayjs from "dayjs";
 
 function today() {
@@ -50,19 +48,31 @@ async function main() {
   await prisma.position.createMany({
     data: [
       {
+        description: "",
+        active: true,
         name: "principal",
         category: "Edu",
+        code: "KR/POS/2024/01/0001",
       },
       {
         name: "teacher",
         category: "Edu",
+        active: true,
+        description: "",
+        code: "KR/POS/2024/01/0002",
       },
       {
         name: "security",
+        active: true,
+        code: "KR/POS/2024/01/0003",
         category: "NonEdu",
+        description: "",
       },
       {
         name: "cleaning",
+        description: "",
+        active: true,
+        code: "KR/POS/2024/01/0004",
         category: "NonEdu",
       },
     ],

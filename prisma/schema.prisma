@@ -47,10 +47,13 @@ model Category {
 }
 
 model Position {
-  id        Int              @id @default(autoincrement())
-  name      String           @unique
-  category  PositionCategory @default(Edu)
-  employees Employee[]
+  id          Int              @id @default(autoincrement())
+  code        String           @unique @default(uuid())
+  name        String           @unique
+  description String?
+  active      Boolean          @default(true)
+  category    PositionCategory @default(Edu)
+  employees   Employee[]
 }
 
 model Employee {

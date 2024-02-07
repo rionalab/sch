@@ -3,8 +3,8 @@
 import React from "react";
 import type { ColumnsType } from "antd/es/table";
 import { DataTable } from "@/c";
-import { columns } from "../configs/table";
-import { removePosition } from "../action";
+import { columns } from "./columns";
+import { destroy } from "../../action";
 import { useTable } from "@/hooks/useTable";
 
 interface Props {
@@ -25,7 +25,7 @@ function Table({ rows }: Props) {
         {...tableProps}
         actions={{
           destroy: async (id: number) => {
-            await removePosition(id);
+            await destroy(id);
           },
           edit: true,
         }}

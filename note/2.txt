@@ -34,11 +34,11 @@ Position
 - Tambahin deksirpsi
 - Tambahin Active
 
-Extracurricular 
-- Ganti namanya jadi Activity
-- Tambahan code (generate juga)
-- Tambahin Active
 
+remove active inactive in currnet cuz handlede by dt component
+
+LANJUTKAN!!!!!!!!!!!!!!!!!!!!
+IMPLEMENT AUTO INC CODE DI POSITION
 
 DONE
 +======================================
@@ -49,4 +49,9 @@ Leave Type
 Work Unit
 - Tambahkan code
 - Pindahkan Active ke ujung sebelum action
+
+Extracurricular 
+- Ganti namanya jadi Activity
+- Tambahan code (generate juga)
+- Tambahin Active
 

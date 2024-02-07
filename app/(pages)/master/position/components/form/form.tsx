@@ -2,9 +2,9 @@
 
 import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
-import { type Store, type Position } from "../type";
+import { type FormFields } from "../../type";
 import { ButtonForm } from "@/c";
-import { createPosition, findPosition } from "../action";
+import { store, show } from "../../action";
 import { useParams, useRouter } from "next/navigation";
 import {
   positionCategoryOptions,
@@ -12,11 +12,13 @@ import {
   notifStoreError,
   notifUpdateSuccess,
   notifUpdateError,
+  trueFalseOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
 
 const initialValues = {
   category: "Edu",
+  active: true,
 };
 
 function FormPosition() {
@@ -26,13 +28,13 @@ function FormPosition() {
   const { id } = useParams();
   const [form] = Form.useForm();
 
-  const onFinish = async (values: any): Promise<void> => {
+  const onFinish = async (values: FormFields): Promise<void> => {
     const isEdit = values.id;
 
     try {
       setLoading(true);
 
-      await createPosition(values as Store);
+      await store(values);
 
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
@@ -46,7 +48,7 @@ function FormPosition() {
   };
 
   const fetchDataEdit = async () => {
-    const dataEdit = await findPosition(Number(id));
+    const dataEdit = await show(Number(id));
     form.setFieldsValue(dataEdit);
   };
 
@@ -71,11 +73,11 @@ function FormPosition() {
         <br />
         <Row gutter={24}>
           <Col span={13}>
-            <Form.Item<Position> hidden label="Id" name="id">
+            <Form.Item<FormFields> hidden label="Id" name="id">
               <Input type="hidden" />
             </Form.Item>
 
-            <Form.Item<Position>
+            <Form.Item<FormFields>
               label="Position Name"
               name="name"
               rules={[{ required: true, message: "Field is required" }]}
@@ -83,8 +85,20 @@ function FormPosition() {
               <Input type="" />
             </Form.Item>
 
-            <Form.Item<Position> label="Category" name="category">
+            <Form.Item<FormFields> label="Category" name="category">
               <Select options={positionCategoryOptions} />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Description"
+              name="description"
+              rules={[{ required: true, message: "Field is required" }]}
+            >
+              <Input.TextArea />
+            </Form.Item>
+
+            <Form.Item<FormFields> label="Active" name="active">
+              <Select options={trueFalseOptions} />
             </Form.Item>
           </Col>
           <Col span={10}></Col>

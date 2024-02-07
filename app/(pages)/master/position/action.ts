@@ -3,17 +3,18 @@
 import { urls } from "@/consts";
 import prisma from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
-import { type Store } from "./type";
 import { type Prisma } from "@prisma/client";
 import { handlePrismaError } from "@/libs/helpers";
+import { type FormFields } from "./type";
+import { modelStore } from "./components/form/model";
 
 const urlToRevalidate = urls.master.position.index;
 
-export async function getPosition() {
+export async function index() {
   return await prisma.position.findMany();
 }
 
-export async function createPosition(data: Store) {
+export async function store(data: FormFields) {
   try {
     let result;
 
@@ -23,11 +24,10 @@ export async function createPosition(data: Store) {
         data: data as Prisma.PositionCreateInput,
       });
     } else {
+      const dataModel = await modelStore(data);
+
       result = await prisma.position.create({
-        data: {
-          name: data.name,
-          category: data.category,
-        },
+        data: dataModel,
       });
     }
 
@@ -39,7 +39,7 @@ export async function createPosition(data: Store) {
   }
 }
 
-export async function findPosition(id: number) {
+export async function show(id: number) {
   return await prisma.position.findFirst({
     where: {
       id,
@@ -47,7 +47,7 @@ export async function findPosition(id: number) {
   });
 }
 
-export async function removePosition(id: number) {
+export async function destroy(id: number) {
   try {
     await prisma.position.delete({
       where: { id },

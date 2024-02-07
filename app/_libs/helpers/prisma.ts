@@ -1,6 +1,7 @@
 import { messages } from "@/consts";
 import dayjs from "dayjs";
 import { Prisma } from "@prisma/client";
+import { type ModuleCode } from "@/types";
 
 const d = {
   Position: {
@@ -100,4 +101,22 @@ export function formToPrisma(formValue: Record<string, any>) {
   });
 
   return result;
+}
+
+export function code(code: ModuleCode, index: number) {
+  try {
+    const date = dayjs();
+    const year = date.year();
+    const month = date.format("MM");
+
+    let numStr = index.toString();
+
+    while (numStr.length < 4) {
+      numStr = "0" + numStr;
+    }
+
+    return `KR/${code}/${year}/${month}/${numStr}`;
+  } catch (e) {
+    throw Error("code is required on prisma code function helpers");
+  }
 }

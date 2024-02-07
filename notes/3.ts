@@ -4,3 +4,13 @@
       {loadingEdit && <LoadingModule />}
       className={loadingEdit ? "dNone" : ""}
       import { ButtonForm, LoadingModule } from "@/c";
+
+
+
+      <Form.Item<FormFields>
+      label="Active"
+      name="status"
+      rules={fieldRules(["required"])}
+    >
+      <Select options={trueFalseOptions} />
+    </Form.Item>

@@ -1,9 +1,9 @@
 import React from "react";
 import FormEmployee from "../components/form/form";
-import { getPosition } from "@/pages/master/position/action";
+import { index } from "@/pages/master/position/action";
 
 async function Page() {
-  const positions = await getPosition();
+  const positions = await index();
 
   const props = {
     positions,
