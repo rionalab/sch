@@ -8,11 +8,17 @@ import { code } from "@/libs/helpers";
 export async function modelStore(
   formValue: FormFields
 ): Promise<Prisma.PositionCreateInput> {
-  const count = await prisma.position.count();
+  const lastRow = await prisma.position.findFirst({
+    orderBy: {
+      id: "desc",
+    },
+  });
+
+  const lastId = lastRow?.id ?? 1;
 
   return {
     name: formValue.name,
-    code: code("POS", count + 1),
+    code: code("POS", Number(lastId) + 1),
     category: formValue.category,
     description: formValue.description,
     active: formValue.active,
