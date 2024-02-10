@@ -325,23 +325,47 @@ async function main() {
     skipDuplicates: true,
   });
 
+  await prisma.uom.createMany({
+    data: [
+      {
+        code: "PEN",
+        name: "Pen",
+        acronym: "bh",
+        description: "",
+        active: true,
+      },
+      {
+        code: "KG",
+        name: "kg",
+        description: "",
+        acronym: "kg",
+        active: true,
+      },
+    ],
+    skipDuplicates: true,
+  });
+
   // * Inventory
   // *************************************
   await prisma.inventory.createMany({
     data: [
       {
-        name: "Pen",
-        code: "PEN",
-        UOM: "buah",
-        remarks: "remarks pen",
+        name: "Cat dinding",
+        code: "CAT",
+        uomId: 2,
         departmentId: 1,
+        remarks: "",
+        qty: 110,
+        category: "inventory",
       },
       {
         name: "Book",
         code: "BOOK",
-        UOM: "buah",
-        remarks: "remarks book",
+        uomId: 1,
         departmentId: 1,
+        remarks: "",
+        qty: 110,
+        category: "inventory",
       },
     ],
     skipDuplicates: true,

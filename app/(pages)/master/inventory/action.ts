@@ -13,6 +13,7 @@ export async function index() {
   return await prisma.inventory.findMany({
     include: {
       owner: true,
+      UOM: true,
     },
   });
 }

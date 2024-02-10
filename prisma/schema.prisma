@@ -193,11 +193,22 @@ model Department {
   Inventory Inventory[]
 }
 
+model Uom {
+  id          Int         @id @default(autoincrement())
+  code        String      @unique
+  name        String      @unique
+  description String
+  acronym     String      @unique
+  active      Boolean     @default(true)
+  Inventory   Inventory[]
+}
+
 model Inventory {
   id           Int         @id @default(autoincrement())
   name         String      @unique
   code         String      @unique
-  UOM          String
+  UOM          Uom         @relation(fields: [uomId], references: [id])
+  uomId        Int
   owner        Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
   remarks      String?
   qty          Int         @default(0)
@@ -221,12 +232,6 @@ model LeaveEntitlement {
   year        Int
   employee    Employee @relation(fields: [employeeId], references: [id])
   employeeId  Int
-}
-
-model Uom {
-  id   Int    @id @default(autoincrement())
-  code String @unique
-  name String @unique
 }
 
 model LeaveRequest {
