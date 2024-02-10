@@ -77,6 +77,12 @@ function FormPosition() {
               <Input type="hidden" />
             </Form.Item>
 
+            {id && (
+              <Form.Item<FormFields> label="Code" name="code">
+                <Input disabled />
+              </Form.Item>
+            )}
+
             <Form.Item<FormFields>
               label="Position Name"
               name="name"
