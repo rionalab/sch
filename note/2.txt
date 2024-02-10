@@ -1,0 +1,62 @@
+Master Data Untuk semuanya
+- Tambahkan no urut
+- Tambahkan jumlah data
+- Textbox pencarian panjangi lagi
+- Semua Judul Master data harus ada translateny 
+  Example : Activity | Aktivitas
+                  Supplier | Pemasok
+- Header table warnanya agak digelapi sedikit
+- Table kasih striped nya
+ 
+
+
+
+
+
+
+
+DONE
++======================================
+
+Departmen 
+- Tamabahin code
+- Generate code template(KR/DPT/YYYY/MM/00001)
+- Tambahin Deskription
+- Tambahin Active
+
+
+
+Supplier 
+- Generate code template (KR/SPP/YYYY/MM/00001)
+- Tambahin field Fax
+
+
+UOM 
+- Tambahin Deskription
+- Tambahan Akronim (EX. Buah, menjadi bh)
+- Tambahin Active
+
+Inventory
+- Ubah menjadi Barang
+- Generate code template(KR/BRG/YYYY/MM/00001)
+- Unit / Uom yang digunakan singkatannya (bukan buah tpi bh)
+
+
+Leave Type
+- Tambahkan code
+- Tambahin Active
+
+Work Unit
+- Tambahkan code
+- Pindahkan Active ke ujung sebelum action
+
+Extracurricular 
+- Ganti namanya jadi Activity
+- Tambahan code (generate juga)
+- Tambahin Active
+
+
+Position
+- Tambahain code (Generate juga)
+- Tambahin deksirpsi
+- Tambahin Active

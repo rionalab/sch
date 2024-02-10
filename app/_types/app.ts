@@ -24,3 +24,15 @@ export type ModuleName =
   | "inventory"
   | "leaveRequest"
   | "leaveType";
+
+export type ModuleCode =
+  | "employee"
+  | "POS"
+  | "SPP"
+  | "uom"
+  | "DPT"
+  | "extracurricular"
+  | "workUnit"
+  | "INV"
+  | "leaveRequest"
+  | "leaveType";

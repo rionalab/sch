@@ -1,11 +1,13 @@
 export interface Position {
   id: number;
   name: string;
-  category: "Edu" | "NonEdu";
 }
 
-export interface Store {
+export interface FormFields {
   name: string;
-  id?: string;
   category: "Edu" | "NonEdu";
+  id?: string;
+  code: string;
+  description: string;
+  active: boolean;
 }

@@ -83,7 +83,7 @@ export function Sidebar() {
                 key: "inventory",
                 icon: <DeploymentUnitOutlined />,
                 label: (
-                  <Link href={urls.master.inventory.index}>inventory</Link>
+                  <Link href={urls.master.inventory.index}>Inventory</Link>
                 ),
               },
 
@@ -93,11 +93,11 @@ export function Sidebar() {
                 label: <Link href={urls.master.position.index}>Position</Link>,
               },
               {
-                key: "extracurricular",
+                key: "studentAct",
                 icon: <DeploymentUnitOutlined />,
                 label: (
-                  <Link href={urls.master.extracurricular.index}>
-                    extracurricular
+                  <Link href={urls.master.studentActivities.index}>
+                    Student Activities
                   </Link>
                 ),
               },

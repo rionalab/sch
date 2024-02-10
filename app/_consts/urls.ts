@@ -4,7 +4,7 @@ const position = "/master/position";
 const vendor = "/master/vendor";
 const inventory = "/master/inventory";
 const uom = "/master/uom";
-const extracurricular = "/master/extracurricular";
+const studentActivities = "/master/student-activities";
 const workUnit = "/master/work-unit";
 const leave = "/master/leave";
 const permissionLeave = "/hrd/permission-leave";
@@ -55,10 +55,10 @@ export const urls = {
       create: uom + "/create",
       edit: (id: string | number) => uom + "/edit/" + id,
     },
-    extracurricular: {
-      index: extracurricular,
-      create: extracurricular + "/create",
-      edit: (id: string | number) => extracurricular + "/edit/" + id,
+    studentActivities: {
+      index: studentActivities,
+      create: studentActivities + "/create",
+      edit: (id: string | number) => studentActivities + "/edit/" + id,
     },
     workUnit: {
       index: workUnit,

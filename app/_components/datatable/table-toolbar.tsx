@@ -29,7 +29,7 @@ export function TableToolbar(props: Props) {
 
   return (
     <Flex justify="space-between" align="center" style={{ marginBottom: 8 }}>
-      <div>
+      <div style={{ width: 300 }}>
         {search && (
           <Input
             placeholder="Search"

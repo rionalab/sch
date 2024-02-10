@@ -37,6 +37,11 @@ export function DataTable<T>(props: Props<T>) {
 
   const finalColumns = columns;
   const keyActions = Object.keys(actions);
+  let hasActive = false;
+
+  if (rows[0]) {
+    hasActive = "active" in rows?.[0];
+  }
 
   return (
     <>
@@ -52,8 +57,29 @@ export function DataTable<T>(props: Props<T>) {
         {...(antdProps as TableProps<Record<string, any>>)}
         dataSource={rows}
         size="small"
+        className="customTbl"
+        footer={(currentPageData) => {
+          return (
+            currentPageData.length > 0 && (
+              <span>Total: {currentPageData.length} rows</span>
+            )
+          );
+        }}
         columns={[
           ...finalColumns,
+
+          // * ACTIVE
+          ...(hasActive
+            ? [
+                {
+                  title: "Active",
+                  dataIndex: "active",
+                  render: (v: boolean) => (v ? "Active" : "Inactive"),
+                },
+              ]
+            : []),
+
+          // * ACTIONS
           keyActions.length
             ? {
                 title: "Action",

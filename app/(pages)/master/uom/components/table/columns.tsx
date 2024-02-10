@@ -8,13 +8,18 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       width: 80,
       dataIndex: "no",
     },
-    {
-      title: "Code",
-      dataIndex: "code",
-    },
+
     {
       title: "Name",
       dataIndex: "name",
+    },
+    {
+      title: "Acronym",
+      dataIndex: "acronym",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
     },
   ];
 };

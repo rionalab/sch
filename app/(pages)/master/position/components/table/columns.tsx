@@ -10,6 +10,10 @@ export const columns = (): ColumnsType<Prisma.PositionCreateInput> => {
       dataIndex: "no",
     },
     {
+      title: "Code",
+      dataIndex: "code",
+    },
+    {
       title: "Position",
       width: 200,
       dataIndex: "name",
@@ -20,6 +24,10 @@ export const columns = (): ColumnsType<Prisma.PositionCreateInput> => {
       dataIndex: "category",
       render: (v: "Edu" | "NonEdu") => cellPositionCategory(v),
       sorter: (a, b) => (a.name > b.name ? -1 : 1),
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
     },
   ];
 };

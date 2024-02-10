@@ -3,7 +3,7 @@
 import { urls } from "@/consts";
 import prisma from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
-import { type VendorFields } from "./type";
+import { type FormFields } from "./type";
 import { handlePrismaError } from "@/libs/helpers";
 import { modelStoreVendor } from "./components/form/model";
 
@@ -13,18 +13,18 @@ export async function getVendor() {
   return await prisma.vendor.findMany();
 }
 
-export async function createVendor(data: VendorFields) {
+export async function createVendor(data: FormFields) {
   try {
     let result;
 
     if (data.id != null) {
       result = await prisma.vendor.update({
         where: { id: Number(data.id) },
-        data: modelStoreVendor(data),
+        data: await modelStoreVendor(data),
       });
     } else {
       result = await prisma.vendor.create({
-        data: modelStoreVendor(data),
+        data: await modelStoreVendor(data),
       });
     }
 

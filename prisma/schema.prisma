@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -47,10 +47,13 @@ model Category {
 }
 
 model Position {
-  id        Int              @id @default(autoincrement())
-  name      String           @unique
-  category  PositionCategory @default(Edu)
-  employees Employee[]
+  id          Int              @id @default(autoincrement())
+  code        String           @unique @default(uuid())
+  name        String           @unique
+  description String?
+  active      Boolean          @default(true)
+  category    PositionCategory @default(Edu)
+  employees   Employee[]
 }
 
 model Employee {
@@ -149,8 +152,10 @@ model Student {
 
 model Extracurricular {
   id          Int       @id @default(autoincrement())
+  code        String    @unique
   name        String
   description String
+  active      Boolean
   paid        Boolean
   price       Int
   student     Student[]
@@ -168,30 +173,47 @@ model Vendor {
   id        Int     @id @default(autoincrement())
   name      String
   accountNo String
+  code      String  @unique
   address   String
   phone     String
+  fax       String?
   blacklist Boolean @default(false)
   remarks   String?
 }
 
 model WorkUnit {
   id          Int     @id @default(autoincrement())
+  code        String  @unique
   name        String  @unique
   description String
   status      Boolean
 }
 
 model Department {
-  id        Int         @id @default(autoincrement())
-  name      String      @unique
-  Inventory Inventory[]
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  code        String      @unique
+  active      Boolean     @default(true)
+  description String?
+  Inventory   Inventory[]
+}
+
+model Uom {
+  id          Int         @id @default(autoincrement())
+  code        String      @unique
+  name        String      @unique
+  description String
+  acronym     String      @unique
+  active      Boolean     @default(true)
+  Inventory   Inventory[]
 }
 
 model Inventory {
   id           Int         @id @default(autoincrement())
   name         String      @unique
   code         String      @unique
-  UOM          String
+  UOM          Uom         @relation(fields: [uomId], references: [id])
+  uomId        Int
   owner        Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
   remarks      String?
   qty          Int         @default(0)
@@ -201,7 +223,9 @@ model Inventory {
 
 model LeaveType {
   id           Int            @id @default(autoincrement())
+  code         String         @unique
   name         String
+  active       Boolean        @default(true)
   description  String?
   LeaveRequest LeaveRequest[]
 }
@@ -213,12 +237,6 @@ model LeaveEntitlement {
   year        Int
   employee    Employee @relation(fields: [employeeId], references: [id])
   employeeId  Int
-}
-
-model Uom {
-  id   Int    @id @default(autoincrement())
-  code String @unique
-  name String @unique
 }
 
 model LeaveRequest {

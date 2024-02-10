@@ -3,20 +3,27 @@
 import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
 import { type FormFields } from "../../type";
-import { ButtonForm } from "@/c";
+import { ButtonForm, LoadingModule } from "@/c";
 import { store, get } from "../../action";
 import { useParams, useRouter } from "next/navigation";
-import * as notif from "@/consts";
+import * as inventory from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
 import useSelect from "@/hooks/useSelect";
 
-const initialValues = {};
+const initialValues = {
+  // name: "inv a",
+  // uomId: 1,
+  // departmentId: 1,
+  // remarks: "string",
+  // category: "consumables",
+};
 
 function FormVendor() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
+  const [loadingEdit, setLoadingEdit] = useState(false);
   const { id } = useParams();
   const [form] = Form.useForm();
   const { department, uom } = useSelect(["department", "uom"]);
@@ -30,14 +37,16 @@ function FormVendor() {
       await store(values);
 
       api?.success(
-        isEdit ? notif.notifUpdateSuccess() : notif.notifStoreSuccess()
+        isEdit ? inventory.notifUpdateSuccess() : inventory.notifStoreSuccess()
       );
       router.back();
     } catch (e: any) {
       const msg = String(e.message);
 
       api?.error(
-        isEdit ? notif.notifUpdateError(msg) : notif.notifStoreError(msg)
+        isEdit
+          ? inventory.notifUpdateError(msg)
+          : inventory.notifStoreError(msg)
       );
     } finally {
       setLoading(false);
@@ -45,8 +54,10 @@ function FormVendor() {
   };
 
   const fetchDataEdit = async () => {
+    setLoadingEdit(true);
     const dataEdit = await get(Number(id));
     form.setFieldsValue(dataEdit);
+    setLoadingEdit(false);
   };
 
   useEffect(() => {
@@ -57,6 +68,8 @@ function FormVendor() {
 
   return (
     <div>
+      {loadingEdit && <LoadingModule />}
+
       <Form
         name="basic"
         labelCol={{ span: 8 }}
@@ -65,6 +78,7 @@ function FormVendor() {
         onFinish={onFinish}
         form={form}
         autoComplete="off"
+        className={loadingEdit ? "dNone" : ""}
       >
         <br />
         <Row gutter={24}>
@@ -72,13 +86,13 @@ function FormVendor() {
             <Form.Item<FormFields> hidden label="Id" name="id">
               <Input type="hidden" />
             </Form.Item>
-            <Form.Item<FormFields>
-              label="Code"
-              name="code"
-              rules={fieldRules(["required"])}
-            >
-              <Input />
-            </Form.Item>
+
+            {id && (
+              <Form.Item<FormFields> label="Code" name="code">
+                <Input disabled />
+              </Form.Item>
+            )}
+
             <Form.Item<FormFields>
               label="Name"
               name="name"
@@ -88,7 +102,7 @@ function FormVendor() {
             </Form.Item>
             <Form.Item<FormFields>
               label="Unit"
-              name="UOM"
+              name="uomId"
               rules={fieldRules(["required"])}
             >
               <Select options={uom} />
@@ -98,7 +112,7 @@ function FormVendor() {
               name="category"
               rules={fieldRules(["required"])}
             >
-              <Select options={notif.inventoryCategoryOptions} />
+              <Select options={inventory.inventoryCategoryOptions} />
             </Form.Item>
             <Form.Item<FormFields> label="Department" name="departmentId">
               <Select options={department} />

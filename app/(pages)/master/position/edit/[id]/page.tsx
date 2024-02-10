@@ -1,5 +1,5 @@
 import React, { Suspense } from "react";
-import FormPosition from "@/pages/master/position/components/form";
+import FormPosition from "@/pages/master/position/components/form/form";
 
 interface Props {
   params: {

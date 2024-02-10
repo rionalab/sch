@@ -2,8 +2,8 @@
 
 import React, { memo, useEffect, useState } from "react";
 import { Col, Form, Input, Row, Select } from "antd";
-import { type Store, type VendorFields } from "../../type";
-import { ButtonForm } from "@/c";
+import { type FormFields } from "../../type";
+import { ButtonForm, LoadingModule } from "@/c";
 import { createVendor, findVendor } from "../../action";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -15,25 +15,27 @@ import {
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
-import { faker } from "@faker-js/faker";
+// import { faker } from "@faker-js/faker";
 
 const initialValues = {
-  // blacklist: false,
+  blacklist: false,
   // name: faker.person.fullName(),
   // accountNo: "00000000000",
   // address: faker.location.streetAddress(),
   // phone: faker.phone.number(),
+  // fax: faker.phone.number(),
   // remarks: "something over the rainbow",
 };
 
 function FormVendor() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const [loadingEdit, setLoadingEdit] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
 
-  const onFinish = async (values: VendorFields): Promise<void> => {
+  const onFinish = async (values: FormFields): Promise<void> => {
     const isEdit = values.id;
 
     try {
@@ -53,8 +55,10 @@ function FormVendor() {
   };
 
   const fetchDataEdit = async () => {
+    setLoadingEdit(true);
     const dataEdit = await findVendor(Number(id));
     form.setFieldsValue(dataEdit);
+    setLoadingEdit(false);
   };
 
   useEffect(() => {
@@ -65,7 +69,9 @@ function FormVendor() {
 
   return (
     <div>
+      {loadingEdit && <LoadingModule />}
       <Form
+        className={loadingEdit ? "dNone" : ""}
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -78,11 +84,15 @@ function FormVendor() {
         <br />
         <Row gutter={24}>
           <Col span={13}>
-            <Form.Item<VendorFields> hidden label="Id" name="id">
+            <Form.Item<FormFields> hidden name="id">
               <Input type="hidden" />
             </Form.Item>
 
-            <Form.Item<VendorFields>
+            <Form.Item<FormFields> hidden={!id} label="Code" name="code">
+              <Input disabled />
+            </Form.Item>
+
+            <Form.Item<FormFields>
               label="Name"
               name="name"
               rules={fieldRules(["required"])}
@@ -90,7 +100,7 @@ function FormVendor() {
               <Input />
             </Form.Item>
 
-            <Form.Item<VendorFields>
+            <Form.Item<FormFields>
               label="Account No."
               name="accountNo"
               rules={fieldRules(["required"])}
@@ -98,7 +108,7 @@ function FormVendor() {
               <Input />
             </Form.Item>
 
-            <Form.Item<VendorFields>
+            <Form.Item<FormFields>
               label="Phone"
               name="phone"
               rules={fieldRules(["required"])}
@@ -106,11 +116,15 @@ function FormVendor() {
               <Input />
             </Form.Item>
 
-            <Form.Item<VendorFields> label="Blacklist" name="blacklist">
+            <Form.Item<FormFields> label="Fax" name="fax">
+              <Input />
+            </Form.Item>
+
+            <Form.Item<FormFields> label="Blacklist" name="blacklist">
               <Select options={trueFalseOptions} />
             </Form.Item>
 
-            <Form.Item<VendorFields>
+            <Form.Item<FormFields>
               label="Address"
               name="address"
               rules={fieldRules(["required"])}
@@ -118,7 +132,7 @@ function FormVendor() {
               <Input.TextArea />
             </Form.Item>
 
-            <Form.Item<VendorFields> label="Remarks" name="remarks">
+            <Form.Item<FormFields> label="Remarks" name="remarks">
               <Input.TextArea />
             </Form.Item>
           </Col>

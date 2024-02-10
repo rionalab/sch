@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo, useEffect, useState } from "react";
-import { Col, Form, Input, Row } from "antd";
+import { Col, Form, Input, Row, Select } from "antd";
 import { type FormFields } from "../../type";
 import { ButtonForm } from "@/c";
 import { store, show } from "../../action";
@@ -11,6 +11,7 @@ import {
   notifStoreError,
   notifUpdateSuccess,
   notifUpdateError,
+  trueFalseOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
@@ -21,10 +22,10 @@ const initialValues = {
   // accountNo: "00000000000",
   // address: faker.location.streetAddress(),
   // phone: faker.phone.number(),
-  // remarks: "something over the rainbow",
+  active: true,
 };
 
-function FormVendor() {
+function FormCrud() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
@@ -80,13 +81,13 @@ function FormVendor() {
               <Input type="hidden" />
             </Form.Item>
 
-            <Form.Item<FormFields>
+            {/* <Form.Item<FormFields>
               label="Code"
               name="code"
               rules={fieldRules(["required"])}
             >
               <Input />
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item<FormFields>
               label="Name"
@@ -94,6 +95,30 @@ function FormVendor() {
               rules={fieldRules(["required"])}
             >
               <Input />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Acronym"
+              name="acronym"
+              rules={fieldRules(["required"])}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Description"
+              name="description"
+              rules={fieldRules(["required"])}
+            >
+              <Input.TextArea />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Active"
+              name="active"
+              rules={fieldRules(["required"])}
+            >
+              <Select options={trueFalseOptions} />
             </Form.Item>
           </Col>
           <Col span={10}></Col>
@@ -105,4 +130,4 @@ function FormVendor() {
   );
 }
 
-export default memo(FormVendor);
+export default memo(FormCrud);

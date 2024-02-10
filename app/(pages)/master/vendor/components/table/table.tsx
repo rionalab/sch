@@ -21,6 +21,9 @@ function Table({ rows }: Props) {
       <DataTable
         filter={true}
         download={true}
+        antdProps={{
+          scroll: { x: 1300, y: 1111 },
+        }}
         columns={columns() as DtColumns}
         {...tableProps}
         actions={{

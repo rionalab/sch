@@ -1,5 +1,5 @@
 import React from "react";
-import FormEmployee from "../components/form";
+import FormEmployee from "../components/form/form";
 
 function Page() {
   return (

@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import FormEmployee from "../../components/form/form";
-import { getPosition } from "@/pages/master/position/action";
+import * as positions from "@/pages/master/position/action";
 import { ContentLoader } from "@/c";
 
 interface Props {
@@ -10,10 +10,10 @@ interface Props {
 }
 
 async function Page({ params }: Props) {
-  const positions = await getPosition();
+  const pos = await positions.index();
 
   const props = {
-    positions,
+    positions: pos,
   };
 
   return (

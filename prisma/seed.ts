@@ -1,7 +1,5 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-import { employeeSeed } from "./employee";
-import { vendorSeed } from "./vendor";
 import dayjs from "dayjs";
 
 function today() {
@@ -50,19 +48,31 @@ async function main() {
   await prisma.position.createMany({
     data: [
       {
+        description: "",
+        active: true,
         name: "principal",
         category: "Edu",
+        code: "KR/POS/2024/01/0001",
       },
       {
         name: "teacher",
         category: "Edu",
+        active: true,
+        description: "",
+        code: "KR/POS/2024/01/0002",
       },
       {
         name: "security",
+        active: true,
+        code: "KR/POS/2024/01/0003",
         category: "NonEdu",
+        description: "",
       },
       {
         name: "cleaning",
+        description: "",
+        active: true,
+        code: "KR/POS/2024/01/0004",
         category: "NonEdu",
       },
     ],
@@ -294,9 +304,11 @@ async function main() {
     data: [
       {
         name: "Vendor1",
+        code: "KR/SPP/2024/01/00001",
         accountNo: "1111111111",
         address: faker.location.streetAddress(),
         phone: faker.phone.number(),
+        fax: faker.phone.number(),
         remarks: "",
         blacklist: false,
       },
@@ -309,7 +321,30 @@ async function main() {
   await prisma.department.createMany({
     data: [
       {
+        code: "TI",
         name: "TI",
+        description: "TI",
+        active: true,
+      },
+    ],
+    skipDuplicates: true,
+  });
+
+  await prisma.uom.createMany({
+    data: [
+      {
+        code: "PEN",
+        name: "Pen",
+        acronym: "bh",
+        description: "",
+        active: true,
+      },
+      {
+        code: "KG",
+        name: "kg",
+        description: "",
+        acronym: "kg",
+        active: true,
       },
     ],
     skipDuplicates: true,
@@ -320,18 +355,22 @@ async function main() {
   await prisma.inventory.createMany({
     data: [
       {
-        name: "Pen",
-        code: "PEN",
-        UOM: "buah",
-        remarks: "remarks pen",
+        name: "Cat dinding",
+        code: "CAT",
+        uomId: 2,
         departmentId: 1,
+        remarks: "",
+        qty: 110,
+        category: "inventory",
       },
       {
         name: "Book",
         code: "BOOK",
-        UOM: "buah",
-        remarks: "remarks book",
+        uomId: 1,
         departmentId: 1,
+        remarks: "",
+        qty: 110,
+        category: "inventory",
       },
     ],
     skipDuplicates: true,

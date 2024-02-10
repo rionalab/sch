@@ -7,6 +7,7 @@ import { ButtonForm } from "@/c";
 import { store, show } from "../../action";
 import { useParams, useRouter } from "next/navigation";
 import {
+  positionCategoryOptions,
   notifStoreSuccess,
   notifStoreError,
   notifUpdateSuccess,
@@ -14,17 +15,15 @@ import {
   trueFalseOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
-import { fieldRules } from "@/libs/helpers";
 
 const initialValues = {
-  paid: true,
-  price: 0,
+  category: "Edu",
+  active: true,
 };
 
-function FormVendor() {
+function FormPosition() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [disablePrice, setDisablePrice] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
@@ -48,16 +47,6 @@ function FormVendor() {
     }
   };
 
-  const onChange = (v: any, w: any) => {
-    console.log(v.paid);
-    if (!w.paid) {
-      form.setFieldsValue({ price: 0 });
-      setDisablePrice(true);
-    } else {
-      setDisablePrice(false);
-    }
-  };
-
   const fetchDataEdit = async () => {
     const dataEdit = await show(Number(id));
     form.setFieldsValue(dataEdit);
@@ -69,8 +58,6 @@ function FormVendor() {
     }
   }, []);
 
-  console.log(disablePrice);
-
   return (
     <div>
       <Form
@@ -80,7 +67,6 @@ function FormVendor() {
         initialValues={{ ...initialValues, id }}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onFinish={onFinish}
-        onValuesChange={onChange}
         form={form}
         autoComplete="off"
       >
@@ -91,36 +77,34 @@ function FormVendor() {
               <Input type="hidden" />
             </Form.Item>
 
+            {id && (
+              <Form.Item<FormFields> label="Code" name="code">
+                <Input disabled />
+              </Form.Item>
+            )}
+
             <Form.Item<FormFields>
-              label="Name"
+              label="Position Name"
               name="name"
-              rules={fieldRules(["required"])}
+              rules={[{ required: true, message: "Field is required" }]}
             >
-              <Input />
+              <Input type="" />
             </Form.Item>
 
-            <Form.Item<FormFields>
-              label="Paid"
-              name="paid"
-              rules={fieldRules(["required"])}
-            >
-              <Select options={trueFalseOptions} />
-            </Form.Item>
-
-            <Form.Item<FormFields>
-              label="Price"
-              name="price"
-              rules={fieldRules(["required"])}
-            >
-              <Input disabled={disablePrice} />
+            <Form.Item<FormFields> label="Category" name="category">
+              <Select options={positionCategoryOptions} />
             </Form.Item>
 
             <Form.Item<FormFields>
               label="Description"
               name="description"
-              rules={fieldRules(["required"])}
+              rules={[{ required: true, message: "Field is required" }]}
             >
               <Input.TextArea />
+            </Form.Item>
+
+            <Form.Item<FormFields> label="Active" name="active">
+              <Select options={trueFalseOptions} />
             </Form.Item>
           </Col>
           <Col span={10}></Col>
@@ -132,4 +116,4 @@ function FormVendor() {
   );
 }
 
-export default memo(FormVendor);
+export default memo(FormPosition);
