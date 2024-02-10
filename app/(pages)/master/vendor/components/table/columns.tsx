@@ -8,31 +8,47 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
   return [
     {
       title: "No",
-      width: 80,
+      width: 50,
       dataIndex: "no",
+    },
+    {
+      title: "Code",
+      width: 170,
+      dataIndex: "code",
     },
     {
       title: "Name",
       dataIndex: "name",
+      width: 190,
     },
     {
       title: "Account No",
+      width: 130,
       dataIndex: "accountNo",
     },
     {
+      width: 200,
       title: "Address",
       dataIndex: "address",
     },
     {
       title: "Phone",
+      width: 166,
       dataIndex: "phone",
     },
     {
+      width: 166,
+      title: "Fax",
+      dataIndex: "fax",
+    },
+    {
+      width: 300,
       title: "Remarks",
       dataIndex: "remarks",
       render: (v: string) => cell(v),
     },
     {
+      width: 100,
       title: "Blacklist",
       dataIndex: "blacklist",
       render: (v) => {

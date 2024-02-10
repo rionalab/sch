@@ -173,8 +173,10 @@ model Vendor {
   id        Int     @id @default(autoincrement())
   name      String
   accountNo String
+  code      String  @unique
   address   String
   phone     String
+  fax       String?
   blacklist Boolean @default(false)
   remarks   String?
 }
