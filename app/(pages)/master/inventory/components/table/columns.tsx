@@ -33,6 +33,9 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
     {
       title: "Unit",
       dataIndex: "UOM",
+      render: (v) => {
+        return v.acronym;
+      },
     },
     {
       title: "Remarks",
