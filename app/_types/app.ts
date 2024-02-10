@@ -28,7 +28,7 @@ export type ModuleName =
 export type ModuleCode =
   | "employee"
   | "POS"
-  | "vendor"
+  | "SPP"
   | "uom"
   | "department"
   | "extracurricular"

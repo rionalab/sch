@@ -304,9 +304,11 @@ async function main() {
     data: [
       {
         name: "Vendor1",
+        code: "KR/SPP/2024/01/00001",
         accountNo: "1111111111",
         address: faker.location.streetAddress(),
         phone: faker.phone.number(),
+        fax: faker.phone.number(),
         remarks: "",
         blacklist: false,
       },
