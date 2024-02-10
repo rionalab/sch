@@ -24,11 +24,11 @@ export async function store(data: FormFields) {
     if (data.id != null) {
       result = await prisma.inventory.update({
         where: { id: Number(data.id) },
-        data: modelStore(data),
+        data: await modelStore(data),
       });
     } else {
       result = await prisma.inventory.create({
-        data: modelStore(data),
+        data: await modelStore(data),
       });
     }
 
