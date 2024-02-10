@@ -57,6 +57,9 @@ export function DataTable<T>(props: Props<T>) {
         {...(antdProps as TableProps<Record<string, any>>)}
         dataSource={rows}
         size="small"
+        footer={(currentPageData) => {
+          return <span>Total: {currentPageData.length} rows</span>;
+        }}
         columns={[
           ...finalColumns,
 
