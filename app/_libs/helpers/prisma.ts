@@ -7,13 +7,17 @@ const d = {
   Position: {
     name: "Position name",
   },
+  Inventory: {
+    code: "Inventory code",
+  },
 } as const;
 
 export function handlePrismaError(e: any) {
+  console.clear();
   console.log("#####################");
-  console.log(e.code);
-  console.log(e.meta.cause);
-  console.log(e.meta);
+  console.log(e?.code);
+  console.log(e?.meta?.cause);
+  console.log(e?.meta);
   console.log(e);
   console.log("#####################");
 
@@ -39,7 +43,15 @@ export function handlePrismaError(e: any) {
         console.log(arrTarget);
         console.log(modelName, fieldName);
 
-        const words = ["email", "NIP", "NIK", "name", "Position"];
+        const words = [
+          "email",
+          "code",
+          "Inventory",
+          "NIP",
+          "NIK",
+          "name",
+          "Position",
+        ];
 
         const matchByModel = words.includes(modelName);
         const matchByField = words.includes(fieldName);
@@ -47,6 +59,8 @@ export function handlePrismaError(e: any) {
         if (matchByModel && matchByField) {
           if (modelName === "Position" && fieldName === "name") {
             throw new Error(messages.dataAlreadyUsed(d.Position.name));
+          } else if (modelName === "Inventory" && fieldName === "code") {
+            throw new Error(messages.dataAlreadyUsed(d.Inventory.code));
           }
         }
 
@@ -60,7 +74,11 @@ export function handlePrismaError(e: any) {
       }
     }
 
-    throw new Error(messages.somethingWentWrong);
+    const generalMsg = [messages.somethingWentWrong, code]
+      .filter(Boolean)
+      .join(": ");
+
+    throw new Error(generalMsg);
   } catch (e: any) {
     const msg = String(e.message ?? messages.somethingWentWrong);
     throw new Error(msg);

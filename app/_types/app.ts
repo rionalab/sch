@@ -33,6 +33,6 @@ export type ModuleCode =
   | "department"
   | "extracurricular"
   | "workUnit"
-  | "inventory"
+  | "INV"
   | "leaveRequest"
   | "leaveType";
