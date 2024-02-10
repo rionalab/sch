@@ -86,13 +86,11 @@ function FormVendor() {
             <Form.Item<FormFields> hidden label="Id" name="id">
               <Input type="hidden" />
             </Form.Item>
-
             {id && (
               <Form.Item<FormFields> label="Code" name="code">
                 <Input disabled />
               </Form.Item>
             )}
-
             <Form.Item<FormFields>
               label="Name"
               name="name"
@@ -114,7 +112,11 @@ function FormVendor() {
             >
               <Select options={inventory.inventoryCategoryOptions} />
             </Form.Item>
-            <Form.Item<FormFields> label="Department" name="departmentId">
+            <Form.Item<FormFields>
+              label="Department"
+              name="departmentId"
+              rules={fieldRules(["required"])}
+            >
               <Select options={department} />
             </Form.Item>
             <Form.Item<FormFields> label="Remarks" name="remarks">
