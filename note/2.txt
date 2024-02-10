@@ -8,15 +8,28 @@ Master Data Untuk semuanya
 - Header table warnanya agak digelapi sedikit
 - Table kasih striped nya
  
-Supplier 
-- Generate code template (KR/SPP/YYYY/MM/00001)
-- Tambahin field Fax
+
+
+
+
+
+
+
+DONE
++======================================
 
 Departmen 
 - Tamabahin code
 - Generate code template(KR/DPT/YYYY/MM/00001)
 - Tambahin Deskription
 - Tambahin Active
+
+
+
+Supplier 
+- Generate code template (KR/SPP/YYYY/MM/00001)
+- Tambahin field Fax
+
 
 UOM 
 - Tambahin Deskription
@@ -27,21 +40,8 @@ Inventory
 - Ubah menjadi Barang
 - Generate code template(KR/BRG/YYYY/MM/00001)
 - Unit / Uom yang digunakan singkatannya (bukan buah tpi bh)
-- Letakan Qty diujung sebelum action
-
-Position
-- Tambahain code (Generate juga)
-- Tambahin deksirpsi
-- Tambahin Active
 
 
-remove active inactive in currnet cuz handlede by dt component
-
-LANJUTKAN!!!!!!!!!!!!!!!!!!!!
-IMPLEMENT AUTO INC CODE DI POSITION
-
-DONE
-+======================================
 Leave Type
 - Tambahkan code
 - Tambahin Active
@@ -55,3 +55,8 @@ Extracurricular
 - Tambahan code (generate juga)
 - Tambahin Active
 
+
+Position
+- Tambahain code (Generate juga)
+- Tambahin deksirpsi
+- Tambahin Active

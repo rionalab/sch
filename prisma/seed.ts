@@ -321,7 +321,10 @@ async function main() {
   await prisma.department.createMany({
     data: [
       {
+        code: "TI",
         name: "TI",
+        description: "TI",
+        active: true,
       },
     ],
     skipDuplicates: true,

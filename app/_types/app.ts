@@ -30,7 +30,7 @@ export type ModuleCode =
   | "POS"
   | "SPP"
   | "uom"
-  | "department"
+  | "DPT"
   | "extracurricular"
   | "workUnit"
   | "INV"

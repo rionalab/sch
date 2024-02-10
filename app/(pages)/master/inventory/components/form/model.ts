@@ -16,7 +16,7 @@ export async function modelStore(
 
   return {
     name: formValue.name,
-    code: code("INV", Number(lastId) + 1),
+    code: formValue.id ? formValue.code : code("INV", Number(lastId) + 1),
     UOM: {
       connect: {
         id: formValue.uomId,

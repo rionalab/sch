@@ -57,20 +57,27 @@ export function DataTable<T>(props: Props<T>) {
         {...(antdProps as TableProps<Record<string, any>>)}
         dataSource={rows}
         size="small"
+        className="customTbl"
         footer={(currentPageData) => {
-          return <span>Total: {currentPageData.length} rows</span>;
+          return (
+            currentPageData.length > 0 && (
+              <span>Total: {currentPageData.length} rows</span>
+            )
+          );
         }}
         columns={[
           ...finalColumns,
 
           // * ACTIVE
-          hasActive
-            ? {
-                title: "Active",
-                dataIndex: "active",
-                render: (v) => (v ? "Active" : "Inactive"),
-              }
-            : {},
+          ...(hasActive
+            ? [
+                {
+                  title: "Active",
+                  dataIndex: "active",
+                  render: (v: boolean) => (v ? "Active" : "Inactive"),
+                },
+              ]
+            : []),
 
           // * ACTIONS
           keyActions.length

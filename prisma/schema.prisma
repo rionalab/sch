@@ -190,9 +190,12 @@ model WorkUnit {
 }
 
 model Department {
-  id        Int         @id @default(autoincrement())
-  name      String      @unique
-  Inventory Inventory[]
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  code        String      @unique
+  active      Boolean     @default(true)
+  description String?
+  Inventory   Inventory[]
 }
 
 model Uom {

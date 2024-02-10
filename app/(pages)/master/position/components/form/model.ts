@@ -18,7 +18,7 @@ export async function modelStore(
 
   return {
     name: formValue.name,
-    code: code("POS", Number(lastId) + 1),
+    code: formValue.id ? formValue.code : code("POS", Number(lastId) + 1),
     category: formValue.category,
     description: formValue.description,
     active: formValue.active,

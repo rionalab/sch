@@ -13,7 +13,7 @@ import {
   Upload,
 } from "antd";
 import { type Employee, type FormFields } from "../../type";
-import { ButtonBack, ButtonForm } from "@/c";
+
 import {
   fieldRules,
   prismaToForm,
@@ -41,8 +41,9 @@ import { useAntdContext } from "@/contexts";
 import { store, show } from "../../action";
 import { faker } from "@faker-js/faker";
 import { submitEmployeeData } from "./model";
+import { ButtonForm, ButtonBack, LoadingModule } from "@/c";
 
-const initialValues: Partial<Employee> = {
+const initialValues2: Partial<Employee> = {
   NIP: "00001",
   positionId: 2,
   hireDate: today(),
@@ -82,7 +83,7 @@ const initialValues: Partial<Employee> = {
   remarks: faker.lorem.words(10),
 };
 
-const initialValues2 = {};
+const initialValues = {};
 interface Props {
   positions: Position[];
 }
@@ -94,6 +95,7 @@ function FormEmployee(props: Props) {
   const { api } = useAntdContext();
   const { id } = useParams();
   const router = useRouter();
+  const [loadingEdit, setLoadingEdit] = useState(false);
 
   const handleFormChange = (changedValues: any, allValues: any) => {
     console.log("Changed values:", changedValues);
@@ -126,6 +128,7 @@ function FormEmployee(props: Props) {
   };
 
   const fetchDataEdit = async () => {
+    setLoadingEdit(true);
     const dataEdit = await show(Number(id));
 
     if (dataEdit) {
@@ -133,6 +136,7 @@ function FormEmployee(props: Props) {
 
       form.setFieldsValue(prismaToForm(dataEdit));
     }
+    setLoadingEdit(false);
   };
 
   useEffect(() => {
@@ -144,9 +148,11 @@ function FormEmployee(props: Props) {
   return (
     <div>
       <ButtonBack />
+      {loadingEdit && <LoadingModule />}
       <Form
         name="basic"
         labelCol={{ span: 8 }}
+        className={loadingEdit ? "dNone" : ""}
         wrapperCol={{ span: 16 }}
         initialValues={{ ...initialValues, id }}
         onValuesChange={handleFormChange}

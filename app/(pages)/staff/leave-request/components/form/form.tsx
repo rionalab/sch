@@ -4,7 +4,6 @@ import React, { memo, useEffect, useState } from "react";
 import { Col, DatePicker, Form, Input, Row, Select } from "antd";
 import { type FormFields } from "../../type";
 import dayjs from "dayjs";
-import { ButtonForm } from "@/c";
 import { store, show } from "../../action";
 import { useParams, useRouter } from "next/navigation";
 import {
@@ -16,6 +15,7 @@ import {
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
 import useSelect from "@/hooks/useSelect";
+import { ButtonForm, LoadingModule } from "@/c";
 
 const initialValues = {
   employeeId: process.env.NEXT_PUBLIC_USER_DEMO_ID,
@@ -28,6 +28,7 @@ function FormVendor() {
   const { id } = useParams();
   const [form] = Form.useForm();
   const { leaveType } = useSelect(["leaveType"]);
+  const [loadingEdit, setLoadingEdit] = useState(false);
 
   const onFinish = async (values: FormFields): Promise<void> => {
     const isEdit = values.id;
@@ -52,10 +53,12 @@ function FormVendor() {
   };
 
   const fetchDataEdit = async () => {
+    setLoadingEdit(true);
     const dataEdit = await show(Number(id));
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const date = [dayjs(dataEdit?.dateFrom), dayjs(dataEdit?.dateTo)];
     form.setFieldsValue({ ...dataEdit, date });
+    setLoadingEdit(false);
   };
 
   useEffect(() => {
@@ -66,12 +69,14 @@ function FormVendor() {
 
   return (
     <div>
+      {loadingEdit && <LoadingModule />}
       <Form
         name="basic"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
         initialValues={{ ...initialValues, id }}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
+        className={loadingEdit ? "dNone" : ""}
         onFinish={onFinish}
         form={form}
         autoComplete="off"
