@@ -34,7 +34,7 @@ export function ButtonForm({ loading }: { loading?: boolean }) {
               style={{ paddingLeft: 50, paddingRight: 50, marginRight: 16 }}
               htmlType="submit"
             >
-              {loading ? "Saving..." : "Submit"}
+              {loading ? "Saving..." : "Save"}
             </Button>
           </Form.Item>
         </Col>
