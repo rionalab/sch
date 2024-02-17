@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import FormEmployee from "../../components/form/form";
-import * as positions from "@/pages/master/position/action";
+import * as positions from "@/pages/(dashboard)/master/position/action";
 import { ContentLoader } from "@/c";
 
 interface Props {
