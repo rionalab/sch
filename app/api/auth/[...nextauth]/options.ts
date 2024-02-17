@@ -23,7 +23,7 @@ export const options: NextAuthOptions = {
         },
       },
       async authorize(credentials) {
-        const user = { id: "11", name: "dave", password: "dave" };
+        const user = { id: "11", name: "admin", password: "admin" };
 
         if (
           credentials?.username === user.name &&

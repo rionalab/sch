@@ -6,11 +6,11 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   z-index: $zIndexTopbar;
   padding: 0;
-  padding-left: 220px;
+  padding-left: 220px !important;
   width: 100%;
   display: flex;
   align-items: center;
-  background: white;
+  background: white !important;
 }
 
 .welcome {

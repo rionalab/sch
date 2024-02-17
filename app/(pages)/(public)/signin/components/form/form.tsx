@@ -3,10 +3,9 @@ import React, { useEffect, useState } from "react";
 import { fieldRules } from "@/libs/helpers";
 import { Form, Input, Button } from "antd";
 import type { FormFields } from "../../types";
-import { getCsrfToken, signIn, signOut, useSession } from "next-auth/react";
+import { getCsrfToken, signIn } from "next-auth/react";
 import { CheckOutlined } from "@ant-design/icons";
 import styles from "./styles.module.scss";
-import { redirect } from "next/navigation";
 
 function FormSignin() {
   const [form] = Form.useForm();
@@ -18,11 +17,14 @@ function FormSignin() {
     form.setFieldsValue({ csrfToken });
   };
 
-  const onFinish = async (values: FormFields): Promise<void> => {
+  const onFinish = async ({
+    username,
+    password,
+  }: FormFields): Promise<void> => {
     setLoading(true);
     const u = await signIn("credentials", {
-      username: "dave",
-      password: "dave",
+      username,
+      password,
     });
     console.log(u);
     setLoading(false);

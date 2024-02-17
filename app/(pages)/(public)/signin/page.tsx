@@ -1,7 +1,6 @@
 import styles from "./styles.module.scss";
 import Image from "next/image";
 import FormSignin from "./components/form/form";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
@@ -10,7 +9,7 @@ async function Page() {
   const session = await getServerSession(options);
 
   if (session) {
-    redirect("/protected");
+    redirect("/dashboard");
   }
 
   return (
