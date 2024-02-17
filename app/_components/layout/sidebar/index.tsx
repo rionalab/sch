@@ -42,8 +42,8 @@ export function Sidebar() {
     <Sider className={styles.sidebar}>
       <Image
         className={styles.logo}
-        width={120}
-        height={85}
+        width={306}
+        height={245}
         alt="logo"
         src={"/images/logo.png"}
       />
@@ -52,6 +52,23 @@ export function Sidebar() {
         mode="inline"
         defaultSelectedKeys={["0"]}
         items={[
+          {
+            key: "c0",
+            icon: <HomeOutlined />,
+            label: <Link href="/client">client</Link>,
+            children: [
+              {
+                key: "c1",
+                icon: <DeploymentUnitOutlined />,
+                label: <Link href="/client-1">client 1</Link>,
+              },
+              {
+                key: "c2",
+                icon: <DeploymentUnitOutlined />,
+                label: <Link href="/client-2">client 2</Link>,
+              },
+            ],
+          },
           {
             key: "0",
             icon: <HomeOutlined />,

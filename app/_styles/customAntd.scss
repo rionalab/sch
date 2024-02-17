@@ -56,3 +56,16 @@
 }
 
 // ant-table-cell
+
+.ant-form-vertical {
+  &.ant-form-large {
+    .ant-form-item-label {
+      margin-bottom: 0 !important;
+      padding-bottom: 4px !important;
+      label {
+        height: 10px !important;
+        margin-bottom: -10px !important;
+      }
+    }
+  }
+}

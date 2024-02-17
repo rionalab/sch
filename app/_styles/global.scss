@@ -21,6 +21,10 @@ a {
   text-decoration: none;
 }
 
+.textCenter {
+  text-align: center;
+}
+
 .textCapitalize {
   text-transform: capitalize;
 }
@@ -71,4 +75,9 @@ table {
 
 .dNone {
   display: none;
+}
+
+.w100per {
+  width: 100% !important;
+  background: red;
 }

@@ -1,0 +1,45 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background: white;
+  overflow: hidden;
+  display: flex;
+}
+
+.bg {
+  max-width: 80%;
+  object-fit: contain;
+  display: inline-block;
+}
+
+.logo {
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: 16px;
+  width: 90px;
+  height: 90px;
+}
+
+.colLeft {
+  width: 60%;
+  display: grid;
+  place-content: center;
+  place-items: center;
+}
+
+.colRight {
+  width: 40%;
+  background: #fbfbfb;
+  border-left: 1px solid #eee;
+  display: grid;
+  place-content: center;
+  height: calc(100vh + 15vh);
+  margin-top: -15vh !important;
+}
+
+.formTitle {
+  font-weight: 700 !important;
+  text-align: center;
+  font-size: 18px !important;
+}

@@ -1,8 +1,38 @@
 import React from "react";
-import { Layout, Flex, Avatar } from "antd";
+import { Layout, Flex, Dropdown, Avatar } from "antd";
 import styles from "./styles.module.scss";
-import { UserOutlined } from "@ant-design/icons";
-import { useSession } from "next-auth/react";
+import {
+  UserOutlined,
+  CommentOutlined,
+  PoweroffOutlined,
+  InfoCircleOutlined,
+} from "@ant-design/icons";
+import { useSession, signOut } from "next-auth/react";
+import type { MenuProps } from "antd";
+
+const items: MenuProps["items"] = [
+  {
+    label: <a href="https://www.google.com">Help / Feedback</a>,
+    key: "0",
+    icon: <CommentOutlined />,
+  },
+  {
+    label: <a href="https://www.google.com">Documentation</a>,
+    icon: <InfoCircleOutlined />,
+    key: "1",
+  },
+  {
+    type: "divider",
+  },
+  {
+    label: "Logout",
+    key: "3",
+    icon: <PoweroffOutlined />,
+    onClick: () => {
+      void signOut();
+    },
+  },
+];
 
 export function Header() {
   const { Header: HeaderAntd } = Layout;
@@ -15,14 +45,22 @@ export function Header() {
           Welcome, <span>{session?.user?.name}</span>
         </div>
         <div className={styles.headerRight}>
-          <Avatar
-            style={{
-              backgroundColor: "rgb(230, 244, 255)",
-              color: " rgb(22, 119, 255)",
-              cursor: "pointer",
-            }}
-            icon={<UserOutlined color="black" />}
-          />
+          <Dropdown menu={{ items }} trigger={["click"]}>
+            <Avatar
+              style={{
+                backgroundColor: "rgb(230, 244, 255)",
+                color: " rgb(22, 119, 255)",
+                cursor: "pointer",
+              }}
+              icon={
+                <UserOutlined
+                  style={{ fontSize: 22 }}
+                  size={44}
+                  color="black"
+                />
+              }
+            />
+          </Dropdown>
         </div>
       </Flex>
     </HeaderAntd>
