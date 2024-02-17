@@ -46,8 +46,8 @@ export async function findVendor(id: number) {
 
 export async function removeVendor(id: number) {
   try {
-    await prisma.vendor.delete({
-      where: { id },
+    await prisma.vendor.softDelete({
+      id,
     });
     revalidatePath(urlToRevalidate);
   } catch (e: any) {

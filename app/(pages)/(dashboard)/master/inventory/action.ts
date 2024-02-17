@@ -51,8 +51,8 @@ export async function get(id: number) {
 
 export async function destroy(id: number) {
   try {
-    await prisma.inventory.delete({
-      where: { id },
+    await prisma.inventory.softDelete({
+      id,
     });
     revalidatePath(urlToRevalidate);
   } catch (e: any) {

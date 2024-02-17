@@ -49,8 +49,8 @@ export async function show(id: number) {
 
 export async function destroy(id: number) {
   try {
-    await prisma.position.delete({
-      where: { id },
+    await prisma.position.softDelete({
+      id,
     });
     revalidatePath(urlToRevalidate);
   } catch (e: any) {

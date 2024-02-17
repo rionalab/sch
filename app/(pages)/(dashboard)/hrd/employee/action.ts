@@ -53,8 +53,8 @@ export async function store(data: StoreEmployee | StoreEmployeeByCreate) {
 
 export async function destroy(id: number) {
   try {
-    await prisma.employee.delete({
-      where: { id },
+    await prisma.employee.softDelete({
+      id,
     });
     revalidatePath(urlToRevalidate);
   } catch (e: any) {
