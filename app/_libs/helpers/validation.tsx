@@ -19,7 +19,7 @@ export function fieldRules(validationType: ValidationType, label?: string) {
   if (validationType.includes("required")) {
     result.push({
       required: true,
-      message: "this is required",
+      message: "This input is required",
     });
   }
 
