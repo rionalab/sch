@@ -1,19 +1,22 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import { fieldRules } from "@/libs/helpers";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, Alert } from "antd";
 import type { FormFields } from "../../types";
 import { getCsrfToken, signIn } from "next-auth/react";
 import { CheckOutlined } from "@ant-design/icons";
 import styles from "./styles.module.scss";
+import { useRouter } from "next/navigation";
 
 function FormSignin() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const router = useRouter();
 
   const getCsrf = async () => {
     const csrfToken = await getCsrfToken();
-    console.log(csrfToken);
     form.setFieldsValue({ csrfToken });
   };
 
@@ -22,12 +25,20 @@ function FormSignin() {
     password,
   }: FormFields): Promise<void> => {
     setLoading(true);
-    const u = await signIn("credentials", {
+
+    const login = await signIn("credentials", {
       username,
       password,
+      redirect: false,
     });
-    console.log(u);
+
     setLoading(false);
+
+    if (!login?.ok) {
+      setError(true);
+    } else {
+      router.push("/dashboard");
+    }
   };
 
   useEffect(() => {
@@ -38,6 +49,9 @@ function FormSignin() {
     <Form
       name="basic"
       onFinish={onFinish}
+      onValuesChange={() => {
+        setError(false);
+      }}
       form={form}
       layout="vertical"
       className={styles.form}
@@ -47,6 +61,15 @@ function FormSignin() {
       <Form.Item<FormFields> hidden name="csrfToken">
         <Input type="hidden" />
       </Form.Item>
+
+      {error && (
+        <Alert
+          message="Login Fail. Check your credential"
+          type="error"
+          showIcon
+          style={{ marginBottom: 16 }}
+        />
+      )}
 
       <Form.Item<FormFields>
         label="Username"
