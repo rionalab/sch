@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import * as employee from "@/pages/hrd/employee/action";
-import * as department from "@/pages/master/department/action";
-import * as uom from "@/pages/master/uom/action";
-import * as leaveType from "@/pages/master/leave/action";
+import * as employee from "@/pages/(dashboard)/hrd/employee/action";
+import * as department from "@/pages/(dashboard)/master/department/action";
+import * as uom from "@/pages/(dashboard)/master/uom/action";
+import * as leaveType from "@/pages/(dashboard)/master/leave/action";
 import { selectOptions } from "@/libs/helpers";
 
 const initialValues = {
