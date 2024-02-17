@@ -42,8 +42,8 @@ export function Sidebar() {
     <Sider className={styles.sidebar}>
       <Image
         className={styles.logo}
-        width={145}
-        height={55}
+        width={120}
+        height={85}
         alt="logo"
         src={"/images/logo.png"}
       />
