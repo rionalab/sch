@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import {
-  Button,
   DatePicker,
   Col,
   Form,
@@ -10,7 +9,8 @@ import {
   Row,
   Typography,
   Select,
-  Upload,
+  // Button,
+  // Upload,
 } from "antd";
 import { type Employee, type FormFields } from "../../type";
 
@@ -21,7 +21,6 @@ import {
   today,
   tomorrow,
 } from "@/libs/helpers";
-import { type Position } from "@/pages/master/position/type";
 import {
   bloodTypeOptions,
   contractStatusOption,
@@ -35,13 +34,14 @@ import {
   notifUpdateSuccess,
   religionOptions,
 } from "@/consts";
-import { UploadOutlined } from "@ant-design/icons";
+// import { UploadOutlined } from "@ant-design/icons";
 import { useParams, useRouter } from "next/navigation";
 import { useAntdContext } from "@/contexts";
 import { store, show } from "../../action";
 import { faker } from "@faker-js/faker";
 import { submitEmployeeData } from "./model";
 import { ButtonForm, ButtonBack, LoadingModule } from "@/c";
+import type { Position } from "@/pages/(dashboard)/master/position/type";
 
 const initialValues2: Partial<Employee> = {
   NIP: "00001",

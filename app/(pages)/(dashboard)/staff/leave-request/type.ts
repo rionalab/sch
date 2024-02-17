@@ -1,5 +1,3 @@
-import { type Dayjs } from "dayjs";
-
 export interface FormFields {
   id: number;
   employeeId: number;

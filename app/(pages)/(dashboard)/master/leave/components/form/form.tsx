@@ -23,7 +23,6 @@ const initialValues = {
 function FormVendor() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [disablePrice, setDisablePrice] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
@@ -47,16 +46,6 @@ function FormVendor() {
     }
   };
 
-  const onChange = (v: any, w: any) => {
-    console.log(v.paid);
-    if (!w.paid) {
-      form.setFieldsValue({ price: 0 });
-      setDisablePrice(true);
-    } else {
-      setDisablePrice(false);
-    }
-  };
-
   const fetchDataEdit = async () => {
     const dataEdit = await show(Number(id));
     form.setFieldsValue(dataEdit);
@@ -77,7 +66,6 @@ function FormVendor() {
         initialValues={{ ...initialValues, id }}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onFinish={onFinish}
-        onValuesChange={onChange}
         form={form}
         autoComplete="off"
       >
