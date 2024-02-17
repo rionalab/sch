@@ -8,6 +8,7 @@ import "@/styles/global.scss";
 import "@/styles/customAntd.scss";
 import { AntdProvider } from "./_contexts";
 import { Sidebar, Header, Content } from "@/c";
+import ClientAuthProvider from "./_contexts/clientAuth";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -27,19 +28,21 @@ export default function RootLayout({
         }}
       >
         <main>
-          <StoreProvider>
-            <ConfigProvider theme={{ ...theme, cssVar: true }}>
-              <AntdProvider>
-                <Layout>
-                  <Sidebar />
+          <ClientAuthProvider>
+            <StoreProvider>
+              <ConfigProvider theme={{ ...theme, cssVar: true }}>
+                <AntdProvider>
                   <Layout>
-                    <Header />
-                    <Content className={styles.content}>{children}</Content>
+                    <Sidebar />
+                    <Layout>
+                      <Header />
+                      <Content className={styles.content}>{children}</Content>
+                    </Layout>
                   </Layout>
-                </Layout>
-              </AntdProvider>
-            </ConfigProvider>
-          </StoreProvider>
+                </AntdProvider>
+              </ConfigProvider>
+            </StoreProvider>
+          </ClientAuthProvider>
         </main>
       </body>
     </html>
