@@ -2,15 +2,17 @@ import React from "react";
 import { Layout, Flex, Avatar } from "antd";
 import styles from "./styles.module.scss";
 import { UserOutlined } from "@ant-design/icons";
+import { useSession } from "next-auth/react";
 
 export function Header() {
-  const { Header: HeaderAntd, Content } = Layout;
+  const { Header: HeaderAntd } = Layout;
+  const { data: session } = useSession();
 
   return (
     <HeaderAntd className={styles.header}>
       <Flex style={{ width: "100%" }} justify="space-between" align="center">
         <div className={styles.welcome}>
-          Welcome, <span>Orlando</span>
+          Welcome, <span>{session?.user?.name}</span>
         </div>
         <div className={styles.headerRight}>
           <Avatar
