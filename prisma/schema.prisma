@@ -15,6 +15,7 @@ model User {
   createdAt DateTime  @default(now())
   email     String    @unique
   role      Role      @default(Admin)
+  password  String    @default("admin")
   profile   Employee?
 }
 

@@ -72,11 +72,11 @@ function FormSignin() {
       )}
 
       <Form.Item<FormFields>
-        label="Username"
+        label="Email"
         name="username"
         rules={fieldRules(["required"])}
       >
-        <Input />
+        <Input placeholder="Input email" />
       </Form.Item>
 
       <Form.Item<FormFields>
@@ -85,7 +85,7 @@ function FormSignin() {
         name="password"
         rules={fieldRules(["required"])}
       >
-        <Input.Password />
+        <Input.Password placeholder="Input password" />
       </Form.Item>
 
       <Button

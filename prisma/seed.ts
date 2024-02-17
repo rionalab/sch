@@ -25,18 +25,23 @@ async function main() {
     data: [
       {
         email: "user1@mail.com",
+        password: "admin",
       },
       {
         email: "user2@mail.com",
+        password: "admin",
       },
       {
         email: "user3@mail.com",
+        password: "admin",
       },
       {
         email: "user4@mail.com",
+        password: "admin",
       },
       {
         email: "user5@mail.com",
+        password: "admin",
       },
     ],
     skipDuplicates: true,
