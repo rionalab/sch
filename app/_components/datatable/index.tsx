@@ -60,9 +60,7 @@ export function DataTable<T>(props: Props<T>) {
         className="customTbl"
         footer={(currentPageData) => {
           return (
-            currentPageData.length > 0 && (
-              <span>Total: {currentPageData.length} rows</span>
-            )
+            currentPageData.length > 0 && <span>Total: {rows.length} rows</span>
           );
         }}
         columns={[
