@@ -3,6 +3,15 @@ export const positionCategoryOptions = [
   { value: "NonEdu", label: "Non Educational" },
 ];
 
+export const userTypeOptions = [
+  { value: "EmployeeNonEdu", label: "Employee Non Edu" },
+  { value: "Teacher", label: "Teacher" },
+  { value: "Parent", label: "Parent" },
+  { value: "Student", label: "Student" },
+  { value: "Admin", label: "Admin" },
+  { value: "HR", label: "Human Resource" },
+];
+
 export const contractStatusOption = [
   { value: "Active", label: "Active" },
   { value: "Inactive", label: "Inactive" },

@@ -23,6 +23,7 @@ export type ModuleName =
   | "workUnit"
   | "inventory"
   | "leaveRequest"
+  | "user"
   | "leaveType";
 
 export type ModuleCode =

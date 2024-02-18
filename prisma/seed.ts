@@ -26,22 +26,27 @@ async function main() {
       {
         email: "user1@mail.com",
         password: "admin",
+        role: "Teacher",
       },
       {
         email: "user2@mail.com",
         password: "admin",
+        role: "Teacher",
       },
       {
         email: "user3@mail.com",
         password: "admin",
+        role: "Teacher",
       },
       {
         email: "user4@mail.com",
         password: "admin",
+        role: "Teacher",
       },
       {
         email: "user5@mail.com",
         password: "admin",
+        role: "Teacher",
       },
     ],
     skipDuplicates: true,

@@ -8,7 +8,7 @@ async function Page() {
 
   return (
     <>
-      <Table rows={normalizeTableRow<any>(data)} />;
+      <Table rows={normalizeTableRow<any>(data)} />
     </>
   );
 }

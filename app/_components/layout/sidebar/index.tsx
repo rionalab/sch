@@ -111,6 +111,11 @@ export function Sidebar() {
                 icon: <DeploymentUnitOutlined />,
                 label: <Link href={urls.master.leave.index}>Leave Type</Link>,
               },
+              {
+                key: "user",
+                icon: <DeploymentUnitOutlined />,
+                label: <Link href={urls.master.user.index}>User</Link>,
+              },
             ],
           },
           {
