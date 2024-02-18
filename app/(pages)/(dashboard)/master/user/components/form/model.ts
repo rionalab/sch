@@ -7,6 +7,7 @@ export async function modelStore(
 ): Promise<Prisma.UserCreateInput> {
   return {
     email: formValue.email,
+    name: formValue.name,
     roleAccess: formValue.roleAccess,
     active: formValue.active,
     ...(!formValue.id

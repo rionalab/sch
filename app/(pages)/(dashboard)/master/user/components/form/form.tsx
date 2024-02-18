@@ -95,6 +95,14 @@ function FormVendor() {
             </Form.Item>
 
             <Form.Item<FormFields>
+              label="Name"
+              name="name"
+              rules={fieldRules(["required"])}
+            >
+              <Input />
+            </Form.Item>
+
+            <Form.Item<FormFields>
               label="Email"
               name="email"
               rules={fieldRules(["required", "email"])}

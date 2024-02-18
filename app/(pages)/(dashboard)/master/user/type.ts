@@ -3,5 +3,6 @@ export interface FormFields {
   email: string;
   roleAccess: string;
   password: string;
+  name: string;
   active: boolean;
 }
