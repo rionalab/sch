@@ -17,6 +17,7 @@ model User {
   role       Role      @default(EmployeeNonEdu)
   password   String    @default("admin")
   active     Boolean   @default(true)
+  name       String
   lastLogin  DateTime?
   roleAccess String?
   createdAt  DateTime  @default(now())

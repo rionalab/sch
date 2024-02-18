@@ -2,9 +2,10 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export function middleware(request: NextRequest) {
-  // return NextResponse.redirect(new URL("/master/vendor", request.url));
+  // console.log(request);
+  // return NextResponse.redirect(new URL("/dashboard", request.url));
 }
 
 export const config = {
-  // matcher: ["/staff/:module*", "/hrd/:module*"],
+  // matcher: ["/master/:module*"],
 };
