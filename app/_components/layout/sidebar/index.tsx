@@ -1,34 +1,34 @@
 import React from "react";
 import { Layout, Menu } from "antd";
 import {
-  FileProtectOutlined,
-  BarcodeOutlined,
-  BulbOutlined,
+  UserOutlined,
   FolderOutlined,
   FileOutlined,
-  FileSearchOutlined,
-  SolutionOutlined,
   DeploymentUnitOutlined,
-  AuditOutlined,
-  BookOutlined,
-  DollarOutlined,
-  FileDoneOutlined,
-  FileAddOutlined,
-  HomeOutlined,
-  EditOutlined,
   AppstoreAddOutlined,
-  FileTextOutlined,
-  WalletOutlined,
-  ClockCircleOutlined,
-  NotificationOutlined,
-  SkinOutlined,
-  DownloadOutlined,
-  TeamOutlined,
-  ProfileOutlined,
-  UserOutlined,
-  GlobalOutlined,
-  ContainerOutlined,
-  BankOutlined,
+  HomeOutlined,
+  SolutionOutlined,
+  // FileProtectOutlined,
+  // BarcodeOutlined,
+  // BulbOutlined,
+  // FileSearchOutlined,
+  // AuditOutlined,
+  // BookOutlined,
+  // DollarOutlined,
+  // FileDoneOutlined,
+  // FileAddOutlined,
+  // EditOutlined,
+  // FileTextOutlined,
+  // WalletOutlined,
+  // ClockCircleOutlined,
+  // NotificationOutlined,
+  // SkinOutlined,
+  // DownloadOutlined,
+  // TeamOutlined,
+  // ProfileOutlined,
+  // GlobalOutlined,
+  // ContainerOutlined,
+  // BankOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import Image from "next/image";
@@ -42,8 +42,8 @@ export function Sidebar() {
     <Sider className={styles.sidebar}>
       <Image
         className={styles.logo}
-        width={145}
-        height={55}
+        width={306}
+        height={245}
         alt="logo"
         src={"/images/logo.png"}
       />
@@ -110,6 +110,11 @@ export function Sidebar() {
                 key: "leaveType",
                 icon: <DeploymentUnitOutlined />,
                 label: <Link href={urls.master.leave.index}>Leave Type</Link>,
+              },
+              {
+                key: "user",
+                icon: <DeploymentUnitOutlined />,
+                label: <Link href={urls.master.user.index}>User</Link>,
               },
             ],
           },

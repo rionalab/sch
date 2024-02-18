@@ -153,6 +153,21 @@ export const routes: Routes = {
       },
     ],
   },
+  user: {
+    url: urls.master.user.index,
+    title: "User",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Master Data",
+      },
+      {
+        title: "User",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.master.user.index,
+      },
+    ],
+  },
 };
 
 type Routes = Record<ModuleName, Route>;

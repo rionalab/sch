@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
+import bcrypt from "bcrypt";
 
 function today() {
   return dayjs();
@@ -24,24 +25,38 @@ async function main() {
   await prisma.user.createMany({
     data: [
       {
-        email: "user1@mail.com",
+        email: "admin@kr.com",
+        password: await bcrypt.hash("admin", 10),
+        role: "Teacher",
+        name: "User 1",
       },
       {
         email: "user2@mail.com",
+        password: await bcrypt.hash("admin", 10),
+        role: "Teacher",
+        name: "User 2",
       },
       {
         email: "user3@mail.com",
+        password: await bcrypt.hash("admin", 10),
+        role: "Teacher",
+        name: "User 3",
       },
       {
         email: "user4@mail.com",
+        password: await bcrypt.hash("admin", 10),
+        role: "Teacher",
+        name: "User 4",
       },
       {
         email: "user5@mail.com",
+        password: await bcrypt.hash("admin", 10),
+        role: "Teacher",
+        name: "User 5",
       },
     ],
     skipDuplicates: true,
   });
-  const users = (await prisma.user.findMany()).map((item) => item.id);
 
   // * Position
   // *************************************

@@ -1,5 +1,5 @@
 import React from "react";
-import { Avatar as AvatarAntd, Flex, Space, Table as TableAntd } from "antd";
+import { Avatar as AvatarAntd, Flex } from "antd";
 
 interface Props {
   image?: string;
@@ -16,6 +16,7 @@ export function Avatar(props: Props) {
         <AvatarAntd
           size={"small"}
           style={{ marginRight: 8 }}
+          // eslint-disable-next-line @next/next/no-img-element
           src={<img src={image} alt="avatar" />}
         />
         <span className={`textCapitalize ${hover ? "textLink" : ""}`}>

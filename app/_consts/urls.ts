@@ -9,6 +9,7 @@ const workUnit = "/master/work-unit";
 const leave = "/master/leave";
 const permissionLeave = "/hrd/permission-leave";
 const staffLeaveRequest = "/staff/leave-request";
+const user = "/master/user";
 
 export const urls = {
   root: "/",
@@ -30,6 +31,11 @@ export const urls = {
     },
   },
   master: {
+    user: {
+      index: user,
+      create: user + "/create",
+      edit: (id: string | number) => user + "/edit/" + id,
+    },
     department: {
       index: department,
       create: department + "/create",

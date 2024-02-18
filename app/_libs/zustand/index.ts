@@ -2,7 +2,7 @@
 // import { createBearSlice } from "./slices/bearSlice";
 // import { CombinedSlicesType } from "@/app/_types/zustand";
 import { createContext, useContext } from "react";
-import { createStore, create, useStore as useZustandStore } from "zustand";
+import { createStore, useStore as useZustandStore } from "zustand";
 // import { NotificationInstance } from "antd/es/notification/interface";
 import { devtools, persist } from "zustand/middleware";
 

@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["metrics"]
 }
 
 datasource db {
@@ -11,39 +12,53 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  email     String    @unique
-  role      Role      @default(Admin)
-  profile   Employee?
+  id         Int       @id @default(autoincrement())
+  email      String    @unique
+  role       Role      @default(EmployeeNonEdu)
+  password   String    @default("admin")
+  active     Boolean   @default(true)
+  name       String
+  lastLogin  DateTime?
+  roleAccess String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+  Profile    Profile?
+  Employee   Employee?
 }
 
-model Post {
-  id         Int        @id @default(autoincrement())
-  createdAt  DateTime   @default(now())
-  updatedAt  DateTime   @updatedAt
-  published  Boolean    @default(false)
-  title      String     @db.VarChar(255)
-  authorId   Int?
-  categories Category[]
-  comments   Comment[]
-
-  @@unique([authorId, title])
-}
-
-model Comment {
-  id        Int      @id @default(autoincrement())
-  comment   String
-  postId    Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Post      Post     @relation(fields: [postId], references: [id])
-}
-
-model Category {
-  id    Int    @id @default(autoincrement())
-  name  String
-  posts Post[]
+model Profile {
+  id            Int       @id @default(autoincrement())
+  fullName      String?
+  photo         String?
+  bloodType     String?
+  email         String?   @unique
+  NIK           String?   @unique
+  phone1        String?
+  phone2        String?
+  maritalStatus String?
+  familyPhone   String?
+  idAddress     String?
+  houseAddress  String?
+  institution   String?
+  user          User      @relation(fields: [userId], references: [id])
+  userId        Int       @unique
+  major         String?
+  degree        String?
+  tribe         String?
+  remarks       String?
+  fatherName    String?
+  motherName    String?
+  spouseName    String?
+  childrenName  String?
+  siblingName   String?
+  religion      String?
+  gender        String?
+  dob           DateTime?
+  placeOfBirth  String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deletedAt     DateTime?
 }
 
 model Position {
@@ -54,6 +69,10 @@ model Position {
   active      Boolean          @default(true)
   category    PositionCategory @default(Edu)
   employees   Employee[]
+  roleAccess  String?
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+  deletedAt   DateTime?
 }
 
 model Employee {
@@ -92,21 +111,15 @@ model Employee {
   placeOfBirth     String
   positionId       Int
   position         Position           @relation(fields: [positionId], references: [id])
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
   user             User?              @relation(fields: [userId], references: [id])
   userId           Int?               @unique
   Class            Class[]
   LeaveEntitlement LeaveEntitlement[]
   LeaveRequest     LeaveRequest[]
-}
-
-model Teacher {
-  id        Int      @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email     String   @unique
-  Course    Course[]
+  roleAccess       String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
 }
 
 model Parent {
@@ -121,14 +134,10 @@ model Parent {
   fatherPhoto String
   address     String
   children    Student[]
-}
-
-model Course {
-  id          Int     @id @default(autoincrement())
-  title       String
-  description String?
-  teacher     Teacher @relation(fields: [teacherId], references: [id])
-  teacherId   Int
+  roleAccess  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 }
 
 model Student {
@@ -148,6 +157,10 @@ model Student {
   Parent          Parent?           @relation(fields: [parentId], references: [id])
   parentId        Int?
   Extracurricular Extracurricular[]
+  roleAccess      String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
 }
 
 model Extracurricular {
@@ -159,6 +172,10 @@ model Extracurricular {
   paid        Boolean
   price       Int
   student     Student[]
+  roleAccess  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 }
 
 model Class {
@@ -167,26 +184,38 @@ model Class {
   conselourTeacher Employee  @relation(fields: [employeeId], references: [id])
   students         Student[]
   employeeId       Int
+  roleAccess       String?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  deletedAt        DateTime?
 }
 
 model Vendor {
-  id        Int     @id @default(autoincrement())
-  name      String
-  accountNo String
-  code      String  @unique
-  address   String
-  phone     String
-  fax       String?
-  blacklist Boolean @default(false)
-  remarks   String?
+  id         Int       @id @default(autoincrement())
+  name       String
+  accountNo  String
+  code       String    @unique
+  address    String
+  phone      String
+  fax        String?
+  blacklist  Boolean   @default(false)
+  remarks    String?
+  roleAccess String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
 }
 
 model WorkUnit {
-  id          Int     @id @default(autoincrement())
-  code        String  @unique
-  name        String  @unique
+  id          Int       @id @default(autoincrement())
+  code        String    @unique
+  name        String    @unique
   description String
   status      Boolean
+  roleAccess  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 }
 
 model Department {
@@ -196,6 +225,10 @@ model Department {
   active      Boolean     @default(true)
   description String?
   Inventory   Inventory[]
+  roleAccess  String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
 }
 
 model Uom {
@@ -206,6 +239,10 @@ model Uom {
   acronym     String      @unique
   active      Boolean     @default(true)
   Inventory   Inventory[]
+  roleAccess  String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  deletedAt   DateTime?
 }
 
 model Inventory {
@@ -219,6 +256,10 @@ model Inventory {
   qty          Int         @default(0)
   category     String      @default("inventory")
   departmentId Int?
+  roleAccess   String?
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+  deletedAt    DateTime?
 }
 
 model LeaveType {
@@ -228,15 +269,23 @@ model LeaveType {
   active       Boolean        @default(true)
   description  String?
   LeaveRequest LeaveRequest[]
+  roleAccess   String?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  deletedAt    DateTime?
 }
 
 model LeaveEntitlement {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   entitlement Float
   remarks     String
   year        Int
-  employee    Employee @relation(fields: [employeeId], references: [id])
+  employee    Employee  @relation(fields: [employeeId], references: [id])
   employeeId  Int
+  roleAccess  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
 }
 
 model LeaveRequest {
@@ -250,16 +299,19 @@ model LeaveRequest {
   approvalRemarks String?
   dateFrom        DateTime
   dateTo          DateTime
+  roleAccess      String?
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
 }
 
 enum Role {
-  User
+  EmployeeNonEdu
   Teacher
   Parent
   Student
   Admin
+  HR
   Superadmin
 }
 
