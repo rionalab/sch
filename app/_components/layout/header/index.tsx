@@ -29,7 +29,10 @@ const items: MenuProps["items"] = [
     key: "3",
     icon: <PoweroffOutlined />,
     onClick: () => {
-      void signOut();
+      void signOut({
+        redirect: true,
+        callbackUrl: "/signin",
+      });
     },
   },
 ];
