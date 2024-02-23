@@ -18,6 +18,7 @@ export type ModuleName =
   | "position"
   | "vendor"
   | "uom"
+  | "role"
   | "department"
   | "extracurricular"
   | "workUnit"

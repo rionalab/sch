@@ -268,10 +268,11 @@ export function Sidebar() {
           //     },
           //   ],
           // },
+
           {
             key: "staff",
             icon: <FolderOutlined />,
-            label: <Link href="/staff">Staff</Link>,
+            label: "Staff",
             children: [
               {
                 key: "staffLeaveRequest",
@@ -281,6 +282,18 @@ export function Sidebar() {
                     Leave Request
                   </Link>
                 ),
+              },
+            ],
+          },
+          {
+            key: "superadmin",
+            icon: <FolderOutlined />,
+            label: "Super Admin",
+            children: [
+              {
+                key: "role",
+                icon: <FileOutlined />,
+                label: <Link href={urls.superadmin.role.index}>Role</Link>,
               },
             ],
           },

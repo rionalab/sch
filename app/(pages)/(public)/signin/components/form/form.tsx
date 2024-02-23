@@ -27,9 +27,8 @@ function FormSignin() {
       redirect: false,
     });
 
-    setLoading(false);
-
     if (!login?.ok) {
+      setLoading(false);
       setError(true);
     } else {
       router.push("/dashboard");

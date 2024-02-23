@@ -8,6 +8,11 @@ export async function modelStore(
   return {
     email: formValue.email,
     name: formValue.name,
+    role: {
+      connect: {
+        id: 1,
+      },
+    },
     roleAccess: formValue.roleAccess,
     active: formValue.active,
     ...(!formValue.id

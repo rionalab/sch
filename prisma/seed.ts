@@ -20,6 +20,13 @@ async function main() {
   // cleaning
   await prisma.employee.deleteMany();
 
+  // * RoleAction
+  // *************************************
+  await prisma.roleAction.createMany({
+    data: [{ name: "Admin", actions: "menu_master" }],
+    skipDuplicates: true,
+  });
+
   // * User
   // *************************************
   await prisma.user.createMany({
@@ -27,31 +34,31 @@ async function main() {
       {
         email: "admin@kr.com",
         password: await bcrypt.hash("admin", 10),
-        role: "Teacher",
+        roleId: 1,
         name: "User 1",
       },
       {
         email: "user2@mail.com",
         password: await bcrypt.hash("admin", 10),
-        role: "Teacher",
+        roleId: 1,
         name: "User 2",
       },
       {
         email: "user3@mail.com",
         password: await bcrypt.hash("admin", 10),
-        role: "Teacher",
+        roleId: 1,
         name: "User 3",
       },
       {
         email: "user4@mail.com",
         password: await bcrypt.hash("admin", 10),
-        role: "Teacher",
+        roleId: 1,
         name: "User 4",
       },
       {
         email: "user5@mail.com",
         password: await bcrypt.hash("admin", 10),
-        role: "Teacher",
+        roleId: 1,
         name: "User 5",
       },
     ],
