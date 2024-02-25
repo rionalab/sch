@@ -57,7 +57,7 @@ export const routes: Routes = {
         title: "Master Data",
       },
       {
-        title: "Vendor",
+        title: "Supplier",
         icon: <DeploymentUnitOutlined />,
         url: urls.master.vendor.index,
       },
@@ -87,7 +87,7 @@ export const routes: Routes = {
         title: "Master Data",
       },
       {
-        title: "inventory",
+        title: "Inventory",
         icon: <DeploymentUnitOutlined />,
         url: urls.master.inventory.index,
       },
