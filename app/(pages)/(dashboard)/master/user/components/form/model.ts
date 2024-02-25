@@ -17,7 +17,7 @@ export async function modelStore(
     active: formValue.active,
     ...(!formValue.id
       ? {
-          password: await bcrypt.hash(formValue.password, 10),
+          password: await bcrypt.hash(formValue.userPassword, 10),
           Profile: {
             create: {},
           },

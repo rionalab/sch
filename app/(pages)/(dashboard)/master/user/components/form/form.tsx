@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo, useEffect, useState } from "react";
-import { Col, Form, Input, Row, Select } from "antd";
+import { Button, Col, Form, Input, Row, Select, Space } from "antd";
 import { type FormFields } from "../../type";
 import { ButtonForm, LoadingModule } from "@/c";
 import { store, show } from "../../action";
@@ -15,13 +15,12 @@ import {
   trueFalseOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
-import { fieldRules } from "@/libs/helpers";
-import { faker } from "@faker-js/faker";
+import { fieldRules, randomString } from "@/libs/helpers";
+import { SyncOutlined } from "@ant-design/icons";
 
 const initialValues = {
   roleAccess: userTypeOptions[0].value,
-  email: faker.internet.email(),
-  password: "abc",
+  userPassword: randomString(),
   active: true,
 };
 
@@ -59,11 +58,27 @@ function FormVendor() {
     setLoadingEdit(false);
   };
 
+  const generatePassword = () => {
+    form.setFieldsValue({
+      userPassword: randomString(),
+    });
+  };
+
   useEffect(() => {
     if (id) {
       void fetchDataEdit();
     }
   }, []);
+
+  // using regular input cant update the value
+  const MyInput = ({ value = "", ...rest }) => {
+    return (
+      <Space.Compact>
+        <Input value={value} {...rest} />
+        <Button onClick={generatePassword} icon={<SyncOutlined />} />
+      </Space.Compact>
+    );
+  };
 
   return (
     <div>
@@ -113,10 +128,10 @@ function FormVendor() {
             {!id && (
               <Form.Item<FormFields>
                 label="Password"
-                name="password"
+                name="userPassword"
                 rules={fieldRules(["required"])}
               >
-                <Input />
+                <MyInput />
               </Form.Item>
             )}
 
