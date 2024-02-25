@@ -6,3 +6,4 @@ export * from "./form";
 export * from "./storage";
 export * from "./prisma";
 export * from "./number";
+export * from "./string";
