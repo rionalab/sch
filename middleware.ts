@@ -7,5 +7,7 @@ export const config = {
     "/hrd/:module*",
     "/staff/:module*",
     "/account/:module*",
+
+    "/superadmin/:module*",
   ],
 };
