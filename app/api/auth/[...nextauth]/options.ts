@@ -27,6 +27,9 @@ export const options: NextAuthOptions = {
           where: {
             email: credentials?.username,
           },
+          include: {
+            role: true,
+          },
         });
 
         if (!user || !credentials?.password || !credentials.username) {
