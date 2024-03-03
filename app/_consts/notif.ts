@@ -1,3 +1,5 @@
+import { messages } from ".";
+
 const duration = 2.5;
 
 export const notifDestroyError = (description?: string, title?: string) => ({
@@ -26,7 +28,7 @@ export const notifStoreSuccess = (description?: string, title?: string) => ({
 
 export const notifUpdateSuccess = (description?: string, title?: string) => ({
   message: title ?? "Update Success",
-  description: description ?? "Data has been updated successfully",
+  description: description ?? messages.updateSuccess,
   duration,
 });
 

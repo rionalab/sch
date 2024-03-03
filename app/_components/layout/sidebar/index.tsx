@@ -297,6 +297,22 @@ export function Sidebar() {
               },
             ],
           },
+          {
+            key: "account",
+            icon: <FolderOutlined />,
+            label: "Account",
+            children: [
+              {
+                key: "updatePassword",
+                icon: <FileOutlined />,
+                label: (
+                  <Link href={urls.account.updatePassword.index}>
+                    Update Password
+                  </Link>
+                ),
+              },
+            ],
+          },
         ]}
       />
     </Sider>

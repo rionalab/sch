@@ -13,6 +13,11 @@ export interface Route {
   breadcrumb?: Breadcrumb[];
 }
 
+export interface UserSession {
+  hasUpdatePassword: boolean;
+  id: number;
+}
+
 export type ModuleName =
   | "employee"
   | "position"
@@ -25,7 +30,8 @@ export type ModuleName =
   | "inventory"
   | "leaveRequest"
   | "user"
-  | "leaveType";
+  | "leaveType"
+  | "updatePassword";
 
 export type ModuleCode =
   | "employee"

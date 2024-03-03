@@ -14,6 +14,10 @@ const role = "/superadmin/role";
 
 export const urls = {
   root: "/",
+  auth: {
+    signin: "/signin",
+    signout: "/signout",
+  },
   hrd: {
     employee: {
       index: employee,
@@ -84,5 +88,8 @@ export const urls = {
       create: role + "/create",
       edit: (id: string | number) => role + "/edit/" + id,
     },
+  },
+  account: {
+    updatePassword: { index: "/account/update-password" },
   },
 };

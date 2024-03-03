@@ -1,5 +1,6 @@
 "use client";
 
+import { urls } from "@/consts";
 import { signOut } from "next-auth/react";
 import React, { useEffect } from "react";
 
@@ -7,7 +8,7 @@ function Page() {
   useEffect(() => {
     void signOut({
       redirect: true,
-      callbackUrl: "/signin",
+      callbackUrl: urls.auth.signin,
     });
   });
 

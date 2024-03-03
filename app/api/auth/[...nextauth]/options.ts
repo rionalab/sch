@@ -5,6 +5,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/libs/prisma";
 import { compare } from "bcrypt";
 import { updateLastLogin } from "@/actions/auth";
+import { urls } from "@/consts";
 
 export const options: NextAuthOptions = {
   session: {
@@ -12,7 +13,7 @@ export const options: NextAuthOptions = {
     maxAge: 30 * 60, // 30 mins
   },
   pages: {
-    signIn: "/signin",
+    signIn: urls.auth.signin,
   },
   providers: [
     CredentialsProvider({

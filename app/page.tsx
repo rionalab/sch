@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
+import { urls } from "./_consts";
 
 export default function Home() {
-  redirect("/signin");
+  redirect(urls.auth.signin);
 }

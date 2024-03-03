@@ -183,6 +183,21 @@ export const routes: Routes = {
       },
     ],
   },
+  updatePassword: {
+    url: urls.account.updatePassword.index,
+    title: "Update Password",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Account",
+      },
+      {
+        title: "Update Password",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.account.updatePassword.index,
+      },
+    ],
+  },
 };
 
 type Routes = Record<ModuleName, Route>;

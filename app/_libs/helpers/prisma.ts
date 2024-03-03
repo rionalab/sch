@@ -14,12 +14,12 @@ const d = {
 
 export function handlePrismaError(e: any) {
   console.clear();
-  console.log("#####################");
+  console.log("11111 #####################");
   console.log(e?.code);
   console.log(e?.meta?.cause);
   console.log(e?.meta);
   console.log(e);
-  console.log("#####################");
+  console.log("22222 #####################");
 
   const isPrismaError = e instanceof Prisma.PrismaClientKnownRequestError;
 
@@ -72,9 +72,11 @@ export function handlePrismaError(e: any) {
       if (code === "P2025") {
         throw new Error(cause || messages.deleteError);
       }
+    } else {
+      throw new Error(String(e?.message) ?? "");
     }
 
-    const generalMsg = [messages.somethingWentWrong, code]
+    const generalMsg = [messages.somethingWentWrong, e?.code ?? ""]
       .filter(Boolean)
       .join(": ");
 

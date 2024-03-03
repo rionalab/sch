@@ -9,6 +9,7 @@ import {
 } from "@ant-design/icons";
 import { useSession, signOut } from "next-auth/react";
 import type { MenuProps } from "antd";
+import { urls } from "@/consts";
 
 const items: MenuProps["items"] = [
   {
@@ -31,7 +32,7 @@ const items: MenuProps["items"] = [
     onClick: () => {
       void signOut({
         redirect: true,
-        callbackUrl: "/signin",
+        callbackUrl: urls.auth.signin,
       });
     },
   },
