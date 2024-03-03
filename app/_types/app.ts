@@ -13,8 +13,19 @@ export interface Route {
   breadcrumb?: Breadcrumb[];
 }
 
+interface UserRoleAction {
+  id: number;
+  name: string;
+  actions: string;
+  roleAccess: string;
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: any;
+}
+
 export interface UserSession {
   hasUpdatePassword: boolean;
+  role: UserRoleAction;
   id: number;
 }
 
