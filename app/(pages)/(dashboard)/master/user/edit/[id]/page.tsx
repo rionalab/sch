@@ -1,14 +1,16 @@
 import React, { Suspense } from "react";
 import Form from "../../components/form/form";
 import { GuardPage, LoadingModule } from "@/c";
+import * as role from "@/pages/(dashboard)/superadmin/role/action";
 
-function Page() {
+async function Page() {
+  const roles = await role.index();
   return (
-    <GuardPage access="menu_edit_user">
-      <Suspense fallback={<LoadingModule />}>
-        <Form />
-      </Suspense>
-    </GuardPage>
+    <Suspense fallback={<LoadingModule />}>
+      <GuardPage access="menu_edit_user">
+        <Form roles={roles} />
+      </GuardPage>
+    </Suspense>
   );
 }
 

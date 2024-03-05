@@ -10,7 +10,11 @@ import { modelStore } from "./components/form/model";
 const urlToRevalidate = urls.master.user.index;
 
 export async function index() {
-  return await prisma.user.findMany();
+  return await prisma.user.findMany({
+    include: {
+      role: true,
+    },
+  });
 }
 
 export async function store(data: FormFields) {

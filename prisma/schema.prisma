@@ -319,13 +319,27 @@ model LeaveRequest {
 }
 
 enum Role {
-  EmployeeNonEdu
-  Teacher
-  Parent
-  Student
-  Admin
-  HR
   Superadmin
+  Administrator
+  Chairman
+  ManagerSchool
+  Principal
+  Teacher
+  ManagerFinance
+  StaffFinance
+  ManagerMarketing
+  StaffMarketing
+  ManagerGeneralAffair
+  StaffGeneralAffair
+  ModulPurchasing
+  ManagerPurchasing
+  StaffPurchasing
+  ModulHumanResource
+  ManagerHRD
+  StaffHRD
+  ManagerIT
+  StaffIT
+  Parent
 }
 
 enum PositionCategory {

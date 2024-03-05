@@ -10,10 +10,9 @@ export async function modelStore(
     name: formValue.name,
     role: {
       connect: {
-        id: 1,
+        id: Number(formValue.roleId),
       },
     },
-    roleAccess: formValue.roleAccess,
     active: formValue.active,
     ...(!formValue.id
       ? {

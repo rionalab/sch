@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Skeleton } from "antd";
 import {
   UserOutlined,
   FolderOutlined,
@@ -188,6 +188,7 @@ export function Sidebar() {
   ];
 
   const [finalMenus, setFinalMenus] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const checkChildren = (
     arrChildren: any[] | undefined,
@@ -231,12 +232,14 @@ export function Sidebar() {
       },
       ...filtered.filter(Boolean),
     ]);
+
+    setLoading(false);
   };
 
   useEffect(() => {
     setTimeout(() => {
       menusBasedOnRole();
-    }, 100);
+    }, 1000);
   }, []);
 
   return (
@@ -250,6 +253,13 @@ export function Sidebar() {
       />
 
       <Menu mode="inline" defaultSelectedKeys={["0"]} items={finalMenus} />
+
+      {loading && (
+        <div style={{ margin: "0 auto", width: "88%" }}>
+          <Skeleton active style={{ marginBottom: "16px" }} />
+          <Skeleton active />
+        </div>
+      )}
     </Sider>
   );
 }
