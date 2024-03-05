@@ -1,11 +1,12 @@
 import React from "react";
-import FormEmployee from "../components/form/form";
+import FormEditCreate from "../components/form/form";
+import { GuardPage } from "@/c";
 
 function Page() {
   return (
-    <div>
-      <FormEmployee />
-    </div>
+    <GuardPage access="menu_create_position">
+      <FormEditCreate />
+    </GuardPage>
   );
 }
 

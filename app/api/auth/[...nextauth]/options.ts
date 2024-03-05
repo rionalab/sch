@@ -4,13 +4,18 @@ import { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/libs/prisma";
 import { compare } from "bcrypt";
+import { updateLastLogin } from "@/actions/auth";
+import { urls } from "@/consts";
 
 export const options: NextAuthOptions = {
   session: {
     strategy: "jwt",
+    // need to delete  the localstorage on auto logout
+    // then can use  this feature
+    // maxAge: 30 * 60, // 30 mins
   },
   pages: {
-    signIn: "/signin",
+    signIn: urls.auth.signin,
   },
   providers: [
     CredentialsProvider({
@@ -23,6 +28,9 @@ export const options: NextAuthOptions = {
         const user = await prisma.user.findFirst({
           where: {
             email: credentials?.username,
+          },
+          include: {
+            role: true,
           },
         });
 
@@ -49,10 +57,10 @@ export const options: NextAuthOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ token, user, session, trigger }) {
-      console.log("JWT", { token, user, session });
-
+    async jwt({ token, user }) {
       if (user) {
+        await updateLastLogin(Number(user.id));
+
         return {
           ...token,
           ...user,
@@ -62,8 +70,7 @@ export const options: NextAuthOptions = {
 
       return token;
     },
-    async session({ session, token, user }) {
-      console.log("SESSION", { session, token, user });
+    async session({ session, token }) {
       return {
         ...session,
         user: {

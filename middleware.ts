@@ -1,11 +1,13 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
-
-export function middleware(request: NextRequest) {
-  // console.log(request);
-  // return NextResponse.redirect(new URL("/dashboard", request.url));
-}
+export { default } from "next-auth/middleware";
 
 export const config = {
-  // matcher: ["/master/:module*"],
+  matcher: [
+    "/dashboard",
+    "/master/:module*",
+    "/hrd/:module*",
+    "/staff/:module*",
+    "/account/:module*",
+
+    "/superadmin/:module*",
+  ],
 };

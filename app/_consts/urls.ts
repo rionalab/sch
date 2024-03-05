@@ -10,9 +10,14 @@ const leave = "/master/leave";
 const permissionLeave = "/hrd/permission-leave";
 const staffLeaveRequest = "/staff/leave-request";
 const user = "/master/user";
+const role = "/superadmin/role";
 
 export const urls = {
   root: "/",
+  auth: {
+    signin: "/signin",
+    signout: "/signout",
+  },
   hrd: {
     employee: {
       index: employee,
@@ -76,5 +81,15 @@ export const urls = {
       create: leave + "/create",
       edit: (id: string | number) => leave + "/edit/" + id,
     },
+  },
+  superadmin: {
+    role: {
+      index: role,
+      create: role + "/create",
+      edit: (id: string | number) => role + "/edit/" + id,
+    },
+  },
+  account: {
+    updatePassword: { index: "/account/update-password" },
   },
 };

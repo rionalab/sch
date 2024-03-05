@@ -12,7 +12,7 @@ export function isGeneralError(obj: Record<string, any>): obj is GeneralError {
   return "message" in obj;
 }
 
-type ValidationType = "required" | "others" | "email";
+type ValidationType = "required" | "others" | "email" | "min:8";
 
 export function fieldRules(
   validationType: ValidationType[],
@@ -32,6 +32,16 @@ export function fieldRules(
       type: "email",
     });
   }
+
+  validationType.forEach((validationType) => {
+    if (validationType.includes("min")) {
+      const length = validationType.split(":")?.[1];
+
+      result.push({
+        min: Number(length || 0),
+      });
+    }
+  });
 
   return result as Rule[];
 }

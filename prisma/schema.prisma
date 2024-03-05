@@ -11,20 +11,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
+model RoleAction {
   id         Int       @id @default(autoincrement())
-  email      String    @unique
-  role       Role      @default(EmployeeNonEdu)
-  password   String    @default("admin")
-  active     Boolean   @default(true)
-  name       String
-  lastLogin  DateTime?
+  name       Role      @unique
+  actions    String    @db.Text
   roleAccess String?
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   deletedAt  DateTime?
-  Profile    Profile?
-  Employee   Employee?
+  User       User[]
+}
+
+model User {
+  id                Int        @id @default(autoincrement())
+  email             String     @unique
+  role              RoleAction @relation(fields: [roleId], references: [id])
+  roleId            Int
+  password          String     @default("admin")
+  active            Boolean    @default(true)
+  hasUpdatePassword Boolean    @default(false)
+  name              String
+  lastLogin         DateTime?
+  roleAccess        String?
+  createdAt         DateTime   @default(now())
+  updatedAt         DateTime   @updatedAt
+  deletedAt         DateTime?
+  Profile           Profile?
+  Employee          Employee?
 }
 
 model Profile {

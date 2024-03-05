@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 import { theme } from "@/styles/antdThemeProvider";
 import "@/styles/global.scss";
 import "@/styles/customAntd.scss";
-import { AntdProvider } from "./_contexts";
+import { ClientAuthProvider, AntdProvider } from "@/contexts";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 
 const inter = Inter({
@@ -27,11 +27,13 @@ export default function RootLayout({
       >
         <main>
           <StoreProvider>
-            <AntdRegistry>
-              <ConfigProvider theme={{ ...theme, cssVar: true }}>
-                <AntdProvider>{children}</AntdProvider>
-              </ConfigProvider>
-            </AntdRegistry>
+            <ClientAuthProvider>
+              <AntdRegistry>
+                <ConfigProvider theme={{ ...theme, cssVar: true }}>
+                  <AntdProvider>{children}</AntdProvider>
+                </ConfigProvider>
+              </AntdRegistry>
+            </ClientAuthProvider>
           </StoreProvider>
         </main>
       </body>

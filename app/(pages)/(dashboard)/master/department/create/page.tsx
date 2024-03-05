@@ -1,11 +1,12 @@
 import React from "react";
 import Form from "../components/form/form";
+import { GuardPage } from "@/c";
 
 function Page() {
   return (
-    <div>
+    <GuardPage access="menu_create_department">
       <Form />
-    </div>
+    </GuardPage>
   );
 }
 

@@ -8,11 +8,16 @@ export async function modelStore(
   return {
     email: formValue.email,
     name: formValue.name,
+    role: {
+      connect: {
+        id: 1,
+      },
+    },
     roleAccess: formValue.roleAccess,
     active: formValue.active,
     ...(!formValue.id
       ? {
-          password: await bcrypt.hash(formValue.password, 10),
+          password: await bcrypt.hash(formValue.userPassword, 10),
           Profile: {
             create: {},
           },

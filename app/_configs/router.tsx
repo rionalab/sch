@@ -3,6 +3,21 @@ import { UserOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
 import { type ModuleName, type Route } from "@/types";
 
 export const routes: Routes = {
+  role: {
+    url: urls.superadmin.role.index,
+    title: "Role",
+    icon: <UserOutlined />,
+    breadcrumb: [
+      {
+        title: "Super Admin",
+      },
+      {
+        title: "Role",
+        icon: <UserOutlined />,
+        url: urls.superadmin.role.index,
+      },
+    ],
+  },
   employee: {
     url: urls.hrd.employee.index,
     title: "Employee",
@@ -42,7 +57,7 @@ export const routes: Routes = {
         title: "Master Data",
       },
       {
-        title: "Vendor",
+        title: "Supplier",
         icon: <DeploymentUnitOutlined />,
         url: urls.master.vendor.index,
       },
@@ -72,7 +87,7 @@ export const routes: Routes = {
         title: "Master Data",
       },
       {
-        title: "inventory",
+        title: "Inventory",
         icon: <DeploymentUnitOutlined />,
         url: urls.master.inventory.index,
       },
@@ -165,6 +180,21 @@ export const routes: Routes = {
         title: "User",
         icon: <DeploymentUnitOutlined />,
         url: urls.master.user.index,
+      },
+    ],
+  },
+  updatePassword: {
+    url: urls.account.updatePassword.index,
+    title: "Update Password",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Account",
+      },
+      {
+        title: "Update Password",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.account.updatePassword.index,
       },
     ],
   },
