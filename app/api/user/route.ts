@@ -1,4 +1,5 @@
 import { getServerSession } from "next-auth";
+import prisma from "@/libs/prisma";
 
 export async function GET(request: Request) {
   let result = null;
