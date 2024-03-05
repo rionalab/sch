@@ -14,7 +14,7 @@ datasource db {
 model RoleAction {
   id         Int       @id @default(autoincrement())
   name       Role      @unique
-  actions    String
+  actions    String    @db.Text
   roleAccess String?
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt

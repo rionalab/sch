@@ -4,7 +4,7 @@ import { GuardPage } from "@/c";
 
 async function Page() {
   return (
-    <GuardPage access="menu_update_password">
+    <GuardPage access="menu_updatePassword">
       <Form />
     </GuardPage>
   );

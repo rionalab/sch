@@ -58,23 +58,23 @@ export function Sidebar() {
           label: <Link href={urls.master.department.index}>Department</Link>,
         },
         {
-          key: "UoM",
+          key: "menu_uom",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.uom.index}>UoM</Link>,
         },
         {
-          key: "inventory",
+          key: "menu_inventory",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.inventory.index}>Inventory</Link>,
         },
 
         {
-          key: "masterPosition",
+          key: "menu_position",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.position.index}>Position</Link>,
         },
         {
-          key: "studentAct",
+          key: "menu_extracurricular",
           icon: <DeploymentUnitOutlined />,
           label: (
             <Link href={urls.master.studentActivities.index}>
@@ -83,17 +83,17 @@ export function Sidebar() {
           ),
         },
         {
-          key: "workUnit",
+          key: "menu_workUnit",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.workUnit.index}>Work Unit</Link>,
         },
         {
-          key: "leaveType",
+          key: "menu_leaveType",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.leave.index}>Leave Type</Link>,
         },
         {
-          key: "user",
+          key: "menu_user",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.user.index}>User</Link>,
         },
@@ -105,7 +105,7 @@ export function Sidebar() {
       label: "Human Resource",
       children: [
         {
-          key: "1.1",
+          key: "menu_employee",
           icon: <UserOutlined />,
           label: <Link href={urls.hrd.employee.index}>Employee</Link>,
         },
@@ -149,7 +149,7 @@ export function Sidebar() {
       label: "Staff",
       children: [
         {
-          key: "staffLeaveRequest",
+          key: "menu_leaveRequest",
           icon: <FileOutlined />,
           label: (
             <Link href={urls.staff.leaveRequest.index}>Leave Request</Link>
@@ -175,7 +175,7 @@ export function Sidebar() {
       label: "Account",
       children: [
         {
-          key: "updatePassword",
+          key: "menu_updatePassword",
           icon: <FileOutlined />,
           label: (
             <Link href={urls.account.updatePassword.index}>

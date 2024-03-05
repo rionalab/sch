@@ -57,6 +57,12 @@ export type ModuleCode =
   | "leaveType";
 
 export type MenuAccess =
+  | "menu_master"
+  | "menu_hr"
+  | "menu_staff"
+  | "menu_account"
+  | "menu_superadmin"
+  | "menu_account"
   | "menu_user"
   | "menu_edit_user"
   | "menu_create_user"
@@ -84,7 +90,6 @@ export type MenuAccess =
   | "menu_leaveRequest"
   | "menu_edit_leaveRequest"
   | "menu_create_leaveRequest"
-  | "menu_update_password"
   | "menu_inventory"
   | "menu_edit_inventory"
   | "menu_create_inventory"
@@ -96,4 +101,5 @@ export type MenuAccess =
   | "menu_edit_leaveType"
   | "menu_extracurricular"
   | "menu_create_extracurricular"
-  | "menu_edit_extracurricular";
+  | "menu_edit_extracurricular"
+  | "menu_updatePassword";
