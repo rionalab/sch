@@ -15,11 +15,10 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
     },
     {
       title: "Role",
-      dataIndex: "roleAccess",
-    },
-    {
-      title: "Profile",
-      dataIndex: "profile",
+      dataIndex: "role",
+      render: (role) => {
+        return role?.name;
+      },
     },
     {
       title: "Last Login",

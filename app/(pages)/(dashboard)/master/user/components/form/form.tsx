@@ -15,7 +15,7 @@ import {
   trueFalseOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
-import { fieldRules, randomString } from "@/libs/helpers";
+import { fieldRules, randomString, selectOptions } from "@/libs/helpers";
 import { SyncOutlined } from "@ant-design/icons";
 
 const initialValues = {
@@ -24,7 +24,14 @@ const initialValues = {
   active: true,
 };
 
-function FormVendor() {
+interface Props {
+  roles: Array<{
+    id: number;
+    name: string;
+  }>;
+}
+
+function FormVendor({ roles = [] }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
@@ -103,10 +110,10 @@ function FormVendor() {
 
             <Form.Item<FormFields>
               label="Role"
-              name="roleAccess"
+              name="roleId"
               rules={fieldRules(["required"])}
             >
-              <Select options={userTypeOptions} />
+              <Select options={selectOptions(roles, "name", "id")} />
             </Form.Item>
 
             <Form.Item<FormFields>

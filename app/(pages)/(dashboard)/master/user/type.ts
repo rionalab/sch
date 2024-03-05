@@ -1,7 +1,7 @@
 export interface FormFields {
   id?: string;
   email: string;
-  roleAccess: string;
+  roleId: string;
   userPassword: string;
   name: string;
   active: boolean;

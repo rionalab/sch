@@ -9,6 +9,8 @@ import { CheckOutlined } from "@ant-design/icons";
 import styles from "./styles.module.scss";
 import { useRouter } from "next/navigation";
 
+const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
+
 function FormSignin() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -31,6 +33,13 @@ function FormSignin() {
       setLoading(false);
       setError(true);
     } else {
+      if (!localStorage.getItem("roleActions")) {
+        const url = `${baseUrl}/api/user`;
+        const user = await fetch(url);
+        const data = await user.json();
+        localStorage.setItem("roleActions", `${data.role.actions}`);
+      }
+
       router.push("/dashboard");
     }
   };
