@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { Layout, Flex, Dropdown, Avatar } from "antd";
 import styles from "./styles.module.scss";
@@ -7,40 +9,39 @@ import {
   PoweroffOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
-import { useSession, signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import type { MenuProps } from "antd";
 import { urls } from "@/consts";
-
-const items: MenuProps["items"] = [
-  {
-    label: <a href="https://www.google.com">Help / Feedback</a>,
-    key: "0",
-    icon: <CommentOutlined />,
-  },
-  {
-    label: <a href="https://www.google.com">Documentation</a>,
-    icon: <InfoCircleOutlined />,
-    key: "1",
-  },
-  {
-    type: "divider",
-  },
-  {
-    label: "Logout",
-    key: "3",
-    icon: <PoweroffOutlined />,
-    onClick: () => {
-      void signOut({
-        redirect: true,
-        callbackUrl: urls.auth.signin,
-      });
-    },
-  },
-];
+import { useRouter } from "next/navigation";
 
 export function Header() {
   const { Header: HeaderAntd } = Layout;
   const { data: session } = useSession();
+  const router = useRouter();
+
+  const items: MenuProps["items"] = [
+    {
+      label: <a href="https://www.google.com">Help / Feedback</a>,
+      key: "0",
+      icon: <CommentOutlined />,
+    },
+    {
+      label: <a href="https://www.google.com">Documentation</a>,
+      icon: <InfoCircleOutlined />,
+      key: "1",
+    },
+    {
+      type: "divider",
+    },
+    {
+      label: "Logout",
+      key: "3",
+      icon: <PoweroffOutlined />,
+      onClick: async () => {
+        router.push(urls.auth.signout);
+      },
+    },
+  ];
 
   return (
     <HeaderAntd className={styles.header}>

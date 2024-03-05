@@ -20,7 +20,8 @@ import { faker } from "@faker-js/faker";
 const initialValues = {
   roleAccess: userTypeOptions[0].value,
   email: faker.internet.email(),
-  password: "abc",
+  actions:
+    "menu_master, menu_department, master_supplier, master_department, create_department, menu_superadmin, menu_role",
   active: true,
 };
 

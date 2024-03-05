@@ -10,7 +10,9 @@ import { urls } from "@/consts";
 export const options: NextAuthOptions = {
   session: {
     strategy: "jwt",
-    maxAge: 30 * 60, // 30 mins
+    // need to delete  the localstorage on auto logout
+    // then can use  this feature
+    // maxAge: 30 * 60, // 30 mins
   },
   pages: {
     signIn: urls.auth.signin,

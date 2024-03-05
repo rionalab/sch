@@ -6,6 +6,8 @@ import React, { useEffect } from "react";
 
 function Page() {
   useEffect(() => {
+    localStorage.removeItem("roleActions");
+
     void signOut({
       redirect: true,
       callbackUrl: urls.auth.signin,
