@@ -21,7 +21,7 @@ const initialValues = {
   active: true,
 };
 
-function FormPosition() {
+function FormEditCreate() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
@@ -116,4 +116,4 @@ function FormPosition() {
   );
 }
 
-export default memo(FormPosition);
+export default memo(FormEditCreate);

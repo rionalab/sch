@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import FormEmployee from "../../components/form/form";
 import * as positions from "@/pages/(dashboard)/master/position/action";
-import { ContentLoader } from "@/c";
+import { GuardPage, ContentLoader } from "@/c";
 
 interface Props {
   params: {
@@ -17,11 +17,11 @@ async function Page({ params }: Props) {
   };
 
   return (
-    <div>
+    <GuardPage access="menu_edit_user">
       <Suspense fallback={<ContentLoader />}>
         <FormEmployee {...props} />
       </Suspense>
-    </div>
+    </GuardPage>
   );
 }
 

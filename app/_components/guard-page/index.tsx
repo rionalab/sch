@@ -1,14 +1,15 @@
 "use client";
 
+import type { MenuAccess } from "@/types";
 import { notFound } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 interface Props {
-  access: string;
+  access: MenuAccess;
   children: React.ReactNode;
 }
 
-function GuardPage({ access, children }: Props) {
+export function GuardPage({ access, children }: Props) {
   const [hasAccess, setHasAccess] = useState(false);
 
   useEffect(() => {
@@ -23,5 +24,3 @@ function GuardPage({ access, children }: Props) {
 
   return !hasAccess ? null : <>{children}</>;
 }
-
-export default GuardPage;
