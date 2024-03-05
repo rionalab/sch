@@ -8,7 +8,7 @@ async function Page() {
   const data = await index();
 
   return (
-    <GuardPage access="menu_work_unit">
+    <GuardPage access="menu_workUnit">
       <Table rows={normalizeTableRow<any>(data)} />;
     </GuardPage>
   );

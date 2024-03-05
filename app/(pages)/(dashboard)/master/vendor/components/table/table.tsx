@@ -6,6 +6,7 @@ import { DataTable } from "@/c";
 import { columns } from "./columns";
 import { removeVendor } from "../../action";
 import { useTable } from "@/hooks/useTable";
+import useRole from "@/hooks/useRole";
 
 interface Props {
   rows: any[];
@@ -14,12 +15,14 @@ interface Props {
 type DtColumns = ColumnsType<Record<string, any>>;
 
 function Table({ rows }: Props) {
+  const { allowDelete, allowCreate, allowEdit } = useRole("vendor");
   const tableProps = useTable<any[]>({ rows });
 
   return (
     <>
       <DataTable
         filter={true}
+        create={allowCreate}
         download={true}
         antdProps={{
           scroll: { x: 1300, y: 1111 },
@@ -27,10 +30,12 @@ function Table({ rows }: Props) {
         columns={columns() as DtColumns}
         {...tableProps}
         actions={{
-          destroy: async (id: number) => {
-            await removeVendor(id);
-          },
-          edit: true,
+          destroy: !allowDelete
+            ? undefined
+            : async (id: number) => {
+                await removeVendor(id);
+              },
+          edit: allowEdit,
         }}
       />
     </>

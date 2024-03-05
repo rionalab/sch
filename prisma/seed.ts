@@ -23,7 +23,13 @@ async function main() {
   // * RoleAction
   // *************************************
   await prisma.roleAction.createMany({
-    data: [{ name: "Admin", actions: "menu_master" }],
+    data: [
+      {
+        name: "Admin",
+        actions:
+          "menu_user, menu_edit_user, menu_create_user, menu_employee, menu_edit_employee, menu_create_employee, menu_role, menu_edit_role, menu_create_role, menu_uom, menu_edit_uom, menu_create_uom, menu_leave, menu_create_leave, menu_edit_leave, menu_vendor, menu_edit_vendor, menu_create_vendor, menu_position, menu_create_position, menu_edit_position, menu_department, menu_create_department, menu_edit_department, menu_leaveRequest, menu_edit_leaveRequest, menu_create_leaveRequest, menu_update_password, menu_inventory, menu_edit_inventory, menu_create_inventory, menu_workUnit, menu_edit_workUnit, menu_create_workUnit, menu_leaveType, menu_create_leaveType, menu_edit_leaveType, menu_extracurricular, menu_create_extracurricular, menu_edit_extracurricular",
+      },
+    ],
     skipDuplicates: true,
   });
 
@@ -33,31 +39,31 @@ async function main() {
     data: [
       {
         email: "admin@kr.com",
-        password: await bcrypt.hash("admin", 10),
+        password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
         name: "User 1",
       },
       {
         email: "user2@mail.com",
-        password: await bcrypt.hash("admin", 10),
+        password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
         name: "User 2",
       },
       {
         email: "user3@mail.com",
-        password: await bcrypt.hash("admin", 10),
+        password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
         name: "User 3",
       },
       {
         email: "user4@mail.com",
-        password: await bcrypt.hash("admin", 10),
+        password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
         name: "User 4",
       },
       {
         email: "user5@mail.com",
-        password: await bcrypt.hash("admin", 10),
+        password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
         name: "User 5",
       },

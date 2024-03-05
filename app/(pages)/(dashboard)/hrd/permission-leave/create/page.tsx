@@ -4,7 +4,7 @@ import { GuardPage } from "@/c";
 
 function Page() {
   return (
-    <GuardPage access="menu_create_permission_leave">
+    <GuardPage access="menu_create_leaveRequest">
       <Form />
     </GuardPage>
   );

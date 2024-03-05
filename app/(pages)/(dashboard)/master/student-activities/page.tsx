@@ -8,7 +8,7 @@ async function Page() {
   const data = await index();
 
   return (
-    <GuardPage access="menu_student_activities">
+    <GuardPage access="menu_extracurricular">
       <Table rows={normalizeTableRow<any>(data)} />;
     </GuardPage>
   );

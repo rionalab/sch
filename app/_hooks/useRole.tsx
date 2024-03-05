@@ -12,9 +12,9 @@ function useRole(moduleName: ModuleName) {
     const actions = localStorage.getItem("roleActions");
 
     setResult({
-      allowEdit: Boolean(actions?.includes(`edit_${moduleName}`)),
-      allowDelete: Boolean(actions?.includes(`delete_${moduleName}`)),
-      allowCreate: Boolean(actions?.includes(`create_${moduleName}`)),
+      allowEdit: Boolean(actions?.includes(`menu_edit_${moduleName}`)),
+      allowDelete: Boolean(actions?.includes(`menu_delete_${moduleName}`)),
+      allowCreate: Boolean(actions?.includes(`menu_create_${moduleName}`)),
     });
   }, []);
 

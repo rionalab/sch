@@ -15,13 +15,14 @@ interface Props {
 type DtColumns = ColumnsType<Record<string, any>>;
 
 function Table({ rows }: Props) {
+  const { allowDelete, allowCreate, allowEdit } = useRole("role");
   const tableProps = useTable<any[]>({ rows });
-  const { allowDelete, allowEdit } = useRole("role");
 
   return (
     <>
       <DataTable
         filter={true}
+        create={allowCreate}
         download={true}
         columns={columns() as DtColumns}
         {...tableProps}
