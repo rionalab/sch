@@ -9,13 +9,14 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       dataIndex: "no",
     },
     {
-      width: 180,
+      width: 220,
       title: "Name",
       dataIndex: "name",
     },
     {
       title: "Actions",
       dataIndex: "actions",
+      ellipsis: true,
     },
   ];
 };

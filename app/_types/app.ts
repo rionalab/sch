@@ -26,6 +26,7 @@ interface UserRoleAction {
 export interface UserSession {
   hasUpdatePassword: boolean;
   role: UserRoleAction;
+  name: string;
   id: number;
 }
 

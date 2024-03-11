@@ -73,3 +73,14 @@ export const inventoryCategoryOptions = [
   { label: "consumables", value: "consumables" },
   { label: "non-consumables", value: "non-consumables" },
 ];
+
+// export const religionOptions = [
+//   { label: "Islam", value: "Islam" },
+//   { label: "Budha", value: "Budha" },
+//   { label: "Hindu", value: "Hindu" },
+//   { label: "Kristen", value: "Kristen" },
+//   { label: "Katolik", value: "Katolik" },
+//   { label: "Khonghucu", value: "Khonghucu" },
+//   { label: "Tradisional", value: "Tradisional" },
+//   { label: "Others", value: "Others" },
+// ];

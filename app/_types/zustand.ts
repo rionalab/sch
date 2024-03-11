@@ -8,4 +8,12 @@ export interface BearSlice {
   addBear: () => void;
 }
 
-export type CombinedSlicesType = FishSlice & BearSlice;
+interface User {
+  name: string;
+}
+
+export interface UserSlice {
+  user: null | User;
+}
+
+export type CombinedSlicesType = UserSlice & FishSlice & BearSlice;

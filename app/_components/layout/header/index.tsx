@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Layout, Flex, Dropdown, Avatar } from "antd";
+import { Layout, Flex, Dropdown, Avatar, Skeleton } from "antd";
 import styles from "./styles.module.scss";
 import {
   UserOutlined,
@@ -13,10 +13,12 @@ import { useSession } from "next-auth/react";
 import type { MenuProps } from "antd";
 import { urls } from "@/consts";
 import { useRouter } from "next/navigation";
+import type { UserSession } from "@/types";
 
 export function Header() {
   const { Header: HeaderAntd } = Layout;
   const { data: session } = useSession();
+  // console.log({ session });
   const router = useRouter();
 
   const items: MenuProps["items"] = [
@@ -43,12 +45,25 @@ export function Header() {
     },
   ];
 
+  const { name } = session?.user ?? ({} as unknown as UserSession);
+
   return (
     <HeaderAntd className={styles.header}>
       <Flex style={{ width: "100%" }} justify="space-between" align="center">
         <div className={styles.welcome}>
-          Welcome, <span>{session?.user?.name}</span>
+          {name ? (
+            <>
+              Welcome, <span>{name}</span>
+            </>
+          ) : (
+            <Skeleton.Input
+              className={styles.userSkeleton}
+              active={true}
+              size={"small"}
+            />
+          )}
         </div>
+
         <div className={styles.headerRight}>
           <Dropdown menu={{ items }} trigger={["click"]}>
             <Avatar

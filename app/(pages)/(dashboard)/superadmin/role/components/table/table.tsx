@@ -22,7 +22,7 @@ function Table({ rows }: Props) {
     <>
       <DataTable
         filter={true}
-        create={allowCreate}
+        create={false}
         download={true}
         columns={columns() as DtColumns}
         {...tableProps}
