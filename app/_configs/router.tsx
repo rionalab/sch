@@ -3,6 +3,30 @@ import { UserOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
 import { type ModuleName, type Route } from "@/types";
 
 export const routes: Routes = {
+  help: {
+    url: urls.help,
+    title: "Help",
+    icon: <UserOutlined />,
+    breadcrumb: [
+      {
+        title: "Help",
+        icon: <UserOutlined />,
+        url: urls.help,
+      },
+    ],
+  },
+  documentation: {
+    url: urls.documentation,
+    title: "Documentation",
+    icon: <UserOutlined />,
+    breadcrumb: [
+      {
+        title: "Documentation",
+        icon: <UserOutlined />,
+        url: urls.documentation,
+      },
+    ],
+  },
   role: {
     url: urls.superadmin.role.index,
     title: "Role",

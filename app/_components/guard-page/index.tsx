@@ -13,14 +13,20 @@ export function GuardPage({ access, children }: Props) {
   const [hasAccess, setHasAccess] = useState(false);
 
   useEffect(() => {
-    const roleActions = localStorage.getItem("roleActions");
+    if (access !== "*") {
+      const roleActions = localStorage.getItem("roleActions");
 
-    if (!roleActions?.includes(access)) {
-      return notFound();
-    } else {
-      setHasAccess(true);
+      if (!roleActions?.includes(access)) {
+        return notFound();
+      } else {
+        setHasAccess(true);
+      }
     }
   }, []);
+
+  if (access === "*") {
+    return <>{children}</>;
+  }
 
   return !hasAccess ? null : <>{children}</>;
 }

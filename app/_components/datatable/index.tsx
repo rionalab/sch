@@ -3,7 +3,7 @@
 import React from "react";
 import { Table } from "antd";
 import type { ColumnsType, TableProps } from "antd/es/table";
-import { TableAction, TableToolbar } from "@/c";
+import { TableAction, TableToolbar, Tag } from "@/c";
 import { type TableActions } from "@/types";
 
 interface AntdProps<T> extends TableProps<T> {}
@@ -72,7 +72,14 @@ export function DataTable<T>(props: Props<T>) {
                 {
                   title: "Active",
                   dataIndex: "active",
-                  render: (v: boolean) => (v ? "Active" : "Inactive"),
+                  render: (v: boolean) => {
+                    return (
+                      <Tag
+                        label={v ? "Active" : "Inactive"}
+                        theme={v ? "green" : "red"}
+                      />
+                    );
+                  },
                 },
               ]
             : []),

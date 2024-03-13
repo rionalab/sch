@@ -4,12 +4,13 @@ import FormSignin from "./components/form/form";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
+import { urls } from "@/consts";
 
 async function Page() {
   const session = await getServerSession(options);
 
   if (session) {
-    redirect("/dashboard");
+    redirect(urls.landingPage);
   }
 
   return (

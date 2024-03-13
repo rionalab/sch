@@ -13,6 +13,7 @@ datasource db {
 
 model RoleAction {
   id         Int       @id @default(autoincrement())
+  label      String
   name       Role      @unique
   actions    String    @db.Text
   roleAccess String?

@@ -183,6 +183,25 @@ export function Sidebar() {
             </Link>
           ),
         },
+        {
+          key: "menu_help",
+          icon: <FileOutlined />,
+          label: <Link href={urls.help}>Help</Link>,
+        },
+        {
+          key: "menu_documentation",
+          icon: <FileOutlined />,
+          label: <Link href={urls.documentation}>Documentation</Link>,
+        },
+        // {
+        //   key: "menu_updatePassword",
+        //   icon: <FileOutlined />,
+        //   label: (
+        //     <Link href={urls.account.updatePassword.index}>
+        //       Update Password
+        //     </Link>
+        //   ),
+        // },
       ],
     },
   ];

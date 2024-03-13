@@ -14,6 +14,17 @@ export function isGeneralError(obj: Record<string, any>): obj is GeneralError {
 
 type ValidationType = "required" | "others" | "email" | "min:8";
 
+// Custom validation rule to check for whitespace input
+const noWhitespaceInput = async (rule: any, value: any, callback: any) => {
+  if (value && String(value).trim() === "") {
+    // eslint-disable-next-line prefer-promise-reject-errors
+    return await Promise.reject("Input cannot be only whitespace");
+  } else {
+    // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+    return await Promise.resolve();
+  }
+};
+
 export function fieldRules(
   validationType: ValidationType[],
   label?: string
@@ -25,6 +36,8 @@ export function fieldRules(
       required: true,
       message: "This input is required",
     });
+
+    result.push({ validator: noWhitespaceInput });
   }
 
   if (validationType.includes("email")) {

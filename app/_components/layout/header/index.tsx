@@ -14,21 +14,21 @@ import type { MenuProps } from "antd";
 import { urls } from "@/consts";
 import { useRouter } from "next/navigation";
 import type { UserSession } from "@/types";
+import Link from "next/link";
 
 export function Header() {
   const { Header: HeaderAntd } = Layout;
   const { data: session } = useSession();
-  // console.log({ session });
   const router = useRouter();
 
   const items: MenuProps["items"] = [
     {
-      label: <a href="https://www.google.com">Help / Feedback</a>,
+      label: <Link href={urls.help}>Help / Feedback</Link>,
       key: "0",
       icon: <CommentOutlined />,
     },
     {
-      label: <a href="https://www.google.com">Documentation</a>,
+      label: <Link href={urls.documentation}>Documentation</Link>,
       icon: <InfoCircleOutlined />,
       key: "1",
     },
@@ -45,15 +45,18 @@ export function Header() {
     },
   ];
 
-  const { name } = session?.user ?? ({} as unknown as UserSession);
+  const user = session?.user as UserSession;
 
   return (
     <HeaderAntd className={styles.header}>
       <Flex style={{ width: "100%" }} justify="space-between" align="center">
         <div className={styles.welcome}>
-          {name ? (
+          {user ? (
             <>
-              Welcome, <span>{name}</span>
+              Welcome,{" "}
+              <span>
+                {user.name} {user?.role ? `(${user?.role?.label})` : ""}
+              </span>
             </>
           ) : (
             <Skeleton.Input
@@ -67,6 +70,7 @@ export function Header() {
         <div className={styles.headerRight}>
           <Dropdown menu={{ items }} trigger={["click"]}>
             <Avatar
+              // src={`https://api.dicebear.com/7.x/miniavs/svg?seed=2`}
               style={{
                 backgroundColor: "rgb(230, 244, 255)",
                 color: " rgb(22, 119, 255)",

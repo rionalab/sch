@@ -5,14 +5,19 @@ interface Props {
   image?: string;
   title?: string;
   hover?: boolean;
+  onClick?: () => void;
 }
 
 export function Avatar(props: Props) {
-  const { hover = false, image, title = "" } = props;
+  const { hover = false, onClick = undefined, image, title = "" } = props;
 
   if (image) {
     return (
-      <>
+      <div
+        onClick={() => {
+          onClick?.();
+        }}
+      >
         <AvatarAntd
           size={"small"}
           style={{ marginRight: 8 }}
@@ -22,12 +27,18 @@ export function Avatar(props: Props) {
         <span className={`textCapitalize ${hover ? "textLink" : ""}`}>
           {title}
         </span>
-      </>
+      </div>
     );
   }
 
   return (
-    <Flex align="center" gap={8}>
+    <Flex
+      onClick={() => {
+        onClick?.();
+      }}
+      align="center"
+      gap={8}
+    >
       <AvatarAntd className="textUppercase ">
         {(title || "")
           .trim()

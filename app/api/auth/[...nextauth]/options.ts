@@ -30,6 +30,7 @@ export const options: NextAuthOptions = {
             email: credentials?.username,
           },
           include: {
+            Employee: true,
             role: true,
           },
         });
@@ -46,6 +47,8 @@ export const options: NextAuthOptions = {
         if (!passwordValid) {
           return null;
         }
+
+        console.log(22222222, user);
 
         return {
           ...user,

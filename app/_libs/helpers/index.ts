@@ -4,6 +4,7 @@ export * from "./request";
 export * from "./table";
 export * from "./form";
 export * from "./storage";
+export * from "./file";
 export * from "./prisma";
 export * from "./number";
 export * from "./string";

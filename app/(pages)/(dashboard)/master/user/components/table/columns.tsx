@@ -17,7 +17,7 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       title: "Role",
       dataIndex: "role",
       render: (role) => {
-        return role?.name;
+        return role?.label;
       },
     },
     {

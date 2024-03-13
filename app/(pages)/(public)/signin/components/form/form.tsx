@@ -8,6 +8,7 @@ import { signIn } from "next-auth/react";
 import { CheckOutlined } from "@ant-design/icons";
 import styles from "./styles.module.scss";
 import { useRouter } from "next/navigation";
+import { urls } from "@/consts";
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
 
@@ -38,9 +39,13 @@ function FormSignin() {
         const user = await fetch(url);
         const data = await user.json();
         localStorage.setItem("roleActions", `${data.role.actions}`);
-      }
 
-      router.push("/dashboard");
+        if (data.hasUpdatePassword) {
+          router.push(urls.landingPage);
+        } else {
+          router.push(urls.account.updatePassword.index);
+        }
+      }
     }
   };
 

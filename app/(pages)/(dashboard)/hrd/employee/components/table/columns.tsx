@@ -1,13 +1,14 @@
 import { type Employee } from "../../type";
 import { Popover, Tag } from "antd";
 import TableDetail from "./table-detail";
-import { dMY } from "@/helpers";
+import { dMY, imageUpload } from "@/helpers";
 import { cell } from "@/libs/helpers/table";
 import { Avatar } from "@/c";
 import Link from "next/link";
 import { PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import { type ColumnsType } from "antd/es/table";
 import { red, green } from "@ant-design/colors";
+import ModalDetail from "./modal-detail";
 
 export const columns: ColumnsType<Employee> = [
   {
@@ -17,11 +18,11 @@ export const columns: ColumnsType<Employee> = [
     fixed: "left",
     render: (val, row) => {
       return (
-        <Popover content={<TableDetail data={row} />}>
-          <>
-            <Avatar hover image={row.photo} title={`${row.fullName}`} />
-          </>
-        </Popover>
+        <ModalDetail
+          image={row.photo ? imageUpload(row.photo) : ""}
+          title={row.fullName}
+          row={row}
+        />
       );
     },
     sorter: (a, b) => (a.fullName > b.fullName ? -1 : 1),

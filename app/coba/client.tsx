@@ -4,6 +4,7 @@
 
 import React from "react";
 import Fish from "./fishes";
+import UploadDemo from "./upload";
 // import Bears from "./bears";
 
 function Client() {
@@ -11,6 +12,7 @@ function Client() {
     <div>
       <Fish />
       {/* <Bears /> */}
+      <UploadDemo />
     </div>
   );
 }

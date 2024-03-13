@@ -15,10 +15,10 @@ const d = {
 export function handlePrismaError(e: any) {
   console.clear();
   console.log("11111 #####################");
-  console.log(e?.code);
-  console.log(e?.meta?.cause);
-  console.log(e?.meta);
-  console.log(e);
+  console.log(1, e?.code);
+  console.log(2, e?.meta?.cause);
+  console.log(3, e?.meta);
+  console.log(4, e);
   console.log("22222 #####################");
 
   const isPrismaError = e instanceof Prisma.PrismaClientKnownRequestError;
