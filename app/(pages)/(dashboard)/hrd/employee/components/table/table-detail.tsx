@@ -105,7 +105,7 @@ function TableDetail({ data }: Props) {
   ];
 
   return (
-    <div style={{ width: 700 }}>
+    <div>
       <Descriptions
         column={3}
         title={

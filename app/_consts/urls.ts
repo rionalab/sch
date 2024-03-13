@@ -14,6 +14,9 @@ const role = "/superadmin/role";
 
 export const urls = {
   root: "/",
+  landingPage: "/dashboard",
+  help: "/help",
+  documentation: "/documentation",
   auth: {
     signin: "/signin",
     signout: "/signout",

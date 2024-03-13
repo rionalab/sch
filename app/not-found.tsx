@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { urls } from "./_consts";
 
 export default function NotFound() {
   return (
@@ -6,7 +7,7 @@ export default function NotFound() {
       <div style={{ textAlign: "center" }}>
         <h2>Not Found</h2>
         <p>Could not find requested resource</p>
-        <Link href="/dashboard">Return Home</Link>
+        <Link href={urls.landingPage}>Return Home</Link>
       </div>
     </div>
   );

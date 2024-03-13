@@ -10,7 +10,7 @@ async function Page() {
 
   return (
     <GuardPage access="menu_position">
-      <Table rows={normalizeTableRow<Prisma.PositionCreateInput>(data)} />;
+      <Table rows={normalizeTableRow<Prisma.PositionCreateInput>(data)} />
     </GuardPage>
   );
 }

@@ -13,6 +13,7 @@ export * from "./datatable/table-action";
 export * from "./avatar";
 export * from "./guard-page";
 export * from "./layout/header";
+export * from "./tag";
 export * from "./content-loader";
 export * from "./layout/loading-module";
 export { Content };

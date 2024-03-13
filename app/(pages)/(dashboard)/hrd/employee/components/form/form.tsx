@@ -9,11 +9,11 @@ import {
   Row,
   Typography,
   Select,
-  // Button,
-  // Upload,
+  Button,
+  Upload,
+  message,
 } from "antd";
 import { type Employee, type FormFields } from "../../type";
-
 import {
   fieldRules,
   prismaToForm,
@@ -34,7 +34,7 @@ import {
   notifUpdateSuccess,
   religionOptions,
 } from "@/consts";
-// import { UploadOutlined } from "@ant-design/icons";
+import { UploadOutlined } from "@ant-design/icons";
 import { useParams, useRouter } from "next/navigation";
 import { useAntdContext } from "@/contexts";
 import { store, show } from "../../action";
@@ -42,8 +42,10 @@ import { faker } from "@faker-js/faker";
 import { submitEmployeeData } from "./model";
 import { ButtonForm, ButtonBack, LoadingModule } from "@/c";
 import type { Position } from "@/pages/(dashboard)/master/position/type";
+import { imageUploadType } from "@/app/_consts/file";
+import type { UploadFile } from "antd";
 
-const initialValues2: Partial<Employee> = {
+const initialValues: Partial<Employee> = {
   NIP: "00001",
   positionId: 2,
   hireDate: today(),
@@ -83,7 +85,7 @@ const initialValues2: Partial<Employee> = {
   remarks: faker.lorem.words(10),
 };
 
-const initialValues = {};
+const initialValues2 = {};
 interface Props {
   positions: Position[];
 }
@@ -96,10 +98,11 @@ function FormEmployee(props: Props) {
   const { id } = useParams();
   const router = useRouter();
   const [loadingEdit, setLoadingEdit] = useState(false);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const handleFormChange = (changedValues: any, allValues: any) => {
-    console.log("Changed values:", changedValues);
-    console.log("All values:", allValues);
+    // console.log("Changed values:", changedValues);
+    // console.log("All values:", allValues);
   };
 
   const onFinish = async (values: FormFields) => {
@@ -108,7 +111,7 @@ function FormEmployee(props: Props) {
     try {
       setLoading(true);
       // @ts-expect-error mgkin harus pake generic
-      await store(submitEmployeeData(values));
+      await store(await submitEmployeeData({ ...values, photo: fileList[0] }));
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
     } catch (e: any) {
@@ -132,9 +135,9 @@ function FormEmployee(props: Props) {
     const dataEdit = await show(Number(id));
 
     if (dataEdit) {
-      const { PKWTEnd, dob, hireDate, PKWTStart, ...rest } = dataEdit;
-
-      form.setFieldsValue(prismaToForm(dataEdit));
+      form.setFieldsValue(
+        prismaToForm({ ...dataEdit, photo: [], oldPhoto: dataEdit.photo })
+      );
     }
     setLoadingEdit(false);
   };
@@ -161,6 +164,10 @@ function FormEmployee(props: Props) {
         autoComplete="off"
       >
         <Form.Item<FormFields> hidden label="Id" name="id">
+          <Input type="hidden" />
+        </Form.Item>
+
+        <Form.Item<FormFields> hidden label="" name="oldPhoto">
           <Input type="hidden" />
         </Form.Item>
 
@@ -257,13 +264,43 @@ function FormEmployee(props: Props) {
             <Form.Item<FormFields>
               label="Photo"
               name="photo"
-              // valuePropName="fileList"
-              // getValueFromEvent={normFile}
+              valuePropName="fileList"
+              getValueFromEvent={normFile}
             >
-              <Input />
-              {/* <Upload name="logo" action="/upload.do" listType="picture">
+              <Upload
+                fileList={fileList}
+                accept={"image/png, image/jpeg, image/jpg"}
+                onRemove={(file) => {
+                  const index = fileList.indexOf(file);
+                  const newFileList = fileList.slice();
+                  newFileList.splice(index, 1);
+                  setFileList(newFileList);
+                }}
+                beforeUpload={(file) => {
+                  const isImage = imageUploadType.includes(file.type);
+                  const isLt2M = file.size / 1024 / 1024 < 2;
+
+                  if (!isImage) {
+                    void message.error(`${file.name} is not an image file`);
+                    setFileList([]);
+                  }
+
+                  if (!isLt2M) {
+                    void message.error("Image must smaller than 2MB!");
+                    setFileList([]);
+                  }
+
+                  setFileList([...fileList, file]);
+
+                  return false;
+                  // return isImage || Upload.LIST_IGNORE;
+                }}
+                maxCount={1}
+                name="logo"
+                listType="picture"
+              >
                 <Button icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload> */}
+              </Upload>
             </Form.Item>
             <Form.Item<FormFields>
               label="ID Address"

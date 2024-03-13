@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { Layout, Flex, Dropdown, Avatar } from "antd";
+import { Layout, Flex, Dropdown, Avatar, Skeleton } from "antd";
 import styles from "./styles.module.scss";
 import {
   UserOutlined,
@@ -13,6 +13,8 @@ import { useSession } from "next-auth/react";
 import type { MenuProps } from "antd";
 import { urls } from "@/consts";
 import { useRouter } from "next/navigation";
+import type { UserSession } from "@/types";
+import Link from "next/link";
 
 export function Header() {
   const { Header: HeaderAntd } = Layout;
@@ -21,12 +23,12 @@ export function Header() {
 
   const items: MenuProps["items"] = [
     {
-      label: <a href="https://www.google.com">Help / Feedback</a>,
+      label: <Link href={urls.help}>Help / Feedback</Link>,
       key: "0",
       icon: <CommentOutlined />,
     },
     {
-      label: <a href="https://www.google.com">Documentation</a>,
+      label: <Link href={urls.documentation}>Documentation</Link>,
       icon: <InfoCircleOutlined />,
       key: "1",
     },
@@ -43,15 +45,32 @@ export function Header() {
     },
   ];
 
+  const user = session?.user as UserSession;
+
   return (
     <HeaderAntd className={styles.header}>
       <Flex style={{ width: "100%" }} justify="space-between" align="center">
         <div className={styles.welcome}>
-          Welcome, <span>{session?.user?.name}</span>
+          {user ? (
+            <>
+              Welcome,{" "}
+              <span>
+                {user.name} {user?.role ? `(${user?.role?.label})` : ""}
+              </span>
+            </>
+          ) : (
+            <Skeleton.Input
+              className={styles.userSkeleton}
+              active={true}
+              size={"small"}
+            />
+          )}
         </div>
+
         <div className={styles.headerRight}>
           <Dropdown menu={{ items }} trigger={["click"]}>
             <Avatar
+              // src={`https://api.dicebear.com/7.x/miniavs/svg?seed=2`}
               style={{
                 backgroundColor: "rgb(230, 244, 255)",
                 color: " rgb(22, 119, 255)",

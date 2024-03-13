@@ -24,6 +24,19 @@ const prismaClientSingleton = () => {
           args.where = { ...args.where, deletedAt: null };
           return await query(args);
         },
+        async create({ args, query }) {
+          // Trim all string values in args.data
+          for (const key in args.data) {
+            // @ts-expect-error impli any
+            if (typeof args.data?.[key] === "string") {
+              // @ts-expect-error impli any
+              args.data[key] = args.data[key].trim();
+            }
+          }
+
+          console.log(123132, args);
+          return await query(args);
+        },
       },
     },
   });

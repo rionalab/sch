@@ -1,12 +1,14 @@
-// import { CombinedSlicesType, FishSlice } from "@/types";
-// import { StateCreator } from "zustand";
+import type { FishSlice, CombinedSlicesType } from "@/types";
+import type { StateCreator } from "zustand";
 
-// export const createFishSlice: StateCreator<
-//   CombinedSlicesType,
-//   [],
-//   [],
-//   FishSlice
-// > = (set) => ({
-//   fishes: 220,
-//   addFish: () => set((state) => ({ fishes: state.fishes + 1 })),
-// });
+export const createFishSlice: StateCreator<
+  CombinedSlicesType,
+  [],
+  [],
+  FishSlice
+> = (set) => ({
+  fishes: 220,
+  addFish: () => {
+    set((state) => ({ fishes: state.fishes + 1 }));
+  },
+});

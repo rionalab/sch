@@ -2,6 +2,7 @@
 
 import { Button } from "antd";
 import { useRouter } from "next/navigation";
+import { urls } from "../_consts/urls";
 
 export default function NotFound() {
   const router = useRouter();
@@ -24,7 +25,7 @@ export default function NotFound() {
         <Button
           style={{ marginTop: "32px" }}
           onClick={() => {
-            router.push("/dashboard");
+            router.push(urls.landingPage);
           }}
           type="primary"
         >

@@ -16,6 +16,7 @@ export interface Route {
 interface UserRoleAction {
   id: number;
   name: string;
+  label: string;
   actions: string;
   roleAccess: string;
   createdAt: string;
@@ -26,6 +27,8 @@ interface UserRoleAction {
 export interface UserSession {
   hasUpdatePassword: boolean;
   role: UserRoleAction;
+  name: string;
+  label: string;
   id: number;
 }
 
@@ -33,7 +36,9 @@ export type ModuleName =
   | "employee"
   | "position"
   | "vendor"
+  | "help"
   | "uom"
+  | "documentation"
   | "role"
   | "department"
   | "extracurricular"
@@ -57,6 +62,7 @@ export type ModuleCode =
   | "leaveType";
 
 export type MenuAccess =
+  | "*"
   | "menu_master"
   | "menu_hr"
   | "menu_staff"

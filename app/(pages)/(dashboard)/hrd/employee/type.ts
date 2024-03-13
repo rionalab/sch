@@ -23,7 +23,7 @@ export interface Employee {
   houseAddress: string;
   maritalStatus: string;
   photo: string;
-
+  oldPhoto?: string;
   email: string;
   phone1: string;
   phone2?: string | null;

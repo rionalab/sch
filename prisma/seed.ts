@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import bcrypt from "bcrypt";
 
 const actions =
-  "menu_user,menu_master, menu_account,  menu_staff, menu_hr, menu_superadmin, menu_edit_user, menu_create_user, menu_employee, menu_edit_employee, menu_create_employee, menu_role, menu_edit_role, menu_create_role, menu_uom, menu_edit_uom, menu_create_uom, menu_leave, menu_create_leave, menu_edit_leave, menu_vendor, menu_edit_vendor, menu_create_vendor, menu_position, menu_create_position, menu_edit_position, menu_department, menu_create_department, menu_edit_department, menu_leaveRequest, menu_edit_leaveRequest, menu_create_leaveRequest, menu_updatePassword, menu_inventory, menu_edit_inventory, menu_create_inventory, menu_workUnit, menu_edit_workUnit, menu_create_workUnit, menu_leaveType, menu_create_leaveType, menu_edit_leaveType, menu_extracurricular, menu_create_extracurricular, menu_edit_extracurricular";
+  "menu_user,menu_master, menu_account,  menu_staff, menu_hr, menu_superadmin, menu_edit_user, menu_create_user, menu_employee, menu_edit_employee, menu_create_employee, menu_role, menu_edit_roles, menu_uom, menu_edit_uom, menu_create_uom, menu_leave, menu_create_leave, menu_edit_leave, menu_vendor, menu_edit_vendor, menu_create_vendor, menu_position, menu_create_position, menu_edit_position, menu_department, menu_create_department, menu_edit_department, menu_leaveRequest, menu_edit_leaveRequest, menu_create_leaveRequest, menu_updatePassword, menu_inventory, menu_edit_inventory, menu_create_inventory, menu_workUnit, menu_edit_workUnit, menu_create_workUnit, menu_leaveType, menu_create_leaveType, menu_edit_leaveType, menu_extracurricular, menu_create_extracurricular, menu_edit_extracurricular, menu_help, menu_documentation";
 
 function today() {
   return dayjs();
@@ -27,27 +27,35 @@ async function main() {
   // *************************************
   await prisma.roleAction.createMany({
     data: [
-      { name: "Superadmin", actions },
-      { name: "Administrator", actions },
-      { name: "Chairman", actions: "menu_master" },
-      { name: "ManagerSchool", actions },
-      { name: "Principal", actions },
-      { name: "Teacher", actions },
-      { name: "ManagerFinance", actions },
-      { name: "StaffFinance", actions },
-      { name: "ManagerMarketing", actions },
-      { name: "StaffMarketing", actions },
-      { name: "ManagerGeneralAffair", actions },
-      { name: "StaffGeneralAffair", actions },
-      { name: "ModulPurchasing", actions },
-      { name: "ManagerPurchasing", actions },
-      { name: "StaffPurchasing", actions },
-      { name: "ModulHumanResource", actions },
-      { name: "ManagerHRD", actions },
-      { name: "StaffHRD", actions },
-      { name: "ManagerIT", actions },
-      { name: "StaffIT", actions },
-      { name: "Parent", actions },
+      {
+        label: "Super Admin",
+        name: "Superadmin",
+        actions: `${actions}, menu_create_roles`,
+      },
+      { label: "Administrator", name: "Administrator", actions },
+      { label: "Chairman", name: "Chairman", actions: "menu_master" },
+      { label: "Manager School", name: "ManagerSchool", actions },
+      { label: "Principal", name: "Principal", actions },
+      { label: "Teacher", name: "Teacher", actions },
+      { label: "Manager Finance", name: "ManagerFinance", actions },
+      { label: "Staff Finance", name: "StaffFinance", actions },
+      { label: "Manager Marketing", name: "ManagerMarketing", actions },
+      { label: "Staff Marketing", name: "StaffMarketing", actions },
+      {
+        label: "Manager General Affair",
+        name: "ManagerGeneralAffair",
+        actions,
+      },
+      { label: "Staff General Affair", name: "StaffGeneralAffair", actions },
+      { label: "Modul Purchasing", name: "ModulPurchasing", actions },
+      { label: "Manager Purchasing", name: "ManagerPurchasing", actions },
+      { label: "Staff Purchasing", name: "StaffPurchasing", actions },
+      { label: "Modul Human Resource", name: "ModulHumanResource", actions },
+      { label: "Manager HRD", name: "ManagerHRD", actions },
+      { label: "Staff HRD", name: "StaffHRD", actions },
+      { label: "Manager IT", name: "ManagerIT", actions },
+      { label: "Staff IT", name: "StaffIT", actions },
+      { label: "Parent", name: "Parent", actions },
     ],
     skipDuplicates: true,
   });

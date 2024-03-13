@@ -9,7 +9,7 @@ async function Page() {
 
   return (
     <GuardPage access="menu_extracurricular">
-      <Table rows={normalizeTableRow<any>(data)} />;
+      <Table rows={normalizeTableRow<any>(data)} />
     </GuardPage>
   );
 }
