@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-confusing-void-expression */
 "use client";
 
-import { useBoundStore } from "@/libs/zustand";
 import React from "react";
 
 function Client2() {
