@@ -1,44 +1,67 @@
-import { create, createStore } from "zustand";
-import { createFishSlice } from "./slices/fishSlice";
-import { createBearSlice } from "./slices/bearSlice";
-import { createUserSlice } from "./slices/userSlice";
-import type { CombinedSlicesType } from "@/types";
+// import { createFishSlice } from "./slices/fishSlice";
+// import { createBearSlice } from "./slices/bearSlice";
+// import { CombinedSlicesType } from "@/app/_types/zustand";
+import { createContext, useContext } from "react";
+import { createStore, useStore as useZustandStore } from "zustand";
+// import { NotificationInstance } from "antd/es/notification/interface";
+import { devtools, persist } from "zustand/middleware";
 
-// export const useBoundStore = create<CombinedSlicesType>((...a) => ({
-//   ...createFishSlice(...a),
+// export const useBoundStore = create<CombinedSlicesType>()((...a) => ({
 //   ...createBearSlice(...a),
-//   ...createUserSlice(...a),
+//   ...createFishSlice(...a),
 // }));
 
-export interface StoreState {
-  count: number;
+// store biasa saja
+
+interface StoreInterface {
+  // notif?: NotificationInstance;
+  // setNotif: (api: NotificationInstance) => void;
+  age: number;
+  reset: () => void;
 }
 
-export interface StoreActions {
-  decrementCount: () => void;
-  incrementCount: () => void;
-}
+const getDefaultInitialState = () => ({
+  // reset val
+});
 
-export type GlobalStore = StoreState & StoreActions;
+export type StoreType = ReturnType<typeof initializeStore>;
 
-export const initGlobalStore = (): StoreState => {
-  return { count: new Date().getFullYear() };
+const zustandContext = createContext<StoreType | null>(null);
+
+export const Provider = zustandContext.Provider;
+
+export const useStore = <T>(selector: (state: StoreInterface) => T) => {
+  const store = useContext(zustandContext);
+
+  if (store == null) throw new Error("Store is missing the provider");
+
+  return useZustandStore(store, selector);
 };
 
-export const defaultInitState: GlobalStore = {
-  count: 0,
-  decrementCount: () => null,
-  incrementCount: () => null,
-};
+export const initializeStore = (
+  preloadedState: Partial<StoreInterface> = {}
+) => {
+  return createStore<StoreInterface>()(
+    devtools(
+      persist(
+        (set, get) => {
+          return {
+            ...getDefaultInitialState(),
+            ...preloadedState,
 
-export const useBoundStore = (initState: GlobalStore = defaultInitState) => {
-  return createStore<GlobalStore>()((set) => ({
-    ...initState,
-    decrementCount: () => {
-      set((state) => ({ count: state.count - 1 }));
-    },
-    incrementCount: () => {
-      set((state) => ({ count: state.count + 1 }));
-    },
-  }));
+            age: 12,
+
+            reset: () => {
+              set({
+                // age: getDefaultInitialState().age,
+              });
+            },
+          };
+        },
+        {
+          name: "schStore",
+        }
+      )
+    )
+  );
 };

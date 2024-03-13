@@ -1,6 +1,6 @@
 "use client";
 
-import { type GlobalStore, useBoundStore } from "@/libs/zustand";
+import { type GlobalStore, useBoundStore } from "@/libs/zustand/index2";
 import { type ReactNode, createContext, useRef, useContext } from "react";
 import { type StoreApi, useStore } from "zustand";
 
