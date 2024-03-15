@@ -10,9 +10,7 @@ interface UploadFile {
 
 export async function uploadFile({ data, dir }: UploadFile) {
   try {
-    console.log("uploading file.........", data, dir);
     const file = data.get("file") as unknown as File;
-    console.log(77777777, file);
     const b = await file.arrayBuffer();
     const buffer = Buffer.from(b);
 

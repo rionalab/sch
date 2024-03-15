@@ -8,5 +8,6 @@ export async function modelStore(
     name: formValue.name,
     label: formValue.label,
     actions: formValue.actions,
+    description: formValue.description,
   };
 }

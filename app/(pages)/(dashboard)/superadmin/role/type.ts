@@ -5,4 +5,5 @@ export interface FormFields {
   actions: string;
   name: Role;
   label: string;
+  description: string;
 }

@@ -12,15 +12,17 @@ datasource db {
 }
 
 model RoleAction {
-  id         Int       @id @default(autoincrement())
-  label      String
-  name       Role      @unique
-  actions    String    @db.Text
-  roleAccess String?
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
-  deletedAt  DateTime?
-  User       User[]
+  id          Int       @id @default(autoincrement())
+  label       String
+  description String?
+  name        Role      @unique
+  actions     String    @db.Text
+  roleAccess  String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  active      Boolean   @default(true)
+  deletedAt   DateTime?
+  User        User[]
 }
 
 model User {

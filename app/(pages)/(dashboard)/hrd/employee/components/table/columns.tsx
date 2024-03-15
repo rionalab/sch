@@ -1,9 +1,7 @@
 import { type Employee } from "../../type";
-import { Popover, Tag } from "antd";
-import TableDetail from "./table-detail";
-import { dMY, imageUpload } from "@/helpers";
+import { Tag } from "antd";
+import { dMY, getImage } from "@/helpers";
 import { cell } from "@/libs/helpers/table";
-import { Avatar } from "@/c";
 import Link from "next/link";
 import { PhoneOutlined, MailOutlined } from "@ant-design/icons";
 import { type ColumnsType } from "antd/es/table";
@@ -19,7 +17,7 @@ export const columns: ColumnsType<Employee> = [
     render: (val, row) => {
       return (
         <ModalDetail
-          image={row.photo ? imageUpload(row.photo) : ""}
+          image={row.photo ? getImage(row.photo) : ""}
           title={row.fullName}
           row={row}
         />

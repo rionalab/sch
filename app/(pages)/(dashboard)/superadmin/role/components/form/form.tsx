@@ -109,6 +109,10 @@ function FormVendor() {
             >
               <Input.TextArea />
             </Form.Item>
+
+            <Form.Item<FormFields> label="Description" name="description">
+              <Input.TextArea />
+            </Form.Item>
           </Col>
           <Col span={10}></Col>
         </Row>
