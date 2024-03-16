@@ -31,6 +31,7 @@ export const degreeOptions = [
   { label: "S2", value: "S2" },
   { label: "S1", value: "S1" },
   { label: "D3/D4", value: "D3/D4" },
+  { label: "SMA/SMK", value: "SMA/SMK" },
 ];
 
 export const employeeUnitOptions = [
