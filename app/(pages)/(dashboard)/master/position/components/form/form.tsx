@@ -95,11 +95,7 @@ function FormEditCreate() {
               <Select options={positionCategoryOptions} />
             </Form.Item>
 
-            <Form.Item<FormFields>
-              label="Description"
-              name="description"
-              rules={[{ required: true, message: "Field is required" }]}
-            >
+            <Form.Item<FormFields> label="Description" name="description">
               <Input.TextArea />
             </Form.Item>
 
