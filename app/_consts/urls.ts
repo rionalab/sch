@@ -9,6 +9,7 @@ const workUnit = "/master/work-unit";
 const leave = "/master/leave";
 const permissionLeave = "/hrd/permission-leave";
 const staffLeaveRequest = "/staff/leave-request";
+const staffPurchaseRequest = "/staff/purchase-request";
 const user = "/master/user";
 const role = "/superadmin/role";
 
@@ -36,6 +37,11 @@ export const urls = {
       index: staffLeaveRequest,
       create: staffLeaveRequest + "/create",
       edit: (id: string | number) => staffLeaveRequest + "/edit/" + id,
+    },
+    purchaseRequest: {
+      index: staffPurchaseRequest,
+      create: staffPurchaseRequest + "/create",
+      edit: (id: string | number) => staffPurchaseRequest + "/edit/" + id,
     },
   },
   master: {

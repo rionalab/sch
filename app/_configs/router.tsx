@@ -183,12 +183,27 @@ export const routes: Routes = {
     icon: <DeploymentUnitOutlined />,
     breadcrumb: [
       {
-        title: "Master Data",
+        title: "Staff",
       },
       {
         title: "Leave request",
         icon: <DeploymentUnitOutlined />,
         url: urls.staff.leaveRequest.index,
+      },
+    ],
+  },
+  purchaseRequest: {
+    url: urls.staff.purchaseRequest.index,
+    title: "Purchase Request",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Staff ",
+      },
+      {
+        title: "Purchase request",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.staff.purchaseRequest.index,
       },
     ],
   },

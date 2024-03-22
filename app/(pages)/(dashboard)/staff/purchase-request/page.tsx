@@ -1,14 +1,14 @@
 import React from "react";
 import { index } from "./action";
 import Table from "./components/table/table";
-import { GuardPage } from "@/c";
 import { normalizeTableRow } from "@/helpers";
+import { GuardPage } from "@/c";
 
 async function Page() {
   const data = await index();
 
   return (
-    <GuardPage access="menu_vendor">
+    <GuardPage access="menu_purchaseRequest">
       <Table rows={normalizeTableRow<any>(data)} />
     </GuardPage>
   );

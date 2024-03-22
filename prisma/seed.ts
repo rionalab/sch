@@ -3,8 +3,28 @@ import { faker } from "@faker-js/faker";
 import dayjs from "dayjs";
 import bcrypt from "bcrypt";
 
-const actions =
-  "menu_user,menu_master, menu_account,  menu_staff, menu_hr, menu_superadmin, menu_edit_user, menu_create_user, menu_employee, menu_edit_employee, menu_create_employee, menu_role, menu_edit_roles, menu_uom, menu_edit_uom, menu_create_uom, menu_leave, menu_create_leave, menu_edit_leave, menu_vendor, menu_edit_vendor, menu_create_vendor, menu_position, menu_create_position, menu_edit_position, menu_department, menu_create_department, menu_edit_department, menu_leaveRequest, menu_edit_leaveRequest, menu_create_leaveRequest, menu_updatePassword, menu_inventory, menu_edit_inventory, menu_create_inventory, menu_workUnit, menu_edit_workUnit, menu_create_workUnit, menu_leaveType, menu_create_leaveType, menu_edit_leaveType, menu_extracurricular, menu_create_extracurricular, menu_edit_extracurricular, menu_help, menu_documentation";
+const generateAction = (key: string) => {
+  return [`menu_${key}`, `menu_edit_${key}`, `menu_create_${key}`].join(", ");
+};
+
+const remarks =
+  "If the above palettes do not meet your needs, you can choose a main color below, and Ant Design's color generation algorithm will generate a palette for you.";
+
+const actions = `menu_master, menu_account, menu_staff, menu_hr, menu_superadmin, menu_role, menu_edit_roles,  
+  ${generateAction("employee")},  
+  ${generateAction("uom")},  
+  ${generateAction("user")},  
+  ${generateAction("leave")},  
+  ${generateAction("vendor")},  
+  ${generateAction("position")},  
+  ${generateAction("workUnit")},  
+  ${generateAction("inventory")},  
+  ${generateAction("leaveType")},  
+  ${generateAction("department")},  
+  ${generateAction("leaveRequest")},  
+  ${generateAction("purchaseRequest")},  
+  ${generateAction("extracurricular")},  
+  menu_updatePassword, menu_help, menu_documentation`;
 
 function today() {
   return dayjs();
@@ -367,6 +387,16 @@ async function main() {
         remarks: "",
         blacklist: false,
       },
+      {
+        name: "Vendor2",
+        code: "KR/SPP/2024/01/00002",
+        accountNo: "222222222",
+        address: faker.location.streetAddress(),
+        phone: faker.phone.number(),
+        fax: faker.phone.number(),
+        remarks: "",
+        blacklist: false,
+      },
     ],
     skipDuplicates: true,
   });
@@ -429,6 +459,72 @@ async function main() {
       },
     ],
     skipDuplicates: true,
+  });
+
+  // * Purchase Request
+  // *************************************
+  await prisma.purchaseRequest.createMany({
+    data: [
+      {
+        code: "KR/PR/2024/01/00001",
+        payment: "cash",
+        purchaseDate: today().format(),
+        deliveryDate: today().format(),
+        remarks,
+        status: "pending",
+        requesterId: 1,
+        approverId: 1,
+        active: true,
+        vendorId: 1,
+        // items: {
+        //   create: [
+        //     {
+        //       quantity: 5,
+        //       unitPrice: 10000,
+        //       totalPrice: 50000,
+        //       uomId: 1,
+        //       asd: 2,
+        //        uom: {
+        //          connect: {
+        //            id: 1,
+        //          },
+        //        },
+        //       remarks: "for finance office",
+        //     },
+        //   ],
+        // },
+      },
+    ],
+    skipDuplicates: true,
+  });
+
+  // * Purchase Request Item
+  // *************************************
+  const purchaseRequestItemsData = [
+    {
+      name: "Item 1",
+      purchaseRequestId: 1,
+      quantity: 2,
+      unitPrice: 10.0,
+      totalPrice: 20.0,
+      remarks: "Sample item remarks 1",
+      uomId: 1,
+    },
+    {
+      name: "Item 2",
+      purchaseRequestId: 1,
+      quantity: 3,
+      unitPrice: 15.0,
+      totalPrice: 45.0,
+      remarks: "Sample item remarks 2",
+      uomId: 1,
+    },
+    // Add more Purchase Request Items as needed
+  ];
+
+  // Create Purchase Request Items
+  await prisma.purchaseRequestItem.createMany({
+    data: purchaseRequestItemsData,
   });
 }
 

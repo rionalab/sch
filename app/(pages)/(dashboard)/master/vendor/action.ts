@@ -9,11 +9,11 @@ import { modelStoreVendor } from "./components/form/model";
 
 const urlToRevalidate = urls.master.vendor.index;
 
-export async function getVendor() {
+export async function index() {
   return await prisma.vendor.findMany();
 }
 
-export async function createVendor(data: FormFields) {
+export async function store(data: FormFields) {
   try {
     let result;
 
@@ -36,7 +36,7 @@ export async function createVendor(data: FormFields) {
   }
 }
 
-export async function findVendor(id: number) {
+export async function show(id: number) {
   return await prisma.vendor.findFirst({
     where: {
       id,
@@ -44,7 +44,7 @@ export async function findVendor(id: number) {
   });
 }
 
-export async function removeVendor(id: number) {
+export async function destroy(id: number) {
   try {
     await prisma.vendor.softDelete({
       id,

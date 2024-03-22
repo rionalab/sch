@@ -6,12 +6,21 @@ export interface ActivePage {
   title: string;
 }
 
+export type VoidMethod = () => void;
+
 export interface Route {
   url: string;
   title: string;
   icon: React.ReactNode;
   breadcrumb?: Breadcrumb[];
 }
+
+export interface Option {
+  label: string;
+  value: string;
+}
+
+export type Options = Option[];
 
 interface UserRoleAction {
   id: number;
@@ -39,6 +48,7 @@ export type ModuleName =
   | "help"
   | "uom"
   | "documentation"
+  | "purchaseRequest"
   | "role"
   | "department"
   | "extracurricular"
@@ -54,6 +64,7 @@ export type ModuleCode =
   | "POS"
   | "SPP"
   | "uom"
+  | "PR"
   | "DPT"
   | "extracurricular"
   | "workUnit"
@@ -108,4 +119,7 @@ export type MenuAccess =
   | "menu_extracurricular"
   | "menu_create_extracurricular"
   | "menu_edit_extracurricular"
+  | "menu_purchaseRequest"
+  | "menu_create_purchaseRequest"
+  | "menu_edit_purchaseRequest"
   | "menu_updatePassword";

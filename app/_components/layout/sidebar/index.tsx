@@ -77,7 +77,10 @@ export function Sidebar() {
           key: "menu_extracurricular",
           icon: <DeploymentUnitOutlined />,
           label: (
-            <Link href={urls.master.studentActivities.index}>
+            <Link
+              title="Student Activities"
+              href={urls.master.studentActivities.index}
+            >
               Student Activities
             </Link>
           ),
@@ -152,7 +155,21 @@ export function Sidebar() {
           key: "menu_leaveRequest",
           icon: <FileOutlined />,
           label: (
-            <Link href={urls.staff.leaveRequest.index}>Leave Request</Link>
+            <Link title="Leave Request" href={urls.staff.leaveRequest.index}>
+              Leave Request
+            </Link>
+          ),
+        },
+        {
+          key: "menu_purchaseRequest",
+          icon: <FileOutlined />,
+          label: (
+            <Link
+              title="Purchase Request"
+              href={urls.staff.purchaseRequest.index}
+            >
+              Purchase Request
+            </Link>
           ),
         },
       ],

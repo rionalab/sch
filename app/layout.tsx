@@ -1,6 +1,5 @@
 import React from "react";
 import { ConfigProvider } from "antd";
-import StoreProvider from "@/libs/zustand/StoreProvider";
 import { Inter } from "next/font/google";
 import { theme } from "@/styles/antdThemeProvider";
 import "@/styles/global.scss";
@@ -11,6 +10,7 @@ import {
   GlobalStoreProvider,
 } from "@/contexts";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { StoreProvider } from "@/libs/zustand/StoreProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,17 +30,17 @@ export default function RootLayout({
         }}
       >
         <main>
-          {/* <StoreProvider> */}
-          <GlobalStoreProvider>
-            <ClientAuthProvider>
-              <AntdRegistry>
-                <ConfigProvider theme={{ ...theme, cssVar: true }}>
-                  <AntdProvider>{children}</AntdProvider>
-                </ConfigProvider>
-              </AntdRegistry>
-            </ClientAuthProvider>
-          </GlobalStoreProvider>
-          {/* </StoreProvider> */}
+          <StoreProvider>
+            <GlobalStoreProvider>
+              <ClientAuthProvider>
+                <AntdRegistry>
+                  <ConfigProvider theme={{ ...theme, cssVar: true }}>
+                    <AntdProvider>{children}</AntdProvider>
+                  </ConfigProvider>
+                </AntdRegistry>
+              </ClientAuthProvider>
+            </GlobalStoreProvider>
+          </StoreProvider>
         </main>
       </body>
     </html>

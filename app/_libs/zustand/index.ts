@@ -1,67 +1,53 @@
-// import { createFishSlice } from "./slices/fishSlice";
-// import { createBearSlice } from "./slices/bearSlice";
-// import { CombinedSlicesType } from "@/app/_types/zustand";
-import { createContext, useContext } from "react";
-import { createStore, useStore as useZustandStore } from "zustand";
-// import { NotificationInstance } from "antd/es/notification/interface";
-import { devtools, persist } from "zustand/middleware";
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
+/* eslint-disable @typescript-eslint/consistent-type-definitions */
 
-// export const useBoundStore = create<CombinedSlicesType>()((...a) => ({
-//   ...createBearSlice(...a),
-//   ...createFishSlice(...a),
-// }));
+import { type FormPurchaseItemFields } from "@/pages/(dashboard)/staff/purchase-request/type";
+import { createStore } from "zustand/vanilla";
 
-// store biasa saja
-
-interface StoreInterface {
-  // notif?: NotificationInstance;
-  // setNotif: (api: NotificationInstance) => void;
-  age: number;
-  reset: () => void;
-}
-
-const getDefaultInitialState = () => ({
-  // reset val
-});
-
-export type StoreType = ReturnType<typeof initializeStore>;
-
-const zustandContext = createContext<StoreType | null>(null);
-
-export const Provider = zustandContext.Provider;
-
-export const useStore = <T>(selector: (state: StoreInterface) => T) => {
-  const store = useContext(zustandContext);
-
-  if (store == null) throw new Error("Store is missing the provider");
-
-  return useZustandStore(store, selector);
+export type StoreState = {
+  count: number;
+  count2: number;
+  purchaseRequestItem: FormPurchaseItemFields[];
 };
 
-export const initializeStore = (
-  preloadedState: Partial<StoreInterface> = {}
-) => {
-  return createStore<StoreInterface>()(
-    devtools(
-      persist(
-        (set, get) => {
-          return {
-            ...getDefaultInitialState(),
-            ...preloadedState,
+export type StoreActions = {
+  decrementCount: () => void;
+  incrementCount: () => void;
+  setPurchaseRequestItem: (
+    action: "add" | "edit" | "remove",
+    payload: any
+  ) => void;
+};
 
-            age: 12,
+export type GlobalStore = StoreState & StoreActions;
 
-            reset: () => {
-              set({
-                // age: getDefaultInitialState().age,
-              });
-            },
-          };
-        },
-        {
-          name: "schStore",
+export const defaultInitState: StoreState = {
+  count: 0,
+  count2: 20,
+  purchaseRequestItem: [],
+};
+
+export const createGlobalStore = (initState: StoreState = defaultInitState) => {
+  return createStore<GlobalStore>()((set) => ({
+    ...initState,
+    decrementCount: () => set((state) => ({ count: state.count - 1 })),
+    incrementCount: () => set((state) => ({ count: state.count + 1 })),
+    setPurchaseRequestItem: (action, payload) => {
+      set((state) => {
+        let purchaseRequestItem = state.purchaseRequestItem;
+
+        if (action === "add") {
+          purchaseRequestItem = [...purchaseRequestItem, payload];
+        } else if (action === "edit") {
+          purchaseRequestItem = [];
+        } else {
+          purchaseRequestItem = [];
         }
-      )
-    )
-  );
+
+        return {
+          purchaseRequestItem,
+        };
+      });
+    },
+  }));
 };

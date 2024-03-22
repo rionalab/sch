@@ -34,6 +34,11 @@ export const degreeOptions = [
   { label: "SMA/SMK", value: "SMA/SMK" },
 ];
 
+export const paymentOptions = [
+  { label: "Cash", value: "Cash" },
+  { label: "Transfer", value: "Transfer" },
+];
+
 export const employeeUnitOptions = [
   { label: "None", value: "" },
   { label: "Preschool", value: "Preschool" },

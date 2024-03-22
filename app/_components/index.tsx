@@ -14,6 +14,8 @@ export * from "./avatar";
 export * from "./guard-page";
 export * from "./layout/header";
 export * from "./tag";
+export * from "./tag-purchase";
+export * from "./cell";
 export * from "./content-loader";
 export * from "./layout/loading-module";
 export { Content };
