@@ -9,6 +9,7 @@ export interface FormFields {
   remarks: string;
   active: boolean;
   vendorId: number;
+  approverId: number;
 }
 
 export interface FormPurchaseItemFields {

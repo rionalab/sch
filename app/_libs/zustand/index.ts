@@ -3,6 +3,7 @@
 
 import { type FormPurchaseItemFields } from "@/pages/(dashboard)/staff/purchase-request/type";
 import { createStore } from "zustand/vanilla";
+import { v4 as uuidv4 } from "uuid";
 
 export type StoreState = {
   count: number;
@@ -14,7 +15,7 @@ export type StoreActions = {
   decrementCount: () => void;
   incrementCount: () => void;
   setPurchaseRequestItem: (
-    action: "add" | "edit" | "remove",
+    action: "create" | "edit" | "delete",
     payload: any
   ) => void;
 };
@@ -36,12 +37,17 @@ export const createGlobalStore = (initState: StoreState = defaultInitState) => {
       set((state) => {
         let purchaseRequestItem = state.purchaseRequestItem;
 
-        if (action === "add") {
-          purchaseRequestItem = [...purchaseRequestItem, payload];
+        if (action === "create") {
+          purchaseRequestItem = [
+            ...purchaseRequestItem,
+            { ...payload, id: uuidv4(), key: uuidv4() },
+          ];
         } else if (action === "edit") {
           purchaseRequestItem = [];
-        } else {
-          purchaseRequestItem = [];
+        } else if (action === "delete") {
+          purchaseRequestItem = purchaseRequestItem.filter(
+            (row) => row.id !== payload
+          );
         }
 
         return {

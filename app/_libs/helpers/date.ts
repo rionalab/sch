@@ -31,3 +31,7 @@ export function today() {
 export function tomorrow() {
   return dayjs().add(1, "day");
 }
+
+export const datePickerDisablePast = (current: dayjs.Dayjs) => {
+  return current && current < dayjs().startOf("day");
+};

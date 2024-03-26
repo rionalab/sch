@@ -1,10 +1,14 @@
 import { Table } from "antd";
-import ModalFormItem from "../modal-add-purchase-item";
+import ModalFormItem from "../modal";
 import { useGlobalStore } from "@/libs/zustand/StoreProvider";
 import { columns } from "./columns";
+import useToggle from "@/hooks/usePopup";
+import { useState } from "react";
 
 function TableForm() {
   const { purchaseRequestItem } = useGlobalStore((state: any) => state);
+  const { status, setTrue, setFalse } = useToggle();
+  const [idEdit, setIdEdit] = useState<null | string>(null);
 
   // add necessary properties
   const dataSource = (purchaseRequestItem ?? []).map((row: any, i: any) => ({
@@ -12,16 +16,18 @@ function TableForm() {
     ...row,
   }));
 
-  const deleteTableItem = (id: number) => {
-    alert("DElete : " + id);
-  };
-
   return (
     <div>
-      <ModalFormItem />
+      <ModalFormItem
+        idEdit={idEdit}
+        setIdEdit={setIdEdit}
+        status={status}
+        setTrue={setTrue}
+        setFalse={setFalse}
+      />
       <br />
       <Table
-        columns={columns(deleteTableItem)}
+        columns={columns({ setTrue, setIdEdit })}
         dataSource={dataSource}
         size="small"
       />
