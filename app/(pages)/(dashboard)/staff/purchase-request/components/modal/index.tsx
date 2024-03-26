@@ -2,12 +2,25 @@
 
 import { Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
-import useToggle from "@/hooks/usePopup";
-import FormPurchasedItem from "../form-purchase-item";
+import FormPurchasedItem from "../form-modal";
+import type { VoidMethod } from "@/types";
+import type { Dispatch, SetStateAction } from "react";
 
-function ModalAddPurchaseItem() {
-  const { status, setTrue, setFalse } = useToggle();
+interface Props {
+  status: boolean;
+  setFalse: VoidMethod;
+  setTrue: VoidMethod;
+  idEdit: string | null;
+  setIdEdit: Dispatch<SetStateAction<string | null>>;
+}
 
+function ModalFormItem({
+  status,
+  idEdit,
+  setIdEdit,
+  setFalse,
+  setTrue,
+}: Props) {
   return (
     <div>
       <Modal
@@ -19,10 +32,11 @@ function ModalAddPurchaseItem() {
         width={700}
         onCancel={setFalse}
       >
-        <FormPurchasedItem closeModal={setFalse} />
+        <FormPurchasedItem idEdit={idEdit} closeModal={setFalse} />
       </Modal>
       <Button
         onClick={() => {
+          setIdEdit(null);
           setTrue();
         }}
         icon={<PlusOutlined />}
@@ -35,4 +49,4 @@ function ModalAddPurchaseItem() {
   );
 }
 
-export default ModalAddPurchaseItem;
+export default ModalFormItem;

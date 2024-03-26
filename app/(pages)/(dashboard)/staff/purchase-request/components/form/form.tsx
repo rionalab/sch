@@ -1,13 +1,22 @@
 "use client";
 
-import React, { memo, useEffect } from "react";
-import { Col, Typography, DatePicker, Form, Input, Row, Select } from "antd";
+import React, { memo, useEffect, useState } from "react";
+import { Col, Typography, Form, Input, Row } from "antd";
 import type { FormFields } from "../../type";
-import { useParams } from "next/navigation";
-import { paymentOptions } from "@/consts";
-import { fieldRules, selectOptions } from "@/libs/helpers";
+import { fieldRules } from "@/libs/helpers";
 import { ButtonForm } from "@/c";
 import TableForm from "../table-form";
+import { useGlobalStore } from "@/libs/zustand/StoreProvider";
+import { useAntdContext } from "@/contexts";
+import { useParams, useRouter } from "next/navigation";
+import { store } from "../../action";
+import {
+  notifStoreSuccess,
+  notifStoreError,
+  notifUpdateSuccess,
+  notifUpdateError,
+  trueFalseOptions,
+} from "@/consts";
 
 const initialValues = {};
 
@@ -18,25 +27,32 @@ interface Props {
 function FormVendor({ vendor }: Props) {
   const { id } = useParams();
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const { purchaseRequestItem } = useGlobalStore((state: any) => state);
+  const { api } = useAntdContext();
+  const router = useRouter();
 
   const onFinish = async (values: FormFields): Promise<void> => {
-    // const isEdit = values.id;
-    // try {
-    //   setLoading(true);
-    //   await store({
-    //     ...values,
-    //     date: 1,
-    //     dateTo: values.date[1].format(),
-    //     dateFrom: values?.date?.[0].format(),
-    //   });
-    //   api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
-    //   router.back();
-    // } catch (e: any) {
-    //   const msg = String(e.message);
-    //   api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));
-    // } finally {
-    //   setLoading(false);
-    // }
+    if (purchaseRequestItem.length < 1) {
+      api?.error(notifStoreError("Please add purchase item"));
+    }
+
+    const isEdit = values.id;
+    try {
+      setLoading(true);
+
+      await store({
+        ...values,
+      });
+      api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
+
+      router.back();
+    } catch (e: any) {
+      const msg = String(e.message);
+      api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));
+    } finally {
+      setLoading(false);
+    }
   };
 
   const fetchDataEdit = async () => {
@@ -76,6 +92,7 @@ function FormVendor({ vendor }: Props) {
             <Form.Item<FormFields> hidden label="Id" name="id">
               <Input type="hidden" />
             </Form.Item>
+
             {/* 
             <Form.Item<FormFields>
               label="Vendor"
@@ -107,7 +124,7 @@ function FormVendor({ vendor }: Props) {
               name="purchaseDate"
               rules={fieldRules(["required"])}
             >
-              <DatePicker />
+              <DatePicker disabledDate={datePickerDisablePast} />
             </Form.Item>
 
             <Form.Item<FormFields>
@@ -116,6 +133,7 @@ function FormVendor({ vendor }: Props) {
               rules={fieldRules(["required"])}
             >
               <DatePicker />
+              <DatePicker disabledDate={datePickerDisablePast} />
             </Form.Item> */}
           </Col>
         </Row>

@@ -1,12 +1,15 @@
 import { c } from "@/libs/helpers";
-import { Button } from "antd";
-import {
-  ExclamationCircleFilled,
-  EditOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import DeleteButton from "./DeleteButton";
+import EditButton from "./EditButton";
+import { type VoidMethod } from "@/types";
+import type { Dispatch, SetStateAction } from "react";
 
-export const columns = (handleDelete: (id: number) => void) => [
+interface ColumnsParams {
+  setTrue: VoidMethod;
+  setIdEdit: Dispatch<SetStateAction<string | null>>;
+}
+
+export const columns = ({ setTrue, setIdEdit }: ColumnsParams) => [
   {
     title: "no",
     dataIndex: "no",
@@ -45,25 +48,12 @@ export const columns = (handleDelete: (id: number) => void) => [
     key: "Actions",
     title: "Actions",
     render: (row: any) => {
+      const id = row.id;
+
       return (
         <>
-          <Button
-            onClick={() => {
-              alert("Edit");
-            }}
-            size="small"
-            type="text"
-            icon={<EditOutlined style={{ fontSize: 14 }} />}
-          />
-
-          <Button
-            onClick={() => {
-              handleDelete(Number(row.id));
-            }}
-            size="small"
-            type="text"
-            icon={<DeleteOutlined style={{ fontSize: 14 }} />}
-          />
+          <EditButton setIdEdit={setIdEdit} setTrue={setTrue} id={id} />
+          <DeleteButton id={id} />
         </>
       );
     },

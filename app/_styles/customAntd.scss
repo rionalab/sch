@@ -6,6 +6,10 @@
   font-weight: 600;
 }
 
+.ant-form-item-label label {
+  text-transform: capitalize !important;
+}
+
 .ant-form-item {
   margin-bottom: 16px;
 }

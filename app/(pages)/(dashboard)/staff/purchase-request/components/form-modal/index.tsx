@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
+import React, { useEffect } from "react";
 import { Col, Typography, InputNumber, Form, Input, Row, Select } from "antd";
 import { ButtonForm, LoadingModule } from "@/c";
 import type { FormPurchaseItemFields as FormFields } from "../../type";
@@ -7,7 +8,7 @@ import useData from "@/hooks/useData";
 import { useGlobalStore } from "@/libs/zustand/StoreProvider";
 import { faker } from "@faker-js/faker";
 import { useAntdContext } from "@/contexts";
-import { notifStoreError, notifStoreSuccess } from "@/consts";
+import { notifStoreError } from "@/consts";
 
 const initialValues = {
   // name: faker.person.fullName(),
@@ -16,13 +17,13 @@ const initialValues = {
   // uomId: "1|bh",
   // remarks: "this is remakrs",
 };
-const id = 1;
 
 interface Props {
   closeModal: () => void;
+  idEdit: string | null;
 }
 
-function FormPurchasedItem({ closeModal }: Props) {
+function FormModal({ closeModal, idEdit }: Props) {
   const [form] = Form.useForm();
   const { api } = useAntdContext();
   const {
@@ -45,9 +46,23 @@ function FormPurchasedItem({ closeModal }: Props) {
 
     const name = 1;
 
-    setPurchaseRequestItem("add", { ...values, name });
+    setPurchaseRequestItem("create", { ...values, name });
     closeModal();
   };
+
+  const fetchDataEdit = async () => {
+    const dataEdit = purchaseRequestItem.find((row: any) => {
+      return idEdit === row.id;
+    });
+
+    form.setFieldsValue(dataEdit);
+  };
+
+  useEffect(() => {
+    if (idEdit) {
+      void fetchDataEdit();
+    }
+  }, []);
 
   return (
     <div>
@@ -58,7 +73,7 @@ function FormPurchasedItem({ closeModal }: Props) {
         name="purchaseItem"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
-        initialValues={{ ...initialValues, id }}
+        initialValues={{ ...initialValues }}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         onFinish={onFinish}
         form={form}
@@ -123,4 +138,4 @@ function FormPurchasedItem({ closeModal }: Props) {
   );
 }
 
-export default FormPurchasedItem;
+export default FormModal;
