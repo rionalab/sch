@@ -21,6 +21,13 @@ export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
       },
     },
     {
+      title: "Department",
+      dataIndex: "department",
+      render: (department) => {
+        return department?.name ?? "None";
+      },
+    },
+    {
       title: "Last Login",
       dataIndex: "lastLogin",
       render: (value) => {

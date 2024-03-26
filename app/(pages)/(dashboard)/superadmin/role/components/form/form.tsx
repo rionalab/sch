@@ -1,7 +1,7 @@
 "use client";
 
 import React, { memo, useEffect, useState } from "react";
-import { Col, Form, Input, Row, Select } from "antd";
+import { Col, Tree, Form, Input, Row, Select } from "antd";
 import { type FormFields } from "../../type";
 import { ButtonForm, LoadingModule } from "@/c";
 import { store, show } from "../../action";
@@ -16,6 +16,7 @@ import {
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
 import { faker } from "@faker-js/faker";
+import type { TreeDataNode, TreeProps } from "antd";
 
 const initialValues = {
   roleAccess: userTypeOptions[0].value,
@@ -24,6 +25,87 @@ const initialValues = {
     "menu_master, menu_department, master_supplier, master_department, create_department, menu_superadmin, menu_role",
   active: true,
 };
+
+const defineRole = ({
+  label,
+  action = "CRUD",
+}: {
+  label: string;
+  action: string;
+}) => {
+  const hasCreate = action.includes("C");
+  const hasRead = action.includes("R");
+  const hasUpdate = action.includes("U");
+  const hasDelete = action.includes("D");
+
+  return {
+    title: `Menu ${label}`,
+    key: `menu_master_${label}`,
+    children: [
+      ...(hasCreate
+        ? [
+            {
+              title: `Create`,
+              key: `menu_master_${label}_create`,
+            },
+          ]
+        : [{}]),
+
+      ...(hasUpdate
+        ? [
+            {
+              title: `Create`,
+              key: `menu_master_${label}_edit`,
+            },
+          ]
+        : [{}]),
+
+      {
+        title: `Edit`,
+        key: `menu_master_${label}_edit`,
+      },
+      {
+        title: `Delete`,
+        key: `menu_master_${label}_delete`,
+      },
+    ],
+  };
+};
+
+const treeData: TreeDataNode[] = [
+  {
+    title: "Menu Master",
+    key: "menu_master",
+    children: [
+      {
+        title: "Menu Supplier",
+        key: "menu_master_supplier",
+        children: [
+          {
+            title: "Create",
+            key: "menu_master_supplier_create",
+          },
+          {
+            title: "Edit",
+            key: "menu_master_supplier_edit",
+          },
+          {
+            title: "Delete",
+            key: "menu_master_supplier_delete",
+          },
+        ],
+      },
+      {
+        title: "Menu UOM",
+        key: "menu_master_uom",
+      },
+      {
+        title: "Menu inventory",
+        key: "menu_master_inventory",
+      },
+    ],
+  },
+];
 
 function FormVendor() {
   const router = useRouter();
@@ -59,6 +141,14 @@ function FormVendor() {
     setLoadingEdit(false);
   };
 
+  const onSelect: TreeProps["onSelect"] = (selectedKeys, info) => {
+    console.log("selected", selectedKeys, info);
+  };
+
+  const onCheck: TreeProps["onCheck"] = (checkedKeys, info) => {
+    console.log("onCheck", checkedKeys, info);
+  };
+
   useEffect(() => {
     if (id) {
       void fetchDataEdit();
@@ -81,7 +171,7 @@ function FormVendor() {
       >
         <br />
         <Row gutter={24}>
-          <Col span={13}>
+          <Col span={11}>
             <Form.Item<FormFields> hidden label="Id" name="id">
               <Input type="hidden" />
             </Form.Item>
@@ -114,7 +204,17 @@ function FormVendor() {
               <Input.TextArea />
             </Form.Item>
           </Col>
-          <Col span={10}></Col>
+          <Col span={10}>
+            <Tree
+              checkable
+              defaultExpandedKeys={["0-0-0", "0-0-1"]}
+              defaultSelectedKeys={["0-0-0", "0-0-1"]}
+              defaultCheckedKeys={["0-0-0", "0-0-1"]}
+              onSelect={onSelect}
+              onCheck={onCheck}
+              treeData={treeData}
+            />
+          </Col>
         </Row>
 
         <ButtonForm loading={loading} />

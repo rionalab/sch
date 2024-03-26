@@ -16,6 +16,8 @@ model User {
   email              String            @unique
   role               RoleAction        @relation(fields: [roleId], references: [id])
   roleId             Int
+  department         Department?       @relation(fields: [departmentId], references: [id])
+  departmentId       Int?
   password           String            @default("admin")
   active             Boolean           @default(true)
   hasUpdatePassword  Boolean           @default(false)
@@ -56,12 +58,11 @@ model PurchaseRequest {
 model PurchaseRequestItem {
   id                Int             @id @default(autoincrement())
   purchaseRequestId Int
-  name              String
+  inventory         Inventory       @relation(fields: [inventoryId], references: [id])
+  inventoryId       Int
   quantity          Int
   unitPrice         Float
   totalPrice        Float
-  uom               Uom?            @relation(fields: [uomId], references: [id])
-  uomId             Int?
   remarks           String
   PurchaseRequest   PurchaseRequest @relation(fields: [purchaseRequestId], references: [id])
 
@@ -309,39 +310,40 @@ model Department {
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   deletedAt   DateTime?
+  User        User[]
 }
 
 model Uom {
+  id                Int            @id @default(autoincrement())
+  code              String         @unique
+  name              String         @unique
+  description       String
+  acronym           String         @unique
+  active            Boolean        @default(true)
+  Inventory         Inventory[]
+  roleAccess        String?
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+  deletedAt         DateTime?
+  PurchaseOrderItem PurchaseItem[]
+}
+
+model Inventory {
   id                  Int                   @id @default(autoincrement())
-  code                String                @unique
   name                String                @unique
-  description         String
-  acronym             String                @unique
-  active              Boolean               @default(true)
-  Inventory           Inventory[]
+  code                String                @unique
+  UOM                 Uom                   @relation(fields: [uomId], references: [id])
+  uomId               Int
+  owner               Department?           @relation(fields: [departmentId], references: [id], onDelete: SetNull)
+  remarks             String?
+  qty                 Int                   @default(0)
+  category            String                @default("inventory")
+  departmentId        Int?
   roleAccess          String?
   createdAt           DateTime              @default(now())
   updatedAt           DateTime              @updatedAt
   deletedAt           DateTime?
-  PurchaseOrderItem   PurchaseItem[]
   PurchaseRequestItem PurchaseRequestItem[]
-}
-
-model Inventory {
-  id           Int         @id @default(autoincrement())
-  name         String      @unique
-  code         String      @unique
-  UOM          Uom         @relation(fields: [uomId], references: [id])
-  uomId        Int
-  owner        Department? @relation(fields: [departmentId], references: [id], onDelete: SetNull)
-  remarks      String?
-  qty          Int         @default(0)
-  category     String      @default("inventory")
-  departmentId Int?
-  roleAccess   String?
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
-  deletedAt    DateTime?
 }
 
 model LeaveType {

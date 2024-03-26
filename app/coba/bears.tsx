@@ -8,7 +8,6 @@
 // function Bears() {
 //   const bears = useBoundStore((state) => state.bears);
 //   const addBears = useBoundStore((state) => state.addBear);
-//   console.log("bears 2222222222222");
 
 //   return (
 //     <div>

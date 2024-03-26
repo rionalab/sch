@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { Col, Typography, InputNumber, Form, Input, Row, Select } from "antd";
-import { ButtonForm } from "@/c";
+import { ButtonForm, LoadingModule } from "@/c";
 import type { FormPurchaseItemFields as FormFields } from "../../type";
 import { fieldRules, selectOptions } from "@/libs/helpers";
 import useData from "@/hooks/useData";
@@ -25,15 +25,17 @@ interface Props {
 function FormPurchasedItem({ closeModal }: Props) {
   const [form] = Form.useForm();
   const { api } = useAntdContext();
-
-  const { loading, data } = useData(["uom"]);
+  const {
+    loading,
+    data: { inventory },
+  } = useData(["inventory"]);
   const { setPurchaseRequestItem, purchaseRequestItem } = useGlobalStore(
     (state: any) => state
   );
 
   const onFinish = async (values: FormFields): Promise<void> => {
     const isExist = purchaseRequestItem.find(
-      (row: any) => row.name === values.name
+      (row: any) => row.inventoryId === values.inventoryId
     );
 
     if (isExist) {
@@ -41,14 +43,18 @@ function FormPurchasedItem({ closeModal }: Props) {
       return;
     }
 
-    setPurchaseRequestItem("add", values);
+    const name = 1;
+
+    setPurchaseRequestItem("add", { ...values, name });
     closeModal();
   };
 
   return (
     <div>
+      {loading && <LoadingModule />}
       <Form
         disabled={loading}
+        style={{ display: loading ? "none" : "" }}
         name="purchaseItem"
         labelCol={{ span: 8 }}
         wrapperCol={{ span: 16 }}
@@ -67,39 +73,38 @@ function FormPurchasedItem({ closeModal }: Props) {
             </Form.Item>
 
             <Form.Item<FormFields>
+              label="Item"
+              name="inventoryId"
+              rules={fieldRules(["required"])}
+            >
+              <Select
+                loading={loading}
+                options={selectOptions(inventory, "name", "id")}
+              />
+            </Form.Item>
+
+            {/* <Form.Item<FormFields>
               label="Name"
               name="name"
               rules={fieldRules(["required"])}
             >
               <Input />
-            </Form.Item>
+            </Form.Item> */}
 
-            <Form.Item<FormFields>
+            {/* <Form.Item<FormFields>
               label="Price"
               name="unitPrice"
               rules={fieldRules(["required"])}
             >
               <InputNumber style={{ width: "50%" }} />
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item<FormFields>
               label="Quantity"
               name="quantity"
               rules={fieldRules(["required"])}
             >
-              <InputNumber />
-            </Form.Item>
-
-            <Form.Item<FormFields>
-              label="Uom"
-              name="uomId"
-              rules={fieldRules(["required"])}
-            >
-              <Select
-                options={
-                  selectOptions(data?.uom ?? [], "acronym", "id|acronym") ?? []
-                }
-              />
+              <InputNumber min={1} />
             </Form.Item>
 
             <Form.Item<FormFields> label="Remarks" name="remarks">

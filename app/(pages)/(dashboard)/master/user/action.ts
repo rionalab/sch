@@ -13,6 +13,7 @@ export async function index() {
   return await prisma.user.findMany({
     include: {
       role: true,
+      department: true,
     },
   });
 }

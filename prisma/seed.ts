@@ -88,35 +88,43 @@ async function main() {
         email: "admin@kr.com",
         password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
+        departmentId: 1,
         name: "User 1",
       },
       {
         email: "user2@mail.com",
         password: await bcrypt.hash("admin1234", 10),
+        departmentId: 1,
         roleId: 1,
         name: "User 2",
       },
       {
         email: "user3@mail.com",
         password: await bcrypt.hash("admin1234", 10),
+        departmentId: 1,
         roleId: 1,
         name: "User 3",
       },
       {
         email: "user4@mail.com",
         password: await bcrypt.hash("admin1234", 10),
+        departmentId: 1,
         roleId: 1,
         name: "User 4",
       },
       {
         email: "user5@mail.com",
         password: await bcrypt.hash("admin1234", 10),
+        departmentId: 1,
         roleId: 1,
         name: "User 5",
       },
     ],
     skipDuplicates: true,
   });
+
+  const users = await prisma.user.findMany();
+  console.log("users", users);
 
   // * Position
   // *************************************
@@ -406,14 +414,27 @@ async function main() {
   await prisma.department.createMany({
     data: [
       {
+        code: "none",
+        name: "None",
+        description: "none",
+        active: true,
+      },
+      {
         code: "TI",
         name: "TI",
         description: "TI",
         active: true,
       },
+      {
+        code: "GA",
+        name: "GA",
+        description: "General Affair",
+        active: true,
+      },
     ],
     skipDuplicates: true,
   });
+  const department = await prisma.department.findMany();
 
   await prisma.uom.createMany({
     data: [
@@ -443,7 +464,7 @@ async function main() {
         name: "Cat dinding",
         code: "CAT",
         uomId: 2,
-        departmentId: 1,
+        departmentId: department[0].id,
         remarks: "",
         qty: 110,
         category: "inventory",
@@ -452,7 +473,7 @@ async function main() {
         name: "Book",
         code: "BOOK",
         uomId: 1,
-        departmentId: 1,
+        departmentId: department[0].id,
         remarks: "",
         qty: 110,
         category: "inventory",
@@ -460,6 +481,7 @@ async function main() {
     ],
     skipDuplicates: true,
   });
+  const inventories = await prisma.inventory.findMany();
 
   // * Purchase Request
   // *************************************
@@ -472,52 +494,47 @@ async function main() {
         deliveryDate: today().format(),
         remarks,
         status: "pending",
-        requesterId: 1,
-        approverId: 1,
+        requesterId: users[0].id,
+        approverId: users[1].id,
         active: true,
         vendorId: 1,
-        // items: {
-        //   create: [
-        //     {
-        //       quantity: 5,
-        //       unitPrice: 10000,
-        //       totalPrice: 50000,
-        //       uomId: 1,
-        //       asd: 2,
-        //        uom: {
-        //          connect: {
-        //            id: 1,
-        //          },
-        //        },
-        //       remarks: "for finance office",
-        //     },
-        //   ],
-        // },
+      },
+      {
+        code: "KR/PR/2024/01/00002",
+        payment: "cash",
+        purchaseDate: today().format(),
+        deliveryDate: today().format(),
+        remarks,
+        status: "pending",
+        requesterId: users[0].id,
+        approverId: users[1].id,
+        active: true,
+        vendorId: 1,
       },
     ],
     skipDuplicates: true,
   });
 
+  const pr = await prisma.purchaseRequest.findMany();
+
   // * Purchase Request Item
   // *************************************
   const purchaseRequestItemsData = [
     {
-      name: "Item 1",
-      purchaseRequestId: 1,
+      purchaseRequestId: pr[0].id,
       quantity: 2,
+      inventoryId: inventories[0].id,
       unitPrice: 10.0,
       totalPrice: 20.0,
       remarks: "Sample item remarks 1",
-      uomId: 1,
     },
     {
-      name: "Item 2",
-      purchaseRequestId: 1,
+      purchaseRequestId: pr[0].id,
       quantity: 3,
+      inventoryId: inventories[0].id,
       unitPrice: 15.0,
       totalPrice: 45.0,
       remarks: "Sample item remarks 2",
-      uomId: 1,
     },
     // Add more Purchase Request Items as needed
   ];

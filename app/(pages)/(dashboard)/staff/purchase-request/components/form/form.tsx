@@ -76,22 +76,22 @@ function FormVendor({ vendor }: Props) {
             <Form.Item<FormFields> hidden label="Id" name="id">
               <Input type="hidden" />
             </Form.Item>
-
+            {/* 
             <Form.Item<FormFields>
               label="Vendor"
               name="vendorId"
               rules={fieldRules(["required"])}
             >
               <Select options={selectOptions(vendor, "name", "id")} />
-            </Form.Item>
+            </Form.Item> */}
 
-            <Form.Item<FormFields>
+            {/* <Form.Item<FormFields>
               label="Payment"
               name="payment"
               rules={fieldRules(["required"])}
             >
               <Select options={paymentOptions} />
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item<FormFields>
               label="remarks"
@@ -102,7 +102,7 @@ function FormVendor({ vendor }: Props) {
             </Form.Item>
           </Col>
           <Col span={12}>
-            <Form.Item<FormFields>
+            {/* <Form.Item<FormFields>
               label="Purchase Date"
               name="purchaseDate"
               rules={fieldRules(["required"])}
@@ -116,7 +116,7 @@ function FormVendor({ vendor }: Props) {
               rules={fieldRules(["required"])}
             >
               <DatePicker />
-            </Form.Item>
+            </Form.Item> */}
           </Col>
         </Row>
         <br />

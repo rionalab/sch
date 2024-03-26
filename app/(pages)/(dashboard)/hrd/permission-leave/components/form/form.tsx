@@ -48,7 +48,6 @@ function FormVendor() {
   };
 
   const onChange = (v: any, w: any) => {
-    console.log(v.paid);
     if (!w.paid) {
       form.setFieldsValue({ price: 0 });
       setDisablePrice(true);
@@ -67,8 +66,6 @@ function FormVendor() {
       void fetchDataEdit();
     }
   }, []);
-
-  console.log(disablePrice);
 
   return (
     <div>

@@ -13,6 +13,19 @@ export async function modelStore(
         id: Number(formValue.roleId),
       },
     },
+    ...(formValue.departmentId
+      ? {
+          department: {
+            connect: {
+              id: Number(formValue.departmentId),
+            },
+          },
+        }
+      : {
+          department: undefined,
+          departmentId: null,
+        }),
+
     active: formValue.active,
     ...(!formValue.id
       ? {

@@ -100,10 +100,7 @@ function FormEmployee(props: Props) {
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-  const handleFormChange = (changedValues: any, allValues: any) => {
-    // console.log("Changed values:", changedValues);
-    // console.log("All values:", allValues);
-  };
+  const handleFormChange = (changedValues: any, allValues: any) => {};
 
   const onFinish = async (values: FormFields) => {
     const isEdit = values.id;
@@ -123,7 +120,6 @@ function FormEmployee(props: Props) {
   };
 
   const normFile = (e: any) => {
-    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }

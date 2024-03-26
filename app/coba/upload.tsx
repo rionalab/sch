@@ -18,7 +18,6 @@ const UploadDemo: React.FC = () => {
     formData.append("ando", "132");
 
     fileList.forEach((file: UploadFile) => {
-      console.log(33333333, file.name);
       formData.append("gambar", file as unknown as File);
     });
 

@@ -5,9 +5,6 @@
 import React from "react";
 
 function Client2() {
-  //   const x = useBoundStore((state) => state);
-  //   console.log(x);
-
   return (
     <div>Fishes wx{/* <button onClick={addFishes}>one up</button> */}</div>
   );

@@ -13,9 +13,8 @@ export interface FormFields {
 
 export interface FormPurchaseItemFields {
   id: number;
-  name: string;
+  inventoryId: number;
   remarks: string;
   unitPrice: number;
   quantity: number;
-  uomId: number;
 }

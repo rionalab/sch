@@ -23,7 +23,6 @@ export async function uploadFile({ data, dir }: UploadFile) {
 
     return { success: true, fileName };
   } catch (e: any) {
-    console.log(String(e.message));
     return { success: false };
   }
 }

@@ -34,7 +34,6 @@ const prismaClientSingleton = () => {
             }
           }
 
-          console.log(123132, args);
           return await query(args);
         },
       },

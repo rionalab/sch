@@ -18,10 +18,8 @@ export function ButtonForm({
 
   const handleCancel = () => {
     if (handleCancelProps) {
-      console.log(1);
       handleCancelProps();
     } else {
-      console.log(2);
       router.back();
     }
   };

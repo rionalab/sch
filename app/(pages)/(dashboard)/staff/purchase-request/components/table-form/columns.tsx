@@ -28,10 +28,6 @@ export const columns = (handleDelete: (id: number) => void) => [
     title: "Quantity",
     dataIndex: "quantity",
     key: "quantity",
-    render: (v: any, w: any) => {
-      console.log(2222, v, w);
-      return `${v} ${w?.uomId.split("|")[1]}`;
-    },
   },
   {
     title: "Sub Total",

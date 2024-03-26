@@ -28,10 +28,11 @@
       "@/types": ["./app/_types/index.ts"],
       "@/validations/*": ["./app/_validations/*"],
       "@/pages/*": ["./app/(pages)/*"],
-      "@/master/*": ["./app/(pages)/(dashboard)/master/*"],
       "@/hooks/*": ["./app/_hooks/*"],
       "@/contexts": ["./app/_contexts/index.ts"],
       "@/styles/*": ["./app/_styles/*"],
+      "@/master/*": ["./app/(pages)/(dashboard)/master/*"],
+      "@/superadmin/*": ["./app/(pages)/(dashboard)/superadmin/*"],
       "@/*": ["./*"]
     }
   },

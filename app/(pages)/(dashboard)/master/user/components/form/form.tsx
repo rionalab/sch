@@ -17,6 +17,7 @@ import {
 import { useAntdContext } from "@/contexts";
 import { fieldRules, randomString, selectOptions } from "@/libs/helpers";
 import { SyncOutlined } from "@ant-design/icons";
+import useData from "@/hooks/useData";
 
 const initialValues = {
   roleAccess: userTypeOptions[0].value,
@@ -31,13 +32,17 @@ interface Props {
   }>;
 }
 
-function FormVendor({ roles = [] }: Props) {
+function FormUser({ roles = [] }: Props) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
   const [form] = Form.useForm();
   const [loadingEdit, setLoadingEdit] = useState(false);
+  const {
+    loading: loadingData,
+    data: { role, department },
+  } = useData(["department", "role"]);
 
   const onFinish = async (values: FormFields): Promise<void> => {
     const isEdit = values.id;
@@ -61,7 +66,13 @@ function FormVendor({ roles = [] }: Props) {
   const fetchDataEdit = async () => {
     setLoadingEdit(true);
     const dataEdit = await show(Number(id));
-    form.setFieldsValue(dataEdit);
+
+    form.setFieldsValue({
+      ...dataEdit,
+      roleId: String(dataEdit?.roleId),
+      departmentId: String(dataEdit?.departmentId),
+    });
+
     setLoadingEdit(false);
   };
 
@@ -94,6 +105,7 @@ function FormVendor({ roles = [] }: Props) {
         name="basic"
         className={loadingEdit ? "dNone" : ""}
         labelCol={{ span: 8 }}
+        disabled={loadingData}
         wrapperCol={{ span: 16 }}
         initialValues={{ ...initialValues, id }}
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
@@ -113,7 +125,21 @@ function FormVendor({ roles = [] }: Props) {
               name="roleId"
               rules={fieldRules(["required"])}
             >
-              <Select options={selectOptions(roles, "name", "id")} />
+              <Select
+                loading={loadingData}
+                options={selectOptions(role, "name", "id")}
+              />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Department"
+              rules={fieldRules(["required"])}
+              name="departmentId"
+            >
+              <Select
+                loading={loadingData}
+                options={selectOptions(department, "name", "id")}
+              />
             </Form.Item>
 
             <Form.Item<FormFields>
@@ -159,4 +185,4 @@ function FormVendor({ roles = [] }: Props) {
   );
 }
 
-export default memo(FormVendor);
+export default memo(FormUser);
