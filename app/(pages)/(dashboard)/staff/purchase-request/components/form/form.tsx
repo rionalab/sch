@@ -28,13 +28,16 @@ function FormVendor({ vendor }: Props) {
   const { id } = useParams();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
-  const { purchaseRequestItem } = useGlobalStore((state: any) => state);
+  const { purchaseRequestItem, setPurchaseRequestItem } = useGlobalStore(
+    (state: any) => state
+  );
   const { api } = useAntdContext();
   const router = useRouter();
 
   const onFinish = async (values: FormFields): Promise<void> => {
     if (purchaseRequestItem.length < 1) {
       api?.error(notifStoreError("Please add purchase item"));
+      return;
     }
 
     const isEdit = values.id;
@@ -43,7 +46,9 @@ function FormVendor({ vendor }: Props) {
 
       await store({
         ...values,
+        purchaseRequestItem,
       });
+
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
 
       router.back();
@@ -67,6 +72,8 @@ function FormVendor({ vendor }: Props) {
   const handleChange = (v: any, w: any) => {};
 
   useEffect(() => {
+    setPurchaseRequestItem("reset");
+
     if (id) {
       void fetchDataEdit();
     }

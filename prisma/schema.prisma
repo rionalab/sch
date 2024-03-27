@@ -40,14 +40,14 @@ model PurchaseRequest {
   approverId   Int
   payment      String
   purchaseDate DateTime
+  department   Department            @relation(fields: [departmentId], references: [id])
+  departmentId Int
   deliveryDate DateTime
   remarks      String
   status       String
-  vendorId     Int
   items        PurchaseRequestItem[]
   requester    User                  @relation("RequesterRelation", fields: [requesterId], references: [id])
   approver     User                  @relation("ApproverRelation", fields: [approverId], references: [id])
-  vendor       Vendor                @relation(fields: [vendorId], references: [id])
   active       Boolean               @default(true)
   updatedAt    DateTime              @updatedAt
   createdAt    DateTime              @default(now())
@@ -271,20 +271,19 @@ model Class {
 }
 
 model Vendor {
-  id              Int               @id @default(autoincrement())
-  name            String
-  accountNo       String
-  code            String            @unique
-  address         String
-  phone           String
-  fax             String?
-  blacklist       Boolean           @default(false)
-  remarks         String?
-  roleAccess      String?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  deletedAt       DateTime?
-  PurchaseRequest PurchaseRequest[]
+  id         Int       @id @default(autoincrement())
+  name       String
+  accountNo  String
+  code       String    @unique
+  address    String
+  phone      String
+  fax        String?
+  blacklist  Boolean   @default(false)
+  remarks    String?
+  roleAccess String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
 }
 
 model WorkUnit {
@@ -300,17 +299,18 @@ model WorkUnit {
 }
 
 model Department {
-  id          Int         @id @default(autoincrement())
-  name        String      @unique
-  code        String      @unique
-  active      Boolean     @default(true)
-  description String?
-  Inventory   Inventory[]
-  roleAccess  String?
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
-  deletedAt   DateTime?
-  User        User[]
+  id              Int               @id @default(autoincrement())
+  name            String            @unique
+  code            String            @unique
+  active          Boolean           @default(true)
+  description     String?
+  Inventory       Inventory[]
+  roleAccess      String?
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  deletedAt       DateTime?
+  User            User[]
+  PurchaseRequest PurchaseRequest[]
 }
 
 model Uom {

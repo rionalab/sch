@@ -44,7 +44,13 @@ function FormModal({ closeModal, idEdit }: Props) {
       return;
     }
 
-    const name = 1;
+    console.log(111111111111111);
+    console.log(inventory);
+    console.log(values);
+
+    const name = inventory?.find(
+      (row) => row.id === Number(values.inventoryId)
+    ).name;
 
     setPurchaseRequestItem("create", { ...values, name });
     closeModal();

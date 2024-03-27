@@ -5,6 +5,7 @@ import { PlusOutlined } from "@ant-design/icons";
 import FormPurchasedItem from "../form-modal";
 import type { VoidMethod } from "@/types";
 import type { Dispatch, SetStateAction } from "react";
+import { useGlobalStore } from "@/libs/zustand/StoreProvider";
 
 interface Props {
   status: boolean;

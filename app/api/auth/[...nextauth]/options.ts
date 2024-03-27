@@ -38,6 +38,7 @@ export const options: NextAuthOptions = {
           include: {
             Employee: true,
             role: true,
+            department: true,
           },
         });
 

@@ -38,6 +38,7 @@ export interface UserSession {
   role: UserRoleAction;
   name: string;
   label: string;
+  department: { id: number };
   id: number;
 }
 

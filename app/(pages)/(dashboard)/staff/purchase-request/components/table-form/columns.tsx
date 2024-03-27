@@ -21,23 +21,23 @@ export const columns = ({ setTrue, setIdEdit }: ColumnsParams) => [
     dataIndex: "name",
     key: "name",
   },
-  {
-    title: "Price",
-    dataIndex: "unitPrice",
-    key: "unitPrice",
-    render: (v: any, w: any) => c(v),
-  },
+  // {
+  //   title: "Price",
+  //   dataIndex: "unitPrice",
+  //   key: "unitPrice",
+  //   render: (v: any, w: any) => c(v),
+  // },
   {
     title: "Quantity",
     dataIndex: "quantity",
     key: "quantity",
   },
-  {
-    title: "Sub Total",
-    dataIndex: "subtotal",
-    key: "subtotal",
-    render: (v: any, w: any) => c(w.unitPrice * w.quantity),
-  },
+  // {
+  //   title: "Sub Total",
+  //   dataIndex: "subtotal",
+  //   key: "subtotal",
+  //   render: (v: any, w: any) => c(w.unitPrice * w.quantity),
+  // },
   {
     title: "Remarks",
     ellipsis: true,
@@ -52,7 +52,7 @@ export const columns = ({ setTrue, setIdEdit }: ColumnsParams) => [
 
       return (
         <>
-          <EditButton setIdEdit={setIdEdit} setTrue={setTrue} id={id} />
+          {/* <EditButton setIdEdit={setIdEdit} setTrue={setTrue} id={id} /> */}
           <DeleteButton id={id} />
         </>
       );

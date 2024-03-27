@@ -43,6 +43,38 @@ export function DataTable<T>(props: Props<T>) {
     hasActive = "active" in rows?.[0];
   }
 
+  const tableColumns = [
+    ...finalColumns,
+
+    // * ACTIVE
+    ...(hasActive
+      ? [
+          {
+            title: "Active",
+            dataIndex: "active",
+            render: (v: boolean) => {
+              return (
+                <Tag
+                  label={v ? "Active" : "Inactive"}
+                  theme={v ? "green" : "red"}
+                />
+              );
+            },
+          },
+        ]
+      : []),
+  ];
+
+  if (keyActions.length) {
+    tableColumns.push({
+      title: "Action",
+      align: "center",
+      fixed: "right",
+      width: 130,
+      render: (a, b) => <TableAction<T> row={b as T} id={b.id} {...actions} />,
+    });
+  }
+
   return (
     <>
       <TableToolbar
@@ -63,40 +95,7 @@ export function DataTable<T>(props: Props<T>) {
             currentPageData.length > 0 && <span>Total: {rows.length} rows</span>
           );
         }}
-        columns={[
-          ...finalColumns,
-
-          // * ACTIVE
-          ...(hasActive
-            ? [
-                {
-                  title: "Active",
-                  dataIndex: "active",
-                  render: (v: boolean) => {
-                    return (
-                      <Tag
-                        label={v ? "Active" : "Inactive"}
-                        theme={v ? "green" : "red"}
-                      />
-                    );
-                  },
-                },
-              ]
-            : []),
-
-          // * ACTIONS
-          keyActions.length
-            ? {
-                title: "Action",
-                align: "center",
-                fixed: "right",
-                width: 130,
-                render: (a, b) => (
-                  <TableAction<T> row={b as T} id={b.id} {...actions} />
-                ),
-              }
-            : {},
-        ]}
+        columns={tableColumns}
       />
     </>
   );

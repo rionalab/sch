@@ -4,7 +4,7 @@ import React from "react";
 import type { ColumnsType } from "antd/es/table";
 import { DataTable } from "@/c";
 import { columns } from "./columns";
-import { removeVendor } from "../../action";
+import { destroy } from "../../action";
 import { useTable } from "@/hooks/useTable";
 import useRole from "@/hooks/useRole";
 
@@ -33,7 +33,7 @@ function Table({ rows }: Props) {
           destroy: !allowDelete
             ? undefined
             : async (id: number) => {
-                await removeVendor(id);
+                await destroy(id);
               },
           edit: allowEdit,
         }}

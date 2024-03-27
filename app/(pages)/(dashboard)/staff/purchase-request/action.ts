@@ -5,7 +5,7 @@ import { urls } from "@/consts";
 import prisma from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
 import { type FormFields } from "./type";
-import { handlePrismaError, today } from "@/libs/helpers";
+import { code, handlePrismaError, today } from "@/libs/helpers";
 import { modelStore } from "./components/form/model";
 import { auth } from "@/app/api/auth/[...nextauth]/options";
 import type { UserSession } from "@/types";
@@ -19,53 +19,66 @@ export async function index() {
     return [];
   }
 
+  if (user.role.name === "ManagerIT") {
+    return await prisma.purchaseRequest.findMany({
+      where: {
+        requesterId: Number(user?.id),
+      },
+      include: {
+        department: true,
+        items: {
+          include: {
+            inventory: true,
+          },
+        },
+      },
+    });
+  }
+
   return await prisma.purchaseRequest.findMany({
     where: {
       requesterId: Number(user?.id),
     },
     include: {
-      vendor: true,
+      department: true,
       items: {
         include: {
-          uom: true,
+          inventory: true,
         },
       },
     },
   });
 }
 
-export async function store(data: FormFields) {
+export async function store(data: FormFields & { purchaseRequestItem: any[] }) {
   try {
+    const { user } = ((await auth()) ?? {}) as { user: UserSession };
+
+    const rows = await prisma.purchaseRequest.findMany();
+
+    const items = data.purchaseRequestItem.map((row) => {
+      const { key, name, id, ...rest } = row;
+
+      return {
+        ...rest,
+        unitPrice: 1,
+        totalPrice: 1,
+        inventoryId: Number(row.inventoryId),
+      };
+    });
+
     const pr = {
-      code: "A",
-      requesterId: 1,
-      approverId: 1,
+      code: code("PR", rows.length + 1),
+      requesterId: Number(user.id),
+      approverId: Number(user.id),
+      departmentId: Number(user.department.id),
       payment: "",
       purchaseDate: today().format(),
       deliveryDate: today().format(),
-      remarks: "xxxxxxxxxxxxxxxxxxxxxxxx",
-      status: "",
-      vendorId: 1,
-      // updatedAt: "",
-      // createdAt: "",
-      // deletedAt: "",
+      remarks: data.remarks,
+      status: "pending",
       items: {
-        create: [
-          {
-            name: "Item 1",
-            quantity: 1,
-            unitPrice: 10.0,
-            totalPrice: 10.0,
-            remarks: "wwwwwwwwwwwwwww",
-          },
-          {
-            name: "Item 2",
-            quantity: 2,
-            unitPrice: 20.0,
-            totalPrice: 40.0,
-            remarks: "wwwwwwwwwwwwwwwwwwww",
-          },
-        ],
+        create: items,
       },
     };
 
@@ -84,9 +97,8 @@ export async function store(data: FormFields) {
     //   // });
     // }
 
-    // revalidatePath(urlToRevalidate);
-
-    // return { success: true, ...result };
+    revalidatePath(urlToRevalidate);
+    return { success: true, ...result };
   } catch (e: any) {
     handlePrismaError(e);
   }

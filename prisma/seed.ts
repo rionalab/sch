@@ -79,6 +79,35 @@ async function main() {
     ],
     skipDuplicates: true,
   });
+  const roles = await prisma.roleAction.findMany();
+
+  // * Department
+  // *************************************
+  await prisma.department.createMany({
+    data: [
+      {
+        code: "none",
+        name: "None",
+        description: "none",
+        active: true,
+      },
+      {
+        code: "TI",
+        name: "TI",
+        description: "TI",
+        active: true,
+      },
+      {
+        code: "GA",
+        name: "GA",
+        description: "General Affair",
+        active: true,
+      },
+    ],
+    skipDuplicates: true,
+  });
+  const department = await prisma.department.findMany();
+  console.log(department);
 
   // * User
   // *************************************
@@ -88,34 +117,34 @@ async function main() {
         email: "admin@kr.com",
         password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
-        departmentId: 1,
+        departmentId: department.find((r) => r.code === "TI")?.id ?? 1,
         name: "User 1",
       },
       {
         email: "user2@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        departmentId: 1,
-        roleId: 1,
+        departmentId: department.find((r) => r.code === "TI")?.id ?? 1,
+        roleId: roles.find((r) => r.name === "ManagerIT")?.id ?? 1,
         name: "User 2",
       },
       {
         email: "user3@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        departmentId: 1,
+        departmentId: department[0].id,
         roleId: 1,
         name: "User 3",
       },
       {
         email: "user4@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        departmentId: 1,
+        departmentId: department[0].id,
         roleId: 1,
         name: "User 4",
       },
       {
         email: "user5@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        departmentId: 1,
+        departmentId: department[0].id,
         roleId: 1,
         name: "User 5",
       },
@@ -409,33 +438,6 @@ async function main() {
     skipDuplicates: true,
   });
 
-  // * Department
-  // *************************************
-  await prisma.department.createMany({
-    data: [
-      {
-        code: "none",
-        name: "None",
-        description: "none",
-        active: true,
-      },
-      {
-        code: "TI",
-        name: "TI",
-        description: "TI",
-        active: true,
-      },
-      {
-        code: "GA",
-        name: "GA",
-        description: "General Affair",
-        active: true,
-      },
-    ],
-    skipDuplicates: true,
-  });
-  const department = await prisma.department.findMany();
-
   await prisma.uom.createMany({
     data: [
       {
@@ -485,64 +487,62 @@ async function main() {
 
   // * Purchase Request
   // *************************************
-  await prisma.purchaseRequest.createMany({
-    data: [
-      {
-        code: "KR/PR/2024/01/00001",
-        payment: "cash",
-        purchaseDate: today().format(),
-        deliveryDate: today().format(),
-        remarks,
-        status: "pending",
-        requesterId: users[0].id,
-        approverId: users[1].id,
-        active: true,
-        vendorId: 1,
-      },
-      {
-        code: "KR/PR/2024/01/00002",
-        payment: "cash",
-        purchaseDate: today().format(),
-        deliveryDate: today().format(),
-        remarks,
-        status: "pending",
-        requesterId: users[0].id,
-        approverId: users[1].id,
-        active: true,
-        vendorId: 1,
-      },
-    ],
-    skipDuplicates: true,
-  });
+  // await prisma.purchaseRequest.createMany({
+  //   data: [
+  //     {
+  //       code: "KR/PR/2024/01/00001",
+  //       payment: "cash",
+  //       purchaseDate: today().format(),
+  //       deliveryDate: today().format(),
+  //       remarks,
+  //       status: "pending",
+  //       requesterId: users[0].id,
+  //       approverId: users[1].id,
+  //       active: true,
+  //     },
+  //     {
+  //       code: "KR/PR/2024/01/00002",
+  //       payment: "cash",
+  //       purchaseDate: today().format(),
+  //       deliveryDate: today().format(),
+  //       remarks,
+  //       status: "pending",
+  //       requesterId: users[0].id,
+  //       approverId: users[1].id,
+  //       active: true,
+  //     },
+  //   ],
+  //   skipDuplicates: true,
+  // });
 
-  const pr = await prisma.purchaseRequest.findMany();
+  // const pr = await prisma.purchaseRequest.findMany();
 
   // * Purchase Request Item
   // *************************************
-  const purchaseRequestItemsData = [
-    {
-      purchaseRequestId: pr[0].id,
-      quantity: 2,
-      inventoryId: inventories[0].id,
-      unitPrice: 10.0,
-      totalPrice: 20.0,
-      remarks: "Sample item remarks 1",
-    },
-    {
-      purchaseRequestId: pr[0].id,
-      quantity: 3,
-      inventoryId: inventories[0].id,
-      unitPrice: 15.0,
-      totalPrice: 45.0,
-      remarks: "Sample item remarks 2",
-    },
-    // Add more Purchase Request Items as needed
-  ];
+  // const purchaseRequestItemsData = [
+  //   {
+  //     purchaseRequestId: pr[0].id,
+  //     quantity: 2,
+  //     inventoryId: inventories[0].id,
+  //     unitPrice: 10.0,
+  //     totalPrice: 20.0,
+  //     remarks: "Sample item remarks 1",
+  //   },
+  //   {
+  //     purchaseRequestId: pr[0].id,
+  //     quantity: 3,
+  //     inventoryId: inventories[0].id,
+  //     unitPrice: 15.0,
+  //     totalPrice: 45.0,
+  //     remarks: "Sample item remarks 2",
+  //   },
+  //   // Add more Purchase Request Items as needed
+  // ];
 
-  // Create Purchase Request Items
-  await prisma.purchaseRequestItem.createMany({
-    data: purchaseRequestItemsData,
-  });
+  // // Create Purchase Request Items
+  // await prisma.purchaseRequestItem.createMany({
+  //   data: purchaseRequestItemsData,
+  // });
 }
 
 main()

@@ -22,21 +22,21 @@ function Table({ rows }: Props) {
     <>
       <DataTable
         antdProps={{
-          scroll: { x: 1550, y: 555 },
+          scroll: { x: 1600, y: 555 },
         }}
         filter={true}
         create={allowCreate}
         download={true}
         columns={columns() as DtColumns}
         {...tableProps}
-        actions={{
-          destroy: !allowDelete
-            ? undefined
-            : async (id: number) => {
-                await destroy(id);
-              },
-          edit: allowEdit,
-        }}
+        // actions={{
+        //   destroy: !allowDelete
+        //     ? undefined
+        //     : async (id: number) => {
+        //         await destroy(id);
+        //       },
+        //   edit: allowEdit,
+        // }}
       />
     </>
   );
