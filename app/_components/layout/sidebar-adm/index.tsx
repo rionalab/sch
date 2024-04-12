@@ -12,6 +12,7 @@ import {
   DollarCircleOutlined,
   SolutionOutlined,
   // FileProtectOutlined,
+  UsergroupAddOutlined ,
   // BarcodeOutlined,
   // BulbOutlined,
   // FileSearchOutlined,
@@ -270,6 +271,12 @@ export function SidebarAdm() {
         icon: <HomeOutlined />,
         href: urls.admission.dashboard,
         label: "Dashboard",
+      },
+      {
+        key: "registration",
+        icon: <UsergroupAddOutlined />,
+        href: urls.admission.registration,
+        label: "Registration",
       },
       {
         key: "payment",

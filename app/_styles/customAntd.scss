@@ -1,3 +1,5 @@
+@import "./colors.module.scss";
+
 .ant-menu.ant-menu-inline {
   border-inline-end: 0 !important;
 }
@@ -82,4 +84,33 @@
 
 .ant-table-thead .ant-table-cell {
   text-transform: capitalize !important;
+}
+
+.admissionRegistrationStep { 
+
+  .ant-steps-item-description {
+    opacity: .7 !important;
+    font-size: 11px !important;
+  }
+
+  .ant-steps-item-title { 
+    font-weight: 500;
+  }
+
+
+  .ant-steps-item-active {
+
+    .ant-steps-item-title { 
+      color: $aqua !important;
+      font-weight: 500;
+    }
+
+
+
+
+    .ant-steps-icon { 
+      color: $aqua !important;
+    }
+  }
+
 }

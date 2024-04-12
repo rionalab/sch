@@ -55,6 +55,14 @@ export const degreeOptions = [
   { label: "SMA/SMK", value: "SMA/SMK" },
 ];
 
+export const studentTransportationOptions = [
+  { label: "Private Vehicle", value: "Private Vehicle" },
+  { label: "Public Transport", value: "Public Transport" },
+  { label: "Walking", value: "Walking" },
+  { label: "Shuttle Bus", value: "Shuttle Bus" },
+  { label: "Others", value: "Others" },
+];
+
 export const paymentOptions = [
   { label: "Cash", value: "Cash" },
   { label: "Transfer", value: "Transfer" },

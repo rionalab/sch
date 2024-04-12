@@ -32,8 +32,7 @@ function Page() {
     </Col>
     
     <Col span={18} >
-      <SimpleBar style={{ maxHeight: 500}}>
-
+      <SimpleBar className={styles.simplebar}>
         <div id="part-1">
           <h3>Payment Guideline</h3>
 
@@ -90,7 +89,6 @@ function Page() {
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt necessitatibus aperiam alias odio explicabo ex molestiae ipsam repudiandae laborum cum aliquid aspernatur quaerat, distinctio amet. Dolore in optio facere asperiores.</p>
 
         </div>
-
       </SimpleBar>
     </Col>
 
