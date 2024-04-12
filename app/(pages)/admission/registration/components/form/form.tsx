@@ -108,6 +108,9 @@ function FormStudent(props: Props) {
   const handleFormChange = (changedValues: any, allValues: any) => {};
 
   const onFinish = async (values: FormFields) => {
+    alert("submitted")
+    return 
+    
     const isEdit = values.id;
 
     try {
