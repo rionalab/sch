@@ -31,14 +31,14 @@ function FormVendor() {
       await store(values);
 
       api?.success(
-        isEdit ? notif.notifUpdateSuccess() : notif.notifStoreSuccess()
+        isEdit ? notif.notifUpdateSuccess() : notif.notifStoreSuccess(),
       );
       router.back();
     } catch (e: any) {
       const msg = String(e.message);
 
       api?.error(
-        isEdit ? notif.notifUpdateError(msg) : notif.notifStoreError(msg)
+        isEdit ? notif.notifUpdateError(msg) : notif.notifStoreError(msg),
       );
     } finally {
       setLoading(false);

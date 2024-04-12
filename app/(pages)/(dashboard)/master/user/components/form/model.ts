@@ -3,7 +3,7 @@ import { type FormFields } from "../../type";
 import bcrypt from "bcrypt";
 
 export async function modelStore(
-  formValue: FormFields
+  formValue: FormFields,
 ): Promise<Prisma.UserCreateInput> {
   return {
     email: formValue.email,

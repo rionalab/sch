@@ -29,7 +29,7 @@ function FormVendor({ vendor }: Props) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const { purchaseRequestItem, setPurchaseRequestItem } = useGlobalStore(
-    (state: any) => state
+    (state: any) => state,
   );
   const { api } = useAntdContext();
   const router = useRouter();

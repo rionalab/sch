@@ -3,7 +3,7 @@ import type { Options } from "@/types";
 export function selectOptions<T>(
   arr: any = [],
   labelKey: keyof T,
-  valueKey: keyof T
+  valueKey: keyof T,
 ): Options {
   return arr.map((row: T) => {
     const vKey = String(valueKey).split("|");

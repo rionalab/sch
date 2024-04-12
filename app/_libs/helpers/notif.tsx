@@ -4,7 +4,7 @@ import { type ZodIssue } from "zod";
 import { isArrayOfZodIssue, isGeneralError } from "./validation";
 
 export const notifErrorMessage = (
-  data: ZodIssue[] | GeneralError | undefined
+  data: ZodIssue[] | GeneralError | undefined,
 ) => {
   let description = null;
 

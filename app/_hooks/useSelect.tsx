@@ -31,7 +31,7 @@ function useSelect(type: ModuleType | ModuleType[]): FetchResult {
         fetchResult[i] = selectOptions(
           await employee.index(),
           "fullName",
-          "id"
+          "id",
         );
       } else if (i === "uom") {
         fetchResult[i] = selectOptions(await uom.index(), "name", "id");

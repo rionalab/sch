@@ -48,7 +48,7 @@ export const options: NextAuthOptions = {
 
         const passwordValid = await compare(
           credentials?.password,
-          user.password
+          user.password,
         );
 
         if (!passwordValid) {

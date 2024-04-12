@@ -18,6 +18,10 @@ export const urls = {
   landingPage: "/dashboard",
   help: "/help",
   documentation: "/documentation",
+  admission: {
+    dashboard: "/admission/dashboard",
+    payment: "/admission/payment",
+  },
   auth: {
     signin: "/signin",
     signout: "/signout",

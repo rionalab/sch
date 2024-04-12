@@ -6,7 +6,6 @@ import prisma from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
 import { type FormFields } from "./type";
 import { code, handlePrismaError, today } from "@/libs/helpers";
-import { modelStore } from "./components/form/model";
 import { auth } from "@/app/api/auth/[...nextauth]/options";
 import type { UserSession } from "@/types";
 
@@ -20,9 +19,15 @@ export async function index() {
   }
 
   if (user.role.name === "ManagerIT") {
+    const department = await prisma.department.findFirst({
+      where: {
+        name: "TI",
+      },
+    });
+
     return await prisma.purchaseRequest.findMany({
       where: {
-        requesterId: Number(user?.id),
+        departmentId: department?.id,
       },
       include: {
         department: true,

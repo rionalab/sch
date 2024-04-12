@@ -22,7 +22,7 @@ function Table({ rows }: Props) {
     <>
       <DataTable
         antdProps={{
-          scroll: { x: 1600, y: 555 },
+          scroll: { x: 1700, y: 555 },
         }}
         filter={true}
         create={allowCreate}

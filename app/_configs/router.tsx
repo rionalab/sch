@@ -194,14 +194,14 @@ export const routes: Routes = {
   },
   purchaseRequest: {
     url: urls.staff.purchaseRequest.index,
-    title: "Purchase Request",
+    title: "Purchase Order",
     icon: <DeploymentUnitOutlined />,
     breadcrumb: [
       {
         title: "Staff ",
       },
       {
-        title: "Purchase request",
+        title: "Purchase order",
         icon: <DeploymentUnitOutlined />,
         url: urls.staff.purchaseRequest.index,
       },

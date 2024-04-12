@@ -16,7 +16,7 @@ export type StoreActions = {
   incrementCount: () => void;
   setPurchaseRequestItem: (
     action: "create" | "edit" | "delete" | "reset",
-    payload: any
+    payload: any,
   ) => void;
 };
 
@@ -46,7 +46,7 @@ export const createGlobalStore = (initState: StoreState = defaultInitState) => {
           purchaseRequestItem = [];
         } else if (action === "delete") {
           purchaseRequestItem = purchaseRequestItem.filter(
-            (row) => row.id !== payload
+            (row) => row.id !== payload,
           );
         } else if (action === "reset") {
           purchaseRequestItem = [];

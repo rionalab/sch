@@ -26,6 +26,22 @@ const actions = `menu_master, menu_account, menu_staff, menu_hr, menu_superadmin
   ${generateAction("extracurricular")},  
   menu_updatePassword, menu_help, menu_documentation`;
 
+const actionsStaff = actions
+  .split(",")
+  .map((action) => {
+    const cleanAction = action.trim();
+
+    const blacklist = ["menu_user", "menu_edit_user", "menu_create_user"];
+
+    if (blacklist.includes(cleanAction)) {
+      return null;
+    }
+
+    return cleanAction;
+  })
+  .filter(Boolean)
+  .join(", ");
+
 function today() {
   return dayjs();
 }
@@ -66,7 +82,11 @@ async function main() {
         name: "ManagerGeneralAffair",
         actions,
       },
-      { label: "Staff General Affair", name: "StaffGeneralAffair", actions },
+      {
+        label: "Staff General Affair",
+        name: "StaffGeneralAffair",
+        actions: actionsStaff,
+      },
       { label: "Modul Purchasing", name: "ModulPurchasing", actions },
       { label: "Manager Purchasing", name: "ManagerPurchasing", actions },
       { label: "Staff Purchasing", name: "StaffPurchasing", actions },
@@ -74,7 +94,7 @@ async function main() {
       { label: "Manager HRD", name: "ManagerHRD", actions },
       { label: "Staff HRD", name: "StaffHRD", actions },
       { label: "Manager IT", name: "ManagerIT", actions },
-      { label: "Staff IT", name: "StaffIT", actions },
+      { label: "Staff IT", name: "StaffIT", actions: actionsStaff },
       { label: "Parent", name: "Parent", actions },
     ],
     skipDuplicates: true,
@@ -118,35 +138,42 @@ async function main() {
         password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
         departmentId: department.find((r) => r.code === "TI")?.id ?? 1,
-        name: "User 1",
+        name: "User Admin",
       },
       {
-        email: "user2@mail.com",
+        email: "staff_it@mail.com",
+        password: await bcrypt.hash("admin1234", 10),
+        departmentId: department.find((r) => r.code === "TI")?.id ?? 1,
+        roleId: roles.find((r) => r.name === "StaffIT")?.id ?? 1,
+        name: "User Staff IT",
+      },
+      {
+        email: "manager_it@mail.com",
         password: await bcrypt.hash("admin1234", 10),
         departmentId: department.find((r) => r.code === "TI")?.id ?? 1,
         roleId: roles.find((r) => r.name === "ManagerIT")?.id ?? 1,
-        name: "User 2",
+        name: "User Manager IT",
       },
       {
-        email: "user3@mail.com",
+        email: "staff_ga@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        departmentId: department[0].id,
-        roleId: 1,
-        name: "User 3",
+        departmentId: department.find((r) => r.code === "GA")?.id ?? 1,
+        roleId: roles.find((r) => r.name === "StaffGeneralAffair")?.id ?? 1,
+        name: "User Staff GA",
       },
       {
-        email: "user4@mail.com",
+        email: "manager_ga@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        departmentId: department[0].id,
-        roleId: 1,
-        name: "User 4",
+        departmentId: department.find((r) => r.code === "GA")?.id ?? 1,
+        roleId: roles.find((r) => r.name === "ManagerGeneralAffair")?.id ?? 1,
+        name: "User Manager GA",
       },
       {
         email: "user5@mail.com",
         password: await bcrypt.hash("admin1234", 10),
         departmentId: department[0].id,
         roleId: 1,
-        name: "User 5",
+        name: "User User 5",
       },
     ],
     skipDuplicates: true,

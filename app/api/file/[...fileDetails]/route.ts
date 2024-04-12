@@ -3,7 +3,7 @@ import path from "path";
 
 export async function GET(
   request: Request,
-  { params }: { params: { fileDetails: string[] } }
+  { params }: { params: { fileDetails: string[] } },
 ) {
   try {
     const [dir, image] = params.fileDetails;

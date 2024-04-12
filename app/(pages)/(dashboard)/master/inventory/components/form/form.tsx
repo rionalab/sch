@@ -37,7 +37,7 @@ function FormVendor() {
       await store(values);
 
       api?.success(
-        isEdit ? inventory.notifUpdateSuccess() : inventory.notifStoreSuccess()
+        isEdit ? inventory.notifUpdateSuccess() : inventory.notifStoreSuccess(),
       );
       router.back();
     } catch (e: any) {
@@ -46,7 +46,7 @@ function FormVendor() {
       api?.error(
         isEdit
           ? inventory.notifUpdateError(msg)
-          : inventory.notifStoreError(msg)
+          : inventory.notifStoreError(msg),
       );
     } finally {
       setLoading(false);

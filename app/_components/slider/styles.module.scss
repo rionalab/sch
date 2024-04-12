@@ -1,0 +1,14 @@
+.container {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.imgContainer {
+  height: 200px;
+  background: #eee;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}

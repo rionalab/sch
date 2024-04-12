@@ -12,11 +12,15 @@ export default function Template({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const urlUpdatePassword = urls.account.updatePassword.index;
   const { hasUpdatePassword } = (session?.user as UserSession) || {};
+  const disableUpdateDefaultPassword =
+    process.env.NEXT_PUBLIC_DISABLE_UPDATE_DEFAULT_PASSWORD;
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-boolean-literal-compare
     if (path !== urlUpdatePassword && hasUpdatePassword === false) {
-      router.push(urlUpdatePassword);
+      if (!disableUpdateDefaultPassword) {
+        router.push(urlUpdatePassword);
+      }
     }
   }, []);
 

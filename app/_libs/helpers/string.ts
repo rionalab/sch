@@ -8,3 +8,7 @@ export function randomString(length = 8): string {
   }
   return result;
 }
+
+export function removeSpaces(str = ""): string {
+  return str.replace(/\s/g, "") ?? "";
+}

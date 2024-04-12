@@ -6,7 +6,7 @@ import { type StoreApi, useStore } from "zustand";
 import { createGlobalStore, type GlobalStore } from ".";
 
 export const GlobalStoreContext = createContext<StoreApi<GlobalStore> | null>(
-  null
+  null,
 );
 
 export interface CounterStoreProviderProps {

@@ -165,10 +165,10 @@ export function Sidebar() {
           icon: <FileOutlined />,
           label: (
             <Link
-              title="Purchase Request"
+              title="Purchase Order"
               href={urls.staff.purchaseRequest.index}
             >
-              Purchase Request
+              Purchase Order
             </Link>
           ),
         },
@@ -228,7 +228,7 @@ export function Sidebar() {
 
   const checkChildren = (
     arrChildren: any[] | undefined,
-    roleActions: string
+    roleActions: string,
   ) => {
     if (!arrChildren) {
       return null;

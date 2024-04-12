@@ -31,12 +31,12 @@ function FormModal({ closeModal, idEdit }: Props) {
     data: { inventory },
   } = useData(["inventory"]);
   const { setPurchaseRequestItem, purchaseRequestItem } = useGlobalStore(
-    (state: any) => state
+    (state: any) => state,
   );
 
   const onFinish = async (values: FormFields): Promise<void> => {
     const isExist = purchaseRequestItem.find(
-      (row: any) => row.inventoryId === values.inventoryId
+      (row: any) => row.inventoryId === values.inventoryId,
     );
 
     if (isExist) {
@@ -49,7 +49,7 @@ function FormModal({ closeModal, idEdit }: Props) {
     console.log(values);
 
     const name = inventory?.find(
-      (row) => row.id === Number(values.inventoryId)
+      (row) => row.id === Number(values.inventoryId),
     ).name;
 
     setPurchaseRequestItem("create", { ...values, name });
@@ -128,7 +128,11 @@ function FormModal({ closeModal, idEdit }: Props) {
               <InputNumber min={1} />
             </Form.Item>
 
-            <Form.Item<FormFields> label="Remarks" name="remarks">
+            <Form.Item<FormFields>
+              label="Remarks"
+              name="remarks"
+              rules={fieldRules(["required"])}
+            >
               <Input.TextArea />
             </Form.Item>
           </Col>

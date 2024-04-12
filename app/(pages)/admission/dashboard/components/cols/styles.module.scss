@@ -1,0 +1,21 @@
+@import "../../../../../../app/_styles/colors.module.scss";
+
+
+.cols {
+  display: grid;
+  margin-top: 24px;
+  column-gap: 24px;
+  align-items: start;
+  grid-template-columns: 1fr 0.5fr;
+  & > div {
+    border-radius: 10px;
+    &:nth-child(1) {
+      overflow: hidden;
+    }
+  }
+}
+
+.collapse {
+  background: white !important;
+  margin: 16px !important;
+}

@@ -39,7 +39,7 @@ export const useStore = <T>(selector: (state: StoreInterface) => T) => {
 };
 
 export const initializeStore = (
-  preloadedState: Partial<StoreInterface> = {}
+  preloadedState: Partial<StoreInterface> = {},
 ) => {
   return createStore<StoreInterface>()(
     devtools(
@@ -60,8 +60,8 @@ export const initializeStore = (
         },
         {
           name: "schStore",
-        }
-      )
-    )
+        },
+      ),
+    ),
   );
 };

@@ -132,7 +132,7 @@ function FormEmployee(props: Props) {
 
     if (dataEdit) {
       form.setFieldsValue(
-        prismaToForm({ ...dataEdit, photo: [], oldPhoto: dataEdit.photo })
+        prismaToForm({ ...dataEdit, photo: [], oldPhoto: dataEdit.photo }),
       );
     }
     setLoadingEdit(false);
