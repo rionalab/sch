@@ -1,7 +1,7 @@
 .container {
-  width: 100vw;
+  max-width: 1200px;
+  margin: 0 auto;
   height: 100vh;
-  background: url("/images/bg-adm.png");
   background-size: cover;
   background-size: 100% 100%;
   display: grid;
@@ -17,3 +17,8 @@
   }
 }
 
+.bg { 
+  width: 100vw;
+  background: url("/images/bg-adm.png");
+  height: 100vh;
+}
