@@ -4,7 +4,7 @@ import dayjs from "dayjs";
 import bcrypt from "bcrypt";
 
 const generateAction = (key: string) => {
-  return [`menu_${key}`, `menu_edit_${key}`, `menu_create_${key}`].join(", ");
+  return [`role_${key}_view`, `role_edit_${key}`, `role_create_${key}`].join(", ");
 };
 
 const remarks =

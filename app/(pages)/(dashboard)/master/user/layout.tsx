@@ -4,7 +4,7 @@ import React from "react";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <PageHeader id="user" />
+      <PageHeader id="master_user" />
       {children}
     </>
   );

@@ -1,8 +1,8 @@
 /* eslint-disable no-constant-condition */
-import { type ColumnsType } from "antd/es/table";
-import { type Prisma } from "@prisma/client";
-import { c, dMY } from "@/libs/helpers";
 import { TagPurchase } from "@/c";
+import { c, dMY } from "@/libs/helpers";
+import { type Prisma } from "@prisma/client";
+import { type ColumnsType } from "antd/es/table";
 import ModalDetail from "./modal";
 
 export const columns = (): ColumnsType<Prisma.PurchaseRequestCreateInput> => {
@@ -26,12 +26,6 @@ export const columns = (): ColumnsType<Prisma.PurchaseRequestCreateInput> => {
       },
     },
 
-    // {
-    //   title: "vendor",
-    //   dataIndex: "vendor",
-    //   width: 170,
-    //   render: (v) => v.name,
-    // },
     {
       title: "status",
       width: 110,

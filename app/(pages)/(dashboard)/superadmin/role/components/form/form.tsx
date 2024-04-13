@@ -1,22 +1,22 @@
 "use client";
 
-import React, { memo, useEffect, useState } from "react";
-import { Col, Tree, Form, Input, Row, Select } from "antd";
-import { type FormFields } from "../../type";
 import { ButtonForm, LoadingModule } from "@/c";
-import { store, show } from "../../action";
-import { useParams, useRouter } from "next/navigation";
 import {
-  notifStoreSuccess,
   notifStoreError,
-  notifUpdateSuccess,
+  notifStoreSuccess,
   notifUpdateError,
+  notifUpdateSuccess,
   userTypeOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules, removeSpaces } from "@/libs/helpers";
 import { faker } from "@faker-js/faker";
 import type { TreeDataNode, TreeProps } from "antd";
+import { Col, Form, Input, Row, Select, Tree } from "antd";
+import { useParams, useRouter } from "next/navigation";
+import { memo, useEffect, useState } from "react";
+import { show, store } from "../../action";
+import { type FormFields } from "../../type";
 
 const initialValues = {
   roleAccess: userTypeOptions[0].value,
@@ -26,47 +26,25 @@ const initialValues = {
   active: true,
 };
 
-const defineRole = ({
-  label,
-  action = "CRUD",
-}: {
-  label: string;
-  action: string;
-}) => {
-  const hasCreate = action.includes("C");
-  const hasRead = action.includes("R");
-  const hasUpdate = action.includes("U");
-  const hasDelete = action.includes("D");
-
+const crudRole = (id: string) => {
   return {
-    title: `Menu ${label}`,
-    key: `menu_master_${label}`,
+    key: "role_" + id,
     children: [
-      ...(hasCreate
-        ? [
-            {
-              title: `Create`,
-              key: `menu_master_${label}_create`,
-            },
-          ]
-        : [{}]),
-
-      ...(hasUpdate
-        ? [
-            {
-              title: `Create`,
-              key: `menu_master_${label}_edit`,
-            },
-          ]
-        : [{}]),
-
       {
-        title: `Edit`,
-        key: `menu_master_${label}_edit`,
+        title: "View",
+        key: "role_" + id + "_view",
       },
       {
-        title: `Delete`,
-        key: `menu_master_${label}_delete`,
+        title: "Create",
+        key: "role_" + id + "_create",
+      },
+      {
+        title: "Edit",
+        key: "role_" + id + "_edit",
+      },
+      {
+        title: "Delete",
+        key: "role_" + id + "_delete",
       },
     ],
   };
@@ -75,289 +53,93 @@ const defineRole = ({
 const treeData: TreeDataNode[] = [
   {
     title: "Menu Master",
-    key: "menu_master",
+    key: "role_master",
     children: [
       {
         title: "Supplier",
-        key: "menu_master_supplier",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_supplier_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_supplier_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_supplier_delete",
-          },
-        ],
+        ...crudRole("master_supplier"),
       },
       {
         title: "Department",
-        key: "menu_master_department",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_department_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_department_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_department_delete",
-          },
-        ],
+        ...crudRole("master_department"),
       },
       {
         title: "UoM",
-        key: "menu_master_uom",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_uom_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_uom_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_uom_delete",
-          },
-        ],
+        ...crudRole("master_uom"),
       },
       {
         title: "Inventory",
-        key: "menu_master_inventory",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_inventory_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_inventory_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_inventory_delete",
-          },
-        ],
+        ...crudRole("master_inventory"),
       },
       {
         title: "Position",
-        key: "menu_master_position",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_position_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_position_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_position_delete",
-          },
-        ],
+        ...crudRole("master_position"),
       },
       {
         title: "Student Activities",
-        key: "menu_master_studentact",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_studentact_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_studentact_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_studentact_delete",
-          },
-        ],
+        ...crudRole("master_student_act"),
       },
       {
         title: "Work Unit",
-        key: "menu_master_workunit",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_workunit_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_workunit_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_workunit_delete",
-          },
-        ],
+        ...crudRole("master_work_unit"),
       },
       {
         title: "Leave Type",
-        key: "menu_master_leavetype",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_leavetype_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_leavetype_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_leavetype_delete",
-          },
-        ],
+        ...crudRole("master_leave_type"),
       },
       {
         title: "User",
-        key: "menu_master_user",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_user_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_user_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_user_delete",
-          },
-        ],
+        ...crudRole("master_user"),
       },
     ],
   },
   {
     title: "Human Resource",
-    key: "menu_hr",
+    key: "role_hr",
     children: [
       {
         title: "Employee",
-        key: "menu_hr_employee",
-        children: [
-          {
-            title: "Create",
-            key: "menu_hr_employee_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_hr_employee_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_hr_employee_delete",
-          },
-        ],
+        ...crudRole("hr_employee"),
       },
     ],
   },
   {
     title: "Staff",
-    key: "menu_staff",
+    key: "role_staff",
     children: [
       {
         title: "Leave Request",
-        key: "menu_staff_employee",
-        children: [
-          {
-            title: "Create",
-            key: "menu_staff_employee_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_staff_employee_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_staff_employee_delete",
-          },
-        ],
+        ...crudRole("staff_leave_request"),
       },
       {
         title: "Purchase Order",
-        key: "menu_staff_po",
-        children: [
-          {
-            title: "Create",
-            key: "menu_staff_po_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_staff_po_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_staff_po_delete",
-          },
-        ],
+        ...crudRole("staff_purchase"),
       },
     ],
   },
   {
     title: "Super Admin",
-    key: "menu_admin",
+    key: "role_admin",
     children: [
       {
-        title: "Leave Request",
-        key: "menu_admin_role",
-        children: [
-          {
-            title: "Create",
-            key: "menu_admin_role_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_admin_role_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_admin_role_delete",
-          },
-        ],
+        title: "Role",
+        ...crudRole("admin_role"),
       },
     ],
   },
   {
     title: "Account",
-    key: "menu_account",
+    key: "role_account",
     children: [
       {
         title: "Update Password",
-        key: "menu_account_password",
-        children: [
-          {
-            title: "Create",
-            key: "menu_master_supplier_create",
-          },
-          {
-            title: "Edit",
-            key: "menu_master_supplier_edit",
-          },
-          {
-            title: "Delete",
-            key: "menu_master_supplier_delete",
-          },
-        ],
+        key: "role_account_password_view",
       },
     ],
   },
 ];
 
-function FormVendor() {
+function FormRole() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
@@ -372,7 +154,9 @@ function FormVendor() {
     try {
       setLoading(true);
 
-      await store(values);
+      const actions = checked.filter(Boolean).join(",");
+
+      await store({ ...values, actions });
 
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
@@ -392,6 +176,7 @@ function FormVendor() {
     setLoadingEdit(true);
 
     form.setFieldsValue(dataEdit);
+
     setChecked(actionsInArr);
 
     setLoadingEdit(false);
@@ -402,6 +187,7 @@ function FormVendor() {
   };
 
   const onCheck: TreeProps["onCheck"] = (checkedKeys, info) => {
+    setChecked(checkedKeys as string[]);
     console.log("onCheck", checkedKeys, info);
   };
 
@@ -410,8 +196,6 @@ function FormVendor() {
       void fetchDataEdit();
     }
   }, []);
-
-  console.log(111111, checked);
 
   return (
     <div>
@@ -453,9 +237,10 @@ function FormVendor() {
             <Form.Item<FormFields>
               label="Actions"
               name="actions"
+              hidden
               rules={fieldRules(["required"])}
             >
-              <Input.TextArea />
+              <Input.TextArea hidden />
             </Form.Item>
 
             <Form.Item<FormFields> label="Description" name="description">
@@ -472,6 +257,7 @@ function FormVendor() {
               defaultCheckedKeys={checked}
               onSelect={onSelect}
               onCheck={onCheck}
+              checkedKeys={checked}
               treeData={treeData}
             />
           </Col>
@@ -483,4 +269,4 @@ function FormVendor() {
   );
 }
 
-export default memo(FormVendor);
+export default memo(FormRole);

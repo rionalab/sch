@@ -1,6 +1,6 @@
-import React, { Suspense } from "react";
-import FormPosition from "@/pages/(dashboard)/master/position/components/form/form";
 import { GuardPage } from "@/c";
+import Form from "@/pages/(dashboard)/master/position/components/form/form";
+import { Suspense } from "react";
 
 interface Props {
   params: {
@@ -8,11 +8,11 @@ interface Props {
   };
 }
 
-function Page({ params }: Props) {
+function Page() {
   return (
-    <GuardPage access="menu_edit_position">
+    <GuardPage access="role_master_position_edit">
       <Suspense fallback={"loading form............... "}>
-        <FormPosition />
+        <Form />
       </Suspense>
     </GuardPage>
   );

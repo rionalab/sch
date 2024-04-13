@@ -1,30 +1,25 @@
 "use client";
 
-import React, { memo, useEffect, useState } from "react";
-import { Col, Typography, Form, Input, Row } from "antd";
-import type { FormFields } from "../../type";
-import { fieldRules } from "@/libs/helpers";
 import { ButtonForm } from "@/c";
-import TableForm from "../table-form";
-import { useGlobalStore } from "@/libs/zustand/StoreProvider";
-import { useAntdContext } from "@/contexts";
-import { useParams, useRouter } from "next/navigation";
-import { store } from "../../action";
 import {
-  notifStoreSuccess,
   notifStoreError,
-  notifUpdateSuccess,
+  notifStoreSuccess,
   notifUpdateError,
-  trueFalseOptions,
+  notifUpdateSuccess,
 } from "@/consts";
+import { useAntdContext } from "@/contexts";
+import { fieldRules } from "@/libs/helpers";
+import { useGlobalStore } from "@/libs/zustand/StoreProvider";
+import { Col, Form, Input, Row, Typography } from "antd";
+import { useParams, useRouter } from "next/navigation";
+import { memo, useEffect, useState } from "react";
+import { store } from "../../action";
+import type { FormFields } from "../../type";
+import TableForm from "../table-form";
 
 const initialValues = {};
 
-interface Props {
-  vendor: any;
-}
-
-function FormVendor({ vendor }: Props) {
+function FormLeave() {
   const { id } = useParams();
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -158,4 +153,4 @@ function FormVendor({ vendor }: Props) {
   );
 }
 
-export default memo(FormVendor);
+export default memo(FormLeave);

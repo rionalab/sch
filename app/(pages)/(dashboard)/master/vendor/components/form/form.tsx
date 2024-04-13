@@ -1,20 +1,20 @@
 "use client";
 
-import React, { memo, useEffect, useState } from "react";
-import { Col, Form, Input, Row, Select } from "antd";
-import { type FormFields } from "../../type";
 import { ButtonForm, LoadingModule } from "@/c";
-import { createVendor, findVendor } from "../../action";
-import { useParams, useRouter } from "next/navigation";
 import {
-  notifStoreSuccess,
   notifStoreError,
-  notifUpdateSuccess,
+  notifStoreSuccess,
   notifUpdateError,
+  notifUpdateSuccess,
   trueFalseOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
+import { Col, Form, Input, Row, Select } from "antd";
+import { useParams, useRouter } from "next/navigation";
+import { memo, useEffect, useState } from "react";
+import { show, store } from "../../action";
+import { type FormFields } from "../../type";
 // import { faker } from "@faker-js/faker";
 
 const initialValues = {
@@ -41,7 +41,7 @@ function FormVendor() {
     try {
       setLoading(true);
 
-      await createVendor(values);
+      await store(values);
 
       api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
       router.back();
@@ -56,7 +56,7 @@ function FormVendor() {
 
   const fetchDataEdit = async () => {
     setLoadingEdit(true);
-    const dataEdit = await findVendor(Number(id));
+    const dataEdit = await show(Number(id));
     form.setFieldsValue(dataEdit);
     setLoadingEdit(false);
   };

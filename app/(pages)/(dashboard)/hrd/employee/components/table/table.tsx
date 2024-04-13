@@ -1,13 +1,12 @@
 "use client";
 
-import React from "react";
-import type { ColumnsType } from "antd/es/table";
-import { type Employee } from "../../type";
 import { DataTable } from "@/c";
-import { columns } from "./columns";
-import { destroy } from "../../action";
-import { useTable } from "@/hooks/useTable";
 import useRole from "@/hooks/useRole";
+import { useTable } from "@/hooks/useTable";
+import type { ColumnsType } from "antd/es/table";
+import { destroy } from "../../action";
+import { type Employee } from "../../type";
+import { columns } from "./columns";
 import LeaveEntitlement from "./leave-entitlement";
 
 interface Props {
@@ -17,7 +16,7 @@ interface Props {
 type DtColumns = ColumnsType<Record<string, any>>;
 
 function Table({ rows }: Props) {
-  const { allowDelete, allowCreate, allowEdit } = useRole("employee");
+  const { allowDelete, allowCreate, allowEdit } = useRole("hr_employee");
   const tableProps = useTable<Employee>({ rows });
 
   return (

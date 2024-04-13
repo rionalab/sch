@@ -1,12 +1,11 @@
 "use client";
 
-import React from "react";
-import type { ColumnsType } from "antd/es/table";
 import { DataTable } from "@/c";
-import { columns } from "./columns";
-import { destroy } from "../../action";
-import { useTable } from "@/hooks/useTable";
 import useRole from "@/hooks/useRole";
+import { useTable } from "@/hooks/useTable";
+import type { ColumnsType } from "antd/es/table";
+import { destroy } from "../../action";
+import { columns } from "./columns";
 
 interface Props {
   rows: any[];
@@ -15,7 +14,7 @@ interface Props {
 type DtColumns = ColumnsType<Record<string, any>>;
 
 function Table({ rows }: Props) {
-  const { allowDelete, allowCreate, allowEdit } = useRole("vendor");
+  const { allowDelete, allowCreate, allowEdit } = useRole("master_supplier");
   const tableProps = useTable<any[]>({ rows });
 
   return (

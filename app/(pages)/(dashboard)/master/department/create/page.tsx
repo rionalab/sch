@@ -4,7 +4,7 @@ import { GuardPage } from "@/c";
 
 function Page() {
   return (
-    <GuardPage access="menu_create_department">
+    <GuardPage access="role_master_department_create">
       <Form />
     </GuardPage>
   );

@@ -1,14 +1,14 @@
-import React, { Suspense } from "react";
-import FormVendor from "../../components/form/form";
 import { GuardPage, LoadingModule } from "@/c";
+import { Suspense } from "react";
+import FormVendor from "../../components/form/form";
 
 function Page() {
   return (
-    <Suspense fallback={<LoadingModule />}>
-      <GuardPage access="menu_edit_leaveRequest">
+    <GuardPage access="role_staff_purchase_edit">
+      <Suspense fallback={<LoadingModule />}>
         <FormVendor />
-      </GuardPage>
-    </Suspense>
+      </Suspense>
+    </GuardPage>
   );
 }
 
