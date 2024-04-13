@@ -2,10 +2,9 @@
 
 import { Avatar } from "@/c";
 import useToggle from "@/hooks/usePopup";
-import React from "react";
 import { Modal } from "antd";
-import TableDetail from "./table-detail";
 import type { Employee } from "../../type";
+import TableDetail from "./table-detail";
 
 interface Props {
   image: string;
@@ -23,7 +22,7 @@ function ModalDetail({ image, row, title }: Props) {
         closeIcon={false}
         open={status}
         cancelText="Close"
-        width={700}
+        width={900}
         onCancel={setFalse}
       >
         <TableDetail data={row} />
