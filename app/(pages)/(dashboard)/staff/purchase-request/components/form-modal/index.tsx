@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import React, { useEffect } from "react";
-import { Col, Typography, InputNumber, Form, Input, Row, Select } from "antd";
 import { ButtonForm, LoadingModule } from "@/c";
-import type { FormPurchaseItemFields as FormFields } from "../../type";
-import { fieldRules, selectOptions } from "@/libs/helpers";
-import useData from "@/hooks/useData";
-import { useGlobalStore } from "@/libs/zustand/StoreProvider";
-import { faker } from "@faker-js/faker";
-import { useAntdContext } from "@/contexts";
 import { notifStoreError } from "@/consts";
+import { useAntdContext } from "@/contexts";
+import useData from "@/hooks/useData";
+import { fieldRules, selectOptions } from "@/libs/helpers";
+import { useGlobalStore } from "@/libs/zustand/StoreProvider";
+import { Col, Form, Input, InputNumber, Row, Select, Typography } from "antd";
+import { useEffect } from "react";
+import type { FormPurchaseItemFields as FormFields } from "../../type";
 
 const initialValues = {
   // name: faker.person.fullName(),
@@ -29,7 +28,7 @@ function FormModal({ closeModal, idEdit }: Props) {
   const {
     loading,
     data: { inventory },
-  } = useData(["inventory"]);
+  } = useData(["master_inventory"]);
   const { setPurchaseRequestItem, purchaseRequestItem } = useGlobalStore(
     (state: any) => state,
   );
@@ -43,10 +42,6 @@ function FormModal({ closeModal, idEdit }: Props) {
       api?.error(notifStoreError("Item already exist"));
       return;
     }
-
-    console.log(111111111111111);
-    console.log(inventory);
-    console.log(values);
 
     const name = inventory?.find(
       (row) => row.id === Number(values.inventoryId),

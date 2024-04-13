@@ -1,10 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-import dayjs from "dayjs";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import dayjs from "dayjs";
 
 const generateAction = (key: string) => {
-  return [`role_${key}_view`, `role_edit_${key}`, `role_create_${key}`].join(", ");
+  return [`role_${key}_view`, `role_edit_${key}`, `role_create_${key}`].join(
+    ", ",
+  );
 };
 
 const remarks =
@@ -110,17 +112,20 @@ async function main() {
         name: "None",
         description: "none",
         active: true,
+        budget: 0,
       },
       {
         code: "TI",
         name: "TI",
         description: "TI",
+        budget: 20000000,
         active: true,
       },
       {
         code: "GA",
         name: "GA",
         description: "General Affair",
+        budget: 30000000,
         active: true,
       },
     ],

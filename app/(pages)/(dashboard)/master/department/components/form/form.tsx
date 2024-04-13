@@ -1,14 +1,14 @@
 "use client";
 
-import React, { memo, useEffect, useState } from "react";
-import { Col, Form, Input, Row, Select } from "antd";
-import { type FormFields } from "../../type";
-import { store, show } from "../../action";
-import { useParams, useRouter } from "next/navigation";
+import { ButtonForm, LoadingModule } from "@/c";
 import * as notif from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
-import { ButtonForm, LoadingModule } from "@/c";
+import { Col, Form, Input, InputNumber, Row, Select } from "antd";
+import { useParams, useRouter } from "next/navigation";
+import { memo, useEffect, useState } from "react";
+import { show, store } from "../../action";
+import { type FormFields } from "../../type";
 
 const initialValues = {
   active: true,
@@ -88,6 +88,14 @@ function FormVendor() {
               rules={fieldRules(["required"])}
             >
               <Input />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Budget"
+              name="budget"
+              rules={fieldRules(["required"])}
+            >
+              <InputNumber style={{ width: "50%" }} />
             </Form.Item>
 
             <Form.Item<FormFields>

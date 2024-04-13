@@ -1,23 +1,23 @@
 "use client";
 
-import React, { memo, useEffect, useState } from "react";
-import { Button, Col, Form, Input, Row, Select, Space } from "antd";
-import { type FormFields } from "../../type";
 import { ButtonForm, LoadingModule } from "@/c";
-import { store, show } from "../../action";
-import { useParams, useRouter } from "next/navigation";
 import {
-  notifStoreSuccess,
   notifStoreError,
-  notifUpdateSuccess,
+  notifStoreSuccess,
   notifUpdateError,
-  userTypeOptions,
+  notifUpdateSuccess,
   trueFalseOptions,
+  userTypeOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
+import useData from "@/hooks/useData";
 import { fieldRules, randomString, selectOptions } from "@/libs/helpers";
 import { SyncOutlined } from "@ant-design/icons";
-import useData from "@/hooks/useData";
+import { Button, Col, Form, Input, Row, Select, Space } from "antd";
+import { useParams, useRouter } from "next/navigation";
+import { memo, useEffect, useState } from "react";
+import { show, store } from "../../action";
+import { type FormFields } from "../../type";
 
 const initialValues = {
   roleAccess: userTypeOptions[0].value,
@@ -42,7 +42,7 @@ function FormUser({ roles = [] }: Props) {
   const {
     loading: loadingData,
     data: { role, department },
-  } = useData(["department", "role"]);
+  } = useData(["master_department", "admin_role"]);
 
   const onFinish = async (values: FormFields): Promise<void> => {
     const isEdit = values.id;

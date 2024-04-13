@@ -4,4 +4,5 @@ export interface FormFields {
   description: string;
   code: string;
   active: boolean;
+  budget: number;
 }

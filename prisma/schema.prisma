@@ -304,6 +304,7 @@ model Department {
   code            String            @unique
   active          Boolean           @default(true)
   description     String?
+  budget          BigInt            @default(0)
   Inventory       Inventory[]
   roleAccess      String?
   createdAt       DateTime          @default(now())
