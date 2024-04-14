@@ -46,6 +46,14 @@ const crudRole = (id: string) => {
         title: "Delete",
         key: "role_" + id + "_delete",
       },
+      ...(id === "staff_purchase"
+        ? [
+            {
+              title: "Approve",
+              key: "role_" + id + "_approve",
+            },
+          ]
+        : []),
     ],
   };
 };

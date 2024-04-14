@@ -6,6 +6,7 @@ function useRole(moduleName: ModuleName) {
     allowEdit: false,
     allowDelete: false,
     allowCreate: false,
+    allowApprove: false,
   });
 
   useEffect(() => {
@@ -15,6 +16,7 @@ function useRole(moduleName: ModuleName) {
       allowEdit: Boolean(actions?.includes(`role_${moduleName}_edit`)),
       allowDelete: Boolean(actions?.includes(`role_${moduleName}_delete`)),
       allowCreate: Boolean(actions?.includes(`role_${moduleName}_create`)),
+      allowApprove: Boolean(actions?.includes(`role_${moduleName}_approve`)),
     });
   }, []);
 

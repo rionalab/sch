@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/return-await */
 "use server";
 
+import { auth } from "@/app/api/auth/[...nextauth]/options";
 import { urls } from "@/consts";
+import { code, handlePrismaError, today } from "@/libs/helpers";
 import prisma from "@/libs/prisma";
+import type { UserSession } from "@/types";
 import { revalidatePath } from "next/cache";
 import { type FormFields } from "./type";
-import { code, handlePrismaError, today } from "@/libs/helpers";
-import { auth } from "@/app/api/auth/[...nextauth]/options";
-import type { UserSession } from "@/types";
 
 const urlToRevalidate = urls.staff.purchaseRequest.index;
 
@@ -22,6 +22,28 @@ export async function index() {
     const department = await prisma.department.findFirst({
       where: {
         name: "TI",
+      },
+    });
+
+    return await prisma.purchaseRequest.findMany({
+      where: {
+        departmentId: department?.id,
+      },
+      include: {
+        department: true,
+        items: {
+          include: {
+            inventory: true,
+          },
+        },
+      },
+    });
+  }
+
+  if (user.role.name === "ManagerGeneralAffair") {
+    const department = await prisma.department.findFirst({
+      where: {
+        name: "GA",
       },
     });
 
@@ -61,6 +83,8 @@ export async function store(data: FormFields & { purchaseRequestItem: any[] }) {
 
     const rows = await prisma.purchaseRequest.findMany();
 
+    const nextCode = await prisma.purchaseRequest.nexttCode();
+
     const items = data.purchaseRequestItem.map((row) => {
       const { key, name, id, ...rest } = row;
 
@@ -73,7 +97,7 @@ export async function store(data: FormFields & { purchaseRequestItem: any[] }) {
     });
 
     const pr = {
-      code: code("PR", rows.length + 1),
+      code: code("PR", nextCode || 1),
       requesterId: Number(user.id),
       approverId: Number(user.id),
       departmentId: Number(user.department.id),
@@ -119,9 +143,33 @@ export async function show(id: number) {
 
 export async function destroy(id: number) {
   try {
-    await prisma.purchaseRequest.softDelete({
-      id,
+    await prisma.purchaseRequestItem.deleteMany({
+      where: {
+        purchaseRequestId: id,
+      },
     });
+
+    await prisma.purchaseRequest.delete({
+      where: {
+        id,
+      },
+    });
+
+    revalidatePath(urlToRevalidate);
+  } catch (e: any) {
+    throw new Error(String(e?.message) ?? "");
+  }
+}
+
+export async function approve(id: number) {
+  try {
+    const result = await prisma.purchaseRequest.update({
+      where: { id: Number(id) },
+      data: {
+        status: "approved",
+      },
+    });
+
     revalidatePath(urlToRevalidate);
   } catch (e: any) {
     throw new Error(String(e?.message) ?? "");

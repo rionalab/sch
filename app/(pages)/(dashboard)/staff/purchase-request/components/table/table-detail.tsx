@@ -1,8 +1,4 @@
-import React from "react";
-import { c } from "@/libs/helpers";
 import { Table } from "antd";
-import { useSession } from "next-auth/react";
-import { auth } from "@/app/api/auth/[...nextauth]/options";
 
 interface Props {
   data?: any[];
@@ -11,6 +7,7 @@ interface Props {
 const columns = [
   {
     title: "Name",
+    key: "name",
     dataIndex: "name",
     render: (v: any, w: any) => {
       return w?.inventory?.name ?? "-";
@@ -22,6 +19,7 @@ const columns = [
   //   render: (v: any, w: any) => c(v),
   // },
   {
+    key: "quantity",
     title: "Quantity",
     dataIndex: "quantity",
     render: (v: any, w: any) => {
@@ -34,6 +32,7 @@ const columns = [
   //   render: (v: any, w: any) => c(w.unitPrice * w.quantity),
   // },
   {
+    key: "remarks",
     title: "Remarks",
     ellipsis: true,
     dataIndex: "remarks",

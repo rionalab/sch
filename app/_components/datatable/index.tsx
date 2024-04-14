@@ -1,10 +1,10 @@
 "use client";
 
-import React from "react";
-import { Table } from "antd";
-import type { ColumnsType, TableProps } from "antd/es/table";
 import { TableAction, TableToolbar, Tag } from "@/c";
 import { type TableActions } from "@/types";
+import { Table } from "antd";
+import type { ColumnsType, TableProps } from "antd/es/table";
+import React from "react";
 
 interface AntdProps<T> extends TableProps<T> {}
 
@@ -15,6 +15,7 @@ interface Props<T> {
   search?: boolean;
   download?: boolean;
   actions?: TableActions;
+  actionsRender?: (text: string, record: Record<string, any>) => void;
   antdProps?: AntdProps<T>;
   filter?: boolean;
   create?: boolean;
@@ -29,6 +30,7 @@ export function DataTable<T>(props: Props<T>) {
     filter = false,
     create = true,
     columns,
+    actionsRender,
     antdProps = {},
     handleSearch,
     download = false,
@@ -65,14 +67,21 @@ export function DataTable<T>(props: Props<T>) {
       : []),
   ];
 
-  if (keyActions.length) {
-    tableColumns.push({
+  if (keyActions.length || actionsRender) {
+    const actionColumn = {
       title: "Action",
-      align: "center",
+      align: "right",
       fixed: "right",
       width: 130,
-      render: (a, b) => <TableAction<T> row={b as T} id={b.id} {...actions} />,
-    });
+      render:
+        actionsRender ||
+        ((text, record) => (
+          <TableAction<T> row={record as T} id={record.id} {...actions} />
+        )),
+    };
+
+    // @ts-expect-error asd
+    tableColumns.push(actionColumn);
   }
 
   return (

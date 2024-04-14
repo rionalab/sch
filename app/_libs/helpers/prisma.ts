@@ -1,7 +1,7 @@
 import { messages } from "@/consts";
-import dayjs from "dayjs";
-import { Prisma } from "@prisma/client";
 import { type ModuleCode } from "@/types";
+import { Prisma } from "@prisma/client";
+import dayjs from "dayjs";
 
 const d = {
   Position: {
@@ -13,13 +13,15 @@ const d = {
 } as const;
 
 export function handlePrismaError(e: any) {
-  console.clear();
-  console.log("11111 #####################");
-  console.log(1, e?.code);
-  console.log(2, e?.meta?.cause);
-  console.log(3, e?.meta);
-  console.log(4, e);
-  console.log("22222 #####################");
+  if (false) {
+    console.clear();
+    console.log("11111 #####################");
+    console.log(1, e?.code);
+    console.log(2, e?.meta?.cause);
+    console.log(3, e?.meta);
+    console.log(4, e);
+    console.log("22222 #####################");
+  }
 
   const isPrismaError = e instanceof Prisma.PrismaClientKnownRequestError;
 

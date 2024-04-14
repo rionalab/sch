@@ -3,7 +3,7 @@ import { ButtonForm, LoadingModule } from "@/c";
 import { notifStoreError } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import useData from "@/hooks/useData";
-import { fieldRules, selectOptions } from "@/libs/helpers";
+import { fieldRules } from "@/libs/helpers";
 import { useGlobalStore } from "@/libs/zustand/StoreProvider";
 import { Col, Form, Input, InputNumber, Row, Select, Typography } from "antd";
 import { useEffect } from "react";
@@ -14,7 +14,7 @@ const initialValues = {
   // unitPrice: 100,
   // quantity: 2,
   // uomId: "1|bh",
-  // remarks: "this is remakrs",
+  remarks: " ",
 };
 
 interface Props {
@@ -29,6 +29,12 @@ function FormModal({ closeModal, idEdit }: Props) {
     loading,
     data: { inventory },
   } = useData(["master_inventory"]);
+
+  const inventoryOpts = inventory?.map((opt) => ({
+    label: `${opt.name} (${opt.code})`,
+    value: opt.id,
+  }));
+
   const { setPurchaseRequestItem, purchaseRequestItem } = useGlobalStore(
     (state: any) => state,
   );
@@ -93,10 +99,7 @@ function FormModal({ closeModal, idEdit }: Props) {
               name="inventoryId"
               rules={fieldRules(["required"])}
             >
-              <Select
-                loading={loading}
-                options={selectOptions(inventory, "name", "id")}
-              />
+              <Select loading={loading} options={inventoryOpts} />
             </Form.Item>
 
             {/* <Form.Item<FormFields>
@@ -123,11 +126,7 @@ function FormModal({ closeModal, idEdit }: Props) {
               <InputNumber min={1} />
             </Form.Item>
 
-            <Form.Item<FormFields>
-              label="Remarks"
-              name="remarks"
-              rules={fieldRules(["required"])}
-            >
+            <Form.Item<FormFields> label="Remarks" name="remarks">
               <Input.TextArea />
             </Form.Item>
           </Col>

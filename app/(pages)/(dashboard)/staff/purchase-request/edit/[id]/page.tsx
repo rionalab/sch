@@ -1,12 +1,12 @@
 import { GuardPage, LoadingModule } from "@/c";
 import { Suspense } from "react";
-import FormVendor from "../../components/form/form";
+import Form from "../../components/form/form";
 
-function Page() {
+async function Page() {
   return (
     <GuardPage access="role_staff_purchase_edit">
       <Suspense fallback={<LoadingModule />}>
-        <FormVendor />
+        <Form />
       </Suspense>
     </GuardPage>
   );

@@ -17,7 +17,6 @@ export const columns = (): ColumnsType<Prisma.PurchaseRequestCreateInput> => {
       title: "Code",
       dataIndex: "code",
       render: (v, w: Prisma.PurchaseRequestCreateInput) => {
-        console.log(w);
         return (
           <>
             <ModalDetail code={w.code} items={w.items as any[]} label={v} />
@@ -50,10 +49,9 @@ export const columns = (): ColumnsType<Prisma.PurchaseRequestCreateInput> => {
 
     {
       title: "Total",
-      // align: "right",
       width: 150,
       render: (v, w: Prisma.PurchaseRequestCreateInput) => {
-        if (w.status === "pending") {
+        if (w.status === "pending" || w.status === "approved") {
           return "-";
         }
 
@@ -80,8 +78,8 @@ export const columns = (): ColumnsType<Prisma.PurchaseRequestCreateInput> => {
       width: 150,
       title: "payment",
       dataIndex: "payment",
-      render: (v, row) => {
-        if (row.status === "pending") {
+      render: (v, w) => {
+        if (w.status === "pending" || w.status === "approved") {
           return "-";
         }
 
@@ -92,8 +90,8 @@ export const columns = (): ColumnsType<Prisma.PurchaseRequestCreateInput> => {
       width: 180,
       title: "purchase date",
       dataIndex: "purchaseDate",
-      render: (v, row) => {
-        if (row.status === "pending") {
+      render: (v, w) => {
+        if (w.status === "pending" || w.status === "approved") {
           return "-";
         }
 
@@ -104,8 +102,8 @@ export const columns = (): ColumnsType<Prisma.PurchaseRequestCreateInput> => {
       width: 180,
       title: "Delivery date",
       dataIndex: "deliveryDate",
-      render: (v, row) => {
-        if (row.status === "pending") {
+      render: (v, w) => {
+        if (w.status === "pending" || w.status === "approved") {
           return "-";
         }
 
