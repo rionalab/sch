@@ -1,11 +1,10 @@
 "use client";
 
-import { Button, Modal } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
-import FormPurchasedItem from "../form-modal";
 import type { VoidMethod } from "@/types";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Modal } from "antd";
 import type { Dispatch, SetStateAction } from "react";
-import { useGlobalStore } from "@/libs/zustand/StoreProvider";
+import FormPurchasedItem from "../form-modal";
 
 interface Props {
   status: boolean;

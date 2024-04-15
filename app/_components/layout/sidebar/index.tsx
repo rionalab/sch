@@ -236,32 +236,33 @@ export function Sidebar() {
         roleActions?.includes("role_hr_employee_view");
       const willShowStaff =
         menu.key === "role_staff" &&
-        (roleActions?.includes("role_staff_purchase_view") ||
+        (roleActions?.includes("role_staff_purchase_view") ??
           roleActions?.includes("role_staff_leave_request_view"));
       const willShowAdmin =
         menu.key === "role_admin" &&
         roleActions?.includes("role_admin_role_view");
       const willShowMaster =
         menu.key === "role_master" &&
-        (roleActions?.includes("role_master_supplier_view") ||
-          roleActions?.includes("role_master_department_view") ||
-          roleActions?.includes("role_master_uom_view") ||
-          roleActions?.includes("role_master_inventory_view") ||
-          roleActions?.includes("role_master_position_view") ||
-          roleActions?.includes("role_master_student_act_view") ||
-          roleActions?.includes("role_master_workunit_view") ||
-          roleActions?.includes("role_master_leavetype_view") ||
+        (roleActions?.includes("role_master_supplier_view") ??
+          roleActions?.includes("role_master_department_view") ??
+          roleActions?.includes("role_master_uom_view") ??
+          roleActions?.includes("role_master_inventory_view") ??
+          roleActions?.includes("role_master_position_view") ??
+          roleActions?.includes("role_master_student_act_view") ??
+          roleActions?.includes("role_master_workunit_view") ??
+          roleActions?.includes("role_master_leavetype_view") ??
           roleActions?.includes("role_master_user_view"));
 
       if (
-        roleActions?.includes(key) ||
-        willShowStaff ||
-        willShowAdmin ||
-        willShowHr ||
+        roleActions?.includes(key) ??
+        willShowStaff ??
+        willShowAdmin ??
+        willShowHr ??
         willShowMaster
       ) {
         return {
           ...menu,
+          // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
           children: checkChildren(menu.children, roleActions!),
         };
       }

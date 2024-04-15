@@ -85,7 +85,6 @@ const initialValues: Partial<Employee> = {
   remarks: faker.lorem.words(10),
 };
 
-const initialValues2 = {};
 interface Props {
   positions: Position[];
 }

@@ -83,6 +83,7 @@ function FormLeave() {
       <Form
         name="basic"
         onFieldsChange={handleChange}
+        disabled={loading}
         labelCol={{ span: 4 }}
         wrapperCol={{ span: 16 }}
         initialValues={{ ...initialValues, id }}

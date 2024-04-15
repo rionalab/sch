@@ -2,12 +2,6 @@ import { GuardPage } from "@/c";
 import Form from "@/pages/(dashboard)/master/position/components/form/form";
 import { Suspense } from "react";
 
-interface Props {
-  params: {
-    id: string;
-  };
-}
-
 function Page() {
   return (
     <GuardPage access="role_master_position_edit">

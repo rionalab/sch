@@ -1,49 +1,28 @@
+// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Layout, Avatar, Skeleton } from "antd";
-import {
-  UserOutlined,
-  FolderOutlined,
-  FileOutlined,
-  DeploymentUnitOutlined,
-  AppstoreAddOutlined,
-  HomeOutlined,
-  DollarCircleOutlined,
-  SolutionOutlined,
-  // FileProtectOutlined,
-  UsergroupAddOutlined ,
-  // BarcodeOutlined,
-  // BulbOutlined,
-  // FileSearchOutlined,
-  // AuditOutlined,
-  // BookOutlined,
-  // DollarOutlined,
-  // FileDoneOutlined,
-  // FileAddOutlined,
-  // EditOutlined,
-  // FileTextOutlined,
-  // WalletOutlined,
-  // ClockCircleOutlined,
-  // NotificationOutlined,
-  // SkinOutlined,
-  // DownloadOutlined,
-  // TeamOutlined,
-  // ProfileOutlined,
-  // GlobalOutlined,
-  // ContainerOutlined,
-  // BankOutlined,
-} from "@ant-design/icons";
-import Link from "next/link";
-import Image from "next/image";
-import styles from "./styles.module.scss";
 import { urls } from "@/consts";
-import type { ItemType, MenuItemType } from "antd/es/menu/hooks/useItems";
-import { usePathname, useRouter } from "next/navigation";
+import {
+  AppstoreAddOutlined,
+  DeploymentUnitOutlined,
+  DollarCircleOutlined,
+  FileOutlined,
+  FolderOutlined,
+  HomeOutlined,
+  SolutionOutlined,
+  UserOutlined,
+  // FileProtectOutlined,
+  UsergroupAddOutlined,
+} from "@ant-design/icons";
+import { Layout, Skeleton } from "antd";
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
+import styles from "./styles.module.scss";
 
 const { Sider } = Layout;
-
-const avatarSize = 100;
 
 export function SidebarAdm() {
   const menus = [
@@ -320,6 +299,7 @@ export function SidebarAdm() {
         {finalMenus.map((menu, i) => {
           return (
             <Link
+              // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
               className={pathname.includes(menu.key) ? styles.active : ""}
               key={menu.key}
               href={menu.href}

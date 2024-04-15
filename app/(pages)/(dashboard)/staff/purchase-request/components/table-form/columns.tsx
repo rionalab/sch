@@ -1,8 +1,6 @@
-import { c } from "@/libs/helpers";
-import DeleteButton from "./DeleteButton";
-import EditButton from "./EditButton";
 import { type VoidMethod } from "@/types";
 import type { Dispatch, SetStateAction } from "react";
+import DeleteButton from "./DeleteButton";
 
 interface ColumnsParams {
   setTrue: VoidMethod;

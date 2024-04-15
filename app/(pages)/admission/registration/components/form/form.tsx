@@ -1,50 +1,37 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import {
-  DatePicker,
-  Col,
-  Form,
-  Input,
-  Row,
-  Typography,
-  Select,
-  Button,
-  Upload,
-  message,
-} from "antd";
-import { RegStatus, type Employee, type FormFields } from "../../type";
-import {
-  fieldRules,
-  prismaToForm,
-  selectOptions,
-  today,
-  tomorrow,
-} from "@/libs/helpers";
+import { imageUploadType } from "@/app/_consts/file";
+import { ButtonForm, LoadingModule } from "@/c";
 import {
   bloodTypeOptions,
-  contractStatusOption,
-  degreeOptions,
   employeeUnitOptions,
   genderOptions,
-  maritalStatusOptions,
   notifStoreError,
-  notifStoreSuccess,
   notifUpdateError,
-  notifUpdateSuccess,
   religionOptions,
   studentTransportationOptions,
 } from "@/consts";
-import { UploadOutlined } from "@ant-design/icons";
-import { useParams, useRouter } from "next/navigation";
 import { useAntdContext } from "@/contexts";
-import { store, show } from "../../action";
+import { fieldRules, prismaToForm, today, tomorrow } from "@/libs/helpers";
+import { UploadOutlined } from "@ant-design/icons";
 import { faker } from "@faker-js/faker";
-import { submitEmployeeData } from "./model";
-import { ButtonForm, ButtonBack, LoadingModule } from "@/c";
-import type { Position } from "@/pages/(dashboard)/master/position/type";
-import { imageUploadType } from "@/app/_consts/file";
 import type { UploadFile } from "antd";
+import {
+  Button,
+  Col,
+  DatePicker,
+  Form,
+  Input,
+  Row,
+  Select,
+  Typography,
+  Upload,
+  message,
+} from "antd";
+import { useParams } from "next/navigation";
+import { useEffect, useState } from "react";
+import { show } from "../../action";
+import { type Employee, type FormFields, type RegStatus } from "../../type";
 
 const initialValues: Partial<Employee> = {
   status: "new",
@@ -89,18 +76,11 @@ const initialValues: Partial<Employee> = {
   remarks: faker.lorem.words(10),
 };
 
-const initialValues2 = {};
-interface Props {
-  positions: Position[];
-}
-
-function FormStudent(props: Props) {
-  const { positions } = props;
+function FormStudent() {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const { api } = useAntdContext();
   const { id } = useParams();
-  const router = useRouter();
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [showTransferFields, setShowTransferFields] = useState(false);
   const [fileList, setFileList] = useState<UploadFile[]>([]);
@@ -108,17 +88,14 @@ function FormStudent(props: Props) {
   const handleFormChange = (changedValues: any, allValues: any) => {};
 
   const onFinish = async (values: FormFields) => {
-    alert("submitted")
-    return 
-    
     const isEdit = values.id;
-
     try {
+      alert("submitted");
       setLoading(true);
-      // @ts-expect-error mgkin harus pake generic
-      await store(await submitEmployeeData({ ...values, photo: fileList[0] }));
-      api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
-      router.back();
+      //   // @ts-expect-error mgkin harus pake generic
+      //   await store(await submitEmployeeData({ ...values, photo: fileList[0] }));
+      //   api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
+      //   router.back();
     } catch (e: any) {
       const msg = String(e.message);
       api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));
@@ -152,18 +129,17 @@ function FormStudent(props: Props) {
     }
   }, []);
 
-  const x = form.getFieldsValue();
-
-  const onStatusChange = (v: RegStatus)=> {
+  const onStatusChange = (v: RegStatus) => {
     setShowTransferFields(v === "transfer");
-  }
+  };
 
   return (
     <div>
       {loadingEdit && <LoadingModule />}
       <Form
         name="basic"
-        labelCol={{ span: 8 }}    labelWrap
+        labelCol={{ span: 8 }}
+        labelWrap
         className={loadingEdit ? "dNone" : ""}
         // wrapperCol={{ span: 24 }}
         initialValues={{ ...initialValues, id }}
@@ -185,8 +161,7 @@ function FormStudent(props: Props) {
         <Typography.Title level={5}>General Information</Typography.Title>
         <br />
         <Row gutter={24}>
-          <Col  span={10}>
-           
+          <Col span={10}>
             <Form.Item<FormFields>
               label="Regis. Date"
               name="hireDate"
@@ -196,69 +171,51 @@ function FormStudent(props: Props) {
             </Form.Item>
             <Form.Item<FormFields> label="Unit" name="unit">
               <Select options={employeeUnitOptions} />
-            </Form.Item> 
+            </Form.Item>
           </Col>
           <Col span={2}></Col>
           <Col span={10}>
-            <Form.Item<FormFields>
-              label="Status"
-              name="status"
-            >
+            <Form.Item<FormFields> label="Status" name="status">
               <Select
-                       onChange={onStatusChange}
-                       options={[
+                onChange={onStatusChange}
+                options={[
                   {
-                    label: "New", value: "new"
+                    label: "New",
+                    value: "new",
                   },
                   {
-                    label: "Transfer", value: "transfer"
+                    label: "Transfer",
+                    value: "transfer",
                   },
                 ]}
               />
             </Form.Item>
 
-            {
-              showTransferFields && (
-<>
-
+            {showTransferFields && (
+              <>
                 <Form.Item<FormFields>
                   label="NISN"
                   name="nisn"
                   rules={fieldRules(["required"])}
-              >
-                <Input />
-              </Form.Item>
+                >
+                  <Input />
+                </Form.Item>
 
-              <Form.Item<FormFields>
-              label="Old Sch Name"
-              name="oldSchoolName"
- 
-            >
-              <Input />
-            </Form.Item>
+                <Form.Item<FormFields>
+                  label="Old Sch Name"
+                  name="oldSchoolName"
+                >
+                  <Input />
+                </Form.Item>
 
-
-            <Form.Item<FormFields>
-              label="Old Sch Address"
-              name="oldSchoolAddress"
-      
-            >
-              <Input.TextArea />
-            </Form.Item>
-
-
-
-                  </>
-
-
-              )
-            }
-
-        
-
-
-           
-       
+                <Form.Item<FormFields>
+                  label="Old Sch Address"
+                  name="oldSchoolAddress"
+                >
+                  <Input.TextArea />
+                </Form.Item>
+              </>
+            )}
           </Col>
         </Row>
         <br />
@@ -337,20 +294,23 @@ function FormStudent(props: Props) {
                 <Button icon={<UploadOutlined />}>Click to upload</Button>
               </Upload>
             </Form.Item>
-          
           </Col>
           <Col span={2}></Col>
 
           <Col span={10}>
-            
             <Form.Item<FormFields> label="Nationality" name="nationality">
-              <Select options={[{
-                label: "Indonesian", value: "indonesian"
-              },
-              {
-                label: "Other", value: "other"
-              }
-              ]} />
+              <Select
+                options={[
+                  {
+                    label: "Indonesian",
+                    value: "indonesian",
+                  },
+                  {
+                    label: "Other",
+                    value: "other",
+                  },
+                ]}
+              />
             </Form.Item>
 
             <Form.Item<FormFields>
@@ -370,7 +330,7 @@ function FormStudent(props: Props) {
             <Form.Item<FormFields> label="Tribe" name="tribe">
               <Input />
             </Form.Item>
-           
+
             <Form.Item<FormFields>
               label="Spoken Langs."
               name="languages"
@@ -415,7 +375,6 @@ function FormStudent(props: Props) {
           </Col>
         </Row>
         <br />
-        
 
         <ButtonForm loading={loading} />
       </Form>

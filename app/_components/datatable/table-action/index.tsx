@@ -115,12 +115,16 @@ export function TableAction<T>(props: Props<T>) {
         open={modalApprove.status}
         width={400}
         closable={false}
-        onCancel={() => modalApprove.setFalse()}
+        onCancel={() => {
+          modalApprove.setFalse();
+        }}
         footer={[
           <Button
             key="back"
             disabled={loading}
-            onClick={() => modalApprove.setFalse()}
+            onClick={() => {
+              modalApprove.setFalse();
+            }}
           >
             Cancel
           </Button>,

@@ -1,8 +1,4 @@
-import { create, createStore } from "zustand";
-import { createFishSlice } from "./slices/fishSlice";
-import { createBearSlice } from "./slices/bearSlice";
-import { createUserSlice } from "./slices/userSlice";
-import type { CombinedSlicesType } from "@/types";
+import { createStore } from "zustand";
 
 // export const useBoundStore = create<CombinedSlicesType>((...a) => ({
 //   ...createFishSlice(...a),

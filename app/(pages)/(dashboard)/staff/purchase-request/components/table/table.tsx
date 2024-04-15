@@ -4,7 +4,7 @@ import { DataTable, TableAction } from "@/c";
 import useRole from "@/hooks/useRole";
 import { useTable } from "@/hooks/useTable";
 import { clg } from "@/libs/helpers";
-import { UserSession } from "@/types";
+import type { UserSession } from "@/types";
 import type { ColumnsType } from "antd/es/table";
 import { useSession } from "next-auth/react";
 import { approve, destroy } from "../../action";
