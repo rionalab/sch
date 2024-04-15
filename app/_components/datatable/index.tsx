@@ -74,7 +74,7 @@ export function DataTable<T>(props: Props<T>) {
       fixed: "right",
       width: 130,
       render:
-        actionsRender ||
+        actionsRender ??
         ((text, record) => (
           <TableAction<T> row={record as T} id={record.id} {...actions} />
         )),

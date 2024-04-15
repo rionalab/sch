@@ -13,6 +13,7 @@ const d = {
 } as const;
 
 export function handlePrismaError(e: any) {
+  // eslint-disable-next-line no-constant-condition
   if (false) {
     console.clear();
     console.log("11111 #####################");

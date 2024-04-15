@@ -1,10 +1,10 @@
 "use client";
 
 /* eslint-disable @typescript-eslint/no-floating-promises */
-import React, { useState } from "react";
 import { UploadOutlined } from "@ant-design/icons";
-import { Button, message, Upload } from "antd";
 import type { UploadFile, UploadProps } from "antd";
+import { Button, Upload } from "antd";
+import React, { useState } from "react";
 import { uploadRicky } from "./action";
 
 // type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];

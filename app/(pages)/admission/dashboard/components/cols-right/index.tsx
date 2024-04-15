@@ -1,7 +1,5 @@
 import Image from "next/image";
-import React from "react";
 import styles from "./styles.module.scss";
-import { Avatar } from "antd";
 
 function ColsRight() {
   return (

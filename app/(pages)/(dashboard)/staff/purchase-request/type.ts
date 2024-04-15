@@ -10,6 +10,10 @@ export interface FormFields {
   active: boolean;
   vendorId: number;
   approverId: number;
+  dateFrom: string;
+  dateTo: string;
+  employeeId: number;
+  leaveTypeId: number;
 }
 
 export interface FormPurchaseItemFields {

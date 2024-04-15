@@ -29,6 +29,8 @@ const prismaClientSingleton = () => {
           }
 
           const lastCode = code.split("/").pop();
+
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           return parseInt(lastCode) + 1;
         },
       },

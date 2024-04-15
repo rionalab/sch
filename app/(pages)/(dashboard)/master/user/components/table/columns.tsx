@@ -1,6 +1,6 @@
-import { type ColumnsType } from "antd/es/table";
+import { dMYHis } from "@/libs/helpers";
 import { type Prisma } from "@prisma/client";
-import { dMY, dMYHis } from "@/libs/helpers";
+import { type ColumnsType } from "antd/es/table";
 
 export const columns = (): ColumnsType<Prisma.VendorCreateInput> => {
   return [

@@ -81,8 +81,6 @@ export async function store(data: FormFields & { purchaseRequestItem: any[] }) {
   try {
     const { user } = ((await auth()) ?? {}) as { user: UserSession };
 
-    const rows = await prisma.purchaseRequest.findMany();
-
     const nextCode = await prisma.purchaseRequest.nexttCode();
 
     const items = data.purchaseRequestItem.map((row) => {
@@ -97,7 +95,7 @@ export async function store(data: FormFields & { purchaseRequestItem: any[] }) {
     });
 
     const pr = {
-      code: code("PR", nextCode || 1),
+      code: code("PR", nextCode ?? 1),
       requesterId: Number(user.id),
       approverId: Number(user.id),
       departmentId: Number(user.department.id),
@@ -163,7 +161,7 @@ export async function destroy(id: number) {
 
 export async function approve(id: number) {
   try {
-    const result = await prisma.purchaseRequest.update({
+    await prisma.purchaseRequest.update({
       where: { id: Number(id) },
       data: {
         status: "approved",
