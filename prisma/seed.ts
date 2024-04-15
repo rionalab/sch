@@ -28,6 +28,9 @@ const actions = `menu_master, menu_account, menu_staff, menu_hr, menu_superadmin
   ${generateAction("extracurricular")},  
   menu_updatePassword, menu_help, menu_documentation`;
 
+const actionsNew =
+  "role_admin,role_admin_role,role_admin_role_view,role_admin_role_create,role_admin_role_edit,role_admin_role_delete,role_account_password_view,role_account,role_hr_employee,role_hr_employee_view,role_hr_employee_create,role_hr_employee_edit,role_hr_employee_delete,role_hr,role_staff_leave_request,role_staff_leave_request_view,role_staff_leave_request_create,role_staff_leave_request_edit,role_staff_leave_request_delete,role_staff_purchase_view,role_staff_purchase_create,role_staff_purchase_edit,role_staff_purchase_delete,role_master,role_master_supplier,role_master_department,role_master_uom,role_master_inventory,role_master_position,role_master_student_act,role_master_work_unit,role_master_leave_type,role_master_user,role_master_supplier_view,role_master_supplier_create,role_master_supplier_edit,role_master_supplier_delete,role_master_department_view,role_master_department_create,role_master_department_edit,role_master_department_delete,role_master_uom_view,role_master_uom_create,role_master_uom_edit,role_master_uom_delete,role_master_inventory_view,role_master_inventory_create,role_master_inventory_edit,role_master_inventory_delete,role_master_position_view,role_master_position_create,role_master_position_edit,role_master_position_delete,role_master_student_act_view,role_master_student_act_create,role_master_student_act_edit,role_master_student_act_delete,role_master_work_unit_view,role_master_work_unit_create,role_master_work_unit_edit,role_master_work_unit_delete,role_master_leave_type_view,role_master_leave_type_create,role_master_leave_type_edit,role_master_leave_type_delete,role_master_user_view,role_master_user_create,role_master_user_edit,role_master_user_delete";
+
 const actionsStaff = actions
   .split(",")
   .map((action) => {
@@ -68,7 +71,7 @@ async function main() {
       {
         label: "Super Admin",
         name: "Superadmin",
-        actions: `${actions}, menu_create_roles`,
+        actions: actionsNew,
       },
       { label: "Administrator", name: "Administrator", actions },
       { label: "Chairman", name: "Chairman", actions: "menu_master" },
