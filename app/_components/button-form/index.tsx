@@ -5,11 +5,23 @@ import { Row, Col, Form, Button } from "antd";
 import { CheckOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 
-export function ButtonForm({ loading }: { loading?: boolean }) {
+interface Props {
+  loading?: boolean;
+  handleCancel?: () => void;
+}
+
+export function ButtonForm({
+  loading,
+  handleCancel: handleCancelProps,
+}: Props) {
   const router = useRouter();
 
   const handleCancel = () => {
-    router.back();
+    if (handleCancelProps) {
+      handleCancelProps();
+    } else {
+      router.back();
+    }
   };
 
   return (
@@ -19,7 +31,9 @@ export function ButtonForm({ loading }: { loading?: boolean }) {
         <Col span={21}>
           <Form.Item wrapperCol={{ offset: 5 }}>
             <Button
-              onClick={handleCancel}
+              onClick={() => {
+                handleCancel();
+              }}
               style={{ marginRight: 8 }}
               disabled={loading}
               htmlType="button"

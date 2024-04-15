@@ -5,7 +5,7 @@ import { type ReactNode, createContext, useRef, useContext } from "react";
 import { type StoreApi, useStore } from "zustand";
 
 export const GlobalStoreContext = createContext<StoreApi<GlobalStore> | null>(
-  null
+  null,
 );
 
 export interface GlobalStoreProviderProps {

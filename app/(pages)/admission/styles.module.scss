@@ -1,0 +1,24 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 100vh;
+  background-size: cover;
+  background-size: 100% 100%;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  column-gap: 24px;
+}
+
+.content { 
+  padding: 24px;
+  box-sizing: border-box;
+  & > div { 
+    width: 100%;
+  }
+}
+
+.bg { 
+  width: 100vw;
+  background: url("/images/bg-adm.png");
+  height: 100vh;
+}

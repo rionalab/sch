@@ -1,9 +1,15 @@
+@import "./colors.module.scss";
+
 .ant-menu.ant-menu-inline {
   border-inline-end: 0 !important;
 }
 
 .ant-notification-notice-message {
   font-weight: 600;
+}
+
+.ant-form-item-label label {
+  text-transform: capitalize !important;
 }
 
 .ant-form-item {
@@ -74,4 +80,37 @@
   font-size: 10px;
   margin-top: 2px;
   font-weight: 500;
+}
+
+.ant-table-thead .ant-table-cell {
+  text-transform: capitalize !important;
+}
+
+.admissionRegistrationStep { 
+
+  .ant-steps-item-description {
+    opacity: .7 !important;
+    font-size: 11px !important;
+  }
+
+  .ant-steps-item-title { 
+    font-weight: 500;
+  }
+
+
+  .ant-steps-item-active {
+
+    .ant-steps-item-title { 
+      color: $aqua !important;
+      font-weight: 500;
+    }
+
+
+
+
+    .ant-steps-icon { 
+      color: $aqua !important;
+    }
+  }
+
 }

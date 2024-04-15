@@ -1,6 +1,6 @@
 import { urls } from "@/consts";
-import { UserOutlined, DeploymentUnitOutlined } from "@ant-design/icons";
 import { type ModuleName, type Route } from "@/types";
+import { DeploymentUnitOutlined, UserOutlined } from "@ant-design/icons";
 
 export const routes: Routes = {
   help: {
@@ -27,7 +27,7 @@ export const routes: Routes = {
       },
     ],
   },
-  role: {
+  admin_role: {
     url: urls.superadmin.role.index,
     title: "Role",
     icon: <UserOutlined />,
@@ -42,7 +42,7 @@ export const routes: Routes = {
       },
     ],
   },
-  employee: {
+  hr_employee: {
     url: urls.hrd.employee.index,
     title: "Employee",
     icon: <UserOutlined />,
@@ -57,7 +57,8 @@ export const routes: Routes = {
       },
     ],
   },
-  position: {
+
+  master_position: {
     url: urls.master.position.index,
     title: "Position",
     icon: <DeploymentUnitOutlined />,
@@ -72,7 +73,7 @@ export const routes: Routes = {
       },
     ],
   },
-  vendor: {
+  master_supplier: {
     url: urls.master.vendor.index,
     title: "Supplier",
     icon: <DeploymentUnitOutlined />,
@@ -87,7 +88,7 @@ export const routes: Routes = {
       },
     ],
   },
-  department: {
+  master_department: {
     url: urls.master.department.index,
     title: "Department",
     icon: <DeploymentUnitOutlined />,
@@ -102,7 +103,7 @@ export const routes: Routes = {
       },
     ],
   },
-  inventory: {
+  master_inventory: {
     url: urls.master.inventory.index,
     title: "inventory",
     icon: <DeploymentUnitOutlined />,
@@ -117,7 +118,7 @@ export const routes: Routes = {
       },
     ],
   },
-  uom: {
+  master_uom: {
     url: urls.master.uom.index,
     title: "Unit of Measurement",
     icon: <DeploymentUnitOutlined />,
@@ -132,7 +133,7 @@ export const routes: Routes = {
       },
     ],
   },
-  extracurricular: {
+  master_student_act: {
     url: urls.master.studentActivities.index,
     title: "Student Activities ",
     icon: <DeploymentUnitOutlined />,
@@ -147,7 +148,7 @@ export const routes: Routes = {
       },
     ],
   },
-  workUnit: {
+  master_work_unit: {
     url: urls.master.workUnit.index,
     title: "Work Unit",
     icon: <DeploymentUnitOutlined />,
@@ -162,7 +163,7 @@ export const routes: Routes = {
       },
     ],
   },
-  leaveType: {
+  master_leave_type: {
     url: urls.master.leave.index,
     title: "Leave Type",
     icon: <DeploymentUnitOutlined />,
@@ -177,13 +178,13 @@ export const routes: Routes = {
       },
     ],
   },
-  leaveRequest: {
+  staff_leave_request: {
     url: urls.staff.leaveRequest.index,
     title: "Leave Request",
     icon: <DeploymentUnitOutlined />,
     breadcrumb: [
       {
-        title: "Master Data",
+        title: "Staff",
       },
       {
         title: "Leave request",
@@ -192,7 +193,22 @@ export const routes: Routes = {
       },
     ],
   },
-  user: {
+  staff_purchase: {
+    url: urls.staff.purchaseRequest.index,
+    title: "Purchase Order",
+    icon: <DeploymentUnitOutlined />,
+    breadcrumb: [
+      {
+        title: "Staff ",
+      },
+      {
+        title: "Purchase order",
+        icon: <DeploymentUnitOutlined />,
+        url: urls.staff.purchaseRequest.index,
+      },
+    ],
+  },
+  master_user: {
     url: urls.master.user.index,
     title: "User",
     icon: <DeploymentUnitOutlined />,

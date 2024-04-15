@@ -4,7 +4,7 @@ import prisma from "@/libs/prisma";
 import { code } from "@/libs/helpers";
 
 export async function modelStoreVendor(
-  formValue: FormFields
+  formValue: FormFields,
 ): Promise<Prisma.VendorCreateInput> {
   const lastRow = await prisma.vendor.findFirst({
     orderBy: {

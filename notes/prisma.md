@@ -11,8 +11,13 @@ npx prisma migrate dev
 
 npx prisma studio
 
+npx prisma db push --force-reset && npx prisma db seed
 
 prisma generate
 
-nox prisma migrate reset
+npx prisma db push --force-reset
+
+npx prisma migrate reset --force
+
+npx prisma migrate reset
 ```

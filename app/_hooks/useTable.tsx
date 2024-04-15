@@ -37,7 +37,7 @@ export function useTable<T>(props: Props) {
               }
 
               return v;
-            }
+            },
           );
 
           const isMatch = JSON.stringify(cleanRow)

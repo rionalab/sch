@@ -1,15 +1,15 @@
 "use client";
 
-import React, { memo, useEffect, useState } from "react";
-import { Col, Form, Input, Row, Select } from "antd";
-import { type FormFields } from "../../type";
 import { ButtonForm, LoadingModule } from "@/c";
-import { store, get } from "../../action";
-import { useParams, useRouter } from "next/navigation";
 import * as inventory from "@/consts";
 import { useAntdContext } from "@/contexts";
-import { fieldRules } from "@/libs/helpers";
 import useSelect from "@/hooks/useSelect";
+import { fieldRules } from "@/libs/helpers";
+import { Col, Form, Input, Row, Select } from "antd";
+import { useParams, useRouter } from "next/navigation";
+import { memo, useEffect, useState } from "react";
+import { get, store } from "../../action";
+import { type FormFields } from "../../type";
 
 const initialValues = {
   // name: "inv a",
@@ -37,7 +37,7 @@ function FormVendor() {
       await store(values);
 
       api?.success(
-        isEdit ? inventory.notifUpdateSuccess() : inventory.notifStoreSuccess()
+        isEdit ? inventory.notifUpdateSuccess() : inventory.notifStoreSuccess(),
       );
       router.back();
     } catch (e: any) {
@@ -46,7 +46,7 @@ function FormVendor() {
       api?.error(
         isEdit
           ? inventory.notifUpdateError(msg)
-          : inventory.notifStoreError(msg)
+          : inventory.notifStoreError(msg),
       );
     } finally {
       setLoading(false);
@@ -56,7 +56,13 @@ function FormVendor() {
   const fetchDataEdit = async () => {
     setLoadingEdit(true);
     const dataEdit = await get(Number(id));
-    form.setFieldsValue(dataEdit);
+    const prevValues = {
+      ...dataEdit,
+      departmentId: String(dataEdit?.departmentId),
+      uomId: String(dataEdit?.uomId),
+    };
+
+    form.setFieldsValue(prevValues);
     setLoadingEdit(false);
   };
 

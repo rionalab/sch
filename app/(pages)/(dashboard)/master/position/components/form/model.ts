@@ -6,7 +6,7 @@ import prisma from "@/libs/prisma";
 import { code } from "@/libs/helpers";
 
 export async function modelStore(
-  formValue: FormFields
+  formValue: FormFields,
 ): Promise<Prisma.PositionCreateInput> {
   const lastRow = await prisma.position.findFirst({
     orderBy: {

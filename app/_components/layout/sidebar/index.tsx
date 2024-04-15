@@ -1,111 +1,92 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { Layout, Menu, Skeleton } from "antd";
+import { urls } from "@/consts";
 import {
-  UserOutlined,
-  FolderOutlined,
-  FileOutlined,
-  DeploymentUnitOutlined,
   AppstoreAddOutlined,
+  DeploymentUnitOutlined,
+  FileOutlined,
+  FolderOutlined,
   HomeOutlined,
   SolutionOutlined,
-  // FileProtectOutlined,
-  // BarcodeOutlined,
-  // BulbOutlined,
-  // FileSearchOutlined,
-  // AuditOutlined,
-  // BookOutlined,
-  // DollarOutlined,
-  // FileDoneOutlined,
-  // FileAddOutlined,
-  // EditOutlined,
-  // FileTextOutlined,
-  // WalletOutlined,
-  // ClockCircleOutlined,
-  // NotificationOutlined,
-  // SkinOutlined,
-  // DownloadOutlined,
-  // TeamOutlined,
-  // ProfileOutlined,
-  // GlobalOutlined,
-  // ContainerOutlined,
-  // BankOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
+import { Layout, Menu, Skeleton } from "antd";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { urls } from "@/consts";
-import type { ItemType, MenuItemType } from "antd/es/menu/hooks/useItems";
 
 const { Sider } = Layout;
 
 export function Sidebar() {
   const menus = [
     {
-      key: "menu_master",
+      key: "role_master",
       icon: <AppstoreAddOutlined />,
       label: "Master Data",
       children: [
         {
-          key: "menu_vendor",
+          key: "role_master_supplier_view",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.vendor.index}>Supplier</Link>,
         },
         {
-          key: "menu_department",
+          key: "role_master_department_view",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.department.index}>Department</Link>,
         },
         {
-          key: "menu_uom",
+          key: "role_master_uom_view",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.uom.index}>UoM</Link>,
         },
         {
-          key: "menu_inventory",
+          key: "role_master_inventory_view",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.inventory.index}>Inventory</Link>,
         },
 
         {
-          key: "menu_position",
+          key: "role_master_position_view",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.position.index}>Position</Link>,
         },
         {
-          key: "menu_extracurricular",
+          key: "role_master_student_act_view",
           icon: <DeploymentUnitOutlined />,
           label: (
-            <Link href={urls.master.studentActivities.index}>
+            <Link
+              title="Student Activities"
+              href={urls.master.studentActivities.index}
+            >
               Student Activities
             </Link>
           ),
         },
         {
-          key: "menu_workUnit",
+          key: "role_master_work_unit_view",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.workUnit.index}>Work Unit</Link>,
         },
         {
-          key: "menu_leaveType",
+          key: "role_master_leave_type_view",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.leave.index}>Leave Type</Link>,
         },
         {
-          key: "menu_user",
+          key: "role_master_user_view",
           icon: <DeploymentUnitOutlined />,
           label: <Link href={urls.master.user.index}>User</Link>,
         },
       ],
     },
     {
-      key: "menu_hr",
+      key: "role_hr",
       icon: <SolutionOutlined />,
       label: "Human Resource",
       children: [
         {
-          key: "menu_employee",
+          key: "role_hr_employee",
           icon: <UserOutlined />,
           label: <Link href={urls.hrd.employee.index}>Employee</Link>,
         },
@@ -144,38 +125,52 @@ export function Sidebar() {
       ],
     },
     {
-      key: "menu_staff",
+      key: "role_staff",
       icon: <FolderOutlined />,
       label: "Staff",
       children: [
         {
-          key: "menu_leaveRequest",
+          key: "role_staff_leave_request_view",
           icon: <FileOutlined />,
           label: (
-            <Link href={urls.staff.leaveRequest.index}>Leave Request</Link>
+            <Link title="Leave Request" href={urls.staff.leaveRequest.index}>
+              Leave Request
+            </Link>
+          ),
+        },
+        {
+          key: "role_staff_purchase_view",
+          icon: <FileOutlined />,
+          label: (
+            <Link
+              title="Purchase Order"
+              href={urls.staff.purchaseRequest.index}
+            >
+              Purchase Order
+            </Link>
           ),
         },
       ],
     },
     {
-      key: "menu_superadmin",
+      key: "role_admin",
       icon: <FolderOutlined />,
       label: "Super Admin",
       children: [
         {
-          key: "menu_role",
+          key: "role_admin_role_view",
           icon: <FileOutlined />,
           label: <Link href={urls.superadmin.role.index}>Role</Link>,
         },
       ],
     },
     {
-      key: "menu_account",
+      key: "role_account",
       icon: <FolderOutlined />,
       label: "Account",
       children: [
         {
-          key: "menu_updatePassword",
+          key: "role_account_password_view",
           icon: <FileOutlined />,
           label: (
             <Link href={urls.account.updatePassword.index}>
@@ -184,7 +179,7 @@ export function Sidebar() {
           ),
         },
         {
-          key: "menu_help",
+          key: "role_account_help_view",
           icon: <FileOutlined />,
           label: <Link href={urls.help}>Help</Link>,
         },
@@ -211,7 +206,7 @@ export function Sidebar() {
 
   const checkChildren = (
     arrChildren: any[] | undefined,
-    roleActions: string
+    roleActions: string,
   ) => {
     if (!arrChildren) {
       return null;
@@ -236,8 +231,39 @@ export function Sidebar() {
     const filtered = menus.map((menu) => {
       const { key } = menu;
 
-      if (roleActions?.includes(key)) {
-        return { ...menu, children: checkChildren(menu.children, roleActions) };
+      const willShowHr =
+        menu.key === "role_hr" &&
+        roleActions?.includes("role_hr_employee_view");
+      const willShowStaff =
+        menu.key === "role_staff" &&
+        (roleActions?.includes("role_staff_purchase_view") ||
+          roleActions?.includes("role_staff_leave_request_view"));
+      const willShowAdmin =
+        menu.key === "role_admin" &&
+        roleActions?.includes("role_admin_role_view");
+      const willShowMaster =
+        menu.key === "role_master" &&
+        (roleActions?.includes("role_master_supplier_view") ||
+          roleActions?.includes("role_master_department_view") ||
+          roleActions?.includes("role_master_uom_view") ||
+          roleActions?.includes("role_master_inventory_view") ||
+          roleActions?.includes("role_master_position_view") ||
+          roleActions?.includes("role_master_student_act_view") ||
+          roleActions?.includes("role_master_workunit_view") ||
+          roleActions?.includes("role_master_leavetype_view") ||
+          roleActions?.includes("role_master_user_view"));
+
+      if (
+        roleActions?.includes(key) ||
+        willShowStaff ||
+        willShowAdmin ||
+        willShowHr ||
+        willShowMaster
+      ) {
+        return {
+          ...menu,
+          children: checkChildren(menu.children, roleActions!),
+        };
       }
 
       return false;

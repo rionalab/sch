@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import { fieldRules } from "@/libs/helpers";
-import { Form, Input, Button, Alert } from "antd";
-import type { FormFields } from "../../types";
-import { signIn } from "next-auth/react";
-import { CheckOutlined } from "@ant-design/icons";
-import styles from "./styles.module.scss";
-import { useRouter } from "next/navigation";
 import { urls } from "@/consts";
+import { fieldRules } from "@/libs/helpers";
+import { CheckOutlined } from "@ant-design/icons";
+import { Alert, Button, Form, Input } from "antd";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import type { FormFields } from "../../types";
+import styles from "./styles.module.scss";
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
 
@@ -24,28 +24,33 @@ function FormSignin() {
   }: FormFields): Promise<void> => {
     setLoading(true);
 
-    const login = await signIn("credentials", {
-      username,
-      password,
-      redirect: false,
-    });
+    try {
+      const login = await signIn("credentials", {
+        username,
+        password,
+        redirect: false,
+      });
 
-    if (!login?.ok) {
-      setLoading(false);
-      setError(true);
-    } else {
-      if (!localStorage.getItem("roleActions")) {
-        const url = `${baseUrl}/api/user`;
-        const user = await fetch(url);
-        const data = await user.json();
-        localStorage.setItem("roleActions", `${data.role.actions}`);
+      if (!login?.ok) {
+        setLoading(false);
+        setError(true);
+      } else {
+        if (!localStorage.getItem("roleActions")) {
+          const url = `${baseUrl}/api/user`;
+          const user = await fetch(url);
+          const data = await user.json();
+          localStorage.setItem("roleActions", `${data.role.actions}`);
 
-        if (data.hasUpdatePassword) {
-          router.push(urls.landingPage);
-        } else {
-          router.push(urls.account.updatePassword.index);
+          if (data.hasUpdatePassword) {
+            router.push(urls.landingPage);
+          } else {
+            router.push(urls.account.updatePassword.index);
+          }
         }
       }
+    } catch (e) {
+      console.error(e);
+      setLoading(false);
     }
   };
 

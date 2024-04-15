@@ -4,12 +4,33 @@ export const positionCategoryOptions = [
 ];
 
 export const userTypeOptions = [
-  { value: "EmployeeNonEdu", label: "Employee Non Edu" },
-  { value: "Teacher", label: "Teacher" },
-  { value: "Parent", label: "Parent" },
-  { value: "Student", label: "Student" },
-  { value: "Admin", label: "Admin" },
-  { value: "HR", label: "Human Resource" },
+  {
+    label: "Super Admin",
+    value: "Superadmin",
+  },
+  { label: "Administrator", value: "Administrator" },
+  { label: "Chairman", value: "Chairman" },
+  { label: "Manager School", value: "ManagerSchool" },
+  { label: "Principal", value: "Principal" },
+  { label: "Teacher", value: "Teacher" },
+  { label: "Manager Finance", value: "ManagerFinance" },
+  { label: "Staff Finance", value: "StaffFinance" },
+  { label: "Manager Marketing", value: "ManagerMarketing" },
+  { label: "Staff Marketing", value: "StaffMarketing" },
+  {
+    label: "Manager General Affair",
+    value: "ManagerGeneralAffair",
+  },
+  { label: "Staff General Affair", value: "StaffGeneralAffair" },
+  { label: "Modul Purchasing", value: "ModulPurchasing" },
+  { label: "Manager Purchasing", value: "ManagerPurchasing" },
+  { label: "Staff Purchasing", value: "StaffPurchasing" },
+  { label: "Modul Human Resource", value: "ModulHumanResource" },
+  { label: "Manager HRD", value: "ManagerHRD" },
+  { label: "Staff HRD", value: "StaffHRD" },
+  { label: "Manager IT", value: "ManagerIT" },
+  { label: "Staff IT", value: "StaffIT" },
+  { label: "Parent", value: "Parent" },
 ];
 
 export const contractStatusOption = [
@@ -31,6 +52,20 @@ export const degreeOptions = [
   { label: "S2", value: "S2" },
   { label: "S1", value: "S1" },
   { label: "D3/D4", value: "D3/D4" },
+  { label: "SMA/SMK", value: "SMA/SMK" },
+];
+
+export const studentTransportationOptions = [
+  { label: "Private Vehicle", value: "Private Vehicle" },
+  { label: "Public Transport", value: "Public Transport" },
+  { label: "Walking", value: "Walking" },
+  { label: "Shuttle Bus", value: "Shuttle Bus" },
+  { label: "Others", value: "Others" },
+];
+
+export const paymentOptions = [
+  { label: "Cash", value: "Cash" },
+  { label: "Transfer", value: "Transfer" },
 ];
 
 export const employeeUnitOptions = [

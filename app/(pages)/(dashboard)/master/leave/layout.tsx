@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <PageHeader id="leaveType" />
+      <PageHeader id="master_leave_type" />
       {children}
     </>
   );

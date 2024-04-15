@@ -18,7 +18,7 @@ export async function store(data: FormFields) {
 
     const oldPasswordIsMatch = await bcrypt.compare(
       oldPassword,
-      user?.password ?? ""
+      user?.password ?? "",
     );
 
     if (!oldPasswordIsMatch) {

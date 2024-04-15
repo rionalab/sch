@@ -37,3 +37,15 @@ export const notifUpdateError = (description?: string, title?: string) => ({
   description: description ?? "Failed to update data",
   duration,
 });
+
+export const notifApproveError = (description?: string, title?: string) => ({
+  message: title ?? "Approve Fail",
+  description: description ?? "Failed to Approve data",
+  duration,
+});
+
+export const notifApproveSuccess = (description?: string, title?: string) => ({
+  message: title ?? "Approve Success",
+  description: description ?? "Data has been Approved successfully",
+  duration,
+});

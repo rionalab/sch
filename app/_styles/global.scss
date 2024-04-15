@@ -37,6 +37,14 @@ a {
   font-weight: 500;
 }
 
+.textBold600 {
+  font-weight: 600;
+}
+
+.textBold700 {
+  font-weight: 700;
+}
+
 .textLink {
   color: $blue;
   cursor: pointer;
@@ -79,5 +87,12 @@ table {
 
 .w100per {
   width: 100% !important;
-  background: red;
+}
+
+.collapseCustom {
+  .ant-icon,
+  .ant-collapse-header-text {
+    color: $aqua !important;
+    font-weight: 500;
+  }
 }

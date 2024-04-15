@@ -4,7 +4,7 @@ import React from "react";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <PageHeader id="leaveRequest" />
+      <PageHeader id="staff_leave_request" />
       {children}
     </>
   );

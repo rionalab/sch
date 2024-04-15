@@ -1,7 +1,6 @@
-import React from "react";
-import FormEmployee from "../components/form/form";
-import { index } from "@/pages/(dashboard)/master/position/action";
 import { GuardPage } from "@/c";
+import { index } from "@/pages/(dashboard)/master/position/action";
+import Form from "../components/form/form";
 
 async function Page() {
   const positions = await index();
@@ -11,8 +10,8 @@ async function Page() {
   };
 
   return (
-    <GuardPage access="menu_create_employee">
-      <FormEmployee {...props} />
+    <GuardPage access="role_hr_employee_create">
+      <Form {...props} />
     </GuardPage>
   );
 }

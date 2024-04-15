@@ -8,3 +8,7 @@ export function c(number: any = 0) {
 
   return formattedAmount;
 }
+
+export function isNumber(value: any) {
+  return typeof value === "number" && !isNaN(value);
+}

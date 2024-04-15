@@ -16,6 +16,21 @@ const prismaClientSingleton = () => {
           });
           return result;
         },
+        async nexttCode() {
+          const context = Prisma.getExtensionContext(this);
+          const { code } = await (context as any).findFirst({
+            orderBy: {
+              id: "desc",
+            },
+          });
+
+          if (!code) {
+            return null;
+          }
+
+          const lastCode = code.split("/").pop();
+          return parseInt(lastCode) + 1;
+        },
       },
     },
     query: {
@@ -34,7 +49,6 @@ const prismaClientSingleton = () => {
             }
           }
 
-          console.log(123132, args);
           return await query(args);
         },
       },

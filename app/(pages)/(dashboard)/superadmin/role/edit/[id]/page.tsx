@@ -5,7 +5,7 @@ import { GuardPage, LoadingModule } from "@/c";
 function Page() {
   return (
     <Suspense fallback={<LoadingModule />}>
-      <GuardPage access="menu_edit_role">
+      <GuardPage access="role_admin_role_edit">
         <Form />
       </GuardPage>
     </Suspense>

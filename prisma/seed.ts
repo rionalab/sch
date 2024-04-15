@@ -1,10 +1,48 @@
-import { PrismaClient } from "@prisma/client";
 import { faker } from "@faker-js/faker";
-import dayjs from "dayjs";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import dayjs from "dayjs";
 
-const actions =
-  "menu_user,menu_master, menu_account,  menu_staff, menu_hr, menu_superadmin, menu_edit_user, menu_create_user, menu_employee, menu_edit_employee, menu_create_employee, menu_role, menu_edit_roles, menu_uom, menu_edit_uom, menu_create_uom, menu_leave, menu_create_leave, menu_edit_leave, menu_vendor, menu_edit_vendor, menu_create_vendor, menu_position, menu_create_position, menu_edit_position, menu_department, menu_create_department, menu_edit_department, menu_leaveRequest, menu_edit_leaveRequest, menu_create_leaveRequest, menu_updatePassword, menu_inventory, menu_edit_inventory, menu_create_inventory, menu_workUnit, menu_edit_workUnit, menu_create_workUnit, menu_leaveType, menu_create_leaveType, menu_edit_leaveType, menu_extracurricular, menu_create_extracurricular, menu_edit_extracurricular, menu_help, menu_documentation";
+const generateAction = (key: string) => {
+  return [`role_${key}_view`, `role_edit_${key}`, `role_create_${key}`].join(
+    ", ",
+  );
+};
+
+const remarks =
+  "If the above palettes do not meet your needs, you can choose a main color below, and Ant Design's color generation algorithm will generate a palette for you.";
+
+const actions = `menu_master, menu_account, menu_staff, menu_hr, menu_superadmin, menu_role, menu_edit_roles,  
+  ${generateAction("employee")},  
+  ${generateAction("uom")},  
+  ${generateAction("user")},  
+  ${generateAction("leave")},  
+  ${generateAction("vendor")},  
+  ${generateAction("position")},  
+  ${generateAction("workUnit")},  
+  ${generateAction("inventory")},  
+  ${generateAction("leaveType")},  
+  ${generateAction("department")},  
+  ${generateAction("leaveRequest")},  
+  ${generateAction("purchaseRequest")},  
+  ${generateAction("extracurricular")},  
+  menu_updatePassword, menu_help, menu_documentation`;
+
+const actionsStaff = actions
+  .split(",")
+  .map((action) => {
+    const cleanAction = action.trim();
+
+    const blacklist = ["menu_user", "menu_edit_user", "menu_create_user"];
+
+    if (blacklist.includes(cleanAction)) {
+      return null;
+    }
+
+    return cleanAction;
+  })
+  .filter(Boolean)
+  .join(", ");
 
 function today() {
   return dayjs();
@@ -46,7 +84,11 @@ async function main() {
         name: "ManagerGeneralAffair",
         actions,
       },
-      { label: "Staff General Affair", name: "StaffGeneralAffair", actions },
+      {
+        label: "Staff General Affair",
+        name: "StaffGeneralAffair",
+        actions: actionsStaff,
+      },
       { label: "Modul Purchasing", name: "ModulPurchasing", actions },
       { label: "Manager Purchasing", name: "ManagerPurchasing", actions },
       { label: "Staff Purchasing", name: "StaffPurchasing", actions },
@@ -54,11 +96,43 @@ async function main() {
       { label: "Manager HRD", name: "ManagerHRD", actions },
       { label: "Staff HRD", name: "StaffHRD", actions },
       { label: "Manager IT", name: "ManagerIT", actions },
-      { label: "Staff IT", name: "StaffIT", actions },
+      { label: "Staff IT", name: "StaffIT", actions: actionsStaff },
       { label: "Parent", name: "Parent", actions },
     ],
     skipDuplicates: true,
   });
+  const roles = await prisma.roleAction.findMany();
+
+  // * Department
+  // *************************************
+  await prisma.department.createMany({
+    data: [
+      {
+        code: "none",
+        name: "None",
+        description: "none",
+        active: true,
+        budget: 0,
+      },
+      {
+        code: "TI",
+        name: "TI",
+        description: "TI",
+        budget: 20000000,
+        active: true,
+      },
+      {
+        code: "GA",
+        name: "GA",
+        description: "General Affair",
+        budget: 30000000,
+        active: true,
+      },
+    ],
+    skipDuplicates: true,
+  });
+  const department = await prisma.department.findMany();
+  console.log(department);
 
   // * User
   // *************************************
@@ -68,35 +142,50 @@ async function main() {
         email: "admin@kr.com",
         password: await bcrypt.hash("admin1234", 10),
         roleId: 1,
-        name: "User 1",
+        departmentId: department.find((r) => r.code === "TI")?.id ?? 1,
+        name: "User Admin",
       },
       {
-        email: "user2@mail.com",
+        email: "staff_it@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        roleId: 1,
-        name: "User 2",
+        departmentId: department.find((r) => r.code === "TI")?.id ?? 1,
+        roleId: roles.find((r) => r.name === "StaffIT")?.id ?? 1,
+        name: "User Staff IT",
       },
       {
-        email: "user3@mail.com",
+        email: "manager_it@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        roleId: 1,
-        name: "User 3",
+        departmentId: department.find((r) => r.code === "TI")?.id ?? 1,
+        roleId: roles.find((r) => r.name === "ManagerIT")?.id ?? 1,
+        name: "User Manager IT",
       },
       {
-        email: "user4@mail.com",
+        email: "staff_ga@mail.com",
         password: await bcrypt.hash("admin1234", 10),
-        roleId: 1,
-        name: "User 4",
+        departmentId: department.find((r) => r.code === "GA")?.id ?? 1,
+        roleId: roles.find((r) => r.name === "StaffGeneralAffair")?.id ?? 1,
+        name: "User Staff GA",
+      },
+      {
+        email: "manager_ga@mail.com",
+        password: await bcrypt.hash("admin1234", 10),
+        departmentId: department.find((r) => r.code === "GA")?.id ?? 1,
+        roleId: roles.find((r) => r.name === "ManagerGeneralAffair")?.id ?? 1,
+        name: "User Manager GA",
       },
       {
         email: "user5@mail.com",
         password: await bcrypt.hash("admin1234", 10),
+        departmentId: department[0].id,
         roleId: 1,
-        name: "User 5",
+        name: "User User 5",
       },
     ],
     skipDuplicates: true,
   });
+
+  const users = await prisma.user.findMany();
+  console.log("users", users);
 
   // * Position
   // *************************************
@@ -367,19 +456,15 @@ async function main() {
         remarks: "",
         blacklist: false,
       },
-    ],
-    skipDuplicates: true,
-  });
-
-  // * Department
-  // *************************************
-  await prisma.department.createMany({
-    data: [
       {
-        code: "TI",
-        name: "TI",
-        description: "TI",
-        active: true,
+        name: "Vendor2",
+        code: "KR/SPP/2024/01/00002",
+        accountNo: "222222222",
+        address: faker.location.streetAddress(),
+        phone: faker.phone.number(),
+        fax: faker.phone.number(),
+        remarks: "",
+        blacklist: false,
       },
     ],
     skipDuplicates: true,
@@ -413,7 +498,7 @@ async function main() {
         name: "Cat dinding",
         code: "CAT",
         uomId: 2,
-        departmentId: 1,
+        departmentId: department[0].id,
         remarks: "",
         qty: 110,
         category: "inventory",
@@ -422,7 +507,7 @@ async function main() {
         name: "Book",
         code: "BOOK",
         uomId: 1,
-        departmentId: 1,
+        departmentId: department[0].id,
         remarks: "",
         qty: 110,
         category: "inventory",
@@ -430,6 +515,66 @@ async function main() {
     ],
     skipDuplicates: true,
   });
+  const inventories = await prisma.inventory.findMany();
+
+  // * Purchase Request
+  // *************************************
+  // await prisma.purchaseRequest.createMany({
+  //   data: [
+  //     {
+  //       code: "KR/PR/2024/01/00001",
+  //       payment: "cash",
+  //       purchaseDate: today().format(),
+  //       deliveryDate: today().format(),
+  //       remarks,
+  //       status: "pending",
+  //       requesterId: users[0].id,
+  //       approverId: users[1].id,
+  //       active: true,
+  //     },
+  //     {
+  //       code: "KR/PR/2024/01/00002",
+  //       payment: "cash",
+  //       purchaseDate: today().format(),
+  //       deliveryDate: today().format(),
+  //       remarks,
+  //       status: "pending",
+  //       requesterId: users[0].id,
+  //       approverId: users[1].id,
+  //       active: true,
+  //     },
+  //   ],
+  //   skipDuplicates: true,
+  // });
+
+  // const pr = await prisma.purchaseRequest.findMany();
+
+  // * Purchase Request Item
+  // *************************************
+  // const purchaseRequestItemsData = [
+  //   {
+  //     purchaseRequestId: pr[0].id,
+  //     quantity: 2,
+  //     inventoryId: inventories[0].id,
+  //     unitPrice: 10.0,
+  //     totalPrice: 20.0,
+  //     remarks: "Sample item remarks 1",
+  //   },
+  //   {
+  //     purchaseRequestId: pr[0].id,
+  //     quantity: 3,
+  //     inventoryId: inventories[0].id,
+  //     unitPrice: 15.0,
+  //     totalPrice: 45.0,
+  //     remarks: "Sample item remarks 2",
+  //   },
+  //   // Add more Purchase Request Items as needed
+  // ];
+
+  // // Create Purchase Request Items
+  // await prisma.purchaseRequestItem.createMany({
+  //   data: purchaseRequestItemsData,
+  // });
 }
 
 main()

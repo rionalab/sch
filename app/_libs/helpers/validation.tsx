@@ -27,7 +27,7 @@ const noWhitespaceInput = async (rule: any, value: any, callback: any) => {
 
 export function fieldRules(
   validationType: ValidationType[],
-  label?: string
+  label?: string,
 ): Rule[] {
   const result = [];
 

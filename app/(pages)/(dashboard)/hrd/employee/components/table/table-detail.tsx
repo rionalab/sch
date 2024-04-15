@@ -1,10 +1,11 @@
-import React from "react";
-import { type Employee } from "../../type";
-import type { DescriptionsProps } from "antd";
-import { Descriptions } from "antd";
-import { dMY } from "@/libs/helpers";
+import { dMY, getImage } from "@/libs/helpers";
 import { cell } from "@/libs/helpers/table";
 import { UserOutlined } from "@ant-design/icons";
+import type { DescriptionsProps } from "antd";
+import { Col, Descriptions, Row } from "antd";
+import Image from "next/image";
+import { type Employee } from "../../type";
+import styles from "./styles.module.scss";
 interface Props {
   data: Employee;
 }
@@ -104,20 +105,35 @@ function TableDetail({ data }: Props) {
     },
   ];
 
+  console.log(data);
+
   return (
-    <div>
-      <Descriptions
-        column={3}
-        title={
-          <>
-            <UserOutlined className="mr4" />
-            Employee Info : {data.fullName}
-          </>
-        }
-        layout="vertical"
-        items={items}
-      />
-    </div>
+    <Row>
+      <Col span={20}>
+        <Descriptions
+          column={3}
+          title={
+            <>
+              <UserOutlined className="mr4" />
+              Employee Info : {data.fullName}
+            </>
+          }
+          layout="vertical"
+          items={items}
+        />
+      </Col>
+      <Col span={4}>
+        <Image
+          alt="profile"
+          objectFit="cover"
+          width={406}
+          quality={100}
+          className={styles.photo}
+          height={381}
+          src={data.photo ? getImage(data.photo) : "/images/no-photo.png"}
+        />
+      </Col>
+    </Row>
   );
 }
 

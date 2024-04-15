@@ -6,15 +6,17 @@ function useRole(moduleName: ModuleName) {
     allowEdit: false,
     allowDelete: false,
     allowCreate: false,
+    allowApprove: false,
   });
 
   useEffect(() => {
     const actions = localStorage.getItem("roleActions");
 
     setResult({
-      allowEdit: Boolean(actions?.includes(`menu_edit_${moduleName}`)),
-      allowDelete: Boolean(actions?.includes(`menu_delete_${moduleName}`)),
-      allowCreate: Boolean(actions?.includes(`menu_create_${moduleName}`)),
+      allowEdit: Boolean(actions?.includes(`role_${moduleName}_edit`)),
+      allowDelete: Boolean(actions?.includes(`role_${moduleName}_delete`)),
+      allowCreate: Boolean(actions?.includes(`role_${moduleName}_create`)),
+      allowApprove: Boolean(actions?.includes(`role_${moduleName}_approve`)),
     });
   }, []);
 

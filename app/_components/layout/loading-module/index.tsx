@@ -1,5 +1,5 @@
 import React from "react";
 
 export function LoadingModule() {
-  return <div>Please wait...</div>;
+  return <div>Loading data, please wait...</div>;
 }

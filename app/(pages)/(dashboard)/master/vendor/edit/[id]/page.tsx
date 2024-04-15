@@ -1,6 +1,6 @@
-import React, { Suspense } from "react";
+import { GuardPage, LoadingModule } from "@/c";
+import { Suspense } from "react";
 import FormVendor from "../../components/form/form";
-import { LoadingModule, GuardPage } from "@/c";
 
 interface Props {
   params: {
@@ -10,11 +10,11 @@ interface Props {
 
 function Page({ params }: Props) {
   return (
-    <Suspense fallback={<LoadingModule />}>
-      <GuardPage access="menu_edit_vendor">
+    <GuardPage access="role_master_supplier_edit">
+      <Suspense fallback={<LoadingModule />}>
         <FormVendor />
-      </GuardPage>
-    </Suspense>
+      </Suspense>
+    </GuardPage>
   );
 }
 

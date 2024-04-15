@@ -11,6 +11,7 @@ export async function GET(request: Request) {
     },
     include: {
       role: true,
+      department: true,
     },
   });
 

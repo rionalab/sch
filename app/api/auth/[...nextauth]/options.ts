@@ -1,11 +1,17 @@
 /* eslint-disable @typescript-eslint/non-nullable-type-assertion-style */
 
-import { type NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import prisma from "@/libs/prisma";
 import { compare } from "bcrypt";
 import { updateLastLogin } from "@/actions/auth";
 import { urls } from "@/consts";
+import type {
+  GetServerSidePropsContext,
+  NextApiRequest,
+  NextApiResponse,
+} from "next";
+import type { NextAuthOptions } from "next-auth";
+import { getServerSession } from "next-auth";
 
 export const options: NextAuthOptions = {
   session: {
@@ -32,6 +38,7 @@ export const options: NextAuthOptions = {
           include: {
             Employee: true,
             role: true,
+            department: true,
           },
         });
 
@@ -41,14 +48,12 @@ export const options: NextAuthOptions = {
 
         const passwordValid = await compare(
           credentials?.password,
-          user.password
+          user.password,
         );
 
         if (!passwordValid) {
           return null;
         }
-
-        console.log(22222222, user);
 
         return {
           ...user,
@@ -88,3 +93,13 @@ export const options: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
+
+// Use it in server contexts
+export async function auth(
+  ...args:
+    | [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]]
+    | [NextApiRequest, NextApiResponse]
+    | []
+) {
+  return await getServerSession(...args, options);
+}

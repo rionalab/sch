@@ -9,6 +9,7 @@ const workUnit = "/master/work-unit";
 const leave = "/master/leave";
 const permissionLeave = "/hrd/permission-leave";
 const staffLeaveRequest = "/staff/leave-request";
+const staffPurchaseRequest = "/staff/purchase-request";
 const user = "/master/user";
 const role = "/superadmin/role";
 
@@ -17,6 +18,11 @@ export const urls = {
   landingPage: "/dashboard",
   help: "/help",
   documentation: "/documentation",
+  admission: {
+    dashboard: "/admission/dashboard",
+    payment: "/admission/payment",
+    registration: "/admission/registration",
+  },
   auth: {
     signin: "/signin",
     signout: "/signout",
@@ -36,6 +42,11 @@ export const urls = {
       index: staffLeaveRequest,
       create: staffLeaveRequest + "/create",
       edit: (id: string | number) => staffLeaveRequest + "/edit/" + id,
+    },
+    purchaseRequest: {
+      index: staffPurchaseRequest,
+      create: staffPurchaseRequest + "/create",
+      edit: (id: string | number) => staffPurchaseRequest + "/edit/" + id,
     },
   },
   master: {

@@ -31,6 +31,8 @@
       "@/hooks/*": ["./app/_hooks/*"],
       "@/contexts": ["./app/_contexts/index.ts"],
       "@/styles/*": ["./app/_styles/*"],
+      "@/master/*": ["./app/(pages)/(dashboard)/master/*"],
+      "@/superadmin/*": ["./app/(pages)/(dashboard)/superadmin/*"],
       "@/*": ["./*"]
     }
   },

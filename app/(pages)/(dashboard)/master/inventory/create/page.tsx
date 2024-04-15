@@ -1,10 +1,9 @@
-import React from "react";
-import Form from "../components/form/form";
 import { GuardPage } from "@/c";
+import Form from "../components/form/form";
 
 function Page() {
   return (
-    <GuardPage access="menu_create_inventory">
+    <GuardPage access="role_master_inventory_create">
       <Form />
     </GuardPage>
   );

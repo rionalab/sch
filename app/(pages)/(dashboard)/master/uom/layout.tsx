@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <PageHeader id="uom" />
+      <PageHeader id="master_uom" />
       {children}
     </>
   );
