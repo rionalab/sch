@@ -10,21 +10,23 @@ import {
   FileOutlined,
   FolderOutlined,
   HomeOutlined,
+  PoweroffOutlined,
   SolutionOutlined,
   UserOutlined,
-  // FileProtectOutlined,
   UsergroupAddOutlined,
 } from "@ant-design/icons";
 import { Layout, Skeleton } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 
 const { Sider } = Layout;
 
 export function SidebarAdm() {
+  const router = useRouter();
+
   const menus = [
     {
       key: "menu_master",
@@ -309,6 +311,20 @@ export function SidebarAdm() {
             </Link>
           );
         })}
+
+        {!loading && (
+          <Link
+            href={"#"}
+            onClick={(e) => {
+              e.preventDefault();
+              localStorage.removeItem("auth");
+              router.push(urls.admission.signin);
+            }}
+          >
+            <PoweroffOutlined />
+            <span>Sign Out</span>
+          </Link>
+        )}
       </div>
 
       {loading && (

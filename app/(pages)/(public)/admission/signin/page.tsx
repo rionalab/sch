@@ -1,9 +1,19 @@
-import React from "react";
-import styles from "./styles.module.scss";
+"use client";
+
 import Image from "next/image";
-import FormSignin from "./components/form/form";
+import { useState } from "react";
+import FormRegister from "./components/form-register/form";
+import FormSignin from "./components/form-signin/form";
+import styles from "./styles.module.scss";
 
 function Page() {
+  const [activeForm, setActiveForm] = useState<"signin" | "signup">("signin");
+  const toggleForm = () => {
+    setActiveForm((prev) => {
+      return prev === "signin" ? "signup" : "signin";
+    });
+  };
+
   return (
     <div className={styles.bg}>
       <div className={styles.box}>
@@ -15,7 +25,24 @@ function Page() {
             src="/images/logo2.png"
             alt="img login"
           />
-          <FormSignin />
+          <div className={activeForm === "signup" ? "dNone" : ""}>
+            <FormSignin activeForm={activeForm} />
+            <p className={styles.register}>
+              Dont have an account?{" "}
+              <a onClick={toggleForm} href="#">
+                Create Account
+              </a>
+            </p>
+          </div>
+          <div className={activeForm === "signin" ? "dNone" : ""}>
+            <FormRegister toggleForm={toggleForm} activeForm={activeForm} />
+            <p className={styles.register}>
+              Already have an account?{" "}
+              <a onClick={toggleForm} href="#">
+                Sign in
+              </a>
+            </p>
+          </div>
         </div>
         <div className={styles.colRight}>
           <Image

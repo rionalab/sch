@@ -21,6 +21,7 @@ export const urls = {
   admission: {
     dashboard: "/admission/dashboard",
     payment: "/admission/payment",
+    signin: "/admission/signin",
     registration: "/admission/registration",
   },
   auth: {

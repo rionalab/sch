@@ -1,18 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
-import { fieldRules } from "@/libs/helpers";
-import { Form, Input, Button, Alert } from "antd";
-import type { FormFields } from "../../types";
-import { signIn } from "next-auth/react";
-import { CheckOutlined } from "@ant-design/icons";
-import styles from "./styles.module.scss";
-import { useRouter } from "next/navigation";
 import { urls } from "@/consts";
+import { fieldRules } from "@/libs/helpers";
+import { CheckOutlined } from "@ant-design/icons";
+import { Alert, Button, Form, Input } from "antd";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import type { FormFields } from "../../types";
+import { signIn } from "./action";
+import styles from "./styles.module.scss";
 
 const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
 
-function FormSignin() {
+interface Props {
+  activeForm: string;
+}
+
+function FormSignin({ activeForm }: Props) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
@@ -22,32 +26,31 @@ function FormSignin() {
     username,
     password,
   }: FormFields): Promise<void> => {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const login = await signIn("credentials", {
-      username,
-      password,
-      redirect: false,
-    });
+      const login = await signIn({
+        username,
+        password,
+      });
 
-    if (!login?.ok) {
-      setLoading(false);
+      localStorage.setItem("auth", "true");
+      router.push(urls.admission.dashboard);
+    } catch (e: any) {
       setError(true);
-    } else {
-      if (!localStorage.getItem("roleActions")) {
-        const url = `${baseUrl}/api/user`;
-        const user = await fetch(url);
-        const data = await user.json();
-        localStorage.setItem("roleActions", `${data.role.actions}`);
-
-        if (data.hasUpdatePassword) {
-          router.push(urls.landingPage);
-        } else {
-          router.push(urls.account.updatePassword.index);
-        }
-      }
+      setLoading(false);
     }
   };
+
+  useEffect(() => {
+    setError(false);
+
+    form.setFieldsValue({
+      username: "",
+      password: "",
+      confirm_password: "",
+    });
+  }, [activeForm]);
 
   return (
     <Form
