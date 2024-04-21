@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "postinstall": "prisma generate",
-    "prismaReset": "prisma db push && prisma db seed && npm run dev",
+    "prismaReset": "prisma db push --force-reset && prisma db seed && npm run dev",
     "prismaMigrate": "prisma migrate reset --force && npm run dev"
   },
   "prisma": {

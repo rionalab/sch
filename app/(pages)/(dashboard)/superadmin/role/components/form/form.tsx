@@ -109,6 +109,10 @@ const treeData: TreeDataNode[] = [
         title: "Employee",
         ...crudRole("hr_employee"),
       },
+      {
+        title: "Student Registration",
+        ...crudRole("hr_student_registration"),
+      },
     ],
   },
   {

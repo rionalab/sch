@@ -1,10 +1,9 @@
 "use server";
 
-import prisma from "@/libs/prisma";
-import { type StoreEmployee, type StoreEmployeeByCreate } from "./type";
 import { urls } from "@/consts";
-import { revalidatePath } from "next/cache";
 import { handlePrismaError } from "@/libs/helpers";
+import prisma from "@/libs/prisma";
+import { revalidatePath } from "next/cache";
 
 const urlToRevalidate = urls.hrd.employee.index;
 
@@ -17,33 +16,65 @@ export async function index() {
   });
 }
 
-export async function store(data: StoreEmployee | StoreEmployeeByCreate) {
+export async function store({
+  data1,
+  data2,
+  data3,
+  data4,
+}: {
+  data1: any;
+  data2: any;
+  data3: any;
+  data4: any;
+}) {
   try {
-    let result;
+    let result = {};
 
-    if (data.id != null) {
-      result = await prisma.employee.update({
-        where: { id: Number(data.id) },
-        data: data as any,
-      });
-    } else {
-      const dataCreate = data as StoreEmployeeByCreate;
-
-      result = await prisma.employee.create({
-        data: {
-          ...dataCreate,
-          id: undefined,
-          positionId: undefined,
-          position: {
-            connect: {
-              id: dataCreate.positionId,
-            },
+    const a = await prisma.studentRegistrationChildren.create({
+      data: {
+        data: data1 || " ",
+        status: "new",
+        StudentRegistrationParent: {
+          create: {
+            data: data2 || " ",
           },
         },
-      });
-    }
+        StudentRegistrationActivities: {
+          create: {
+            data: data3 || " ",
+          },
+        },
+        StudentRegistrationInformation: {
+          create: {
+            data: data4 || " ",
+          },
+        },
+      },
+    });
 
-    revalidatePath(urlToRevalidate);
+    // if (data.id != null) {
+    //   result = await prisma.employee.update({
+    //     where: { id: Number(data.id) },
+    //     data: data as any,
+    //   });
+    // } else {
+    //   const dataCreate = data as StoreEmployeeByCreate;
+
+    //   result = await prisma.employee.create({
+    //     data: {
+    //       ...dataCreate,
+    //       id: undefined,
+    //       positionId: undefined,
+    //       position: {
+    //         connect: {
+    //           id: dataCreate.positionId,
+    //         },
+    //       },
+    //     },
+    //   });
+    // }
+
+    // revalidatePath(urlToRevalidate);
 
     return { success: true, ...result };
   } catch (e: any) {

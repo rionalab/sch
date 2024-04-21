@@ -12,7 +12,7 @@ export async function signIn({
   password: string;
 }) {
   try {
-    const user = await prisma.UserAdmission.findFirst({
+    const user = await prisma.userAdmission.findFirst({
       where: {
         email: username,
       },
@@ -28,7 +28,7 @@ export async function signIn({
       throw new Error("Credentials is invalid");
     }
 
-    return { success: true };
+    return { success: true, id: user.id };
   } catch (e: any) {
     handlePrismaError(e);
   }

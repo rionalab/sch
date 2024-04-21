@@ -90,13 +90,13 @@ export function Sidebar() {
           icon: <UserOutlined />,
           label: <Link href={urls.hrd.employee.index}>Employee</Link>,
         },
-        // {
-        //   key: "permissionLeave",
-        //   icon: <UserOutlined />,
-        //   label: (
-        //     <Link href={urls.hrd.employee.index}>Permission Leave</Link>
-        //   ),
-        // },
+        {
+          key: "role_hr_student_registration",
+          icon: <UserOutlined />,
+          label: (
+            <Link href={urls.hrd.studentRegistration.index}>Student Reg.</Link>
+          ),
+        },
         // {
         //   key: "1.2",
         //   icon: <ClockCircleOutlined />,
@@ -233,7 +233,8 @@ export function Sidebar() {
 
       const willShowHr =
         menu.key === "role_hr" &&
-        roleActions?.includes("role_hr_employee_view");
+        (roleActions?.includes("role_hr_employee_view") ??
+          roleActions?.includes("role_hr_student_registration_view"));
       const willShowStaff =
         menu.key === "role_staff" &&
         (roleActions?.includes("role_staff_purchase_view") ??

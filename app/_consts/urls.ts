@@ -1,4 +1,5 @@
 const employee = "/hrd/employee";
+const studentRegistration = "/hrd/student-registration";
 const department = "/master/department";
 const position = "/master/position";
 const vendor = "/master/vendor";
@@ -23,6 +24,7 @@ export const urls = {
     payment: "/admission/payment",
     signin: "/admission/signin",
     registration: "/admission/registration",
+    registrationSuccess: "/admission/registration-success",
   },
   auth: {
     signin: "/signin",
@@ -32,6 +34,10 @@ export const urls = {
     employee: {
       index: employee,
       create: employee + "/create",
+    },
+    studentRegistration: {
+      index: studentRegistration,
+      create: studentRegistration + "/create",
     },
     permissionLeave: {
       index: permissionLeave,

@@ -105,12 +105,11 @@ function TableDetail({ data }: Props) {
     },
   ];
 
-  console.log(data);
-
   return (
     <Row>
       <Col span={20}>
         <Descriptions
+          className="customLabel"
           column={3}
           title={
             <>

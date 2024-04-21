@@ -99,6 +99,11 @@ export const religionOptions = [
   { label: "Others", value: "Others" },
 ];
 
+export const relationWithChildOptions = [
+  { label: "Biological", value: "Biological" },
+  { label: "Guardian", value: "Guardian" },
+];
+
 export const trueFalseOptions = [
   { label: "Yes", value: true },
   { label: "No", value: false },

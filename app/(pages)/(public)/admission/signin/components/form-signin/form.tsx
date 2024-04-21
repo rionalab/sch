@@ -34,7 +34,7 @@ function FormSignin({ activeForm }: Props) {
         password,
       });
 
-      localStorage.setItem("auth", "true");
+      localStorage.setItem("auth", String(login?.id));
       router.push(urls.admission.dashboard);
     } catch (e: any) {
       setError(true);

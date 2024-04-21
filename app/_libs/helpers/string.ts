@@ -12,3 +12,7 @@ export function randomString(length = 8): string {
 export function removeSpaces(str = ""): string {
   return str.replace(/\s/g, "") ?? "";
 }
+
+export function s(str: any) {
+  return str || "-";
+}

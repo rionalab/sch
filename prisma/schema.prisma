@@ -33,17 +33,51 @@ model User {
   approvedPurchases  PurchaseRequest[] @relation("ApproverRelation")
 }
 
+model StudentRegistrationInformation {
+  id        Int                         @id @default(autoincrement())
+  student   StudentRegistrationChildren @relation(fields: [studentId], references: [id])
+  studentId Int                         @unique
+  data      String                      @db.Text
+}
+
+model StudentRegistrationInterest {
+  id        Int                         @id @default(autoincrement())
+  student   StudentRegistrationChildren @relation(fields: [studentId], references: [id])
+  studentId Int                         @unique
+  data      String                      @db.Text
+}
+
+model StudentRegistrationParent {
+  id        Int                         @id @default(autoincrement())
+  student   StudentRegistrationChildren @relation(fields: [studentId], references: [id])
+  studentId Int                         @unique
+  data      String                      @db.Text
+}
+
+model StudentRegistrationChildren {
+  id        Int       @id @default(autoincrement())
+  data      String    @db.Text
+  status    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  StudentRegistrationParent      StudentRegistrationParent?
+  StudentRegistrationActivities  StudentRegistrationInterest?
+  StudentRegistrationInformation StudentRegistrationInformation?
+}
 
 model UserAdmission {
-  id                 Int               @id @default(autoincrement())
-  email              String            @unique
-  password           String            @default("admin")
-  active             Boolean           @default(true)
-  name               String
-  lastLogin          DateTime?
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
-  deletedAt          DateTime?
+  id             Int       @id @default(autoincrement())
+  email          String    @unique
+  password       String    @default("admin")
+  active         Boolean   @default(true)
+  name           String
+  lastLogin      DateTime?
+  allowAdmission Boolean   @default(false)
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
 }
 
 model PurchaseRequest {
@@ -317,7 +351,7 @@ model Department {
   code            String            @unique
   active          Boolean           @default(true)
   description     String?
-  budget          Int            @default(0)
+  budget          Int               @default(0)
   Inventory       Inventory[]
   roleAccess      String?
   createdAt       DateTime          @default(now())

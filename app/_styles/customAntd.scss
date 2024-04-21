@@ -20,9 +20,20 @@
   margin-top: 24px !important;
 }
 
-.ant-descriptions-item-label {
-  font-size: 11px !important;
-  font-weight: 500 !important;
+.customLabel {
+  .ant-descriptions-item-label {
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    margin-top: 12px !important;
+  }
+
+  .ant-descriptions-item-content {
+    margin-top: 0 !important;
+  }
+}
+
+.ant-descriptions-item-label,
+.ant-descriptions-item-content {
   margin-top: 12px !important;
 }
 
@@ -86,31 +97,24 @@
   text-transform: capitalize !important;
 }
 
-.admissionRegistrationStep { 
-
+.admissionRegistrationStep {
   .ant-steps-item-description {
-    opacity: .7 !important;
+    opacity: 0.7 !important;
     font-size: 11px !important;
   }
 
-  .ant-steps-item-title { 
+  .ant-steps-item-title {
     font-weight: 500;
   }
 
-
   .ant-steps-item-active {
-
-    .ant-steps-item-title { 
+    .ant-steps-item-title {
       color: $aqua !important;
       font-weight: 500;
     }
 
-
-
-
-    .ant-steps-icon { 
+    .ant-steps-icon {
       color: $aqua !important;
     }
   }
-
 }
