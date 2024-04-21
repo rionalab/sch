@@ -16,6 +16,29 @@ export async function index() {
   });
 }
 
+export async function allowRegister(id: number, status = true) {
+  try {
+    const result = await prisma.userAdmission.update({
+      where: { id: Number(id) },
+      data: {
+        allowAdmission: status,
+      },
+    });
+  } catch (e: any) {
+    console.log(e.message);
+  }
+}
+
+export async function isAllowSubmitAdmission(id: number) {
+  const user = await prisma.userAdmission.findFirst({
+    where: {
+      id,
+    },
+  });
+
+  return user?.allowAdmission;
+}
+
 export async function store({
   data1,
   data2,

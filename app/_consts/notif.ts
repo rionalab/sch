@@ -49,3 +49,9 @@ export const notifApproveSuccess = (description?: string, title?: string) => ({
   description: description ?? "Data has been Approved successfully",
   duration,
 });
+
+export const notifTryAgain = (description?: string, title?: string) => ({
+  message: title ?? "Something went wrong",
+  description: description ?? "Please try again later or contact admin",
+  duration,
+});

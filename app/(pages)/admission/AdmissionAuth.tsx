@@ -1,4 +1,5 @@
 "use client";
+import { LoadingModule } from "@/c";
 import { urls } from "@/consts";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -17,7 +18,7 @@ function AdmissionAuth({ children }: { children: React.ReactElement }) {
   }, []);
 
   if (!authed) {
-    return "Please wait...";
+    return <LoadingModule />;
   }
 
   return <>{children}</>;

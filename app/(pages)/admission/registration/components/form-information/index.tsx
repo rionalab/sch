@@ -68,13 +68,6 @@ function FormInformation({ prevStep }: Props) {
   const onFinish = async (values: FormParentType) => {
     const isEdit = values.id;
     try {
-      // alert("submitted");
-      // setLoading(true);
-      //   // @ts-expect-error mgkin harus pake generic
-      //   await store(await submitEmployeeData({ ...values, photo: fileList[0] }));
-      //   api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
-      //   router.back();
-
       const data1 = localStorage.getItem("studentRegistration1");
       const data2 = localStorage.getItem("studentRegistration2");
       const data3 = localStorage.getItem("studentRegistration3");
@@ -83,11 +76,6 @@ function FormInformation({ prevStep }: Props) {
       await store({ data1, data2, data3, data4 });
 
       router.push(urls.admission.registrationSuccess);
-
-      // api?.success({
-      //   message:  "Registration  Success",
-      //   description: "Failed to update data",
-      // });
     } catch (e: any) {
       const msg = String(e.message);
       api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));

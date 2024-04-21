@@ -1,5 +1,18 @@
-import React from "react";
+import styles from "./styles.module.scss";
 
 export function LoadingModule() {
-  return <div>Loading data, please wait...</div>;
+  return (
+    <div>
+      <br />
+      <br />
+      <br />
+      <br />
+
+      <div className={styles.imgContainer}>
+        <img className={styles.img} alt="a" src={"/images/logo.png"} />
+
+        <p>Loading...</p>
+      </div>
+    </div>
+  );
 }

@@ -1,5 +1,6 @@
 "use client";
 
+import { LoadingModule } from "@/c";
 import {
   HeartOutlined,
   SmileOutlined,
@@ -7,17 +8,33 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Steps } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { isAllowSubmitAdmission } from "./action";
 import FormStudent from "./components/form-child/form";
 import FormInformation from "./components/form-information";
 import FormParents from "./components/form-parents";
 import FormTalent from "./components/form-talent";
+import PayFirst from "./components/pay-first";
 import styles from "./styles.module.scss";
 
 const description = "Lorem ipsum dolor sit, amet elit. Nam, maiores.";
 
 function Page() {
   const [activeStep, setActiveStep] = useState(0);
+  const [allow, setAllow] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const isAllowRegister = async () => {
+    const id = localStorage.getItem("auth");
+    const allowSubmit = await isAllowSubmitAdmission(Number(id));
+
+    setAllow(Boolean(allowSubmit));
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    isAllowRegister();
+  }, []);
 
   const next = () => {
     setActiveStep((prev) => prev + 1);
@@ -59,17 +76,26 @@ function Page() {
     return rest;
   });
 
+  if (loading) {
+    return <LoadingModule />;
+  }
+
   return (
     <div className={styles.container}>
       <br />
-      <Steps
-        current={activeStep}
-        className="admissionRegistrationStep"
-        items={items}
-      />
-      <br />
-
-      {setepItems[activeStep].content}
+      {allow ? (
+        <>
+          <Steps
+            current={activeStep}
+            className="admissionRegistrationStep"
+            items={items}
+          />
+          <br />
+          {setepItems[activeStep].content}
+        </>
+      ) : (
+        <PayFirst />
+      )}
     </div>
   );
 }
