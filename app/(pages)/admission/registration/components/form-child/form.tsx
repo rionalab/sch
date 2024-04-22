@@ -1,7 +1,6 @@
 "use client";
 
-import { imageUploadType } from "@/app/_consts/file";
-import { LoadingModule } from "@/c";
+import { FieldUpload, LoadingModule } from "@/c";
 import {
   employeeUnitOptions,
   genderOptions,
@@ -11,8 +10,13 @@ import {
   studentTransportationOptions,
 } from "@/consts";
 import { useAntdContext } from "@/contexts";
-import { fieldRules, prismaToForm, today } from "@/libs/helpers";
-import { CheckOutlined, UploadOutlined } from "@ant-design/icons";
+import {
+  fieldRules,
+  prismaToForm,
+  today,
+  uploadFileClient,
+} from "@/libs/helpers";
+import { CheckOutlined } from "@ant-design/icons";
 import { faker } from "@faker-js/faker";
 import type { UploadFile } from "antd";
 import {
@@ -25,8 +29,6 @@ import {
   Row,
   Select,
   Typography,
-  Upload,
-  message,
 } from "antd";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -50,11 +52,9 @@ const initialValues: FormChild = {
   houseAddress: faker.location.streetAddress(),
   distance: "10",
   languages: "aa, bb, cc",
-
   city: "string",
   birthOrder: "1",
   totalChild: "2",
-
   goingToShoolBy: "Private Vehicle",
 };
 
@@ -69,21 +69,31 @@ function FormStudent({ nextStep }: Props) {
   const { id } = useParams();
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [showTransferFields, setShowTransferFields] = useState(false);
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
-
+  const [filePhoto, setFilePhoto] = useState<UploadFile[]>([]);
+  const [familyCard, setFamilyCard] = useState<UploadFile[]>([]);
+  const [idCardFather, setIdCardFather] = useState<UploadFile[]>([]);
+  const [idCardMother, setIdCardMother] = useState<UploadFile[]>([]);
   const handleFormChange = (changedValues: any, allValues: any) => {};
 
   const onFinish = async (values: FormChild) => {
     const isEdit = values.id;
     try {
-      // alert("submitted");
-      // setLoading(true);
-      //   // @ts-expect-error mgkin harus pake generic
-      //   await store(await submitEmployeeData({ ...values, photo: fileList[0] }));
-      //   api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
-      //   router.back();
+      const docs = {
+        photo: await uploadFileClient(filePhoto),
+        familyCard: await uploadFileClient(familyCard),
+        idCardFather: await uploadFileClient(idCardFather),
+        idCardMother: await uploadFileClient(idCardMother),
+      };
 
-      localStorage.setItem("studentRegistration1", JSON.stringify(values));
+      console.log(docs);
+
+      localStorage.setItem(
+        "studentRegistration1",
+        JSON.stringify({
+          ...values,
+          ...docs,
+        }),
+      );
       nextStep();
     } catch (e: any) {
       const msg = String(e.message);
@@ -146,7 +156,6 @@ function FormStudent({ nextStep }: Props) {
         </Form.Item>
 
         <br />
-        {/* //* General Information */}
         <Typography.Title level={5}>General Information</Typography.Title>
         <br />
         <Row gutter={24}>
@@ -240,45 +249,19 @@ function FormStudent({ nextStep }: Props) {
               <Select options={religionOptions} />
             </Form.Item>
             <Form.Item<FormChild>
-              label="Photo"
-              name="photo"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
+              label="Home Address"
+              name="houseAddress"
+              rules={fieldRules(["required"])}
             >
-              <Upload
-                fileList={fileList}
-                accept={"image/png, image/jpeg, image/jpg"}
-                onRemove={(file) => {
-                  const index = fileList.indexOf(file);
-                  const newFileList = fileList.slice();
-                  newFileList.splice(index, 1);
-                  setFileList(newFileList);
-                }}
-                beforeUpload={(file) => {
-                  const isImage = imageUploadType.includes(file.type);
-                  const isLt2M = file.size / 1024 / 1024 < 2;
+              <Input.TextArea />
+            </Form.Item>
 
-                  if (!isImage) {
-                    void message.error(`${file.name} is not an image file`);
-                    setFileList([]);
-                  }
-
-                  if (!isLt2M) {
-                    void message.error("Image must smaller than 2MB!");
-                    setFileList([]);
-                  }
-
-                  setFileList([...fileList, file]);
-
-                  return false;
-                  // return isImage || Upload.LIST_IGNORE;
-                }}
-                maxCount={1}
-                name="logo"
-                listType="picture"
-              >
-                <Button icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload>
+            <Form.Item<FormChild>
+              label="City"
+              name="city"
+              rules={fieldRules(["required"])}
+            >
+              <Input />
             </Form.Item>
           </Col>
           <Col span={2}></Col>
@@ -332,24 +315,48 @@ function FormStudent({ nextStep }: Props) {
             >
               <Input />
             </Form.Item>
-
-            <Form.Item<FormChild>
-              label="Home Address"
-              name="houseAddress"
-              rules={fieldRules(["required"])}
-            >
-              <Input.TextArea />
-            </Form.Item>
-
-            <Form.Item<FormChild>
-              label="City"
-              name="city"
-              rules={fieldRules(["required"])}
-            >
-              <Input />
-            </Form.Item>
           </Col>
         </Row>
+        <br />
+        {/* //* Documents Information */}
+        <Typography.Title level={5}>Documents</Typography.Title>
+        <br />
+        <Row gutter={24}>
+          <Col span={10}>
+            <FieldUpload<FormChild>
+              fileList={filePhoto}
+              setFileList={setFilePhoto}
+              label={"photo"}
+              type="image"
+              name="photo"
+            />
+            <FieldUpload<FormChild>
+              fileList={familyCard}
+              setFileList={setFamilyCard}
+              label={"Family Card"}
+              type="image"
+              name="familyCard"
+            />
+          </Col>
+          <Col span={2}></Col>
+          <Col span={10}>
+            <FieldUpload<FormChild>
+              fileList={idCardFather}
+              setFileList={setIdCardFather}
+              label={"Id Card Father"}
+              type="image"
+              name="idCardFather"
+            />
+            <FieldUpload<FormChild>
+              fileList={idCardMother}
+              setFileList={setIdCardMother}
+              label={"Id Card Mother"}
+              type="image"
+              name="idCardMother"
+            />
+          </Col>
+        </Row>
+
         <br />
         {/* //* Other Information */}
         <Typography.Title level={5}>Other Information</Typography.Title>

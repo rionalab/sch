@@ -9,7 +9,7 @@ import { CheckOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row, Typography } from "antd";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { show, store } from "../../action";
+import { allowRegister, show, store } from "../../action";
 import type { FormOthers, FormParentType } from "../../type";
 import FieldActivities from "../field-activities";
 import FieldPersonLives from "../field-person-lives";
@@ -64,16 +64,20 @@ function FormInformation({ prevStep }: Props) {
   const { id } = useParams();
   const [loadingEdit, setLoadingEdit] = useState(false);
   const handleFormChange = (changedValues: any, allValues: any) => {};
+  const [userId, setuserId] = useState(0);
 
   const onFinish = async (values: FormParentType) => {
     const isEdit = values.id;
     try {
+      setLoading(true);
+
       const data1 = localStorage.getItem("studentRegistration1");
       const data2 = localStorage.getItem("studentRegistration2");
       const data3 = localStorage.getItem("studentRegistration3");
       const data4 = JSON.stringify(values);
 
       await store({ data1, data2, data3, data4 });
+      await allowRegister(userId, false);
 
       router.push(urls.admission.registrationSuccess);
     } catch (e: any) {
@@ -100,6 +104,9 @@ function FormInformation({ prevStep }: Props) {
     if (id) {
       void fetchDataEdit();
     }
+
+    const localStorageUserId = localStorage.getItem("auth");
+    setuserId(Number(localStorageUserId));
   }, []);
 
   return (
@@ -198,7 +205,7 @@ function FormInformation({ prevStep }: Props) {
                 style={{ paddingLeft: 50, paddingRight: 50 }}
                 htmlType="submit"
               >
-                Save
+                {loading ? "Saving..." : "Save"}
               </Button>
             </Form.Item>
           </Col>

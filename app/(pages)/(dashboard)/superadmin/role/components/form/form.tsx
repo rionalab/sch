@@ -102,16 +102,22 @@ const treeData: TreeDataNode[] = [
     ],
   },
   {
+    title: "Admission Officer",
+    key: "role_ao",
+    children: [
+      {
+        title: "Admission",
+        ...crudRole("ao_admission"),
+      },
+    ],
+  },
+  {
     title: "Human Resource",
     key: "role_hr",
     children: [
       {
         title: "Employee",
         ...crudRole("hr_employee"),
-      },
-      {
-        title: "Student Registration",
-        ...crudRole("hr_student_registration"),
       },
     ],
   },

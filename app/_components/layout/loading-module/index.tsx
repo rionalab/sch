@@ -13,6 +13,13 @@ export function LoadingModule() {
 
         <p>Loading...</p>
       </div>
+
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 }

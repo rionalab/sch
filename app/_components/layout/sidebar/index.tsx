@@ -81,6 +81,20 @@ export function Sidebar() {
       ],
     },
     {
+      key: "role_ao",
+      icon: <AppstoreAddOutlined />,
+      label: "Admission Officer",
+      children: [
+        {
+          key: "role_ao_admission",
+          icon: <UserOutlined />,
+          label: (
+            <Link href={urls.admissionOfficer.admission.index}>Admission</Link>
+          ),
+        },
+      ],
+    },
+    {
       key: "role_hr",
       icon: <SolutionOutlined />,
       label: "Human Resource",
@@ -233,8 +247,10 @@ export function Sidebar() {
 
       const willShowHr =
         menu.key === "role_hr" &&
-        (roleActions?.includes("role_hr_employee_view") ??
-          roleActions?.includes("role_hr_student_registration_view"));
+        roleActions?.includes("role_hr_employee_view");
+      const willShowAo =
+        menu.key === "role_ao" &&
+        roleActions?.includes("role_ao_admission_view");
       const willShowStaff =
         menu.key === "role_staff" &&
         (roleActions?.includes("role_staff_purchase_view") ??
@@ -258,6 +274,7 @@ export function Sidebar() {
         roleActions?.includes(key) ??
         willShowStaff ??
         willShowAdmin ??
+        willShowAo ??
         willShowHr ??
         willShowMaster
       ) {

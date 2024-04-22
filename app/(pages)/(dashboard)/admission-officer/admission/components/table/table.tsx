@@ -16,7 +16,9 @@ interface Props {
 type DtColumns = ColumnsType<Record<string, any>>;
 
 function Table({ rows }: Props) {
-  const { allowDelete, allowCreate, allowEdit } = useRole("ao_admission");
+  const { allowDelete, allowCreate, allowEdit } = useRole(
+    "hr_student_registration",
+  );
   const tableProps = useTable<StudentRegistration>({ rows });
 
   return (

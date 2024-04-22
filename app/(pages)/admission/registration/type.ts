@@ -100,7 +100,15 @@ export interface FormChild {
   birthOrder: string;
   totalChild: string;
   photo?: string;
+  familyCard?: string;
+
+  idCardMother?: string;
+  oldIdCardMother?: string;
+  idCardFather?: string;
+  oldIdCardFather?: string;
+
   oldPhoto?: string;
+  oldFamilyCard?: string;
   nationality: string;
   fullName: string;
   placeOfBirth: string;

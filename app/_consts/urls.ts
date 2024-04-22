@@ -13,6 +13,7 @@ const staffLeaveRequest = "/staff/leave-request";
 const staffPurchaseRequest = "/staff/purchase-request";
 const user = "/master/user";
 const role = "/superadmin/role";
+const admission = "/admission-officer/admission";
 
 export const urls = {
   root: "/",
@@ -25,6 +26,13 @@ export const urls = {
     signin: "/admission/signin",
     registration: "/admission/registration",
     registrationSuccess: "/admission/registration-success",
+  },
+  admissionOfficer: {
+    admission: {
+      index: admission,
+      create: admission + "/create",
+      edit: (id: string | number) => admission + "/edit/" + id,
+    },
   },
   auth: {
     signin: "/signin",

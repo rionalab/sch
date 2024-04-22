@@ -4,7 +4,6 @@ import { useAntdContext } from "@/contexts";
 import { fieldRules } from "@/libs/helpers";
 import { CheckOutlined } from "@ant-design/icons";
 import { Alert, Button, Form, Input } from "antd";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import type { FormFieldsRegister } from "../../types";
 import { store } from "./action";
@@ -19,7 +18,6 @@ function FormRegister({ toggleForm, activeForm }: Props) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
-  const router = useRouter();
   const { api } = useAntdContext();
 
   const onFinish = async (data: FormFieldsRegister): Promise<void> => {

@@ -1,14 +1,12 @@
-import { uploadFile } from "@/actions/file";
 import { formToPrisma } from "@/libs/helpers";
 import { type FormFields } from "../../type";
+import { uploadFile } from "@/actions/file";
 
 export async function submitEmployeeData(dirtyValue: FormFields) {
   const { PKWT, oldPhoto, ...rest } = dirtyValue;
   let photo = oldPhoto;
 
   if (rest.photo) {
-    console.log(1111111, rest.photo);
-
     const data = new FormData();
     data.append("file", rest.photo as unknown as File);
 

@@ -48,24 +48,24 @@ function Page() {
     {
       title: "Child Particular's",
       icon: <UserOutlined />,
-      description,
+      description: "Enter child's personal details and registration papers",
       content: <FormStudent nextStep={() => next()} />,
     },
     {
       title: "Parent Particular's",
-      description,
+      description: "Provide parent/guardian contact information",
       icon: <TeamOutlined />,
       content: <FormParents prevStep={() => prev()} nextStep={() => next()} />,
     },
     {
       title: "Child Interest & Bckground",
-      description,
+      description: "Share child's interests and background",
       content: <FormTalent prevStep={() => prev()} nextStep={() => next()} />,
       icon: <HeartOutlined />,
     },
     {
       title: "Information & Declaration",
-      description,
+      description: "Review and confirm your submitted information",
       content: <FormInformation prevStep={() => prev()} />,
       icon: <SmileOutlined />,
     },

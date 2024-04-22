@@ -58,18 +58,18 @@ export const routes: Routes = {
     ],
   },
 
-  hr_student_registration: {
-    url: urls.hrd.studentRegistration.index,
-    title: "Student Registration",
+  ao_admission: {
+    url: urls.admissionOfficer.admission.index,
+    title: "Admission",
     icon: <UserOutlined />,
     breadcrumb: [
       {
-        title: "Human Resource",
+        title: "Admission Officer",
       },
       {
-        title: "Student Registration",
+        title: "Admission",
         icon: <UserOutlined />,
-        url: urls.hrd.studentRegistration.index,
+        url: urls.admissionOfficer.admission.index,
       },
     ],
   },

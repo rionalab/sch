@@ -4,19 +4,19 @@
   width: 100%;
   top: 0;
   display: inline-block;
-  animation: moveUpDown 3s infinite alternate;
+  animation: moveUpDown 2s infinite alternate;
 }
 
 .imgContainer {
   width: 80px;
-  margin: 22vh auto 0;
+  margin: 0 auto 0;
   position: relative;
   height: 130px; /* Adjust height as needed */
   p {
     width: 100%;
     text-align: center;
     position: absolute;
-    bottom: 0;
+    bottom: 16px;
     font-weight: 500;
     font-size: 12px;
     opacity: 0.7;
@@ -28,6 +28,6 @@
     transform: translateY(0);
   }
   100% {
-    transform: translateY(50px); /* Adjust the distance the image moves */
+    transform: translateY(15px); /* Adjust the distance the image moves */
   }
 }
