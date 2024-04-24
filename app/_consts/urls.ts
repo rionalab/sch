@@ -14,6 +14,31 @@ const staffPurchaseRequest = "/staff/purchase-request";
 const user = "/master/user";
 const role = "/superadmin/role";
 const admission = "/admission-officer/admission";
+const form = "/marketing/form";
+
+type Value = string | ((id: string | number) => string);
+
+const generateCrudUrl = (url: string, actions: string = "crud") => {
+  const result: Record<string, Value> = {};
+
+  if (actions.includes("c")) {
+    result.create = url + "/create";
+  }
+
+  if (actions.includes("r")) {
+    result.index = url;
+  }
+
+  if (actions.includes("u")) {
+    result.edit = (id: string | number) => url + "/edit" + id;
+  }
+
+  return {
+    index: url,
+    create: url + "/create",
+    edit: (id: string | number) => url + "/edit/" + id,
+  };
+};
 
 export const urls = {
   root: "/",
@@ -28,24 +53,19 @@ export const urls = {
     registrationSuccess: "/admission/registration-success",
   },
   admissionOfficer: {
-    admission: {
-      index: admission,
-      create: admission + "/create",
-      edit: (id: string | number) => admission + "/edit/" + id,
-    },
+    admission: generateCrudUrl(admission),
   },
   auth: {
     signin: "/signin",
     signout: "/signout",
   },
+  marketing: {
+    form: generateCrudUrl(form),
+  },
   hrd: {
     employee: {
       index: employee,
       create: employee + "/create",
-    },
-    studentRegistration: {
-      index: studentRegistration,
-      create: studentRegistration + "/create",
     },
     permissionLeave: {
       index: permissionLeave,

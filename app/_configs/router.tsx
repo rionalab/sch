@@ -27,6 +27,21 @@ export const routes: Routes = {
       },
     ],
   },
+  marketing_form: {
+    url: urls.marketing.form.index,
+    title: "Forms",
+    icon: <UserOutlined />,
+    breadcrumb: [
+      {
+        title: "Marketing",
+      },
+      {
+        title: "Forms",
+        icon: <UserOutlined />,
+        url: urls.marketing.form.index,
+      },
+    ],
+  },
   admin_role: {
     url: urls.superadmin.role.index,
     title: "Role",

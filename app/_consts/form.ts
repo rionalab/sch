@@ -114,6 +114,15 @@ export const inventoryCategoryOptions = [
   { label: "non-consumables", value: "non-consumables" },
 ];
 
+export const payOrFreeOptions = [
+  { label: "Free", value: "free" },
+  { label: "Paid", value: "paid" },
+];
+
+export const documentTypeOptions = [
+  { label: "Parent", value: "parent" },
+  { label: "Website", value: "website" },
+];
 // export const religionOptions = [
 //   { label: "Islam", value: "Islam" },
 //   { label: "Budha", value: "Budha" },

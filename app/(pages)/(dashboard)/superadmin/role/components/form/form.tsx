@@ -117,7 +117,17 @@ const treeData: TreeDataNode[] = [
     children: [
       {
         title: "Employee",
-        ...crudRole("hr_employee"),
+        ...crudRole("pseehr_employee"),
+      },
+    ],
+  },
+  {
+    title: "Marketing",
+    key: "role_marketing",
+    children: [
+      {
+        title: "Form",
+        ...crudRole("marketing_form"),
       },
     ],
   },

@@ -12,25 +12,40 @@ datasource db {
 }
 
 model User {
-  id                 Int               @id @default(autoincrement())
-  email              String            @unique
-  role               RoleAction        @relation(fields: [roleId], references: [id])
-  roleId             Int
-  department         Department?       @relation(fields: [departmentId], references: [id])
-  departmentId       Int?
-  password           String            @default("admin")
-  active             Boolean           @default(true)
-  hasUpdatePassword  Boolean           @default(false)
-  name               String
-  lastLogin          DateTime?
-  roleAccess         String?
-  createdAt          DateTime          @default(now())
-  updatedAt          DateTime          @updatedAt
-  deletedAt          DateTime?
-  Profile            Profile?
-  Employee           Employee?
-  requestedPurchases PurchaseRequest[] @relation("RequesterRelation")
-  approvedPurchases  PurchaseRequest[] @relation("ApproverRelation")
+  id                          Int                           @id @default(autoincrement())
+  email                       String                        @unique
+  role                        RoleAction                    @relation(fields: [roleId], references: [id])
+  roleId                      Int
+  department                  Department?                   @relation(fields: [departmentId], references: [id])
+  departmentId                Int?
+  password                    String                        @default("admin")
+  active                      Boolean                       @default(true)
+  hasUpdatePassword           Boolean                       @default(false)
+  name                        String
+  lastLogin                   DateTime?
+  roleAccess                  String?
+  createdAt                   DateTime                      @default(now())
+  updatedAt                   DateTime                      @updatedAt
+  deletedAt                   DateTime?
+  Profile                     Profile?
+  Employee                    Employee?
+  requestedPurchases          PurchaseRequest[]             @relation("RequesterRelation")
+  approvedPurchases           PurchaseRequest[]             @relation("ApproverRelation")
+  StudentRegistrationChildren StudentRegistrationChildren[]
+}
+
+model Documents {
+  id        Int       @id @default(autoincrement())
+  name      String
+  type      String
+  fileName  String
+  isPaid    Boolean   @default(true)
+  price     Int       @default(0)
+  remarks   String    @default("")
+  active    Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 }
 
 model StudentRegistrationInformation {
@@ -55,12 +70,17 @@ model StudentRegistrationParent {
 }
 
 model StudentRegistrationChildren {
-  id        Int       @id @default(autoincrement())
-  data      String    @db.Text
-  status    String
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  id          Int                       @id @default(autoincrement())
+  data        String                    @db.Text
+  status      String
+  progress    ChildRegistrationProgress @default(New)
+  paymentCode String
+  method      ChildRegistrationMethod
+  officer     User?                     @relation(fields: [userId], references: [id])
+  userId      Int?
+  createdAt   DateTime                  @default(now())
+  updatedAt   DateTime                  @updatedAt
+  deletedAt   DateTime?
 
   StudentRegistrationParent      StudentRegistrationParent?
   StudentRegistrationActivities  StudentRegistrationInterest?
@@ -68,16 +88,29 @@ model StudentRegistrationChildren {
 }
 
 model UserAdmission {
-  id             Int       @id @default(autoincrement())
-  email          String    @unique
-  password       String    @default("admin")
-  active         Boolean   @default(true)
+  id             Int                  @id @default(autoincrement())
+  email          String               @unique
+  password       String               @default("admin")
+  active         Boolean              @default(true)
   name           String
+  type           AdmissionAccountType @default(Guest)
   lastLogin      DateTime?
-  allowAdmission Boolean   @default(false)
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  allowAdmission Boolean              @default(false)
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
   deletedAt      DateTime?
+  PaymentCode    PaymentCode[]
+}
+
+model PaymentCode {
+  id        Int           @id @default(autoincrement())
+  type      String
+  user      UserAdmission @relation(fields: [userId], references: [id])
+  userId    Int
+  used      Boolean       @default(false)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
 }
 
 model PurchaseRequest {
@@ -464,4 +497,22 @@ enum Role {
 enum PositionCategory {
   Edu
   NonEdu
+}
+
+enum ChildRegistrationMethod {
+  Online
+  Offline
+}
+
+enum ChildRegistrationProgress {
+  New
+  Interview
+  Test
+  Payment
+  Done
+}
+
+enum AdmissionAccountType {
+  Guest
+  Parent
 }

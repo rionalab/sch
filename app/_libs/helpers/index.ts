@@ -1,4 +1,3 @@
-export * from "./console";
 export * from "./date";
 export * from "./file";
 export * from "./form";

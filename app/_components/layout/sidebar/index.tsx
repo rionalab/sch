@@ -104,13 +104,7 @@ export function Sidebar() {
           icon: <UserOutlined />,
           label: <Link href={urls.hrd.employee.index}>Employee</Link>,
         },
-        {
-          key: "role_hr_student_registration",
-          icon: <UserOutlined />,
-          label: (
-            <Link href={urls.hrd.studentRegistration.index}>Student Reg.</Link>
-          ),
-        },
+
         // {
         //   key: "1.2",
         //   icon: <ClockCircleOutlined />,
@@ -136,6 +130,18 @@ export function Sidebar() {
         //   icon: <GlobalOutlined />,
         //   label: <Link href="/hrd/employee">British Council</Link>,
         // },
+      ],
+    },
+    {
+      key: "role_marketing",
+      icon: <AppstoreAddOutlined />,
+      label: "Marketing",
+      children: [
+        {
+          key: "role_marketing_form",
+          icon: <UserOutlined />,
+          label: <Link href={urls.marketing.form.index}>Form</Link>,
+        },
       ],
     },
     {
@@ -269,6 +275,9 @@ export function Sidebar() {
           roleActions?.includes("role_master_workunit_view") ??
           roleActions?.includes("role_master_leavetype_view") ??
           roleActions?.includes("role_master_user_view"));
+      const willShowMarketing =
+        menu.key === "role_marketing" &&
+        roleActions?.includes("role_marketing_form_view");
 
       if (
         roleActions?.includes(key) ??
@@ -276,7 +285,8 @@ export function Sidebar() {
         willShowAdmin ??
         willShowAo ??
         willShowHr ??
-        willShowMaster
+        willShowMaster ??
+        willShowMarketing
       ) {
         return {
           ...menu,
