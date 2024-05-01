@@ -254,11 +254,17 @@ export function SidebarAdm() {
         label: "Dashboard",
       },
       {
-        key: "registration",
+        key: "forms",
         icon: <UsergroupAddOutlined />,
-        href: urls.admission.registration,
-        label: "Registration",
+        href: urls.admission.forms,
+        label: "Forms",
       },
+      // {
+      //   key: "registration",
+      //   icon: <UsergroupAddOutlined />,
+      //   href: urls.admission.registration,
+      //   label: "Registration",
+      // },
       {
         key: "payment",
         icon: <DollarCircleOutlined />,

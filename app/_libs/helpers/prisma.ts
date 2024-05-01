@@ -13,17 +13,6 @@ const d = {
 } as const;
 
 export function handlePrismaError(e: any) {
-  // eslint-disable-next-line no-constant-condition
-  if (false) {
-    console.clear();
-    console.log("11111 #####################");
-    console.log(1, e?.code);
-    console.log(2, e?.meta?.cause);
-    console.log(3, e?.meta);
-    console.log(4, e);
-    console.log("22222 #####################");
-  }
-
   const isPrismaError = e instanceof Prisma.PrismaClientKnownRequestError;
 
   try {
@@ -54,6 +43,8 @@ export function handlePrismaError(e: any) {
           "NIK",
           "name",
           "Position",
+          "ParentForm",
+          "parentId",
         ];
 
         const matchByModel = words.includes(modelName);
@@ -64,6 +55,8 @@ export function handlePrismaError(e: any) {
             throw new Error(messages.dataAlreadyUsed(d.Position.name));
           } else if (modelName === "Inventory" && fieldName === "code") {
             throw new Error(messages.dataAlreadyUsed(d.Inventory.code));
+          } else if (modelName === "ParentForm" && fieldName === "parentId") {
+            throw new Error(messages.alreadyPurchased);
           }
         }
 

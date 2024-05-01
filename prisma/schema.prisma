@@ -34,18 +34,32 @@ model User {
   StudentRegistrationChildren StudentRegistrationChildren[]
 }
 
+model ParentForm {
+  id         Int           @id @default(autoincrement())
+  parentId   Int
+  documentId Int
+  parent     UserAdmission @relation(fields: [parentId], references: [id])
+  document   Documents     @relation(fields: [documentId], references: [id])
+  code       String
+  isUsed     Boolean       @default(false)
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
+  deletedAt  DateTime?
+}
+
 model Documents {
-  id        Int       @id @default(autoincrement())
-  name      String
-  type      String
-  fileName  String
-  isPaid    Boolean   @default(true)
-  price     Int       @default(0)
-  remarks   String    @default("")
-  active    Boolean   @default(true)
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  deletedAt DateTime?
+  id         Int          @id @default(autoincrement())
+  name       String
+  type       String
+  fileName   String
+  isPaid     Boolean      @default(true)
+  price      Int          @default(0)
+  remarks    String       @db.Text
+  active     Boolean      @default(true)
+  createdAt  DateTime     @default(now())
+  updatedAt  DateTime     @updatedAt
+  deletedAt  DateTime?
+  ParentForm ParentForm[]
 }
 
 model StudentRegistrationInformation {
@@ -100,6 +114,7 @@ model UserAdmission {
   updatedAt      DateTime             @updatedAt
   deletedAt      DateTime?
   PaymentCode    PaymentCode[]
+  ParentForm     ParentForm[]
 }
 
 model PaymentCode {

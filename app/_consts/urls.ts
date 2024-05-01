@@ -48,7 +48,10 @@ export const urls = {
   admission: {
     dashboard: "/admission/dashboard",
     payment: "/admission/payment",
+    forms: "/admission/forms",
+    formsDetail: (id: string) => "/admission/forms/" + id,
     signin: "/admission/signin",
+    paymentSuccess: "/admission/payment-success",
     registration: "/admission/registration",
     registrationSuccess: "/admission/registration-success",
   },

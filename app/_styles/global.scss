@@ -31,6 +31,12 @@ a {
     font-size: 32px;
     color: $aqua;
   }
+  h4 {
+    font-weight: 500;
+    margin-bottom: 32px;
+    font-size: 13px !important;
+    color: #555;
+  }
   p {
     margin-bottom: 16px;
     font-size: 12px;
@@ -44,15 +50,17 @@ a {
   }
 
   button {
-    background-color: #69ceed;
-    border: 0;
-    cursor: pointer;
-    padding: 12px 32px;
-    font-weight: 600;
-    border-radius: 6px;
-    color: white;
-    font-size: 14px;
-    margin-top: 24px;
+    &.aqua {
+      background-color: #69ceed;
+      border: 0;
+      cursor: pointer;
+      padding: 12px 32px;
+      font-weight: 600;
+      border-radius: 6px;
+      color: white;
+      font-size: 14px;
+      margin-top: 24px;
+    }
   }
 
   b {

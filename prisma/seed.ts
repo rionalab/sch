@@ -160,6 +160,19 @@ async function main() {
   const department = await prisma.department.findMany();
   // console.log(department);
 
+  // * UserAdmission
+  // *************************************
+  await prisma.userAdmission.createMany({
+    data: [
+      {
+        email: "parent@kr.com",
+        password: await bcrypt.hash("parent1234", 10),
+        name: "Parent 1",
+      },
+    ],
+    skipDuplicates: true,
+  });
+
   // * User
   // *************************************
   await prisma.user.createMany({
@@ -526,6 +539,14 @@ async function main() {
         isPaid: true,
         price: 100000,
         remarks: "remarks New Student Admisssion",
+      },
+      {
+        name: "New Student Admisssion 2",
+        type: "parent",
+        fileName: "admission.pdf",
+        isPaid: true,
+        price: 200000,
+        remarks: "remarks New Student Admisssion 2",
       },
       {
         name: "Promotion",

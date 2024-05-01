@@ -4,6 +4,7 @@ export const messages = {
     label ? "Please input your " + label : "Field value is required",
   retryLater: "Please try again later or contact admin",
   dataIsInvalid: "Data is Invalid",
+  alreadyPurchased: "You have already purchase this form",
   somethingWentWrong: "Something Went Wrong",
   deleteError: "Fail to delete data",
   dataAlreadyUsed: (label: string) => label + " is already used",

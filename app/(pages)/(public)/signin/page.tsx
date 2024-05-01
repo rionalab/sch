@@ -1,10 +1,10 @@
-import styles from "./styles.module.scss";
-import Image from "next/image";
-import FormSignin from "./components/form/form";
-import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import { options } from "@/app/api/auth/[...nextauth]/options";
 import { urls } from "@/consts";
+import { getServerSession } from "next-auth";
+import Image from "next/image";
+import { redirect } from "next/navigation";
+import FormSignin from "./components/form/form";
+import styles from "./styles.module.scss";
 
 async function Page() {
   const session = await getServerSession(options);
@@ -33,6 +33,17 @@ async function Page() {
           src={"/images/logo.png"}
         />
         <p className={styles.formTitle}>Sign in to Kids Republic</p>
+        <button
+          onClick={() => {
+            // 1.call api to idn
+            const price = 1000000;
+            const userId = 2;
+
+            // fetch("idn");
+          }}
+        >
+          Payment
+        </button>
         <br />
         <br />
         <FormSignin />
