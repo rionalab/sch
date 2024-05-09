@@ -7,4 +7,5 @@ export interface FormFields {
   fileName: string;
   active: boolean;
   remarks: string;
+  path: string;
 }

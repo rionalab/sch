@@ -10,8 +10,6 @@ import type { FormFields } from "../../types";
 import { signIn } from "./action";
 import styles from "./styles.module.scss";
 
-const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
-
 interface Props {
   activeForm: string;
 }

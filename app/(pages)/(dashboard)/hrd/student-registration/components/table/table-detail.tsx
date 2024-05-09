@@ -16,18 +16,18 @@ interface Props {
 
 function TableDetail({ data }: Props) {
   const dataParent = JSON.parse(
-    // @ts-ignore
+    // @ts-expect-error qqq
     data.StudentRegistrationParent.data,
   ) as StudentRegistrationParent;
 
   const dataIntereset = JSON.parse(
-    // @ts-ignore
-    data.StudentRegistrationActivities.data,
+    // @ts-expect-error qqq
+    data.StudentRegistrationActivities.data as string,
   ) as StudentRegistrationActivities;
 
   const dataInformation = JSON.parse(
-    // @ts-ignore
-    data.StudentRegistrationInformation.data,
+    // @ts-expect-error qqq
+    data.StudentRegistrationInformation.data as string,
   ) as StudentRegistrationInformation;
 
   const items: TabsProps["items"] = [

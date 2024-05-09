@@ -16,9 +16,10 @@ export const columns = (): ColumnsType<Prisma.DocumentsCreateInput> => {
     },
     {
       title: "type",
-      width: 120,
+      width: 150,
       dataIndex: "type",
     },
+
     {
       title: "price",
       dataIndex: "price",
@@ -27,8 +28,14 @@ export const columns = (): ColumnsType<Prisma.DocumentsCreateInput> => {
       },
     },
     {
+      title: "path",
+      width: 220,
+      dataIndex: "path",
+    },
+    {
       title: "remarks",
       dataIndex: "remarks",
+      ellipsis: true,
     },
   ];
 };

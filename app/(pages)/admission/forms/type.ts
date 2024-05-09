@@ -2,6 +2,18 @@ import { type Dayjs } from "dayjs";
 
 export type RegStatus = "new" | "transfer";
 
+export interface ParentForm {
+  id: number;
+  parentId: number;
+  documentId: number;
+  code: string;
+  price: number;
+  isUsed: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt: Date;
+}
+
 export interface Employee {
   status: RegStatus;
   nisn?: string;

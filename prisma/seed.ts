@@ -538,6 +538,7 @@ async function main() {
         fileName: "admission.pdf",
         isPaid: true,
         price: 100000,
+        path: "/admission/registration",
         remarks: "remarks New Student Admisssion",
       },
       {
@@ -547,6 +548,14 @@ async function main() {
         isPaid: true,
         price: 200000,
         remarks: "remarks New Student Admisssion 2",
+      },
+      {
+        name: "New Student Admisssion 3",
+        type: "parent",
+        fileName: "admission.pdf",
+        isPaid: false,
+        price: 0,
+        remarks: "remarks New Student Admisssion 3",
       },
       {
         name: "Promotion",

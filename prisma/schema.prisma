@@ -41,6 +41,7 @@ model ParentForm {
   parent     UserAdmission @relation(fields: [parentId], references: [id])
   document   Documents     @relation(fields: [documentId], references: [id])
   code       String
+  price      Int           @default(0)
   isUsed     Boolean       @default(false)
   createdAt  DateTime      @default(now())
   updatedAt  DateTime      @updatedAt
@@ -52,6 +53,7 @@ model Documents {
   name       String
   type       String
   fileName   String
+  path       String       @default("")
   isPaid     Boolean      @default(true)
   price      Int          @default(0)
   remarks    String       @db.Text

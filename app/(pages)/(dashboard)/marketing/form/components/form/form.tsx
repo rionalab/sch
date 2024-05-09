@@ -3,6 +3,7 @@
 import { ButtonForm } from "@/c";
 import {
   documentTypeOptions,
+  formAdmissionPathOptions,
   notifStoreError,
   notifStoreSuccess,
   notifUpdateError,
@@ -98,6 +99,14 @@ function FormCrud() {
               rules={fieldRules(["required"])}
             >
               <Select options={documentTypeOptions} />
+            </Form.Item>
+
+            <Form.Item<FormFields>
+              label="Path"
+              name="path"
+              rules={fieldRules(["required"])}
+            >
+              <Select options={formAdmissionPathOptions} />
             </Form.Item>
 
             <Form.Item<FormFields>

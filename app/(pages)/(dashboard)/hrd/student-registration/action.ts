@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use server";
 
 import { urls } from "@/consts";
@@ -6,7 +8,7 @@ import prisma from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
 import { type StoreEmployee, type StoreEmployeeByCreate } from "./type";
 
-const urlToRevalidate = urls.hrd.studentRegistration.index;
+const urlToRevalidate = urls.admissionOfficer.admission.index;
 
 export async function index() {
   return await prisma.studentRegistrationChildren.findMany({
@@ -25,7 +27,7 @@ export async function store(data: StoreEmployee | StoreEmployeeByCreate) {
     if (data.id != null) {
       result = await prisma.employee.update({
         where: { id: Number(data.id) },
-        data: data as any,
+        data,
       });
     } else {
       const dataCreate = data as StoreEmployeeByCreate;

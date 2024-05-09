@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import styles from "./styles.module.scss";
 
-function page() {
+function Page() {
   const router = useRouter();
 
   return (
@@ -20,19 +20,23 @@ function page() {
         <h3 className={styles.h3}>Hooray! Registration Successful! 🎉</h3>
         <p>Thank you for submitting your registration form!</p>
         <p>
-          We've received your information, and our team is now reviewing your
-          registration. You're one step closer to joining our family! . In the
-          meantime, if you have any questions or need assistance, feel free to
-          reach out to us at <b>+628 2182 999 123.</b>
+          We&apos;ve received your information, and our team is now reviewing
+          your registration. You&apos;re one step closer to joining our family!
+          . In the meantime, if you have any questions or need assistance, feel
+          free to reach out to us at <b>+628 2182 999 123.</b>
         </p>
 
         <p>
-          Thank you for choosing us! We can't wait to welcome you aboard!
+          Thank you for choosing us! We can&apos;t wait to welcome you aboard!
           <br />
           Best regards, <b>Kids Republic</b>
         </p>
         <p>
-          <button onClick={() => router.push(urls.admission.dashboard)}>
+          <button
+            onClick={() => {
+              router.push(urls.admission.dashboard);
+            }}
+          >
             Dashboard
           </button>
         </p>
@@ -41,4 +45,4 @@ function page() {
   );
 }
 
-export default page;
+export default Page;

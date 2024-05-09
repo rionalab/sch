@@ -1,5 +1,4 @@
 const employee = "/hrd/employee";
-const studentRegistration = "/hrd/student-registration";
 const department = "/master/department";
 const position = "/master/position";
 const vendor = "/master/vendor";
@@ -51,7 +50,7 @@ export const urls = {
     forms: "/admission/forms",
     formsDetail: (id: string) => "/admission/forms/" + id,
     signin: "/admission/signin",
-    paymentSuccess: "/admission/payment-success",
+    paymentSuccess: (id: string) => "/admission/payment-success/" + id,
     registration: "/admission/registration",
     registrationSuccess: "/admission/registration-success",
   },

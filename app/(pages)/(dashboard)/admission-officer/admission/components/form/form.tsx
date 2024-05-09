@@ -23,6 +23,10 @@ import {
   today,
   tomorrow,
 } from "@/libs/helpers";
+import type {
+  Employee,
+  FormFields,
+} from "@/pages/(dashboard)/hrd/employee/type";
 import type { Position } from "@/pages/(dashboard)/master/position/type";
 import { UploadOutlined } from "@ant-design/icons";
 import { faker } from "@faker-js/faker";
@@ -42,7 +46,6 @@ import {
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { show, store } from "../../action";
-import { type Employee, type FormFields } from "../../type";
 import { submitEmployeeData } from "./model";
 
 const initialValues: Partial<Employee> = {

@@ -18,7 +18,7 @@ export async function index() {
 
 export async function allowRegister(id: number, status = true) {
   try {
-    const result = await prisma.userAdmission.update({
+    await prisma.userAdmission.update({
       where: { id: Number(id) },
       data: {
         allowAdmission: status,
@@ -51,9 +51,9 @@ export async function store({
   data4: any;
 }) {
   try {
-    let result = {};
+    const result = {};
 
-    const a = await prisma.studentRegistrationChildren.create({
+    await prisma.studentRegistrationChildren.create({
       data: {
         data: data1 || " ",
         status: "new",
@@ -72,6 +72,8 @@ export async function store({
             data: data4 || " ",
           },
         },
+        paymentCode: "AAAA",
+        method: "Online",
       },
     });
 

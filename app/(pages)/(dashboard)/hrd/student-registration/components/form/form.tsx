@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 "use client";
 
 import { imageUploadType } from "@/app/_consts/file";

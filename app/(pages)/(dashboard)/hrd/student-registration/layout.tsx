@@ -4,7 +4,7 @@ import React from "react";
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <PageHeader id="hr_student_registration" />
+      <PageHeader id="ao_admission" />
       {children}
     </>
   );

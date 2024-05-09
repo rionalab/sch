@@ -33,17 +33,6 @@ async function Page() {
           src={"/images/logo.png"}
         />
         <p className={styles.formTitle}>Sign in to Kids Republic</p>
-        <button
-          onClick={() => {
-            // 1.call api to idn
-            const price = 1000000;
-            const userId = 2;
-
-            // fetch("idn");
-          }}
-        >
-          Payment
-        </button>
         <br />
         <br />
         <FormSignin />

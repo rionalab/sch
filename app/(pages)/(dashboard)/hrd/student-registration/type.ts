@@ -124,22 +124,7 @@ export interface StudentRegistration {
   updatedAt?: Date;
 }
 
-// export interface FormFields extends Employee {}
-
-export interface StoreEmployee {
-  // extends Omit<
-  //   Employee,
-  //   "hireDate" | "dob" | "TMT" | "PKWT" | "PKWTEnd" | "PKWTStart"
-  // > {
-  // PKWTStart?: string;
-  // PKWTEnd?: string;
-  // hireDate: string;
-  // TMT: string;
-  // dob: string;
-}
-
-export interface StoreEmployeeByCreate
-  extends Omit<StoreEmployee, "id" | "positionId" | "userId"> {
+export interface StoreEmployeeByCreate {
   id: undefined;
   positionId: undefined;
   userId: undefined;

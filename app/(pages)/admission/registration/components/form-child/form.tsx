@@ -103,13 +103,6 @@ function FormStudent({ nextStep }: Props) {
     }
   };
 
-  const normFile = (e: any) => {
-    if (Array.isArray(e)) {
-      return e;
-    }
-    return e?.fileList;
-  };
-
   const fetchDataEdit = async () => {
     setLoadingEdit(true);
     const dataEdit = await show(Number(id));

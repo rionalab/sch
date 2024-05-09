@@ -22,7 +22,7 @@ function FormRegister({ toggleForm, activeForm }: Props) {
 
   const onFinish = async (data: FormFieldsRegister): Promise<void> => {
     try {
-      const { username, password, confirm_password } = data;
+      const { password, confirm_password } = data;
 
       if (password !== confirm_password) {
         setErrorMsg("Password confirmation not match!");
@@ -31,7 +31,7 @@ function FormRegister({ toggleForm, activeForm }: Props) {
 
       setLoading(true);
 
-      const register = await store(data);
+      await store(data);
 
       api?.success({
         message: "Sign Up Success",

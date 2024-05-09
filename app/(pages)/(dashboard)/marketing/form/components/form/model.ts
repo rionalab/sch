@@ -6,6 +6,7 @@ export function modelStore(formValue: FormFields): Prisma.DocumentsCreateInput {
     name: formValue.name,
     active: formValue.active,
     type: formValue.type,
+    path: formValue.path,
     price: Number(formValue.price ?? 0),
     isPaid: formValue.isPaid === "paid",
     fileName: formValue?.fileName ?? "",

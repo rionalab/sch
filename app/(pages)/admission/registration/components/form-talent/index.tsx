@@ -50,13 +50,6 @@ function FormTalent({ nextStep, prevStep }: Props) {
   const onFinish = async (values: FormParentType) => {
     const isEdit = values.id;
     try {
-      // alert("submitted");
-      // setLoading(true);
-      //   // @ts-expect-error mgkin harus pake generic
-      //   await store(await submitEmployeeData({ ...values, photo: fileList[0] }));
-      //   api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
-      //   router.back();
-
       localStorage.setItem("studentRegistration3", JSON.stringify(values));
       nextStep();
     } catch (e: any) {

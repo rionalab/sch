@@ -15,15 +15,35 @@ export async function index() {
   });
 }
 
-export async function buyForm(documentId: number, parentId: number) {
+export async function owned(parentId: number) {
+  return await prisma.parentForm.findMany({
+    where: {
+      parentId,
+    },
+  });
+}
+
+export async function isUserHasForm(documentId: number, parentId: number) {
+  return await prisma.parentForm.findMany({
+    where: {
+      parentId,
+      documentId,
+    },
+  });
+}
+
+export async function buyForm(
+  documentId: number,
+  parentId: number,
+  price: number,
+) {
   try {
     const data = {
       parentId,
       documentId,
+      price,
       code: randomString(8),
     };
-
-    console.log(data);
 
     const result = await prisma.parentForm.create({
       data,
@@ -37,7 +57,7 @@ export async function buyForm(documentId: number, parentId: number) {
 
 export async function allowRegister(id: number, status = true) {
   try {
-    const result = await prisma.userAdmission.update({
+    await prisma.userAdmission.update({
       where: { id: Number(id) },
       data: {
         allowAdmission: status,
@@ -70,7 +90,7 @@ export async function store({
   data4: any;
 }) {
   try {
-    let result = {};
+    const result = {};
 
     // const a = await prisma.studentRegistrationChildren.create({
     //   data: {

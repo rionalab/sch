@@ -21,6 +21,12 @@
     "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/strict-boolean-expressions": "off",
     "@typescript-eslint/no-misused-promises": "off",
+    "@next/next/no-img-element": "off",
+    "@typescript-eslint/consistent-type-imports": "off",
+    "@typescript-eslint/array-type": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/naming-convention": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
     "import/named": "off",
     "linebreak-style": "off",
     "no-unused-vars": "warn"

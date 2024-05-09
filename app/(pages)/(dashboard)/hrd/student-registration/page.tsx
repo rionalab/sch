@@ -10,7 +10,7 @@ async function Page() {
   });
 
   return (
-    <GuardPage access="role_hr_student_registration_view">
+    <GuardPage access="role_ao_admission_view">
       <Table rows={normalizeTableRow<any>(data)} />
     </GuardPage>
   );

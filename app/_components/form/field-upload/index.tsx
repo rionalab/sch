@@ -2,7 +2,7 @@ import { imageUploadType } from "@/consts";
 import { UploadOutlined } from "@ant-design/icons";
 import type { UploadFile } from "antd";
 import { Button, Form, Upload, message } from "antd";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, type SetStateAction } from "react";
 
 interface Props<T> {
   name: keyof T;

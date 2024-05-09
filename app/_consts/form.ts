@@ -123,6 +123,11 @@ export const documentTypeOptions = [
   { label: "Parent", value: "parent" },
   { label: "Website", value: "website" },
 ];
+
+export const formAdmissionPathOptions = [
+  { label: "/admission/registration", value: "/admission/registration" },
+];
+
 // export const religionOptions = [
 //   { label: "Islam", value: "Islam" },
 //   { label: "Budha", value: "Budha" },

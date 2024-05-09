@@ -17,8 +17,6 @@ import FormTalent from "./components/form-talent";
 import PayFirst from "./components/pay-first";
 import styles from "./styles.module.scss";
 
-const description = "Lorem ipsum dolor sit, amet elit. Nam, maiores.";
-
 function Page() {
   const [activeStep, setActiveStep] = useState(0);
   const [allow, setAllow] = useState(false);
@@ -33,7 +31,7 @@ function Page() {
   };
 
   useEffect(() => {
-    isAllowRegister();
+    void isAllowRegister();
   }, []);
 
   const next = () => {

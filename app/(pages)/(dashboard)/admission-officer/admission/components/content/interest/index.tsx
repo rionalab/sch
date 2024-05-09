@@ -1,7 +1,7 @@
 import { s } from "@/libs/helpers";
 import { UserOutlined } from "@ant-design/icons";
 import { Descriptions, type DescriptionsProps } from "antd";
-import { StudentRegistrationActivities } from "../../../type";
+import type { StudentRegistrationActivities } from "../../../type";
 
 function Interest({ data }: { data: StudentRegistrationActivities }) {
   const detailInterest: DescriptionsProps["items"] = [

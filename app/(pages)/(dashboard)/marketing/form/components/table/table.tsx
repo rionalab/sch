@@ -23,6 +23,9 @@ function Table({ rows }: Props) {
     <>
       <DataTable
         filter={true}
+        antdProps={{
+          scroll: { x: 1500, y: 555 },
+        }}
         create={allowCreate}
         download={true}
         columns={columns() as DtColumns}

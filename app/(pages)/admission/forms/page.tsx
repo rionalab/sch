@@ -4,21 +4,51 @@ import { urls } from "@/consts";
 import { c } from "@/libs/helpers";
 import { Prisma } from "@prisma/client";
 import { Button, Table } from "antd";
+import type { SizeType } from "antd/es/config-provider/SizeContext";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { index } from "./action";
+import { index, owned } from "./action";
 import styles from "./styles.module.scss";
 
 function Page() {
   const [rows, setRows] = useState<Prisma.DocumentsCreateInput[]>([]);
   const router = useRouter();
-  const fetchData = async () => {
-    const dbData = await index();
-    setRows(dbData);
+  const [loading, setLoading] = useState<string>("");
+
+  const init = async (id: number) => {
+    const list = await index();
+    const listOwned = await owned(id);
+
+    setRows(
+      list.map((document, i) => {
+        const totalOwnedDoc = listOwned.filter(
+          (list) => list.documentId === document.id,
+        );
+
+        const availableDoc = totalOwnedDoc.filter((doc) => !doc.isUsed);
+
+        return {
+          ...document,
+          totalOwnedDoc: totalOwnedDoc.length,
+          availableDoc: availableDoc.length,
+          key: i,
+        };
+      }),
+    );
   };
 
+  const handleBuy = (id: string) => {
+    setLoading(`buy|${id}`);
+    router.push(urls.admission.formsDetail(id));
+  };
+
+  function handleUse(id: any) {
+    router.push(urls.admission.formsDetail(String(id)));
+  }
+
   useEffect(() => {
-    fetchData();
+    const id = localStorage.getItem("auth");
+    void init(Number(id));
   }, []);
 
   const columns = [
@@ -28,6 +58,19 @@ function Page() {
       key: "name",
       render: (a: any, row: any) => {
         return <b style={{ fontWeight: 600 }}>{a}</b>;
+      },
+    },
+    {
+      width: 100,
+      title: "Owned",
+      dataIndex: "owned",
+      key: "owned",
+      render: (v: any, row: any) => {
+        if (!row.isPaid) {
+          return <span style={{ fontSize: 18 }}>∞</span>;
+        }
+
+        return `${row.availableDoc}/${row.totalOwnedDoc}`;
       },
     },
     {
@@ -49,17 +92,19 @@ function Page() {
     {
       title: "Action",
       dataIndex: "action",
-      width: 100,
+      width: 122,
       key: "action",
       render: (a: any, row: any) => {
+        const btnAttr = (type: "use" | "buy") => ({
+          size: "small" as SizeType,
+          className: "custom table mb4 " + (type === "use" ? "aqua" : "yellow"),
+          disabled: Boolean(loading),
+          block: true,
+        });
+
         return (
-          <Button
-            onClick={() => {
-              router.push(urls.admission.formsDetail(row.id));
-            }}
-            size="small"
-          >
-            Buy
+          <Button {...btnAttr("use")} onClick={() => handleUse(row.id)}>
+            Show
           </Button>
         );
       },
@@ -68,12 +113,11 @@ function Page() {
 
   return (
     <div className={styles.container}>
-      <br />
       <div className={`${styles.container}  post `}>
         <h3>Forms</h3>
         <h4 style={{ width: "70%" }}>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus
-          temporibus di. Hic ex quam nostrum blanditiis impedit, aliquam quia.
+          Below is a list of documents that can be used; some require payment to
+          initiate their usage.
         </h4>
         <Table size="small" dataSource={rows} columns={columns} />
       </div>

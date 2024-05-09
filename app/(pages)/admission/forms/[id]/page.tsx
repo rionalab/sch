@@ -3,6 +3,132 @@
 import { LoadingModule } from "@/c";
 import { urls } from "@/consts";
 import { useAntdContext } from "@/contexts";
+import { Prisma } from "@prisma/client";
+import { useParams, useRouter } from "next/navigation";
+import { memo, useEffect, useState } from "react";
+import { buyForm, isUserHasForm, show } from "../action";
+import FormError from "./components/form-error";
+import PurchaseHistory from "./components/purchase-history/page";
+
+function Page() {
+  const { id } = useParams();
+  const [form, setForm] = useState<null | Prisma.DocumentsCreateInput>();
+  const [purchaseList, setPurchaseList] = useState<
+    Prisma.ParentFormCreateInput[]
+  >([]);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const { api } = useAntdContext();
+
+  const fetchForm = async (userId: number) => {
+    try {
+      if (form) {
+        return;
+      }
+
+      const formDetail = await show(Number(id));
+
+      // jika path tidak disetup
+      // if (!formDetail?.path) {
+      //   throw new Error(
+      //     "This document is unavailable right now, please try again later or contact administrator.",
+      //   );
+      // }
+
+      // jika bayar
+      if (formDetail?.isPaid) {
+        const fetchPurchaseList = await isUserHasForm(Number(id), userId);
+        // @ts-expect-error asd
+        setPurchaseList(fetchPurchaseList);
+      }
+
+      setForm(formDetail);
+    } catch (e: any) {
+      console.error(e.message);
+      api?.error({
+        message: "Something went wrong",
+        description: e.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+
+    // const isAllowed = checkUser.length > 0;
+    // console.log(formDetail, checkUser, isAllowed);
+  };
+
+  const handlePayment = async () => {
+    try {
+      const price = form?.price ?? 0;
+      const userId = localStorage.getItem("auth");
+      await buyForm(Number(id), Number(userId), price);
+      router.push(urls.admission.paymentSuccess(String(id)));
+    } catch (e: any) {
+      api?.error({
+        message: "Purchasement Failed!",
+        description: e.message,
+      });
+    }
+  };
+
+  useEffect(() => {
+    void fetchForm(Number(localStorage.getItem("auth")));
+  }, []);
+
+  console.log(form);
+  console.log(purchaseList);
+
+  const hasUnusedQuota = purchaseList?.find((row) => !row.isUsed);
+
+  if (loading) {
+    return <LoadingModule />;
+  }
+
+  if (!form) {
+    return <FormError />;
+  }
+
+  return (
+    <div className="post">
+      <br />
+      <br />
+      <h3>{form.name}</h3>
+      {(!form.isPaid || hasUnusedQuota) && (
+        <button className="custom yellow">Use Form</button>
+      )}
+      &nbsp;&nbsp;
+      {form.isPaid && (
+        <>
+          <button
+            onClick={() => {
+              handlePayment();
+            }}
+            className="custom aqua"
+          >
+            Buy
+          </button>
+          &nbsp;&nbsp;
+          <PurchaseHistory data={purchaseList} />
+        </>
+      )}
+      <br />
+      <br />
+      <br />
+      <p>{form.remarks}</p>
+    </div>
+  );
+}
+
+export default memo(Page);
+
+/* 
+
+
+"use client";
+
+import { LoadingModule } from "@/c";
+import { urls } from "@/consts";
+import { useAntdContext } from "@/contexts";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -54,7 +180,7 @@ function page() {
             onClick={() => {
               router.push(urls.admission.forms);
             }}
-            className="aqua"
+            className="custom aqua"
           >
             Back
           </button>
@@ -70,7 +196,7 @@ function page() {
       <h3>{form.name}</h3>
       <p>{form.remarks}</p>
       <button
-        className="aqua"
+        className="custom aqua"
         onClick={() => {
           handlePayment();
         }}
@@ -83,3 +209,6 @@ function page() {
 }
 
 export default page;
+
+
+*/

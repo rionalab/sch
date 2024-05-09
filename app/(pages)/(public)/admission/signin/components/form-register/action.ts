@@ -10,7 +10,7 @@ export async function store(data: FormFieldsRegister) {
     const { username, password, confirm_password } = data;
 
     // validate if email is registered
-    const isRegistered = await prisma.UserAdmission.findFirst({
+    const isRegistered = await prisma.userAdmission.findFirst({
       where: {
         email: username,
       },
@@ -29,7 +29,7 @@ export async function store(data: FormFieldsRegister) {
       throw new Error("Password is corrupt");
     }
 
-    const result = await prisma.UserAdmission.create({
+    const result = await prisma.userAdmission.create({
       data: {
         name: "-",
         email: username,

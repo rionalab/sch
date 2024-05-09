@@ -3,7 +3,6 @@
 import { DataTable, TableAction } from "@/c";
 import useRole from "@/hooks/useRole";
 import { useTable } from "@/hooks/useTable";
-import { clg } from "@/libs/helpers";
 import type { UserSession } from "@/types";
 import type { ColumnsType } from "antd/es/table";
 import { useSession } from "next-auth/react";
@@ -22,8 +21,6 @@ function Table({ rows }: Props) {
   const tableProps = useTable<any[]>({ rows });
   const { data: session } = useSession();
   const userSession = session?.user as unknown as UserSession;
-
-  clg({ allowApprove });
 
   return (
     <>
