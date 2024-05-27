@@ -45,3 +45,19 @@ export async function show(id: number) {
     },
   });
 }
+
+export async function approve(id: number) {
+  try {
+    await prisma.studentRegistrationChildren.update({
+      data: {
+        status: "approved",
+      },
+      where: {
+        id,
+      },
+    });
+    revalidatePath(urlToRevalidate);
+  } catch (e: any) {
+    handlePrismaError(e);
+  }
+}

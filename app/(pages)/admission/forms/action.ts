@@ -23,13 +23,24 @@ export async function owned(parentId: number) {
   });
 }
 
-export async function isUserHasForm(documentId: number, parentId: number) {
+export async function ownedByFormId(documentId: number, parentId: number) {
   return await prisma.parentForm.findMany({
     where: {
       parentId,
       documentId,
     },
   });
+}
+
+export async function isUserHasForm(documentId: number, parentId: number) {
+  const docs = await prisma.parentForm.findMany({
+    where: {
+      parentId,
+      documentId,
+    },
+  });
+
+  return Boolean(docs.length);
 }
 
 export async function buyForm(

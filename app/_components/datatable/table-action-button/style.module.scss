@@ -1,0 +1,10 @@
+@import "../../../../app/_styles/colors.module.scss";
+
+.btns {
+  button {
+    &:hover {
+      color: white !important;
+      background: $yellow !important;
+    }
+  }
+}

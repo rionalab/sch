@@ -57,6 +57,7 @@ function PurchaseHistory({ data }: { data: Prisma.ParentFormCreateInput[] }) {
         title="Purchasement History"
         open={status}
         okText="Close"
+        onCancel={setFalse}
         onOk={handleOk}
         cancelButtonProps={{
           style: {

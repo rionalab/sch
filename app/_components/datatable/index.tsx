@@ -15,6 +15,7 @@ interface Props<T> {
   search?: boolean;
   download?: boolean;
   actions?: TableActions;
+  actionsAsDropdown?: boolean;
   actionsRender?: (text: string, record: Record<string, any>) => void;
   antdProps?: AntdProps<T>;
   filter?: boolean;
@@ -30,6 +31,7 @@ export function DataTable<T>(props: Props<T>) {
     filter = false,
     create = true,
     columns,
+    actionsAsDropdown = false,
     actionsRender,
     antdProps = {},
     handleSearch,
@@ -76,7 +78,12 @@ export function DataTable<T>(props: Props<T>) {
       render:
         actionsRender ??
         ((text, record) => (
-          <TableAction<T> row={record as T} id={record.id} {...actions} />
+          <TableAction<T>
+            actionsAsDropdown={actionsAsDropdown}
+            row={record as T}
+            id={record.id}
+            {...actions}
+          />
         )),
     };
 

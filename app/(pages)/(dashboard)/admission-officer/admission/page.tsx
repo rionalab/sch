@@ -5,6 +5,7 @@ import Table from "./components/table/table";
 
 async function Page() {
   let data = await index();
+
   data = data.map((row) => {
     return { ...row, data: JSON.parse(row.data) };
   });

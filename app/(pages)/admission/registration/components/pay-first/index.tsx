@@ -3,18 +3,20 @@
 import { notifTryAgain } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { allowRegister } from "../../action";
 import styles from "./styles.module.scss";
 
 function PayFirst() {
   const [id, setId] = useState(0);
   const { api } = useAntdContext();
+  const router = useRouter();
 
   const handlePayment = async () => {
     try {
-      await allowRegister(id);
-      window.location.reload();
+      // router.push(urls.admission.formsDetail(1))
+      // await allowRegister(id);
+      // window.location.reload();
     } catch (e) {
       api?.error(notifTryAgain());
     }
@@ -59,7 +61,7 @@ function PayFirst() {
         <b>Kids Republic</b>
       </p>
 
-      <button onClick={handlePayment}>
+      <button className="custom aqua" onClick={handlePayment}>
         Proceed to Payment &nbsp;&nbsp;
         <ArrowRightOutlined />
       </button>

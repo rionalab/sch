@@ -22,13 +22,18 @@ export const columns: ColumnsType<StudentRegistration> = [
   },
   {
     title: "Status",
-    width: 77,
+    width: 97,
     fixed: "left",
     render: (val, row) => {
-      const status = row.data.status;
-      const theme = status === "new" ? "green" : "blue";
+      const status = row.progress;
+      const theme = status === "New" ? "green" : "blue";
       return <Tag theme={theme} label={status} />;
     },
+  },
+  {
+    title: "Method",
+    width: 111,
+    dataIndex: "method",
   },
   {
     title: "Unit",
@@ -115,17 +120,4 @@ export const columns: ColumnsType<StudentRegistration> = [
       return row.data.distance + "Km";
     },
   },
-  // {
-  //   title: "PKWT",
-  //   width: 220,
-  //   dataIndex: "religion",
-  //   render: (val, row) => {
-  //     return [dMY(row.PKWTStart), dMY(row.PKWTEnd)].join(" - ");
-  //   },
-  // },
-  // {
-  //   title: "NIK",
-  //   width: 210,
-  //   dataIndex: "NIK",
-  // },
 ];

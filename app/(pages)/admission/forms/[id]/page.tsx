@@ -6,7 +6,7 @@ import { useAntdContext } from "@/contexts";
 import { Prisma } from "@prisma/client";
 import { useParams, useRouter } from "next/navigation";
 import { memo, useEffect, useState } from "react";
-import { buyForm, isUserHasForm, show } from "../action";
+import { buyForm, ownedByFormId, show } from "../action";
 import FormError from "./components/form-error";
 import PurchaseHistory from "./components/purchase-history/page";
 
@@ -28,16 +28,9 @@ function Page() {
 
       const formDetail = await show(Number(id));
 
-      // jika path tidak disetup
-      // if (!formDetail?.path) {
-      //   throw new Error(
-      //     "This document is unavailable right now, please try again later or contact administrator.",
-      //   );
-      // }
-
       // jika bayar
       if (formDetail?.isPaid) {
-        const fetchPurchaseList = await isUserHasForm(Number(id), userId);
+        const fetchPurchaseList = await ownedByFormId(Number(id), userId);
         // @ts-expect-error asd
         setPurchaseList(fetchPurchaseList);
       }
@@ -52,9 +45,6 @@ function Page() {
     } finally {
       setLoading(false);
     }
-
-    // const isAllowed = checkUser.length > 0;
-    // console.log(formDetail, checkUser, isAllowed);
   };
 
   const handlePayment = async () => {
@@ -75,10 +65,14 @@ function Page() {
     void fetchForm(Number(localStorage.getItem("auth")));
   }, []);
 
-  console.log(form);
-  console.log(purchaseList);
-
   const hasUnusedQuota = purchaseList?.find((row) => !row.isUsed);
+
+  function handleUseForm() {
+    if (form) {
+      localStorage.setItem("formId", String(id));
+      router.push(form?.path ?? "#");
+    }
+  }
 
   if (loading) {
     return <LoadingModule />;
@@ -94,7 +88,14 @@ function Page() {
       <br />
       <h3>{form.name}</h3>
       {(!form.isPaid || hasUnusedQuota) && (
-        <button className="custom yellow">Use Form</button>
+        <button
+          onClick={() => {
+            handleUseForm();
+          }}
+          className="custom yellow"
+        >
+          Use Form
+        </button>
       )}
       &nbsp;&nbsp;
       {form.isPaid && (

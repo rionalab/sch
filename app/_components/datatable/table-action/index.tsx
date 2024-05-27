@@ -9,24 +9,33 @@ import {
 import { useAntdContext } from "@/contexts";
 import useToggle from "@/hooks/usePopup";
 import { type TableActions } from "@/types";
-import {
-  CheckOutlined,
-  DeleteOutlined,
-  EditOutlined,
-  ExclamationCircleFilled,
-} from "@ant-design/icons";
-import { Button, Flex, Modal, Space } from "antd";
+import { CheckOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import { Button, Flex, Modal } from "antd";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useState } from "react";
+import { useState } from "react";
+import TableActionButton from "../table-action-button";
+import TableActionDropdown from "../table-action-dropdown";
 import styles from "./style.module.scss";
 
 interface Props<T> extends TableActions {
   id: number;
+  actionsAsDropdown?: boolean;
   row: T;
 }
 
 export function TableAction<T>(props: Props<T>) {
-  const { edit, approve, id, destroy, others = [], row } = props;
+  const {
+    edit,
+    actionsAsDropdown = false,
+    approve,
+    id,
+    destroy,
+    others = [],
+    row,
+  } = props;
+
+  console.log(props);
+
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
@@ -149,44 +158,21 @@ export function TableAction<T>(props: Props<T>) {
         </p>
       </Modal>
 
-      <Space size={2}>
-        {others.map((c, i) => {
-          if (React.isValidElement(c)) {
-            // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/no-unsafe-argument
-            return React.cloneElement(c, { key: i, row } as any);
-          }
-
-          return null;
-        })}
-
-        {edit && (
-          <Button
-            onClick={handleEdit}
-            title="Edit"
-            size="small"
-            type="text"
-            icon={<EditOutlined style={{ fontSize: 14 }} />}
-          />
-        )}
-        {destroy && (
-          <Button
-            onClick={confirmDestroy}
-            title="Delete"
-            size="small"
-            type="text"
-            icon={<DeleteOutlined style={{ fontSize: 14 }} />}
-          />
-        )}
-        {approve && (
-          <Button
-            onClick={confirmApprove}
-            size="small"
-            title="Approve"
-            type="text"
-            icon={<CheckOutlined style={{ fontSize: 14 }} />}
-          />
-        )}
-      </Space>
+      {actionsAsDropdown ? (
+        <TableActionDropdown
+          {...props}
+          handleEdit={handleEdit}
+          confirmDestroy={confirmDestroy}
+          confirmApprove={confirmApprove}
+        />
+      ) : (
+        <TableActionButton<T>
+          {...props}
+          handleEdit={handleEdit}
+          confirmDestroy={confirmDestroy}
+          confirmApprove={confirmApprove}
+        />
+      )}
     </>
   );
 }

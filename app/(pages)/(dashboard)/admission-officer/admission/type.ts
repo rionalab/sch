@@ -119,6 +119,7 @@ export interface StudentRegistration {
   StudentRegistrationParent: { data: StudentRegistrationParent };
   StudentRegistrationActivities: StudentRegistrationActivities;
   StudentRegistrationInformation: StudentRegistrationInformation;
+  progress: "New" | "Interview" | "Test";
 
   createdAt?: Date;
   updatedAt?: Date;

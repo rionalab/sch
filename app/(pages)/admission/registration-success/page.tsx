@@ -1,4 +1,5 @@
 "use client";
+import { APP_NAME, CONTACT_CS } from "@/app/_configs/app";
 import { urls } from "@/consts";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -23,13 +24,13 @@ function Page() {
           We&apos;ve received your information, and our team is now reviewing
           your registration. You&apos;re one step closer to joining our family!
           . In the meantime, if you have any questions or need assistance, feel
-          free to reach out to us at <b>+628 2182 999 123.</b>
+          free to reach out to us at <b>{CONTACT_CS}</b>
         </p>
 
         <p>
           Thank you for choosing us! We can&apos;t wait to welcome you aboard!
           <br />
-          Best regards, <b>Kids Republic</b>
+          Best regards, <b>{APP_NAME}</b>
         </p>
         <p>
           <button

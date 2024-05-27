@@ -9,12 +9,12 @@ import {
 } from "@ant-design/icons";
 import { Steps } from "antd";
 import { useEffect, useState } from "react";
+import { isUserHasForm } from "../forms/action";
 import { isAllowSubmitAdmission } from "./action";
 import FormStudent from "./components/form-child/form";
 import FormInformation from "./components/form-information";
 import FormParents from "./components/form-parents";
 import FormTalent from "./components/form-talent";
-import PayFirst from "./components/pay-first";
 import styles from "./styles.module.scss";
 
 function Page() {
@@ -23,11 +23,25 @@ function Page() {
   const [loading, setLoading] = useState(true);
 
   const isAllowRegister = async () => {
-    const id = localStorage.getItem("auth");
-    const allowSubmit = await isAllowSubmitAdmission(Number(id));
+    try {
+      const id = localStorage.getItem("auth");
+      const formId = localStorage.getItem("formId");
 
-    setAllow(Boolean(allowSubmit));
-    setLoading(false);
+      if (!id || !formId) {
+        throw new Error("Something went wrong");
+      }
+
+      const x = await isUserHasForm(Number(formId), Number(id));
+      const allowSubmit = await isAllowSubmitAdmission(Number(id));
+
+      console.log({ x });
+
+      setAllow(Boolean(allowSubmit));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -81,19 +95,14 @@ function Page() {
   return (
     <div className={styles.container}>
       <br />
-      {allow ? (
-        <>
-          <Steps
-            current={activeStep}
-            className="admissionRegistrationStep"
-            items={items}
-          />
-          <br />
-          {setepItems[activeStep].content}
-        </>
-      ) : (
-        <PayFirst />
-      )}
+
+      <Steps
+        current={activeStep}
+        className="admissionRegistrationStep"
+        items={items}
+      />
+      <br />
+      {setepItems[activeStep].content}
     </div>
   );
 }

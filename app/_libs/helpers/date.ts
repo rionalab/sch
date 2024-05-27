@@ -1,26 +1,30 @@
 import dayjs from "dayjs";
 
 export function dMY(v: any) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   if (!dayjs(v).isValid()) {
     return "";
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return dayjs(v).format("DD MMM YYYY");
 }
 
 export function dMYHis(v: any) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   if (!dayjs(v).isValid()) {
     return "";
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return dayjs(v).format("DD MMM YYYY HH:m:s");
 }
+
+export function HMA(v: any) {
+  if (!dayjs(v).isValid()) {
+    return "";
+  }
+
+  return dayjs(v).format("HH:mm");
+}
+
 export function isDate(value: any) {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   return dayjs(value).isValid();
 }
 
