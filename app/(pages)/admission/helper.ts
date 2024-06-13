@@ -25,6 +25,5 @@ export default useParentData;
 
 export const parentHasRegister = async () => {
   const userId = localStorage.getItem("auth");
-  console.log(444, userId);
   return await checkHasRegisterParent(Number(userId));
 };

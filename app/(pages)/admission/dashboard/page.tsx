@@ -6,18 +6,18 @@ import Cols from "./components/cols";
 import { useEffect, useState } from "react";
 import { checkHasRegisterParent } from "../action";
 import useParentData, { parentHasRegister } from "../helper";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { urls } from "@/consts";
 
 function Page() {
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const init = async () => {
     const parentRegister = await parentHasRegister();
-    console.log("Parent Register:", parentRegister);
 
     if (!parentRegister) {
-      redirect(urls.admission.parentData);
+      router.push(urls.admission.parentData);
     } else {
       setLoading(false);
     }

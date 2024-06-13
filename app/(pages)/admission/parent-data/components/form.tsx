@@ -9,7 +9,7 @@ import {
   today,
   uploadFileClient,
 } from "@/libs/helpers";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   Button,
   Col,
@@ -23,56 +23,48 @@ import {
 } from "antd";
 import { IFormParent } from "../type";
 import FormParents from "../../registration/components/form-parents";
+import { newParentData, update } from "../action";
+import FormSignin from "@/pages/(public)/signin/components/form/form";
 
 const initialValues: IFormParent = {};
 
-function FormParent() {
+function FormParent({ setEdit, setCounter, defaultData }: any) {
   const [form] = Form.useForm();
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [loadingForm, setLoadingForm] = useState(false);
   const { id } = useParams();
+  const router = useRouter();
 
   const onFinish = async (values: IFormParent) => {
     //  const isEdit = values.id;
     try {
-      // const docs = {
-      //   photo: await uploadFileClient(filePhoto),
-      //   familyCard: await uploadFileClient(familyCard),
-      //   idCardFather: await uploadFileClient(idCardFather),
-      //   idCardMother: await uploadFileClient(idCardMother),
-      // };
-      // console.log(docs);
-      // localStorage.setItem(
-      //   "studentRegistration1",
-      //   JSON.stringify({
-      //     ...values,
-      //     ...docs,
-      //   }),
-      // );
-      // nextStep();
+      setLoadingForm(true);
+      if (defaultData) {
+        await update(defaultData.id, JSON.stringify(values));
+        router.refresh();
+      } else {
+        const parentId = localStorage.getItem("auth");
+        await newParentData(Number(parentId), JSON.stringify(values));
+        setCounter(Math.floor(Math.random() * (111 - 1 + 1)) + 1);
+      }
     } catch (e: any) {
-      // const msg = String(e.message);
+      const msg = String(e.message);
+      console.error(msg);
       // api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));
     } finally {
+      setLoadingForm(false);
+      setEdit(false);
       setLoading(false);
     }
   };
 
-  const fetchDataEdit = async () => {
-    setLoadingEdit(true);
-    // const dataEdit = await show(Number(id));
-
-    // if (dataEdit) {
-    //   form.setFieldsValue(
-    //     prismaToForm({ ...dataEdit, photo: [], oldPhoto: dataEdit.photo }),
-    //   );
-    // }
-    setLoadingEdit(false);
-  };
-
   useEffect(() => {
-    if (id) {
-      void fetchDataEdit();
+    if (defaultData) {
+      const x = JSON.parse(defaultData.data);
+      if (x) {
+        form.setFieldsValue(x);
+      }
     }
   }, []);
 
@@ -117,7 +109,7 @@ function FormParent() {
             <Form.Item<IFormParent>
               label="Contact Number"
               wrapperCol={{ span: 8 }}
-              name="phoneNumber"
+              name="contactNumber"
               rules={fieldRules(["required"])}
             >
               <Input />
@@ -132,40 +124,18 @@ function FormParent() {
               <Input />
             </Form.Item>
 
-            {/* <Form.Item<IFormParent>
-              label="Regis. Date"
-              name="regisDate"
+            <Form.Item<IFormParent>
+              label="Address"
               rules={fieldRules(["required"])}
+              name="address"
             >
-              <DatePicker />
-            </Form.Item>
-            <Form.Item<IFormParent> label="Unit" name="unit">
-              <Select options={[]} />
-            </Form.Item>
-
-            <Form.Item<IFormParent> label="Status" name="status">
-              <Select
-                options={[
-                  {
-                    label: "New",
-                    value: "new",
-                  },
-                  {
-                    label: "Transfer",
-                    value: "transfer",
-                  },
-                ]}
-              />
-            </Form.Item> */}
-
-            <Form.Item<IFormParent> label="Address" name="oldSchoolAddress">
               <Input.TextArea />
             </Form.Item>
           </Col>
           <Col offset={8}>
-            <button className="custom yellow">
+            <button disabled={loadingForm} className="custom yellow">
               <CheckOutlined />
-              Save
+              {loadingForm ? "Saving..." : "Save"}
             </button>
           </Col>
         </Row>

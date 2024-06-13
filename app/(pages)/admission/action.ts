@@ -11,7 +11,7 @@ export async function checkHasRegisterParent(userId: number) {
       },
     });
 
-    return result;
+    return result?.parentData;
   } catch (e) {
     console.log(e);
   }

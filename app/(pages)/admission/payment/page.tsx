@@ -5,19 +5,19 @@ import SimpleBar from "simplebar-react";
 import styles from "./styles.module.scss";
 import useParentData, { parentHasRegister } from "../helper";
 import { urls } from "@/consts";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { LoadingModule } from "@/c";
 
 function Page() {
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const init = async () => {
     const parentRegister = await parentHasRegister();
-    console.log(123, parentRegister);
 
     if (!parentRegister) {
-      redirect(urls.admission.parentData);
+      router.push(urls.admission.parentData);
     } else {
       setLoading(false);
     }

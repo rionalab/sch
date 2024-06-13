@@ -15,15 +15,14 @@ import { LoadingModule } from "@/c";
 function Page() {
   const [loadingPage, setLoadingPage] = useState(true);
   const [rows, setRows] = useState<Prisma.DocumentsCreateInput[]>([]);
-  const router = useRouter();
   const [loading, setLoading] = useState<string>("");
+  const router = useRouter();
 
   const init = async (id: number) => {
     const parentRegister = await parentHasRegister();
-    console.log(123, parentRegister);
 
     if (!parentRegister) {
-      redirect(urls.admission.parentData);
+      router.push(urls.admission.parentData);
     } else {
       setLoadingPage(false);
     }

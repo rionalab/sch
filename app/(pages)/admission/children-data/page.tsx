@@ -70,6 +70,27 @@ function page() {
     },
   ];
 
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  const init = async () => {
+    const parentRegister = await parentHasRegister();
+
+    if (!parentRegister) {
+      router.push(urls.admission.parentData);
+    } else {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  if (loading) {
+    return <LoadingModule />;
+  }
+
   return (
     <div className="post">
       <br />
