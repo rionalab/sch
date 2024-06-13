@@ -97,6 +97,12 @@ function page() {
       <br />
       <br />
       <h3>Children Data</h3>
+      <br />
+      <button style={{ marginTop: "-16px" }} className="custom yellow">
+        + New Admission
+      </button>
+      <br />
+      <br />
       <Table size="small" dataSource={rows} columns={columns} />
     </div>
   );
