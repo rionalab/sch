@@ -16,8 +16,10 @@ export function handlePrismaError(e: any) {
   const isPrismaError = e instanceof Prisma.PrismaClientKnownRequestError;
 
   try {
+    console.log(6666666666666, e);
     if (isPrismaError) {
       const { code } = e;
+      console.info(`=======================\nError Code : ${code}`);
       const cause = e?.meta?.cause as string;
 
       if (code === "P2002") {
@@ -68,6 +70,11 @@ export function handlePrismaError(e: any) {
       if (code === "P2025") {
         throw new Error(cause || messages.deleteError);
       }
+
+      // if (code === "P2000") {
+      //   console.log(`Cause: ${cause}`);
+      //   console.log(`error: `, e.message);
+      // }
     } else {
       throw new Error(String(e?.message) ?? "");
     }

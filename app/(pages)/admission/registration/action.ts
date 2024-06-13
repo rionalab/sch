@@ -4,6 +4,7 @@ import { urls } from "@/consts";
 import { handlePrismaError } from "@/libs/helpers";
 import prisma from "@/libs/prisma";
 import { revalidatePath } from "next/cache";
+import { FormParentType } from "./type";
 
 const urlToRevalidate = urls.hrd.employee.index;
 
@@ -124,4 +125,59 @@ export async function show(id: number) {
       id,
     },
   });
+}
+
+export async function showParentData(parentId: number) {
+  try {
+    return await prisma.parentData.findFirst({
+      where: {
+        parentId,
+      },
+    });
+  } catch (e: any) {
+    handlePrismaError(e);
+  }
+}
+
+export async function storeParentData(
+  parentId: number,
+  data: string,
+  idEdit?: number,
+) {
+  try {
+    const result = {};
+
+    const checkExist = await prisma.parentData.findFirst({
+      where: {
+        parentId,
+      },
+    });
+
+    if (!checkExist) {
+      const parentData = await prisma.parentData.create({
+        data: {
+          data,
+          parentId,
+        },
+      });
+
+      await prisma.userAdmission.update({
+        where: { id: parentId },
+        data: {
+          parentDataId: parentData.id,
+        },
+      });
+    } else {
+      const parentData = await prisma.parentData.update({
+        where: {
+          id: idEdit,
+        },
+        data,
+      });
+    }
+
+    return { success: true, ...result };
+  } catch (e: any) {
+    handlePrismaError(e);
+  }
 }

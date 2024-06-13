@@ -3,8 +3,34 @@
 import { Anchor, Col, Row } from "antd";
 import SimpleBar from "simplebar-react";
 import styles from "./styles.module.scss";
+import useParentData, { parentHasRegister } from "../helper";
+import { urls } from "@/consts";
+import { redirect } from "next/navigation";
+import { useEffect, useState } from "react";
+import { LoadingModule } from "@/c";
 
 function Page() {
+  const [loading, setLoading] = useState(true);
+
+  const init = async () => {
+    const parentRegister = await parentHasRegister();
+    console.log(123, parentRegister);
+
+    if (!parentRegister) {
+      redirect(urls.admission.parentData);
+    } else {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
+  if (loading) {
+    return <LoadingModule />;
+  }
+
   return (
     <div className={styles.container}>
       <Row>

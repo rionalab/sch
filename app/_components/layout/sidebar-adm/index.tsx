@@ -255,16 +255,22 @@ export function SidebarAdm() {
       },
       {
         key: "forms",
-        icon: <UsergroupAddOutlined />,
+        icon: <FileOutlined />,
         href: urls.admission.forms,
         label: "Forms",
       },
-      // {
-      //   key: "registration",
-      //   icon: <UsergroupAddOutlined />,
-      //   href: urls.admission.registration,
-      //   label: "Registration",
-      // },
+      {
+        key: "parentData",
+        icon: <UsergroupAddOutlined />,
+        href: urls.admission.parentData,
+        label: "Parent Registration",
+      },
+      {
+        key: "childrenData",
+        icon: <UsergroupAddOutlined />,
+        href: urls.admission.childrenData,
+        label: "Children Data",
+      },
       {
         key: "payment",
         icon: <DollarCircleOutlined />,

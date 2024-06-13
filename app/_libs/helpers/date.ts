@@ -16,6 +16,11 @@ export function dMYHis(v: any) {
   return dayjs(v).format("DD MMM YYYY HH:m:s");
 }
 
+export function dMYtoDayJs(dateString: string) {
+  const formatDateString = "DD MMM YYYY";
+  return dayjs(dateString, formatDateString);
+}
+
 export function HMA(v: any) {
   if (!dayjs(v).isValid()) {
     return "";

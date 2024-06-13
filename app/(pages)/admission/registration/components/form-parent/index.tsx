@@ -12,7 +12,7 @@ function FormParent({ type }: { type: "father" | "mother" }) {
     <>
       <Col span={10}>
         <Typography.Title className="textCapitalize" level={5}>
-          {type} Information
+          {type}'s Information
         </Typography.Title>
         <Form.Item<FormParentType>
           label="Full Name"

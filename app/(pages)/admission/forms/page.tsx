@@ -5,17 +5,29 @@ import { c } from "@/libs/helpers";
 import { Prisma } from "@prisma/client";
 import { Button, Table } from "antd";
 import type { SizeType } from "antd/es/config-provider/SizeContext";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { index, owned } from "./action";
 import styles from "./styles.module.scss";
+import useParentData, { parentHasRegister } from "../helper";
+import { LoadingModule } from "@/c";
 
 function Page() {
+  const [loadingPage, setLoadingPage] = useState(true);
   const [rows, setRows] = useState<Prisma.DocumentsCreateInput[]>([]);
   const router = useRouter();
   const [loading, setLoading] = useState<string>("");
 
   const init = async (id: number) => {
+    const parentRegister = await parentHasRegister();
+    console.log(123, parentRegister);
+
+    if (!parentRegister) {
+      redirect(urls.admission.parentData);
+    } else {
+      setLoadingPage(false);
+    }
+
     const list = await index();
     const listOwned = await owned(id);
 
@@ -110,6 +122,10 @@ function Page() {
       },
     },
   ];
+
+  if (loadingPage) {
+    return <LoadingModule />;
+  }
 
   return (
     <div className={styles.container}>

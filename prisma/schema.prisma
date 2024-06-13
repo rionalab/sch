@@ -123,6 +123,7 @@ model UserAdmission {
   password       String               @default("admin")
   active         Boolean              @default(true)
   name           String
+  dataParent     String?              @db.Text
   type           AdmissionAccountType @default(Guest)
   lastLogin      DateTime?
   allowAdmission Boolean              @default(false)
@@ -131,6 +132,15 @@ model UserAdmission {
   deletedAt      DateTime?
   PaymentCode    PaymentCode[]
   ParentForm     ParentForm[]
+  parentData     ParentData?          @relation(fields: [parentDataId], references: [id])
+  parentDataId   Int?                 @unique
+}
+
+model ParentData {
+  id            Int            @id @default(autoincrement())
+  parentId      Int
+  data          String         @db.Text
+  UserAdmission UserAdmission?
 }
 
 model PaymentCode {
