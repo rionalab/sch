@@ -9,6 +9,7 @@ import {
   DollarCircleOutlined,
   FileOutlined,
   FolderOutlined,
+  BellOutlined,
   HomeOutlined,
   PoweroffOutlined,
   SolutionOutlined,
@@ -253,12 +254,12 @@ export function SidebarAdm() {
         href: urls.admission.dashboard,
         label: "Dashboard",
       },
-      {
-        key: "forms",
-        icon: <FileOutlined />,
-        href: urls.admission.forms,
-        label: "Forms",
-      },
+      // {
+      //   key: "forms",
+      //   icon: <FileOutlined />,
+      //   href: urls.admission.forms,
+      //   label: "Forms",
+      // },
       {
         key: "parentData",
         icon: <UsergroupAddOutlined />,
@@ -269,7 +270,13 @@ export function SidebarAdm() {
         key: "childrenData",
         icon: <UsergroupAddOutlined />,
         href: urls.admission.childrenData,
-        label: "Children Data",
+        label: "Admission",
+      },
+      {
+        key: "notifications",
+        icon: <BellOutlined />,
+        href: urls.admission.notifications,
+        label: "Notifications",
       },
       {
         key: "payment",

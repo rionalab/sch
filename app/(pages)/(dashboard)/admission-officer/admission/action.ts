@@ -17,6 +17,29 @@ export async function index() {
   });
 }
 
+export async function indexByParent(userId: number) {
+  let result = await prisma.studentRegistrationChildren.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      StudentRegistrationActivities: true,
+      StudentRegistrationInformation: true,
+      StudentRegistrationParent: true,
+    },
+  });
+
+  const parent = await prisma.parentData.findFirst({
+    where: {
+      parentId: userId,
+    },
+  });
+
+  return result.map((row) => {
+    return { ...row, parentData: JSON.parse(parent?.data ?? "{}") };
+  });
+}
+
 export async function store() {
   try {
     revalidatePath(urlToRevalidate);
@@ -29,9 +52,10 @@ export async function store() {
 
 export async function destroy(id: number) {
   try {
-    await prisma.employee.softDelete({
+    await prisma.studentRegistrationChildren.softDelete({
       id,
     });
+    revalidatePath(urls.admission.childrenData);
     revalidatePath(urlToRevalidate);
   } catch (e: any) {
     handlePrismaError(e);

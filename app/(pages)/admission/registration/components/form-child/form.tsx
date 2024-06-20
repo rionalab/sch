@@ -312,7 +312,7 @@ function FormStudent({ nextStep }: Props) {
         </Row>
         <br />
         {/* //* Documents Information */}
-        <Typography.Title level={5}>Documents</Typography.Title>
+        {/* <Typography.Title level={5}>Documents</Typography.Title>
         <br />
         <Row gutter={24}>
           <Col span={10}>
@@ -348,7 +348,7 @@ function FormStudent({ nextStep }: Props) {
               name="idCardMother"
             />
           </Col>
-        </Row>
+        </Row> */}
 
         <br />
         {/* //* Other Information */}

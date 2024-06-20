@@ -16,11 +16,14 @@ export interface StudentRegistrationChildren {
   city: string;
   distance: string;
   goingToShoolBy: string;
+
+  studentRegistration1?: any;
 }
 
 export interface StudentRegistrationParent {
   fullName_father: string;
   idType_father: string;
+
   idNumber_father: string;
   nationality_father: string;
   religion_father: string;
@@ -120,7 +123,7 @@ export interface StudentRegistration {
   StudentRegistrationActivities: StudentRegistrationActivities;
   StudentRegistrationInformation: StudentRegistrationInformation;
   progress: "New" | "Interview" | "Test";
-
+  parentData: StudentRegistrationParent;
   createdAt?: Date;
   updatedAt?: Date;
 }

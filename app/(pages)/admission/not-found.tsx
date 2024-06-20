@@ -1,7 +1,12 @@
+"use client";
+
 import { urls } from "@/consts";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function NotFound() {
+  const r = useRouter();
+
   return (
     <div className="textCenter post">
       <br />
@@ -16,7 +21,7 @@ function NotFound() {
         Check back later for updates or try a different page
       </h4>
 
-      <Link href={urls.admission.forms}>Back to Forms</Link>
+      <a href={urls.admission.dashboard}>Back to Dashboard</a>
     </div>
   );
 }

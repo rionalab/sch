@@ -45,11 +45,13 @@ export async function store({
   data2,
   data3,
   data4,
+  userId,
 }: {
   data1: any;
   data2: any;
   data3: any;
   data4: any;
+  userId: number;
 }) {
   try {
     const result = {};
@@ -58,6 +60,7 @@ export async function store({
       data: {
         data: data1 || " ",
         status: "new",
+        userId,
         StudentRegistrationParent: {
           create: {
             data: data2 || " ",

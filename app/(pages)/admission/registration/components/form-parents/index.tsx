@@ -1,28 +1,27 @@
 "use client";
 
 import { LoadingModule } from "@/c";
-import {
-  notifStoreError,
-  notifStoreSuccess,
-  notifUpdateError,
-  notifUpdateSuccess,
-} from "@/consts";
+import { notifUpdateError, notifUpdateSuccess } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { dMY, dMYtoDayJs, prismaToForm, today } from "@/libs/helpers";
 import { VoidMethod } from "@/types";
 import { CheckOutlined } from "@ant-design/icons";
 import { faker } from "@faker-js/faker";
-import { Button, Col, Form, Input, Row } from "antd";
-import { useParams } from "next/navigation";
+import { Button, Col, Form, Input, Row, Typography } from "antd";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { show, showParentData, storeParentData } from "../../action";
 import type { FormParentType } from "../../type";
-import FormParent from "../form-parent";
+import FormParentGeneral from "./general";
+import FormParentProfile from "./profile";
+import FormParentAddress from "./address";
+import FormParentOthers from "./others";
+import { newParentData, update } from "@/pages/admission/parent-data/action";
 
 const initialValues: Partial<FormParentType> = {};
 const initialValues2: Partial<FormParentType> = {
   nationality_father: "indonesian",
   nationality_mother: "indonesian",
+  address_mother_same_as_father: true,
   fullName_father: faker.person.fullName(),
   fullName_mother: faker.person.fullName(),
   placeOfBirth_father: "Medan",
@@ -66,9 +65,20 @@ const initialValues2: Partial<FormParentType> = {
 interface Props {
   nextStep?: VoidMethod;
   prevStep?: VoidMethod;
+  defaultData?: any;
+  setCounter?: any;
+  counter: any;
+  setEdit?: any;
 }
 
-function FormParents({ nextStep, prevStep }: Props) {
+function FormParents({
+  defaultData,
+  counter,
+  setEdit,
+  setCounter,
+  nextStep,
+  prevStep,
+}: Props) {
   const isStepForm = nextStep && prevStep;
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(false);
@@ -76,72 +86,58 @@ function FormParents({ nextStep, prevStep }: Props) {
   const { id } = useParams();
   const [loadingEdit, setLoadingEdit] = useState(false);
   const [subtitle, setSubtitle] = useState("");
-
+  const [loadingForm, setLoadingForm] = useState(false);
+  const router = useRouter();
   const handleFormChange = (changedValues: any, allValues: any) => {};
 
   const onFinish = async (values: FormParentType) => {
-    const isEdit = values.id;
     try {
-      if (isStepForm) {
-        localStorage.setItem("studentRegistration2", JSON.stringify(values));
-        nextStep();
+      setLoadingForm(true);
+
+      const finalValues = {
+        ...values,
+        //@ts-ignore
+        dob_father: dMY(values.dateOfBirth_father),
+        //@ts-ignore
+        dob_mother: dMY(values.dateOfBirth_mother),
+      };
+
+      if (defaultData) {
+        await update(defaultData.id, JSON.stringify(finalValues));
+        api?.success(notifUpdateSuccess());
       } else {
-        const dataFinal = {
-          ...values,
-          dob_father: dMY(values.dob_father),
-          dob_mother: dMY(values.dob_mother),
-        };
-
-        console.log(222, dataFinal);
         const parentId = localStorage.getItem("auth");
-        const store = await storeParentData(
-          Number(parentId),
-          JSON.stringify(dataFinal),
-          2,
-        );
-
-        api?.success(isEdit ? notifUpdateSuccess() : notifStoreSuccess());
+        await newParentData(Number(parentId), JSON.stringify(finalValues));
+        api?.success(notifUpdateSuccess());
       }
+
+      setEdit(false);
     } catch (e: any) {
       const msg = String(e.message);
-      api?.error(isEdit ? notifUpdateError(msg) : notifStoreError(msg));
+      console.error(msg);
+      api?.error(notifUpdateError(msg));
     } finally {
+      setLoadingForm(false);
       setLoading(false);
-    }
-  };
-
-  const fetchDataEdit = async () => {
-    setLoadingEdit(true);
-    const dataEdit = await show(Number(id));
-
-    if (dataEdit) {
-      form.setFieldsValue(
-        prismaToForm({ ...dataEdit, photo: [], oldPhoto: dataEdit.photo }),
-      );
-    }
-    setLoadingEdit(false);
-  };
-
-  const checkDataExist = async (id: any) => {
-    const x = await showParentData(Number(id));
-
-    if (x) {
-      setSubtitle("Make sure to make parent's data keep updated");
-
-      const obj = JSON.parse(x.data);
-
-      obj.dob_father = dMYtoDayJs(obj.dob_father);
-      obj.dob_mother = dMYtoDayJs(obj.dob_mother);
-
-      form.setFieldsValue(obj);
-    } else {
-      setSubtitle("Please complete the parent data before continue.  ");
+      setCounter(counter + 1);
     }
   };
 
   useEffect(() => {
-    const id = localStorage.getItem("auth");
-    checkDataExist(id);
+    if (defaultData) {
+      const x = JSON.parse(defaultData.data);
+      if (x) {
+        const fieldsValue = {
+          ...x,
+          dob_father: dMYtoDayJs(x.dob_father),
+          dob_mother: dMYtoDayJs(x.dob_mother),
+        };
+
+        console.log(11111, { fieldsValue, x });
+
+        form.setFieldsValue(fieldsValue);
+      }
+    }
   }, []);
 
   return (
@@ -172,8 +168,7 @@ function FormParents({ nextStep, prevStep }: Props) {
         labelCol={{ span: 8 }}
         labelWrap
         className={loadingEdit ? "dNone" : ""}
-        // wrapperCol={{ span: 24 }}
-        initialValues={{ ...initialValues, id }}
+        // initialValues={{ ...initialValues, id }}
         onValuesChange={handleFormChange}
         form={form}
         onFinish={onFinish}
@@ -185,43 +180,58 @@ function FormParents({ nextStep, prevStep }: Props) {
 
         <br />
         <Row gutter={24}>
-          <FormParent type="father" />
-          <Col span={2}></Col>
-          <FormParent type="mother" />
+          <FormParentGeneral />
+          <br />
+          <br />
+          <br />
+
+          <FormParentProfile />
+          <br />
+          <br />
+          <br />
+
+          <FormParentAddress />
+          <br />
+          <br />
+          <br />
+
+          <FormParentOthers />
+          <br />
+          <br />
+          <br />
         </Row>
         <br />
 
         <br />
-        <Row gutter={24}>
-          <Col span={10}></Col>
-          <Col span={2}></Col>
 
-          <Col span={10}></Col>
-        </Row>
         <Row gutter={24}>
           <Col span={21}>
             <Form.Item wrapperCol={{ offset: 4 }}>
-              {isStepForm && (
+              {defaultData && (
                 <Button
                   onClick={() => {
-                    prevStep();
+                    if (setEdit) {
+                      setEdit(false);
+                    } else {
+                      router.back();
+                    }
                   }}
                   style={{ marginRight: 8 }}
                   disabled={loading}
                   htmlType="button"
                 >
-                  Back
+                  Cancel
                 </Button>
               )}
 
               <Button
                 icon={<CheckOutlined />}
-                disabled={loading}
+                disabled={loading || loadingForm}
                 type="primary"
                 style={{ paddingLeft: 50, paddingRight: 50 }}
                 htmlType="submit"
               >
-                {isStepForm ? "Next" : "Save"}
+                {loadingForm ? "Saving..." : "Save"}
               </Button>
             </Form.Item>
           </Col>

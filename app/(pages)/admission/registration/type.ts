@@ -150,10 +150,12 @@ export interface FormChildInterest {
 
 export interface FormParentType {
   id: number;
-
+  address_mother_same_as_father: any;
+  dob_father: any;
+  dob_mother: any;
   fullName_father: string;
   placeOfBirth_father: string;
-  dob_father: Dayjs;
+  // dob_father: Dayjs;
   religion_father: string;
   relationWithChild_father: string;
   maritalStatus_father: string;
@@ -174,7 +176,7 @@ export interface FormParentType {
 
   fullName_mother: string;
   placeOfBirth_mother: string;
-  dob_mother: Dayjs;
+  // dob_mother: Dayjs;
   religion_mother: string;
   relationWithChild_mother: string;
   maritalStatus_mother: string;

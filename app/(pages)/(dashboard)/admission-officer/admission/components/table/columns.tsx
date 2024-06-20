@@ -11,10 +11,15 @@ export const columns: ColumnsType<StudentRegistration> = [
     fixed: "left",
 
     render: (val, row) => {
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+
+      console.clear();
+      console.log(row, x);
+
       return (
         <ModalDetail
-          image={row.data.photo ? getImage(row.data.photo) : ""}
-          title={row.data.fullName}
+          image={x.photo ? getImage(x.photo) : ""}
+          title={x.fullName}
           row={row}
         />
       );
@@ -31,6 +36,11 @@ export const columns: ColumnsType<StudentRegistration> = [
     },
   },
   {
+    title: "Payment Code",
+    width: 151,
+    dataIndex: "paymentCode",
+  },
+  {
     title: "Method",
     width: 111,
     dataIndex: "method",
@@ -39,49 +49,56 @@ export const columns: ColumnsType<StudentRegistration> = [
     title: "Unit",
     width: 111,
     render: (val, row) => {
-      return row.data.unit;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.unit;
     },
   },
   {
     title: "Regis. Date",
-    width: 200,
+    width: 150,
     render: (val, row) => {
-      return dMY(row.data.regisDate);
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return dMY(x.regisDate);
     },
   },
   {
     title: "Birth",
     width: 200,
     render: (val, row) => {
-      return `${row.data.placeOfBirth}, ${dMY(row.data.dob)}`;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return `${x.placeOfBirth}, ${dMY(x.dob)}`;
     },
   },
   {
     title: "Gender",
     width: 110,
     render: (val, row) => {
-      return row.data.gender;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.gender;
     },
   },
   {
     title: "Religion",
     width: 110,
     render: (val, row) => {
-      return row.data.religion;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.religion;
     },
   },
   {
     title: "nationality",
     width: 110,
     render: (val, row) => {
-      return row.data.nationality;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.nationality;
     },
   },
   {
     title: "Birth Order",
     width: 110,
     render: (val, row) => {
-      return row.data.birthOrder;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.birthOrder;
     },
   },
 
@@ -89,35 +106,40 @@ export const columns: ColumnsType<StudentRegistration> = [
     title: "Languages",
     width: 222,
     render: (val, row) => {
-      return row.data.languages;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.languages;
     },
   },
   {
     title: "City",
     width: 110,
     render: (val, row) => {
-      return row.data.city;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.city;
     },
   },
   {
     title: "Address",
     width: 310,
     render: (val, row) => {
-      return row.data.houseAddress;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.houseAddress;
     },
   },
   {
     title: "To School By",
     width: 170,
     render: (val, row) => {
-      return row.data.goingToShoolBy;
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.goingToShoolBy;
     },
   },
   {
     title: "Distance to School",
     width: 150,
     render: (val, row) => {
-      return row.data.distance + "Km";
+      const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+      return x.distance + "Km";
     },
   },
 ];

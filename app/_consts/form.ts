@@ -70,9 +70,9 @@ export const paymentOptions = [
 
 export const employeeUnitOptions = [
   { label: "None", value: "" },
-  { label: "Preschool", value: "Preschool" },
+  // { label: "Preschool", value: "Preschool" },
   { label: "Kindergarten ", value: "Kindergarten " },
-  { label: "Preschool & Kindergarten", value: "Preschool & Kindergarten" },
+  { label: "Elementary School", value: "Elementary School" },
 ];
 
 export const genderOptions = [
@@ -107,6 +107,14 @@ export const relationWithChildOptions = [
 export const trueFalseOptions = [
   { label: "Yes", value: true },
   { label: "No", value: false },
+];
+
+export const parentRelationshipOptions = [
+  { label: "Biological", value: "Biological" },
+  { label: "Step", value: "Step" },
+  { label: "Adoptive", value: "Adoptive" },
+  { label: "Foster", value: "Foster" },
+  { label: "Guardian", value: "Guardian" },
 ];
 
 export const inventoryCategoryOptions = [

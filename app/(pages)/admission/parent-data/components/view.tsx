@@ -1,49 +1,13 @@
-import { UserOutlined } from "@ant-design/icons";
-import { Button, Col, Descriptions, Row, type DescriptionsProps } from "antd";
+import Parent from "@/pages/(dashboard)/admission-officer/admission/components/content/parent";
 
 function view({ data, setEdit }: any) {
-  const detail = JSON.parse(data.data);
-
-  const itemsMother: DescriptionsProps["items"] = [
-    {
-      key: "fullName_father",
-      label: "Father's Name",
-      children: detail.fatherName,
-    },
-    {
-      key: "fullName_mother",
-      label: "Mother's Name",
-      children: detail.motherName,
-    },
-    {
-      key: "contact",
-      label: "Contact Number",
-      children: detail.contactNumber,
-    },
-    {
-      key: "email",
-      label: "Email",
-      children: detail.email,
-    },
-    {
-      key: "address",
-      label: "Address",
-      children: detail.address,
-    },
-  ];
-
   return (
-    <div>
-      <Descriptions
-        column={1}
-        title={
-          <>
-            <UserOutlined className="mr4" />
-            Parent Information
-          </>
-        }
-        items={itemsMother}
-      />
+    <div className="post">
+      <br />
+      <h3>Parent Information</h3>
+      <h4>Make sure to keep your data up to date.</h4>
+      <br />
+      <Parent data={data} />
 
       <br />
 

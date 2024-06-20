@@ -1,19 +1,25 @@
+import { checkHasRegisterParent } from "@/pages/admission/action";
 import { UserOutlined } from "@ant-design/icons";
 import { Col, Descriptions, Row, type DescriptionsProps } from "antd";
-import { type StudentRegistrationParent } from "../../../type";
+import { useEffect, useState } from "react";
 
-function Parent({ data }: { data: StudentRegistrationParent }) {
+function Parent({ id, row }: any) {
+  const [data, setdata] = useState<any>({});
+  const rowx = JSON.parse(row.data.studentRegistration1);
+
+  // console.log({ rowx });
+
   const itemsFather: DescriptionsProps["items"] = [
     {
       key: "fullName_father",
       label: "Full Name",
       children: data.fullName_father,
     },
-    {
-      key: "idType_father",
-      label: "ID Type",
-      children: data.idType_father,
-    },
+    // {
+    //   key: "idType_father",
+    //   label: "ID Type",
+    //   children: data.idType_father,
+    // },
     {
       key: "idNumber_father",
       label: "ID Number",
@@ -92,7 +98,7 @@ function Parent({ data }: { data: StudentRegistrationParent }) {
     {
       key: "relationWithChild_father",
       label: "Relation with Child",
-      children: data.relationWithChild_father,
+      children: rowx.fatherRelationshipWithChild,
     },
     {
       key: "maritalStatus_father",
@@ -112,11 +118,11 @@ function Parent({ data }: { data: StudentRegistrationParent }) {
       label: "Full Name",
       children: data.fullName_mother,
     },
-    {
-      key: "idType_mother",
-      label: "ID Type",
-      children: data.idType_mother,
-    },
+    // {
+    //   key: "idType_mother",
+    //   label: "ID Type",
+    //   children: data.idType_mother,
+    // },
     {
       key: "idNumber_mother",
       label: "ID Number",
@@ -155,12 +161,14 @@ function Parent({ data }: { data: StudentRegistrationParent }) {
     {
       key: "address_mother",
       label: "Address",
-      children: data.address_mother,
+      children: data?.address_mother_same_as_father
+        ? data.address_father
+        : data.address_mother,
     },
     {
       key: "city_mother",
       label: "City",
-      children: data.city_mother,
+      children: data?.city_mother,
     },
     {
       key: "postalCode_mother",
@@ -190,24 +198,39 @@ function Parent({ data }: { data: StudentRegistrationParent }) {
     {
       key: "officeAddress_mother",
       label: "Office Address",
-      children: data.officeAddress_mother,
+      children: data?.officeAddress_mother ?? "Same as father",
     },
     {
       key: "relationWithChild_mother",
       label: "Relation with Child",
-      children: data.relationWithChild_mother,
+
+      children: rowx.motherRelationshipWithChild,
     },
     {
       key: "maritalStatus_mother",
       label: "Marital Status",
       children: data.maritalStatus_mother,
     },
-    {
-      key: "theChildLivesWith_mother",
-      label: "The Child Lives With",
-      children: data.theChildLivesWith_mother,
-    },
+    // {
+    //   key: "theChildLivesWith_mother",
+    //   label: "The Child Lives With",
+    //   children: data.theChildLivesWith_mother,
+    // },
   ];
+
+  const getData = async () => {
+    if (id) {
+      const w = await checkHasRegisterParent(id);
+      const x = JSON.parse(w?.data ?? "{}");
+      setdata(x);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  console.log(data);
 
   return (
     <Row gutter={16}>

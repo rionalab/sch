@@ -106,6 +106,13 @@ export interface FormOthers {
   personLiveWithEmail3: string;
 }
 
+export type ParentRelation =
+  | "Biological"
+  | "Step"
+  | "Adoptive"
+  | "Foster "
+  | "Guardian";
+
 export interface FormChild {
   id?: number;
   city: string;
@@ -113,6 +120,46 @@ export interface FormChild {
   totalChild: string;
   photo?: string;
   familyCard?: string;
+  birthCertificate?: string;
+  immunizationCertificate?: string;
+
+  typeActivities1: string;
+  locationActivities1: string;
+  timeActivities1: string;
+  startEndActivities1: string;
+
+  typeActivities2: string;
+  locationActivities2: string;
+  timeActivities2: string;
+  startEndActivities2: string;
+
+  typeActivities3: string;
+  locationActivities3: string;
+  timeActivities3: string;
+  startEndActivities3: string;
+
+  weight?: string;
+
+  arts: string;
+  music: string;
+  cognitive: string;
+  sport: string;
+  organization: string;
+  others: string;
+
+  nonFormalEducation: any[] | [];
+
+  previousSchoolName: string;
+  previousSchoolType: string;
+  previousSchoolYear: string;
+  previousSchoolAddress: string;
+  previousSchoolCity: string;
+  previousSchoolRemarks: string;
+
+  specialNeeds?: string;
+
+  fatherRelationshipWithChild: ParentRelation;
+  motherRelationshipWithChild: ParentRelation;
 
   idCardMother?: string;
   oldIdCardMother?: string;

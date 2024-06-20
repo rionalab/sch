@@ -35,10 +35,10 @@ function Page() {
         <p>
           <button
             onClick={() => {
-              router.push(urls.admission.dashboard);
+              router.push(urls.admission.childrenData);
             }}
           >
-            Dashboard
+            Admission
           </button>
         </p>
       </div>

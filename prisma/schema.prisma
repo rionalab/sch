@@ -11,6 +11,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Notifications {
+  id        Int           @id @default(autoincrement())
+  subject   String
+  user      UserAdmission @relation(fields: [userId], references: [id])
+  userId    Int
+  isRead    Boolean       @default(false)
+  content   String        @db.Text
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
+}
+
+model PurchaseAdmission {
+  id        Int           @id @default(autoincrement())
+  type      String
+  user      UserAdmission @relation(fields: [userId], references: [id])
+  userId    Int
+  isUsed    Boolean       @default(false)
+  code      String
+  price     Int           @default(0)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  deletedAt DateTime?
+}
+
 model User {
   id                          Int                           @id @default(autoincrement())
   email                       String                        @unique
@@ -118,22 +143,24 @@ model StudentRegistrationChildren {
 }
 
 model UserAdmission {
-  id             Int                  @id @default(autoincrement())
-  email          String               @unique
-  password       String               @default("admin")
-  active         Boolean              @default(true)
-  name           String
-  dataParent     String?              @db.Text
-  type           AdmissionAccountType @default(Guest)
-  lastLogin      DateTime?
-  allowAdmission Boolean              @default(false)
-  createdAt      DateTime             @default(now())
-  updatedAt      DateTime             @updatedAt
-  deletedAt      DateTime?
-  PaymentCode    PaymentCode[]
-  ParentForm     ParentForm[]
-  parentData     ParentData?          @relation(fields: [parentDataId], references: [id])
-  parentDataId   Int?                 @unique
+  id                Int                  @id @default(autoincrement())
+  email             String               @unique
+  password          String               @default("admin")
+  active            Boolean              @default(true)
+  name              String
+  dataParent        String?              @db.Text
+  type              AdmissionAccountType @default(Guest)
+  lastLogin         DateTime?
+  allowAdmission    Boolean              @default(false)
+  createdAt         DateTime             @default(now())
+  updatedAt         DateTime             @updatedAt
+  deletedAt         DateTime?
+  PaymentCode       PaymentCode[]
+  ParentForm        ParentForm[]
+  parentData        ParentData?          @relation(fields: [parentDataId], references: [id])
+  parentDataId      Int?                 @unique
+  PurchaseAdmission PurchaseAdmission[]
+  Notifications     Notifications[]
 }
 
 model ParentData {

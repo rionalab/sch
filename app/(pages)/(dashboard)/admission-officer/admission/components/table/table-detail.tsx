@@ -9,43 +9,49 @@ import {
 import Information from "../content/information";
 import Interest from "../content/interest";
 import Parent from "../content/parent";
+import ChildDetailForModal from "../content/child";
 
 interface Props {
-  data: StudentRegistration;
+
 }
 
-function TableDetail({ data }: Props) {
-  const dataParent = JSON.parse(
-    // @ts-expect-error sad
-    data.StudentRegistrationParent.data,
-  ) as StudentRegistrationParent;
+function TableDetail({ data }: any) {
+  console.log(2222, data);
+  // const dataParent = data.parentData as StudentRegistrationParent;
 
-  const dataIntereset = JSON.parse(
-    // @ts-expect-error asd
-    data.StudentRegistrationActivities.data as string,
-  ) as StudentRegistrationActivities;
+  // const dataIntereset = JSON.parse(
+  //   // @ts-expect-error asd
+  //   data.StudentRegistrationActivities.data as string,
+  // ) as StudentRegistrationActivities;
 
-  const dataInformation = JSON.parse(
-    // @ts-expect-error asd
-    data.StudentRegistrationInformation.data as string,
-  ) as StudentRegistrationInformation;
+  // const dataInformation = JSON.parse(
+  //   // @ts-expect-error asd
+  //   data.StudentRegistrationInformation.data as string,
+  // ) as StudentRegistrationInformation;
 
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: "Parent",
-      children: <Parent data={dataParent} />,
+      label: "Child",
+      children: <ChildDetailForModal row={data} id={data?.userId} />,
     },
     {
       key: "2",
-      label: "Child Interest & Background",
-      children: <Interest data={dataIntereset} />,
+      label: "Parent",
+      children: <Parent row={data} id={data?.userId} />,
     },
-    {
-      key: "3",
-      label: "Information & Declaration",
-      children: <Information data={dataInformation} />,
-    },
+    // {
+    //   key: "3",
+    //   label: "Child Interest & Background",
+    //   children: <p>222222222</p>,
+    //   // children: <Interest data={dataIntereset} />,
+    // },
+    // {
+    //   key: "4",
+    //   label: "Information & Declaration",
+    //   children: <p>3333333333</p>,
+    //   // children: <Information data={dataInformation} />,
+    // },
   ];
 
   const onChange = () => {};

@@ -76,7 +76,7 @@ function FormInformation({ prevStep }: Props) {
       const data3 = localStorage.getItem("studentRegistration3");
       const data4 = JSON.stringify(values);
 
-      await store({ data1, data2, data3, data4 });
+      await store({ data1, data2, data3, data4, userId });
       await allowRegister(userId, false);
 
       router.push(urls.admission.registrationSuccess);

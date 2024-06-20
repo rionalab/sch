@@ -6,38 +6,33 @@ import { urls } from "@/consts";
 import { c, dMYHis, s } from "@/libs/helpers";
 import { notFound, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { owned, show } from "../../forms/action";
 import type { ParentForm } from "../../forms/type";
+import { findPurchaseAdmission } from "../../action";
 
 function Page() {
   const router = useRouter();
-  const { id: idDocument } = useParams();
+  const { id } = useParams();
   const [data, setData] = useState<ParentForm[]>([]);
   const [form, setForm] = useState<null | Record<string, any>>();
   const [loading, setLoading] = useState(true);
 
-  const fetchOwned = async (id: number) => {
-    const resp = (await owned(id)) as ParentForm[];
-    const documents = await show(Number(idDocument));
-    setData(resp);
-    setForm(documents);
+  const fetchOwned = async () => {
+    const userId = localStorage.getItem("auth");
+    const resp = await findPurchaseAdmission(Number(id), Number(userId));
+
+    setForm(resp);
     setLoading(false);
   };
 
   useEffect(() => {
-    const id = localStorage.getItem("auth");
-    void fetchOwned(Number(id));
+    void fetchOwned();
   }, []);
-
-  const flag = data.find((row) => row.documentId === Number(idDocument));
-
-  console.log({ data, flag, form });
 
   if (loading) {
     return <LoadingModule />;
   }
 
-  if (!flag || flag?.isUsed) {
+  if (!form) {
     return notFound();
   }
 
@@ -62,9 +57,9 @@ function Page() {
       <p>
         <span style={{ fontWeight: 500 }}>Transaction Details:</span>
         <br />
-        Form Name: {s(form?.name)}
+        Form Name: {s(form?.type)}
         <br />
-        Transaction Code: {s(flag?.code)}
+        Transaction Code: {s(form?.code)}
         <br />
         Amount: {s(c(form?.price))}
         <br />
@@ -85,11 +80,11 @@ function Page() {
 
       <button
         onClick={() => {
-          router.push(urls.admission.forms);
+          router.push(urls.admission.childrenData);
         }}
         className="custom aqua"
       >
-        Back to Forms
+        Admission
       </button>
     </div>
   );

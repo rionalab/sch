@@ -12,7 +12,7 @@ interface Props {
   title: string;
 }
 
-function ModalDetail({ image, row, title }: Props) {
+function ModalDetailAdmission({ image, row, title }: Props) {
   const { status, setTrue, setFalse } = useToggle();
 
   return (
@@ -39,4 +39,4 @@ function ModalDetail({ image, row, title }: Props) {
   );
 }
 
-export default ModalDetail;
+export default ModalDetailAdmission;

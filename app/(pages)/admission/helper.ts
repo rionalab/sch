@@ -14,7 +14,6 @@ function useParentData() {
   };
 
   useEffect(() => {
-    console.log("222222222222");
     init();
   }, []);
 
@@ -26,4 +25,8 @@ export default useParentData;
 export const parentHasRegister = async () => {
   const userId = localStorage.getItem("auth");
   return await checkHasRegisterParent(Number(userId));
+};
+
+export const storeLocalStorage = (label: string, values: any) => {
+  localStorage.setItem(label, JSON.stringify(values));
 };

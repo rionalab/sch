@@ -45,8 +45,11 @@ export const urls = {
   help: "/help",
   documentation: "/documentation",
   admission: {
+    notifications: "/admission/notifications",
+    help_admission: "/admission/help/admission",
     parentData: "/admission/parent-data",
     childrenData: "/admission/children-data",
+    newChildrenData: "/admission/children-data/new",
     dashboard: "/admission/dashboard",
     payment: "/admission/payment",
     forms: "/admission/forms",
