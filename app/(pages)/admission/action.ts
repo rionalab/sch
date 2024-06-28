@@ -67,6 +67,7 @@ export async function purchaseNewAdmission(userId: number) {
       data,
     });
   } catch (e) {
+    console.log(e);
     return false;
   }
 }
