@@ -264,7 +264,7 @@ export function SidebarAdm() {
         key: "parentData",
         icon: <UsergroupAddOutlined />,
         href: urls.admission.parentData,
-        label: "Parent Registration",
+        label: "Parent Profile",
       },
       {
         key: "childrenData",
@@ -272,12 +272,12 @@ export function SidebarAdm() {
         href: urls.admission.childrenData,
         label: "Admission",
       },
-      {
-        key: "notifications",
-        icon: <BellOutlined />,
-        href: urls.admission.notifications,
-        label: "Notifications",
-      },
+      // {
+      //   key: "notifications",
+      //   icon: <BellOutlined />,
+      //   href: urls.admission.notifications,
+      //   label: "Notifications",
+      // },
       {
         key: "payment",
         icon: <DollarCircleOutlined />,

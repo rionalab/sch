@@ -22,6 +22,14 @@ export const update = async (id: any, data: any) => {
   }
 };
 
+export const getParent = async (parentId: number) => {
+  return await prisma.parentData.findFirst({
+    where: {
+      parentId,
+    },
+  });
+};
+
 export const newParentData = async (parentId: any, data: any) => {
   const parentData = await prisma.parentData.create({
     data: {

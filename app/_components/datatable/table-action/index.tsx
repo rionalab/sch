@@ -34,8 +34,6 @@ export function TableAction<T>(props: Props<T>) {
     row,
   } = props;
 
-  console.log(props);
-
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);

@@ -133,8 +133,6 @@ function FormParents({
           dob_mother: dMYtoDayJs(x.dob_mother),
         };
 
-        console.log(11111, { fieldsValue, x });
-
         form.setFieldsValue(fieldsValue);
       }
     }
@@ -146,7 +144,7 @@ function FormParents({
 
       {!isStepForm && (
         <>
-          <h3>Parent Registration</h3>
+          <h3>Parent Profile</h3>
           <h4>{subtitle}</h4>
         </>
       )}

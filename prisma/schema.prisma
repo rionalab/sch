@@ -559,7 +559,7 @@ enum Role {
   StaffHRD
   ManagerIT
   StaffIT
-  Parent
+  SchoolOfficer
 }
 
 enum PositionCategory {
@@ -574,6 +574,10 @@ enum ChildRegistrationMethod {
 
 enum ChildRegistrationProgress {
   New
+  Assessment
+  Evaluation
+  Pass
+  PassWithNote
   Interview
   Test
   Payment

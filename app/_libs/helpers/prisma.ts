@@ -16,7 +16,7 @@ export function handlePrismaError(e: any) {
   const isPrismaError = e instanceof Prisma.PrismaClientKnownRequestError;
 
   try {
-    console.log(6666666666666, e);
+    // console.log(6666666666666, e);
     if (isPrismaError) {
       const { code } = e;
       console.info(`=======================\nError Code : ${code}`);

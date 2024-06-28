@@ -5,9 +5,9 @@ import { useEffect, useState } from "react";
 
 function Parent({ id, row }: any) {
   const [data, setdata] = useState<any>({});
-  const rowx = JSON.parse(row.data.studentRegistration1);
+  const rowx = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
 
-  // console.log({ rowx });
+  console.log(222, { data, rowx });
 
   const itemsFather: DescriptionsProps["items"] = [
     {

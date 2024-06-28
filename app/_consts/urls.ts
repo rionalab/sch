@@ -44,6 +44,9 @@ export const urls = {
   landingPage: "/dashboard",
   help: "/help",
   documentation: "/documentation",
+  api: {
+    email: `${process.env.NEXT_PUBLIC_APP_URL}/api/email`,
+  },
   admission: {
     notifications: "/admission/notifications",
     help_admission: "/admission/help/admission",

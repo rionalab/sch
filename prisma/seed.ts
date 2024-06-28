@@ -123,7 +123,12 @@ async function main() {
       { label: "Staff HRD", name: "StaffHRD", actions },
       { label: "Manager IT", name: "ManagerIT", actions: actionsNew },
       { label: "Staff IT", name: "StaffIT", actions: actionsStaff },
-      { label: "Parent", name: "Parent", actions },
+      {
+        label: "School Officer",
+        name: "SchoolOfficer",
+        actions:
+          "role_ao,role_ao_admission,role_ao_admission_view,role_account,role_account_password_view",
+      },
     ],
     skipDuplicates: true,
   });
@@ -219,6 +224,13 @@ async function main() {
         departmentId: department[0].id,
         roleId: 1,
         name: "User User 5",
+      },
+      {
+        email: "school_officer@mail.com",
+        password: await bcrypt.hash("admin1234", 10),
+        departmentId: department[0].id,
+        roleId: roles.find((r) => r.name === "SchoolOfficer")?.id ?? 1,
+        name: "School Officer",
       },
     ],
     skipDuplicates: true,

@@ -62,6 +62,35 @@ export type ModuleName =
   | "admin_role"
   | "updatePassword";
 
+export type AdmissionPhase =
+  | "New"
+  | "Assessment"
+  | "Evaluation"
+  | "Pass"
+  | "PassWithNote"
+  | "Interview"
+  | "Test"
+  | "Payment"
+  | "Done";
+
+export type GenericObject = {
+  [key: string]: any;
+};
+
+export type EmailType = {
+  type: "Assessment" | "Evaluation";
+};
+
+type EnforceType<T, K extends string, V> = {
+  [P in keyof T]: P extends K ? V : T[P];
+};
+
+export type EmailBody = EnforceType<
+  Record<string, any>,
+  "type",
+  "Assessment" | "Evaluation"
+>;
+
 export type ModuleCode =
   | "employee"
   | "POS"

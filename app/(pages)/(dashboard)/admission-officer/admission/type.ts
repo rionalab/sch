@@ -118,6 +118,8 @@ export interface StudentRegistrationInformation {
 export interface StudentRegistration {
   id?: number;
 
+  userId: number;
+
   data: StudentRegistrationChildren;
   StudentRegistrationParent: { data: StudentRegistrationParent };
   StudentRegistrationActivities: StudentRegistrationActivities;

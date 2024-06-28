@@ -1,16 +1,23 @@
 "use client";
 
-import { notifTryAgain, urls } from "@/consts";
+import { assResultOptions, notifTryAgain, urls } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import { fieldRules, today } from "@/libs/helpers";
-import { getParent } from "@/pages/admission/parent-data/action";
-import type { EmailBody, VoidMethod } from "@/types";
-import { DatePicker, Form, Input, Modal, TimePicker } from "antd";
+import type { VoidMethod } from "@/types";
+import {
+  DatePicker,
+  Divider,
+  Form,
+  Input,
+  Modal,
+  Select,
+  TimePicker,
+} from "antd";
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { updateAdmissionPhase } from "../../action";
 import type { StudentRegistration } from "../../type";
-import type { FormInterview } from "./type";
+import { getParent } from "@/pages/admission/parent-data/action";
+import { updateAdmissionPhase } from "../../action";
 
 interface Props {
   data?: StudentRegistration;
@@ -19,11 +26,16 @@ interface Props {
   closeModal: VoidMethod;
 }
 
-function ModalInterview(props: Props) {
+function ModalAssResult(props: Props) {
+  const [loading, setloading] = useState(false);
   const { open, data, closeModal, openModal } = props;
   const [form] = Form.useForm();
   const { api } = useAntdContext();
-  const [loading, setloading] = useState(false);
+  const { unit } = JSON.parse(data?.data?.studentRegistration1 ?? "{}");
+
+  const initialValues = {
+    time: dayjs("09:00", "HH:mm"),
+  };
 
   const onFinish = async () => {
     try {
@@ -31,20 +43,19 @@ function ModalInterview(props: Props) {
         throw new Error("something went wrong");
       }
 
+      setloading(true);
       const v = form.getFieldsValue();
-
-      const body: EmailBody = {
+      const body = {
         ...v,
-        type: "Assessment",
+        type: v.result,
       };
 
-      setloading(true);
       const x = await fetch(urls.api.email, {
         method: "post",
         body: JSON.stringify(body),
       });
 
-      await updateAdmissionPhase(data?.id, "Assessment");
+      await updateAdmissionPhase(data?.id, "Interview", body);
 
       const y = await x.json();
 
@@ -62,11 +73,6 @@ function ModalInterview(props: Props) {
       setloading(false);
     }
   };
-
-  const initialValues = {
-    time: dayjs("09:00", "HH:mm"),
-  };
-
   const getParentData = async () => {
     const w = localStorage.getItem("auth");
     const z = await getParent(Number(w));
@@ -80,6 +86,7 @@ function ModalInterview(props: Props) {
 
     form.setFieldsValue({
       date: today(),
+      result: "PASS",
       emails: [x.email_father, x.email_mother].filter(Boolean).join(", "),
       location: "Kids Republic School",
       unit: dataStudent.unit,
@@ -88,17 +95,15 @@ function ModalInterview(props: Props) {
 
   useEffect(() => {
     if (open) {
+      form.resetFields();
       init();
     }
   }, [open]);
 
   return (
     <div>
-      <br />
-      <br />
-      <br />
       <Modal
-        title="Schedule Student Assesment"
+        title="Interview Invitation"
         open={open}
         width={`60vw`}
         okText="Submit"
@@ -117,15 +122,26 @@ function ModalInterview(props: Props) {
           autoComplete="off"
         >
           <br />
-          <Form.Item<FormInterview>
-            label="Unit"
-            name="unit"
+
+          <Form.Item
+            label="Result"
+            name="result"
             rules={fieldRules(["required"])}
           >
-            <Input disabled />
+            <Select options={assResultOptions} />
           </Form.Item>
 
-          <Form.Item<FormInterview>
+          <Form.Item
+            label="Remarks"
+            name="remarks"
+            rules={fieldRules(["required"])}
+          >
+            <Input.TextArea />
+          </Form.Item>
+
+          <Divider />
+
+          <Form.Item
             label="emails"
             name="emails"
             help="separated with comma"
@@ -133,44 +149,28 @@ function ModalInterview(props: Props) {
           >
             <Input />
           </Form.Item>
+
           <br />
 
-          <Form.Item<FormInterview>
-            label="Date"
-            name="date"
-            rules={fieldRules(["required"])}
-          >
+          <Form.Item label="Date" name="date" rules={fieldRules(["required"])}>
             <DatePicker />
           </Form.Item>
 
-          <Form.Item<FormInterview>
-            label="Time"
-            name="time"
-            rules={fieldRules(["required"])}
-          >
-            <TimePicker
-              defaultValue={dayjs("09:00", "HH:mm")}
-              format={"HH:mm"}
-            />
+          <Form.Item label="Time" name="time" rules={fieldRules(["required"])}>
+            <TimePicker format={"HH:mm"} />
           </Form.Item>
 
-          <Form.Item<FormInterview>
+          <Form.Item
             label="location"
             name="location"
             rules={fieldRules(["required"])}
           >
             <Input />
           </Form.Item>
-
-          {/* <Form.Item<FormInterview> label="message" name="message">
-            <Input.TextArea rows={11} />
-          </Form.Item> */}
         </Form>
-
-        <br />
       </Modal>
     </div>
   );
 }
 
-export default ModalInterview;
+export default ModalAssResult;

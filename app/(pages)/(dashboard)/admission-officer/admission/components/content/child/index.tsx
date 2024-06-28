@@ -4,11 +4,11 @@ import { Descriptions, type DescriptionsProps } from "antd";
 import type { StudentRegistrationActivities } from "../../../type";
 
 function ChildDetailForModal({ row: datax }: any) {
-  console.clear();
-  console.log(555, { datax });
+  // console.clear();
+  // console.log(555, { datax });
 
   const data = JSON.parse(datax.data.studentRegistration1);
-  console.log(666, data);
+  // console.log(666, data);
 
   const generalInfo: DescriptionsProps["items"] = [
     {

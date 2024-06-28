@@ -80,6 +80,11 @@ export const genderOptions = [
   { label: "Female", value: "Female" },
 ];
 
+export const assResultOptions = [
+  { label: "Pass", value: "Pass" },
+  { label: "Pass with Note", value: "PassWithNote" },
+];
+
 export const bloodTypeOptions = [
   { label: "None", value: "" },
   { label: "A", value: "A" },

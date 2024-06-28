@@ -51,7 +51,7 @@ function TableActionDropdown<T>(props: TableActionsCmp<T>) {
           label: "Delete",
           key: "delete",
           icon: <DeleteOutlined />,
-          onClick: () => alert(1),
+          // onClick: (a: any, b: any) => destroy({ a, b }),
           danger: true,
         }
       : null,

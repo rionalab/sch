@@ -10,6 +10,7 @@ interface Props<T> {
   label: string;
   fileList: UploadFile[];
   setFileList: Dispatch<SetStateAction<UploadFile<any>[]>>;
+  previewFile?: boolean;
 }
 
 export function FieldUpload<T>({
@@ -18,6 +19,7 @@ export function FieldUpload<T>({
   setFileList,
   label,
   type,
+  previewFile = true,
 }: Props<T>) {
   const normFile = (e: any) => {
     if (Array.isArray(e)) {
@@ -38,6 +40,8 @@ export function FieldUpload<T>({
       >
         <Upload
           fileList={fileList}
+          showUploadList={true}
+          // previewFile={previewFile}
           accept={accept}
           onRemove={(file) => {
             const index = fileList.indexOf(file);
@@ -69,7 +73,10 @@ export function FieldUpload<T>({
           maxCount={1}
           name="logo"
         >
-          <Button icon={<UploadOutlined />}>Click to upload</Button>
+          <Button style={{ marginLeft: "4px" }} icon={<UploadOutlined />}>
+            {" "}
+            Click to upload
+          </Button>
         </Upload>
       </Form.Item>
     </>

@@ -1,18 +1,21 @@
 "use client";
 
+import { CONTACT_CS } from "@/app/_configs/app";
 import { LoadingModule } from "@/c";
 import { notifDestroyError, notifDestroySuccess, urls } from "@/consts";
 import { useAntdContext } from "@/contexts";
 import useToggle from "@/hooks/usePopup";
+import { getImage } from "@/libs/helpers";
 import {
   destroy,
   indexByParent,
 } from "@/pages/(dashboard)/admission-officer/admission/action";
+import ModalDetailAdmission from "@/pages/(dashboard)/admission-officer/admission/components/table/modal-detail";
 import TableDetail from "@/pages/(dashboard)/admission-officer/admission/components/table/table-detail";
 import {
   InfoCircleOutlined,
-  EditOutlined,
   EyeOutlined,
+  SafetyOutlined,
 } from "@ant-design/icons";
 import { Button, Modal, Table, Tooltip } from "antd";
 import type { SizeType } from "antd/es/config-provider/SizeContext";
@@ -22,9 +25,6 @@ import { useEffect, useState } from "react";
 import { getAvailableAdmissionTicket, purchaseNewAdmission } from "../action";
 import BtnDelete from "../components/BtnDelete";
 import { parentHasRegister } from "../helper";
-import { CONTACT_CS } from "@/app/_configs/app";
-import ModalDetailAdmission from "@/pages/(dashboard)/admission-officer/admission/components/table/modal-detail";
-import { getImage } from "@/libs/helpers";
 
 function page() {
   const [rows, setRows] = useState<any[]>([]);
@@ -36,6 +36,7 @@ function page() {
   const { status, setTrue, setFalse } = useToggle();
   const router = useRouter();
   const confirmBuy = useToggle();
+  const modalDetail = useToggle();
 
   const columns = [
     {
@@ -52,11 +53,10 @@ function page() {
       key: "name",
       render: (a: any, row: any) => {
         const x = JSON.parse(row.data.studentRegistration1);
-        console.log(x, row);
-        // return <b style={{ fontWeight: 600 }}>{x.fullName}</b>;
 
         return (
           <ModalDetailAdmission
+            {...modalDetail}
             image={x.photo ? getImage(x.photo) : ""}
             title={x.fullName}
             row={row}
@@ -89,12 +89,38 @@ function page() {
       dataIndex: "status",
       key: "status",
       render: (a: any, row: any) => {
+        const { unit } = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
+
+        const w = unit === "Preschool" ? `3-5 working days` : `7 working days`;
+
         return (
           <>
-            {row.status}{" "}
-            {row.status === "New" && (
+            {row.progress}{" "}
+            {row.progress === "New" && (
               <Tooltip
-                title={`Waiting for  Student Assessment / Trial  schedule. Or please call ${CONTACT_CS} to check admission status`}
+                title={`Waiting for  Student Assessment / Trial schedule. Please check your email regularly or  call ${CONTACT_CS} to check admission status`}
+              >
+                <InfoCircleOutlined />
+              </Tooltip>
+            )}
+            {row.progress === "Assessment" && (
+              <Tooltip
+                title={`Assessment invitation has been scheduled please check your email  or call ${CONTACT_CS} for more information`}
+              >
+                <InfoCircleOutlined />
+              </Tooltip>
+            )}
+            {row.progress === "Evaluation" && (
+              <Tooltip
+                title={`Evaluating the assessment result this will take 
+                  ${w}  or  call ${CONTACT_CS} for more information`}
+              >
+                <InfoCircleOutlined />
+              </Tooltip>
+            )}
+            {row.progress === "Interview" && (
+              <Tooltip
+                title={`Interview invitation has been scheduled please check your email  or  call ${CONTACT_CS} for more information`}
               >
                 <InfoCircleOutlined />
               </Tooltip>
@@ -116,13 +142,35 @@ function page() {
           block: true,
         });
 
+        if (row.id === 1) {
+          console.clear();
+          console.log(11111111, row);
+        }
+
         return (
           <>
-            {/* <Button type="primary" size="small" icon={<EditOutlined />} /> */}
+            <Button
+              onClick={() => modalDetail.setTrue()}
+              type="primary"
+              size="small"
+              style={{ marginBottom: 4 }}
+              icon={<EyeOutlined />}
+            >
+              Detail
+            </Button>
             &nbsp;
-            {/* <Button type="primary" size="small" icon={<EyeOutlined />} /> */}
+            {row?.data?.payment?.status === "new" && (
+              <Button
+                icon={<SafetyOutlined />}
+                style={{ marginBottom: 4 }}
+                type="primary"
+                size="small"
+              >
+                Payment
+              </Button>
+            )}
             &nbsp;
-            <BtnDelete onConfirm={() => confirmDelete(row.id)} />
+            {/* <BtnDelete onConfirm={() => confirmDelete(row.id)} /> */}
           </>
 
           // <Button

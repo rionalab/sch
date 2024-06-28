@@ -7,8 +7,6 @@ export async function submitEmployeeData(dirtyValue: FormFields) {
   let photo = oldPhoto;
 
   if (rest.photo) {
-    console.log(1111111, rest.photo);
-
     const data = new FormData();
     data.append("file", rest.photo as unknown as File);
 

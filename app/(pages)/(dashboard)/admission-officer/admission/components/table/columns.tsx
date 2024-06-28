@@ -13,8 +13,6 @@ export const columns: ColumnsType<StudentRegistration> = [
     render: (val, row) => {
       const x = JSON.parse(row?.data?.studentRegistration1 ?? "{}");
 
-      console.clear();
-      console.log(row, x);
 
       return (
         <ModalDetail
